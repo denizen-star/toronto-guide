@@ -23,7 +23,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
       <CssBaseline />
-      <Router basename="/tovibes">
+      <Router>
         <Navbar />
         <Routes>
           <Route path="/" element={<Layout />}>

@@ -180,7 +180,7 @@ const DAYS_OF_WEEK = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'S
 
 export const loadVenues = async (): Promise<Venue[]> => {
   try {
-    const response = await fetch('/tovibes/data/locations.csv');
+    const response = await fetch('/data/locations.csv');
     if (!response.ok) {
       throw new Error('Failed to load venues data');
     }
@@ -229,7 +229,7 @@ export const loadVenues = async (): Promise<Venue[]> => {
 
 export const loadHappyHours = async (): Promise<HappyHour[]> => {
   try {
-    const response = await fetch('/tovibes/data/happy_hours.csv');
+    const response = await fetch('/data/happy_hours.csv');
     if (!response.ok) {
       throw new Error('Failed to load happy hours data');
     }
@@ -394,7 +394,7 @@ export const getVenueTags = (venue: Venue, venueHappyHours: HappyHour[]) => {
 
 export const loadLocations = async (): Promise<Location[]> => {
   try {
-    const response = await fetch('/tovibes/data/locations.csv');
+    const response = await fetch('/data/locations.csv');
     const csvText = await response.text();
     
     const { data } = Papa.parse(csvText, {
@@ -431,7 +431,7 @@ export const loadLocations = async (): Promise<Location[]> => {
 
 export const loadActivities = async (): Promise<Activity[]> => {
   try {
-    const response = await fetch('/tovibes/data/activities.csv');
+    const response = await fetch('/data/activities.csv');
     if (!response.ok) {
       throw new Error('Failed to load activities data');
     }
@@ -472,7 +472,7 @@ export const loadActivities = async (): Promise<Activity[]> => {
 
 export const loadCategories = async (): Promise<Category[]> => {
   try {
-    const response = await fetch('/tovibes/data/categories.csv');
+    const response = await fetch('/data/categories.csv');
     const csvText = await response.text();
     
     const { data } = Papa.parse(csvText, {
@@ -489,7 +489,7 @@ export const loadCategories = async (): Promise<Category[]> => {
 
 export const loadPrices = async (): Promise<Price[]> => {
   try {
-    const response = await fetch('/tovibes/data/prices.csv');
+    const response = await fetch('/data/prices.csv');
     const csvText = await response.text();
     
     const { data } = Papa.parse(csvText, {
@@ -506,7 +506,7 @@ export const loadPrices = async (): Promise<Price[]> => {
 
 export const loadSchedules = async (): Promise<Schedule[]> => {
   try {
-    const response = await fetch('/tovibes/data/schedules.csv');
+    const response = await fetch('/data/schedules.csv');
     const csvText = await response.text();
     
     const { data } = Papa.parse(csvText, {
@@ -549,7 +549,7 @@ export const getDaysOfWeek = (activity: Activity, schedules: { [key: string]: Sc
 
 export const loadDayTrips = async (): Promise<DayTrip[]> => {
   try {
-    const response = await fetch('/tovibes/data/day_trips.csv');
+    const response = await fetch('/data/day_trips.csv');
     if (!response.ok) {
       throw new Error('Failed to load day trips data');
     }
@@ -580,7 +580,7 @@ export const loadDayTrips = async (): Promise<DayTrip[]> => {
 
 export const loadAmateurSports = async (): Promise<AmateurSport[]> => {
   try {
-    const response = await fetch('/tovibes/data/amateur_sports.csv');
+    const response = await fetch('/data/amateur_sports.csv');
     if (!response.ok) {
       throw new Error('Failed to load amateur sports data');
     }
@@ -611,7 +611,7 @@ export const loadAmateurSports = async (): Promise<AmateurSport[]> => {
 
 export const loadSportingEvents = async (): Promise<SportingEvent[]> => {
   try {
-    const response = await fetch('/tovibes/data/sporting_events.csv');
+    const response = await fetch('/data/sporting_events.csv');
     if (!response.ok) {
       throw new Error('Failed to load sporting events data');
     }
@@ -643,7 +643,7 @@ export const loadSportingEvents = async (): Promise<SportingEvent[]> => {
 
 export const loadSpecialEvents = async (): Promise<SpecialEvent[]> => {
   try {
-    const response = await fetch('/tovibes/data/special_events.csv');
+    const response = await fetch('/data/special_events.csv');
     if (!response.ok) {
       throw new Error('Failed to load special events data');
     }
@@ -675,7 +675,7 @@ export const loadSpecialEvents = async (): Promise<SpecialEvent[]> => {
 // Load standardized special events
 export const loadStandardizedSpecialEvents = async (): Promise<StandardizedSpecialEvent[]> => {
   try {
-    const response = await fetch('/tovibes/data/special_events_standardized.csv');
+    const response = await fetch('/data/special_events_standardized.csv');
     const csvText = await response.text();
     
     const { data } = Papa.parse(csvText, {
@@ -702,7 +702,7 @@ export const loadStandardizedSpecialEvents = async (): Promise<StandardizedSpeci
 // Load standardized sporting events
 export const loadStandardizedSportingEvents = async (): Promise<StandardizedSportingEvent[]> => {
   try {
-    const response = await fetch('/tovibes/data/sporting_events_standardized.csv');
+    const response = await fetch('/data/sporting_events_standardized.csv');
     const csvText = await response.text();
     
     const { data } = Papa.parse(csvText, {
@@ -729,7 +729,7 @@ export const loadStandardizedSportingEvents = async (): Promise<StandardizedSpor
 // Load standardized amateur sports
 export const loadStandardizedAmateurSports = async (): Promise<StandardizedAmateurSport[]> => {
   try {
-    const response = await fetch('/tovibes/data/amateur_sports_standardized.csv');
+    const response = await fetch('/data/amateur_sports_standardized.csv');
     const csvText = await response.text();
     
     const { data } = Papa.parse(csvText, {
@@ -759,7 +759,7 @@ export const loadStandardizedAmateurSports = async (): Promise<StandardizedAmate
 // Load standardized day trips
 export const loadStandardizedDayTrips = async (): Promise<StandardizedDayTrip[]> => {
   try {
-    const response = await fetch('/tovibes/data/day_trips_standardized.csv');
+    const response = await fetch('/data/day_trips_standardized.csv');
     const csvText = await response.text();
     
     const { data } = Papa.parse(csvText, {
