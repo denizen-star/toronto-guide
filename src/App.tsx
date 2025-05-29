@@ -1,25 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from './theme';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Neighborhoods from './pages/Neighborhoods';
+import VenueDetails from './pages/VenueDetails';
+import Map from './pages/Map';
+import Activities from './pages/Activities';
+import HappyHours from './pages/HappyHours';
+import Layout from './components/Layout';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <CssBaseline />
+      <Router basename="/tovibes">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="activities" element={<Activities />} />
+            <Route path="happy-hours" element={<HappyHours />} />
+            <Route path="neighborhoods" element={<Neighborhoods />} />
+            <Route path="venue/:id" element={<VenueDetails />} />
+            <Route path="map" element={<Map />} />
+          </Route>
+        </Routes>
+      </Router>
+      </LocalizationProvider>
+    </ThemeProvider>
   );
 }
 
