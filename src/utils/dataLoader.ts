@@ -547,7 +547,7 @@ export const getDaysOfWeek = (activity: Activity, schedules: { [key: string]: Sc
 
 export const loadDayTrips = async (): Promise<DayTrip[]> => {
   try {
-    const response = await fetch('/data/day_trips.csv');
+    const response = await fetch('/data/day_trips_standardized.csv');
     if (!response.ok) {
       throw new Error('Failed to load day trips data');
     }
@@ -578,7 +578,7 @@ export const loadDayTrips = async (): Promise<DayTrip[]> => {
 
 export const loadAmateurSports = async (): Promise<AmateurSport[]> => {
   try {
-    const response = await fetch('/data/amateur_sports.csv');
+    const response = await fetch('/data/amateur_sports_standardized.csv');
     if (!response.ok) {
       throw new Error('Failed to load amateur sports data');
     }
@@ -609,7 +609,7 @@ export const loadAmateurSports = async (): Promise<AmateurSport[]> => {
 
 export const loadSportingEvents = async (): Promise<SportingEvent[]> => {
   try {
-    const response = await fetch('/data/sporting_events.csv');
+    const response = await fetch('/data/sporting_events_standardized.csv');
     if (!response.ok) {
       throw new Error('Failed to load sporting events data');
     }
@@ -641,7 +641,7 @@ export const loadSportingEvents = async (): Promise<SportingEvent[]> => {
 
 export const loadSpecialEvents = async (): Promise<SpecialEvent[]> => {
   try {
-    const response = await fetch('/data/special_events.csv');
+    const response = await fetch('/data/special_events_standardized.csv');
     if (!response.ok) {
       throw new Error('Failed to load special events data');
     }
