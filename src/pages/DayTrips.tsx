@@ -6,7 +6,6 @@ import {
   Grid,
   Card,
   CardContent,
-  CardMedia,
   Button,
   Paper,
   Chip,
@@ -16,8 +15,28 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import NatureIcon from '@mui/icons-material/Nature';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import HikingIcon from '@mui/icons-material/Hiking';
+import WineBarIcon from '@mui/icons-material/WineBar';
 import { Link as RouterLink } from 'react-router-dom';
 import { DayTrip, loadDayTrips } from '../utils/dataLoader';
+
+const getTripIcon = (title: string, tags: string[]) => {
+  const titleLower = title.toLowerCase();
+  const allTags = tags.join(' ').toLowerCase();
+  
+  if (titleLower.includes('beach') || titleLower.includes('wasaga') || allTags.includes('beach')) {
+    return <BeachAccessIcon sx={{ fontSize: 60 }} />;
+  }
+  if (titleLower.includes('wine') || titleLower.includes('county') || allTags.includes('wine')) {
+    return <WineBarIcon sx={{ fontSize: 60 }} />;
+  }
+  if (titleLower.includes('mountain') || titleLower.includes('hiking') || allTags.includes('hiking')) {
+    return <HikingIcon sx={{ fontSize: 60 }} />;
+  }
+  return <NatureIcon sx={{ fontSize: 60 }} />;
+};
 
 const DayTrips = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -139,12 +158,18 @@ const DayTrips = () => {
                   },
                 }}
               >
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={trip.image}
-                  alt={trip.title}
-                />
+                <Box
+                  sx={{
+                    height: 200,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'primary.main',
+                    color: 'white',
+                  }}
+                >
+                  {getTripIcon(trip.title, trip.tags)}
+                </Box>
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography variant="h6" gutterBottom>
                     {trip.title}

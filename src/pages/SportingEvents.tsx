@@ -6,7 +6,6 @@ import {
   Grid,
   Card,
   CardContent,
-  CardMedia,
   Button,
   Paper,
   Chip,
@@ -16,13 +15,43 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  ToggleButton,
+  ToggleButtonGroup,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import EventIcon from '@mui/icons-material/Event';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
+import SportsBaseballIcon from '@mui/icons-material/SportsBaseball';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import SportsFootballIcon from '@mui/icons-material/SportsFootball';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import SportsIcon from '@mui/icons-material/Sports';
 import { Link as RouterLink } from 'react-router-dom';
 import { SportingEvent, loadSportingEvents } from '../utils/dataLoader';
+
+const getEventIcon = (type: string, title: string) => {
+  const eventType = type.toLowerCase();
+  const titleLower = title.toLowerCase();
+  
+  if (eventType.includes('hockey') || titleLower.includes('hockey') || titleLower.includes('leafs')) {
+    return <SportsHockeyIcon sx={{ fontSize: 60 }} />;
+  }
+  if (eventType.includes('baseball') || titleLower.includes('baseball') || titleLower.includes('jays')) {
+    return <SportsBaseballIcon sx={{ fontSize: 60 }} />;
+  }
+  if (eventType.includes('basketball') || titleLower.includes('basketball') || titleLower.includes('raptors')) {
+    return <SportsBasketballIcon sx={{ fontSize: 60 }} />;
+  }
+  if (eventType.includes('football') || titleLower.includes('football')) {
+    return <SportsFootballIcon sx={{ fontSize: 60 }} />;
+  }
+  if (eventType.includes('soccer') || titleLower.includes('soccer') || titleLower.includes('fc')) {
+    return <SportsSoccerIcon sx={{ fontSize: 60 }} />;
+  }
+  return <SportsIcon sx={{ fontSize: 60 }} />;
+};
 
 const SportingEvents = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -82,9 +111,7 @@ const SportingEvents = () => {
           sx={{
             p: 4,
             mb: 4,
-            background: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://source.unsplash.com/random/?stadium,sports)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundColor: 'primary.main',
             color: 'white',
             borderRadius: 2,
           }}
@@ -185,12 +212,18 @@ const SportingEvents = () => {
                   },
                 }}
               >
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={event.image}
-                  alt={event.title}
-                />
+                <Box
+                  sx={{
+                    height: 200,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'secondary.main',
+                    color: 'white',
+                  }}
+                >
+                  {getEventIcon(event.type, event.title)}
+                </Box>
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography variant="h6" gutterBottom>
                     {event.title}

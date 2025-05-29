@@ -6,7 +6,6 @@ import {
   Grid,
   Card,
   CardContent,
-  CardMedia,
   Button,
   Paper,
   Chip,
@@ -16,12 +15,46 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  ToggleButton,
+  ToggleButtonGroup,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import EventIcon from '@mui/icons-material/Event';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CelebrationIcon from '@mui/icons-material/Celebration';
+import TheaterComedyIcon from '@mui/icons-material/TheaterComedy';
+import MusicNoteIcon from '@mui/icons-material/MusicNote';
+import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import PaletteIcon from '@mui/icons-material/Palette';
+import FestivalIcon from '@mui/icons-material/Festival';
 import { Link as RouterLink } from 'react-router-dom';
 import { SpecialEvent, loadSpecialEvents } from '../utils/dataLoader';
+
+const getEventIcon = (type: string, title: string) => {
+  const eventType = type.toLowerCase();
+  const titleLower = title.toLowerCase();
+  
+  if (eventType.includes('film') || titleLower.includes('film') || titleLower.includes('movie') || titleLower.includes('cinema')) {
+    return <LocalMoviesIcon sx={{ fontSize: 60 }} />;
+  }
+  if (eventType.includes('food') || titleLower.includes('food') || titleLower.includes('taste') || titleLower.includes('culinary')) {
+    return <RestaurantIcon sx={{ fontSize: 60 }} />;
+  }
+  if (eventType.includes('music') || titleLower.includes('music') || titleLower.includes('concert')) {
+    return <MusicNoteIcon sx={{ fontSize: 60 }} />;
+  }
+  if (eventType.includes('art') || titleLower.includes('art') || eventType.includes('gallery')) {
+    return <PaletteIcon sx={{ fontSize: 60 }} />;
+  }
+  if (eventType.includes('comedy') || titleLower.includes('comedy') || titleLower.includes('theater')) {
+    return <TheaterComedyIcon sx={{ fontSize: 60 }} />;
+  }
+  if (eventType.includes('festival')) {
+    return <FestivalIcon sx={{ fontSize: 60 }} />;
+  }
+  return <CelebrationIcon sx={{ fontSize: 60 }} />;
+};
 
 const SpecialEvents = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -81,9 +114,7 @@ const SpecialEvents = () => {
           sx={{
             p: 4,
             mb: 4,
-            background: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://source.unsplash.com/random/?festival,toronto)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundColor: 'primary.main',
             color: 'white',
             borderRadius: 2,
           }}
@@ -184,12 +215,18 @@ const SpecialEvents = () => {
                   },
                 }}
               >
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={event.image}
-                  alt={event.title}
-                />
+                <Box
+                  sx={{
+                    height: 200,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'secondary.main',
+                    color: 'white',
+                  }}
+                >
+                  {getEventIcon(event.type, event.title)}
+                </Box>
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography variant="h6" gutterBottom>
                     {event.title}

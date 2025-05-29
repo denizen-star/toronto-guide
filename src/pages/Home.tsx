@@ -7,7 +7,6 @@ import {
   Grid,
   Card,
   CardContent,
-  CardMedia,
   Button,
   Paper,
   List,
@@ -26,24 +25,27 @@ import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import PaletteIcon from '@mui/icons-material/Palette';
+import LocationCityIcon from '@mui/icons-material/LocationCity';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import BusinessIcon from '@mui/icons-material/Business';
 
 const neighborhoods = [
   {
     name: 'Yorkville',
     description: 'Upscale dining and sophisticated lounges',
-    image: 'https://source.unsplash.com/random/?toronto,yorkville',
+    icon: <BusinessIcon fontSize="large" />,
     features: ['Luxury venues', 'Craft cocktails', 'Fine dining'],
   },
   {
     name: 'The Well',
     description: 'Modern entertainment and dining district',
-    image: 'https://source.unsplash.com/random/?toronto,restaurant',
+    icon: <LocationCityIcon fontSize="large" />,
     features: ['New venues', 'Diverse cuisine', 'Rooftop bars'],
   },
   {
     name: 'The Beaches',
     description: 'Relaxed beachside bars and patios',
-    image: 'https://source.unsplash.com/random/?toronto,beach',
+    icon: <BeachAccessIcon fontSize="large" />,
     features: ['Waterfront views', 'Casual atmosphere', 'Local favorites'],
   },
 ];
@@ -52,21 +54,18 @@ const activities = [
   {
     name: 'Outdoor Adventures',
     description: 'Explore parks, trails, and waterfront activities',
-    image: 'https://source.unsplash.com/random/?toronto,park',
     features: ['High Park', 'Toronto Islands', 'Waterfront Trail'],
     icon: <DirectionsBikeIcon fontSize="large" />,
   },
   {
     name: 'Arts & Culture',
     description: 'World-class museums and galleries',
-    image: 'https://source.unsplash.com/random/?toronto,museum',
     features: ['ROM', 'AGO', 'Live Performances'],
     icon: <PaletteIcon fontSize="large" />,
   },
   {
     name: 'Food & Dining',
     description: 'Diverse culinary experiences',
-    image: 'https://source.unsplash.com/random/?toronto,food',
     features: ['Global Cuisine', 'Food Tours', 'Markets'],
     icon: <RestaurantIcon fontSize="large" />,
   },
@@ -105,25 +104,13 @@ const Home = () => {
       <Paper
         sx={{
           position: 'relative',
-          backgroundColor: 'grey.800',
+          backgroundColor: 'primary.main',
           color: '#fff',
           mb: 4,
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          backgroundImage: 'url(https://source.unsplash.com/random/?toronto,skyline)',
           height: { xs: '60vh', md: '80vh' },
           display: 'flex',
           alignItems: 'center',
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0,0,0,0.5)',
-          },
+          borderRadius: 2,
         }}
       >
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
@@ -140,7 +127,6 @@ const Home = () => {
               gutterBottom
               sx={{ 
                 fontWeight: 'bold',
-                textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
               }}
             >
               Discover Toronto
@@ -150,7 +136,6 @@ const Home = () => {
               color="inherit" 
               paragraph
               sx={{ 
-                textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
                 mb: { xs: 3, md: 4 }
               }}
             >
@@ -220,15 +205,18 @@ const Home = () => {
                   borderRadius: 2,
                 }}
               >
-                <CardMedia
-                  component="img"
-                  height={isMobile ? "160" : "200"}
-                  image={neighborhood.image}
-                  alt={neighborhood.name}
+                <Box
                   sx={{
-                    objectFit: 'cover',
+                    height: isMobile ? 160 : 200,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'primary.main',
+                    color: 'white',
                   }}
-                />
+                >
+                  {neighborhood.icon}
+                </Box>
                 <CardContent sx={{ flexGrow: 1, p: { xs: 2, md: 3 } }}>
                   <Typography gutterBottom variant="h6" component="h2">
                     {neighborhood.name}
@@ -304,20 +292,20 @@ const Home = () => {
                     borderRadius: 2,
                   }}
                 >
-                  <CardMedia
-                    component="img"
-                    height={isMobile ? "160" : "200"}
-                    image={activity.image}
-                    alt={activity.name}
+                  <Box
                     sx={{
-                      objectFit: 'cover',
+                      height: isMobile ? 160 : 200,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: 'secondary.main',
+                      color: 'white',
                     }}
-                  />
+                  >
+                    {activity.icon}
+                  </Box>
                   <CardContent sx={{ flexGrow: 1, p: { xs: 2, md: 3 } }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                      <Box sx={{ color: 'secondary.main' }}>
-                      {activity.icon}
-                      </Box>
                       <Typography gutterBottom variant="h6" component="h2" sx={{ ml: 1 }}>
                         {activity.name}
                       </Typography>

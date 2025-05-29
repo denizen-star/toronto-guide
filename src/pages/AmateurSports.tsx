@@ -6,22 +6,46 @@ import {
   Grid,
   Card,
   CardContent,
-  CardMedia,
   Button,
   Paper,
   Chip,
   TextField,
   InputAdornment,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
+  ToggleButton,
+  ToggleButtonGroup,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import SportsVolleyballIcon from '@mui/icons-material/SportsVolleyball';
+import SportsTennisIcon from '@mui/icons-material/SportsTennis';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import SportsIcon from '@mui/icons-material/Sports';
 import { Link as RouterLink } from 'react-router-dom';
 import { AmateurSport, loadAmateurSports } from '../utils/dataLoader';
+
+const getSportIcon = (type: string, title: string) => {
+  const sportType = type.toLowerCase();
+  const titleLower = title.toLowerCase();
+  
+  if (sportType.includes('basketball') || titleLower.includes('basketball')) {
+    return <SportsBasketballIcon sx={{ fontSize: 60 }} />;
+  }
+  if (sportType.includes('soccer') || titleLower.includes('soccer') || titleLower.includes('football')) {
+    return <SportsSoccerIcon sx={{ fontSize: 60 }} />;
+  }
+  if (sportType.includes('volleyball') || titleLower.includes('volleyball')) {
+    return <SportsVolleyballIcon sx={{ fontSize: 60 }} />;
+  }
+  if (sportType.includes('tennis') || titleLower.includes('tennis')) {
+    return <SportsTennisIcon sx={{ fontSize: 60 }} />;
+  }
+  if (sportType.includes('ultimate') || titleLower.includes('frisbee')) {
+    return <SportsIcon sx={{ fontSize: 60 }} />;
+  }
+  return <FitnessCenterIcon sx={{ fontSize: 60 }} />;
+};
 
 const AmateurSports = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -127,37 +151,26 @@ const AmateurSports = () => {
               }}
             />
             
-            <FormControl
+            <ToggleButtonGroup
+              value={sportType}
+              onChange={(event, newValue) => {
+                if (newValue !== null) {
+                  setSportType(newValue);
+                }
+              }}
+              exclusive
               sx={{
                 minWidth: 200,
                 bgcolor: 'white',
                 borderRadius: 1,
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': {
-                    borderColor: 'transparent',
-                  },
-                  '&:hover fieldset': {
-                    borderColor: 'transparent',
-                  },
-                  '&.Mui-focused fieldset': {
-                    borderColor: 'transparent',
-                  },
-                },
               }}
             >
-              <InputLabel>Sport Type</InputLabel>
-              <Select
-                value={sportType}
-                onChange={(e) => setSportType(e.target.value)}
-                label="Sport Type"
-              >
-                {sportTypes.map((type) => (
-                  <MenuItem key={type} value={type}>
-                    {type === 'all' ? 'All Sports' : type}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+              {sportTypes.map((type) => (
+                <ToggleButton key={type} value={type}>
+                  {type === 'all' ? 'All Sports' : type}
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
           </Box>
         </Paper>
 
@@ -184,12 +197,18 @@ const AmateurSports = () => {
                   },
                 }}
               >
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={activity.image}
-                  alt={activity.title}
-                />
+                <Box
+                  sx={{
+                    height: 200,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'secondary.main',
+                    color: 'white',
+                  }}
+                >
+                  {getSportIcon(activity.type, activity.title)}
+                </Box>
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography variant="h6" gutterBottom>
                     {activity.title}
