@@ -1,0 +1,158 @@
+# Toronto Amateur Sports Activities
+
+## Toronto Sport & Social Club
+- **Activity Name**: Multi-Sport Social Leagues
+- **Activity Type**: Team Sports (Volleyball, Soccer, Basketball, etc.)
+- **Start Date**: 2025-06-01
+- **End Date**: 2025-09-30
+- **Registration Deadline**: 2025-05-15 (Summer Season)
+- **Duration**: Seasonal (12-14 weeks per season)
+- **Activity Details**: 
+  - Multiple sports leagues for young professionals
+  - Both recreational and intermediate divisions
+  - Indoor and outdoor venues
+  - Post-game social events
+  - Equipment provided for most sports
+- **Address**: Multiple locations across GTA
+- **Cost**: 
+  - Team Registration: $800-1200/team/season
+  - Individual Registration: $100-150/person/season
+- **Website**: www.torontossc.com
+- **Approx Travel Time**: 15-30 minutes (varies by location)
+- **Google Map Link**: [TSSC Locations](https://goo.gl/maps/TSS)
+- **LGBTQ+ Friendly**: Yes
+
+## Toronto Ultimate Frisbee League
+- **Activity Name**: Ultimate Frisbee Leagues
+- **Activity Type**: Team Sport
+- **Start Date**: 2025-06-01
+- **End Date**: 2025-08-31
+- **Registration Deadline**: 2025-05-15
+- **Duration**: 12 weeks
+- **Activity Details**:
+  - Recreational and competitive divisions
+  - Spirit of the game emphasis
+  - Beginner clinics available
+  - Indoor winter league option
+  - Weekly games and optional practices
+- **Address**: Multiple parks across Toronto
+- **Cost**: 
+  - Summer League: $100-150/person
+  - Beginner Clinic: $40
+- **Website**: www.tuf.org
+- **Approx Travel Time**: 20-30 minutes
+- **Google Map Link**: [TUF Locations](https://goo.gl/maps/TUF)
+- **LGBTQ+ Friendly**: Yes
+
+## Beach Volleyball Toronto
+- **Activity Name**: Beach Volleyball Leagues & Drop-in
+- **Activity Type**: Team Sport
+- **Start Date**: 2025-05-15
+- **End Date**: 2025-09-15
+- **Registration Deadline**: 2025-05-01 (for leagues)
+- **Duration**: 16 weeks
+- **Activity Details**:
+  - Recreational and competitive leagues
+  - Drop-in games daily
+  - Tournament events on holidays
+  - Equipment provided
+  - Beginner-friendly atmosphere
+- **Address**: Woodbine Beach and Ashbridges Bay
+- **Cost**:
+  - League: $150/season
+  - Drop-in: $10/day
+- **Website**: www.beachvolleyballtoronto.ca
+- **Approx Travel Time**: 25 minutes from downtown
+- **Google Map Link**: [Beach Volleyball Locations](https://goo.gl/maps/BVT)
+- **LGBTQ+ Friendly**: Yes
+
+## Toronto Boxing Academy
+- **Activity Name**: Boxing Training Programs
+- **Activity Type**: Combat Sport
+- **Start Date**: Year-round
+- **End Date**: Ongoing
+- **Registration Deadline**: Rolling admission
+- **Duration**: Flexible membership
+- **Activity Details**:
+  - Daily training sessions
+  - Fitness and technique classes
+  - Youth programs
+  - Equipment provided
+  - No experience required
+- **Address**: 123 Boxing Lane, Toronto
+- **Cost**: $80/month
+- **Website**: www.torontoboxing.ca
+- **Approx Travel Time**: 15 minutes from downtown
+- **Google Map Link**: [Toronto Boxing Academy](https://goo.gl/maps/TBA)
+- **LGBTQ+ Friendly**: Yes
+
+## Toronto Rock Climbing Community
+- **Activity Name**: Indoor Climbing & Bouldering
+- **Activity Type**: Individual/Group Sport
+- **Start Date**: Year-round
+- **End Date**: Ongoing
+- **Registration Deadline**: N/A
+- **Duration**: Flexible membership
+- **Activity Details**:
+  - Multiple locations
+  - Monthly skill workshops
+  - Equipment rental available
+  - Beginner courses
+  - Social events
+- **Address**: 
+  - Joe Rockheads: 123 Climbing St
+  - Rock Oasis: 456 Boulder Ave
+  - True North: 789 Peak Rd
+- **Cost**:
+  - Day Pass: $20-25
+  - Monthly Membership: $75-90
+  - Equipment Rental: $10-15
+- **Website**: www.climbto.com
+- **Approx Travel Time**: 10-20 minutes
+- **Google Map Link**: [Climbing Locations](https://goo.gl/maps/CLIMB)
+- **LGBTQ+ Friendly**: Yes
+
+## Toronto Badminton Club
+- **Activity Name**: Badminton Programs
+- **Activity Type**: Racquet Sport
+- **Start Date**: Year-round
+- **End Date**: Ongoing
+- **Registration Deadline**: N/A
+- **Duration**: Flexible membership
+- **Activity Details**:
+  - Drop-in sessions daily
+  - League play available
+  - Coaching programs
+  - Equipment rental
+  - All skill levels welcome
+- **Address**: Multiple indoor locations
+- **Cost**:
+  - Drop-in: $15/session
+  - Monthly Membership: $100
+  - Equipment Rental: $5
+- **Website**: www.torontobadminton.ca
+- **Approx Travel Time**: 15-25 minutes
+- **Google Map Link**: [Badminton Locations](https://goo.gl/maps/BAD)
+- **LGBTQ+ Friendly**: Yes
+
+## Waterfront Yoga Groups
+- **Activity Name**: Outdoor Yoga Classes
+- **Activity Type**: Fitness/Wellness
+- **Start Date**: 2025-05-01
+- **End Date**: 2025-09-30
+- **Registration Deadline**: N/A (Drop-in)
+- **Duration**: 60-90 minute classes
+- **Activity Details**:
+  - Morning and sunset classes
+  - Multiple skill levels
+  - Various yoga styles
+  - Bring your own mat
+  - Weather-dependent
+- **Address**: 
+  - HTO Park
+  - Sugar Beach
+- **Cost**: Free
+- **Website**: www.waterfrontyoga.ca
+- **Approx Travel Time**: 5-10 minutes from downtown
+- **Google Map Link**: [Waterfront Yoga Locations](https://goo.gl/maps/YOGA)
+- **LGBTQ+ Friendly**: Yes 

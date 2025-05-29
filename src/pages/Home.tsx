@@ -333,7 +333,7 @@ const Home = () => {
                   <CardContent sx={{ flexGrow: 1, p: { xs: 2, md: 3 } }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                       <Box sx={{ color: 'secondary.main' }}>
-                        {activity.icon}
+                      {activity.icon}
                       </Box>
                       <Typography gutterBottom variant="h6" component="h2" sx={{ ml: 1 }}>
                         {activity.name}
@@ -419,11 +419,11 @@ const Home = () => {
                 </Box>
                 <Box>
                   <Typography variant="h6" gutterBottom sx={{ mb: 1 }}>
-                    {feature.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {feature.description}
-                  </Typography>
+                  {feature.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {feature.description}
+                </Typography>
                 </Box>
               </Box>
             </Grid>

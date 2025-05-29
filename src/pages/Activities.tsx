@@ -89,14 +89,14 @@ const Activities = () => {
           loadPrices(),
           loadSchedules(),
         ]);
-        setActivities(activitiesData);
-        
+      setActivities(activitiesData);
+      
         // Create maps for efficient lookups
-        const locationMap = locationsData.reduce((acc: { [key: string]: Location }, location: Location) => {
-          acc[location.id] = location;
-          return acc;
-        }, {});
-        setLocations(locationMap);
+      const locationMap = locationsData.reduce((acc: { [key: string]: Location }, location: Location) => {
+        acc[location.id] = location;
+        return acc;
+      }, {});
+      setLocations(locationMap);
 
         const categoryMap = categoriesData.reduce((acc: { [key: string]: Category }, category: Category) => {
           acc[category.id] = category;
@@ -487,7 +487,7 @@ const Activities = () => {
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
           <Typography variant="h4" sx={{ color: theme.palette.primary.main, fontWeight: 600 }}>
             Discover Activities
-          </Typography>
+      </Typography>
         </Box>
 
         <Grid container spacing={3}>
@@ -588,7 +588,7 @@ const Activities = () => {
                 ))}
               </Select>
             </FormControl>
-          </Grid>
+        </Grid>
           <Grid item xs={12} md={6}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <Stack spacing={2}>
@@ -614,8 +614,8 @@ const Activities = () => {
                       sx: { backgroundColor: 'white' }
                     }
                   }}
-                />
-              </Stack>
+                    />
+                  </Stack>
             </LocalizationProvider>
           </Grid>
           <Grid item xs={12}>
@@ -642,8 +642,8 @@ const Activities = () => {
           {filteredActivities.length} activities found
           {selectedCity !== 'all' && ` in ${selectedCity.charAt(0).toUpperCase() + selectedCity.slice(1)}`}
           {selectedNeighborhood !== 'all' && ` - ${selectedNeighborhood}`}
-        </Typography>
-      </Box>
+                  </Typography>
+                  </Box>
 
       <Grid container spacing={4}>
         {filteredActivities.map(renderActivityCard)}

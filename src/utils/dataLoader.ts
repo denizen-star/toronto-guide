@@ -1,4 +1,6 @@
 import Papa from 'papaparse';
+import { MapMode } from '../types/mapTypes';
+import { MapItem } from '../types/mapTypes';
 
 export interface Venue {
   id: number;
@@ -77,6 +79,101 @@ export interface Schedule {
   daysOfWeek?: string;
   timeSlots?: string;
   lastUpdated: string;
+}
+
+export interface DayTrip {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  season: string;
+  distance: string;
+  duration: string;
+  tags: string[];
+  lastUpdated: string;
+}
+
+export interface AmateurSport {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  location: string;
+  type: string;
+  skillLevel: string;
+  tags: string[];
+  lastUpdated: string;
+}
+
+export interface SportingEvent {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  date: string;
+  location: string;
+  type: string;
+  priceRange: string;
+  tags: string[];
+  lastUpdated: string;
+}
+
+export interface SpecialEvent {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  date: string;
+  location: string;
+  type: string;
+  tags: string[];
+  lastUpdated: string;
+}
+
+// Base interface for all standardized events/activities
+export interface StandardizedItem {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  location: string;
+  type: string;
+  startDate: string;
+  endDate: string;
+  registrationDeadline: string;
+  duration: string;
+  activityDetails: string;
+  cost: string;
+  website: string;
+  travelTime: string;
+  googleMapLink: string;
+  lgbtqFriendly: boolean;
+  tags: string[];
+  lastUpdated: string;
+}
+
+// Specific interfaces extending the base
+export interface StandardizedSpecialEvent extends StandardizedItem {
+  skillLevel: string;
+}
+
+export interface StandardizedSportingEvent extends StandardizedItem {
+  skillLevel: string;
+  priceRange: string;
+}
+
+export interface StandardizedAmateurSport extends StandardizedItem {
+  skillLevel: string;
+  equipmentNeeded?: string;
+  minPlayers?: number;
+  maxPlayers?: number;
+}
+
+export interface StandardizedDayTrip extends StandardizedItem {
+  season: string;
+  distance: string;
+  difficulty?: string;
+  bestTimeToVisit?: string;
 }
 
 const DAYS_OF_WEEK = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
@@ -498,4 +595,265 @@ export const getDaysOfWeek = (activity: Activity, schedules: { [key: string]: Sc
   const schedule = schedules[activity.scheduleId];
   if (!schedule?.daysOfWeek) return [];
   return schedule.daysOfWeek.split('|');
+};
+
+export const loadDayTrips = async (): Promise<DayTrip[]> => {
+  try {
+    const response = await fetch('/tovibes/data/day_trips.csv');
+    if (!response.ok) {
+      throw new Error('Failed to load day trips data');
+    }
+
+    const data = await response.text();
+    const { data: parsedData } = Papa.parse(data, {
+      header: true,
+      skipEmptyLines: true,
+      delimiter: '|',
+    });
+
+    return parsedData.map((row: any) => ({
+      id: row.id,
+      title: row.title,
+      description: row.description,
+      image: row.image || `https://source.unsplash.com/random/?${encodeURIComponent(row.title)}`,
+      season: row.season,
+      distance: row.distance,
+      duration: row.duration,
+      tags: row.tags.split(',').map((tag: string) => tag.trim()),
+      lastUpdated: row.lastUpdated || new Date().toISOString(),
+    }));
+  } catch (error) {
+    console.error('Error loading day trips:', error);
+    throw error;
+  }
+};
+
+export const loadAmateurSports = async (): Promise<AmateurSport[]> => {
+  try {
+    const response = await fetch('/tovibes/data/amateur_sports.csv');
+    if (!response.ok) {
+      throw new Error('Failed to load amateur sports data');
+    }
+
+    const data = await response.text();
+    const { data: parsedData } = Papa.parse(data, {
+      header: true,
+      skipEmptyLines: true,
+      delimiter: '|',
+    });
+
+    return parsedData.map((row: any) => ({
+      id: row.id,
+      title: row.title,
+      description: row.description,
+      image: row.image || `https://source.unsplash.com/random/?${encodeURIComponent(row.type)},sports`,
+      location: row.location,
+      type: row.type,
+      skillLevel: row.skillLevel,
+      tags: row.tags.split(',').map((tag: string) => tag.trim()),
+      lastUpdated: row.lastUpdated || new Date().toISOString(),
+    }));
+  } catch (error) {
+    console.error('Error loading amateur sports:', error);
+    throw error;
+  }
+};
+
+export const loadSportingEvents = async (): Promise<SportingEvent[]> => {
+  try {
+    const response = await fetch('/tovibes/data/sporting_events.csv');
+    if (!response.ok) {
+      throw new Error('Failed to load sporting events data');
+    }
+
+    const data = await response.text();
+    const { data: parsedData } = Papa.parse(data, {
+      header: true,
+      skipEmptyLines: true,
+      delimiter: '|',
+    });
+
+    return parsedData.map((row: any) => ({
+      id: row.id,
+      title: row.title,
+      description: row.description,
+      image: row.image || `https://source.unsplash.com/random/?${encodeURIComponent(row.type)},stadium`,
+      date: row.date,
+      location: row.location,
+      type: row.type,
+      priceRange: row.priceRange,
+      tags: row.tags.split(',').map((tag: string) => tag.trim()),
+      lastUpdated: row.lastUpdated || new Date().toISOString(),
+    }));
+  } catch (error) {
+    console.error('Error loading sporting events:', error);
+    throw error;
+  }
+};
+
+export const loadSpecialEvents = async (): Promise<SpecialEvent[]> => {
+  try {
+    const response = await fetch('/tovibes/data/special_events.csv');
+    if (!response.ok) {
+      throw new Error('Failed to load special events data');
+    }
+
+    const data = await response.text();
+    const { data: parsedData } = Papa.parse(data, {
+      header: true,
+      skipEmptyLines: true,
+      delimiter: '|',
+    });
+
+    return parsedData.map((row: any) => ({
+      id: row.id,
+      title: row.title,
+      description: row.description,
+      image: row.image || `https://source.unsplash.com/random/?${encodeURIComponent(row.type)},festival`,
+      date: row.date,
+      location: row.location,
+      type: row.type,
+      tags: row.tags.split(',').map((tag: string) => tag.trim()),
+      lastUpdated: row.lastUpdated || new Date().toISOString(),
+    }));
+  } catch (error) {
+    console.error('Error loading special events:', error);
+    throw error;
+  }
+};
+
+// Load standardized special events
+export const loadStandardizedSpecialEvents = async (): Promise<StandardizedSpecialEvent[]> => {
+  try {
+    const response = await fetch('/tovibes/data/special_events_standardized.csv');
+    const csvText = await response.text();
+    
+    const { data } = Papa.parse(csvText, {
+      header: true,
+      skipEmptyLines: true,
+      transform: (value, field) => {
+        if (field === 'tags') {
+          return value.split(',').map((tag: string) => tag.trim());
+        }
+        if (field === 'lgbtqFriendly') {
+          return value.toLowerCase() === 'yes';
+        }
+        return value;
+      }
+    });
+    
+    return data as StandardizedSpecialEvent[];
+  } catch (error) {
+    console.error('Error loading standardized special events:', error);
+    throw error;
+  }
+};
+
+// Load standardized sporting events
+export const loadStandardizedSportingEvents = async (): Promise<StandardizedSportingEvent[]> => {
+  try {
+    const response = await fetch('/tovibes/data/sporting_events_standardized.csv');
+    const csvText = await response.text();
+    
+    const { data } = Papa.parse(csvText, {
+      header: true,
+      skipEmptyLines: true,
+      transform: (value, field) => {
+        if (field === 'tags') {
+          return value.split(',').map((tag: string) => tag.trim());
+        }
+        if (field === 'lgbtqFriendly') {
+          return value.toLowerCase() === 'yes';
+        }
+        return value;
+      }
+    });
+    
+    return data as StandardizedSportingEvent[];
+  } catch (error) {
+    console.error('Error loading standardized sporting events:', error);
+    throw error;
+  }
+};
+
+// Load standardized amateur sports
+export const loadStandardizedAmateurSports = async (): Promise<StandardizedAmateurSport[]> => {
+  try {
+    const response = await fetch('/tovibes/data/amateur_sports_standardized.csv');
+    const csvText = await response.text();
+    
+    const { data } = Papa.parse(csvText, {
+      header: true,
+      skipEmptyLines: true,
+      transform: (value, field) => {
+        if (field === 'tags') {
+          return value.split(',').map((tag: string) => tag.trim());
+        }
+        if (field === 'lgbtqFriendly') {
+          return value.toLowerCase() === 'yes';
+        }
+        if (field === 'minPlayers' || field === 'maxPlayers') {
+          return value ? parseInt(value) : undefined;
+        }
+        return value;
+      }
+    });
+    
+    return data as StandardizedAmateurSport[];
+  } catch (error) {
+    console.error('Error loading standardized amateur sports:', error);
+    throw error;
+  }
+};
+
+// Load standardized day trips
+export const loadStandardizedDayTrips = async (): Promise<StandardizedDayTrip[]> => {
+  try {
+    const response = await fetch('/tovibes/data/day_trips_standardized.csv');
+    const csvText = await response.text();
+    
+    const { data } = Papa.parse(csvText, {
+      header: true,
+      skipEmptyLines: true,
+      transform: (value, field) => {
+        if (field === 'tags') {
+          return value.split(',').map((tag: string) => tag.trim());
+        }
+        if (field === 'lgbtqFriendly') {
+          return value.toLowerCase() === 'yes';
+        }
+        return value;
+      }
+    });
+    
+    return data as StandardizedDayTrip[];
+  } catch (error) {
+    console.error('Error loading standardized day trips:', error);
+    throw error;
+  }
+};
+
+// Helper function to convert standardized items to map items
+export const standardizedToMapItem = (item: StandardizedItem, type: MapMode): MapItem => {
+  // Extract latitude and longitude from Google Maps link if available
+  let lat: number | undefined;
+  let lng: number | undefined;
+  
+  if (item.googleMapLink && item.googleMapLink !== 'N/A') {
+    const match = item.googleMapLink.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+    if (match) {
+      lat = parseFloat(match[1]);
+      lng = parseFloat(match[2]);
+    }
+  }
+  
+  return {
+    id: item.id,
+    name: item.title,
+    address: item.location,
+    neighborhood: item.travelTime.split('(')[0].trim(),
+    lat,
+    lng,
+    type
+  };
 }; 

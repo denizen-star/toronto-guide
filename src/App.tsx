@@ -13,6 +13,10 @@ import Map from './pages/Map';
 import Activities from './pages/Activities';
 import HappyHours from './pages/HappyHours';
 import Layout from './components/Layout';
+import DayTrips from './pages/DayTrips';
+import AmateurSports from './pages/AmateurSports';
+import SportingEvents from './pages/SportingEvents';
+import SpecialEvents from './pages/SpecialEvents';
 
 function App() {
   return (
@@ -29,6 +33,10 @@ function App() {
             <Route path="neighborhoods" element={<Neighborhoods />} />
             <Route path="venue/:id" element={<VenueDetails />} />
             <Route path="map" element={<Map />} />
+            <Route path="day-trips" element={<DayTrips />} />
+            <Route path="amateur-sports" element={<AmateurSports />} />
+            <Route path="sporting-events" element={<SportingEvents />} />
+            <Route path="special-events" element={<SpecialEvents />} />
           </Route>
         </Routes>
       </Router>

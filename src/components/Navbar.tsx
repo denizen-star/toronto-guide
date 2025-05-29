@@ -23,6 +23,10 @@ import MapIcon from '@mui/icons-material/Map';
 import ExploreIcon from '@mui/icons-material/Explore';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import HomeIcon from '@mui/icons-material/Home';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import CelebrationIcon from '@mui/icons-material/Celebration';
+import SportsIcon from '@mui/icons-material/Sports';
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -38,6 +42,10 @@ const Navbar = () => {
     { text: 'Home', icon: <HomeIcon />, path: '/' },
     { text: 'Happy Hours', icon: <LocalBarIcon />, path: '/neighborhoods' },
     { text: 'Activities', icon: <LocalActivityIcon />, path: '/activities' },
+    { text: 'Day Trips', icon: <DirectionsCarIcon />, path: '/day-trips' },
+    { text: 'Amateur Sports', icon: <SportsSoccerIcon />, path: '/amateur-sports' },
+    { text: 'Sporting Events', icon: <SportsIcon />, path: '/sporting-events' },
+    { text: 'Special Events', icon: <CelebrationIcon />, path: '/special-events' },
     { text: 'Map View', icon: <MapIcon />, path: '/map' },
   ];
 
