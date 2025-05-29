@@ -559,17 +559,35 @@ export const loadDayTrips = async (): Promise<DayTrip[]> => {
       delimiter: '|',
     });
 
-    return parsedData.map((row: any) => ({
-      id: row.id,
-      title: row.title,
-      description: row.description,
-      image: row.image || `https://source.unsplash.com/random/?${encodeURIComponent(row.title)}`,
-      season: row.season,
-      distance: row.distance,
-      duration: row.duration,
-      tags: row.tags.split(',').map((tag: string) => tag.trim()),
-      lastUpdated: row.lastUpdated || new Date().toISOString(),
-    }));
+    return parsedData.map((row: any) => {
+      // Derive season from date range or tags
+      let season = 'Year-round';
+      if (row.startDate && row.endDate) {
+        const startMonth = new Date(row.startDate).getMonth();
+        const endMonth = new Date(row.endDate).getMonth();
+        if (startMonth >= 5 && endMonth <= 8) season = 'Summer';
+        else if (startMonth >= 8 && endMonth <= 10) season = 'Fall';
+        else if (startMonth <= 2 || startMonth >= 11) season = 'Winter';
+        else if (startMonth >= 2 && startMonth <= 5) season = 'Spring';
+      }
+      
+      // Check tags for season hints
+      const tagList = row.tags ? row.tags.split(',').map((tag: string) => tag.trim().toLowerCase()) : [];
+      if (tagList.some(tag => tag.includes('summer'))) season = 'Summer';
+      else if (tagList.some(tag => tag.includes('winter'))) season = 'Winter';
+      
+      return {
+        id: row.id,
+        title: row.title,
+        description: row.description,
+        image: row.image || `https://source.unsplash.com/random/?${encodeURIComponent(row.title)}`,
+        season: season,
+        distance: row.travelTime || 'Unknown distance',
+        duration: row.duration || 'Full day',
+        tags: row.tags ? row.tags.split(',').map((tag: string) => tag.trim()) : [],
+        lastUpdated: row.lastUpdated || new Date().toISOString(),
+      };
+    });
   } catch (error) {
     console.error('Error loading day trips:', error);
     throw error;
