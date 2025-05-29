@@ -22,6 +22,7 @@ import SportsVolleyballIcon from '@mui/icons-material/SportsVolleyball';
 import SportsTennisIcon from '@mui/icons-material/SportsTennis';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import SportsIcon from '@mui/icons-material/Sports';
+import PublicIcon from '@mui/icons-material/Public';
 import { Link as RouterLink } from 'react-router-dom';
 import { AmateurSport, loadAmateurSports } from '../utils/dataLoader';
 
@@ -248,6 +249,32 @@ const AmateurSports = () => {
                   >
                     View Details
                   </Button>
+                  
+                  {activity.website && activity.website !== 'N/A' && (
+                    <Box 
+                      component="a" 
+                      href={activity.website.startsWith('http') ? activity.website : `https://${activity.website}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        color: 'primary.main',
+                        textDecoration: 'none',
+                        fontSize: '0.875rem',
+                        fontWeight: 500,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '100%',
+                        mt: 1,
+                        '&:hover': {
+                          textDecoration: 'underline',
+                        },
+                      }}
+                    >
+                      <PublicIcon sx={{ mr: 0.5, fontSize: '1rem' }} />
+                      Visit Website
+                    </Box>
+                  )}
                 </CardContent>
               </Card>
             </Grid>

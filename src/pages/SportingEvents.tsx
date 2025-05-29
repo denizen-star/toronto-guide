@@ -20,6 +20,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import EventIcon from '@mui/icons-material/Event';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import PublicIcon from '@mui/icons-material/Public';
 import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
 import SportsBaseballIcon from '@mui/icons-material/SportsBaseball';
 import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
@@ -273,6 +274,32 @@ const SportingEvents = () => {
                   >
                     View Details
                   </Button>
+                  
+                  {event.website && event.website !== 'N/A' && (
+                    <Box 
+                      component="a" 
+                      href={event.website.startsWith('http') ? event.website : `https://${event.website}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        color: 'primary.main',
+                        textDecoration: 'none',
+                        fontSize: '0.875rem',
+                        fontWeight: 500,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '100%',
+                        mt: 1,
+                        '&:hover': {
+                          textDecoration: 'underline',
+                        },
+                      }}
+                    >
+                      <PublicIcon sx={{ mr: 0.5, fontSize: '1rem' }} />
+                      Visit Website
+                    </Box>
+                  )}
                 </CardContent>
               </Card>
             </Grid>

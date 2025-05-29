@@ -19,6 +19,7 @@ import NatureIcon from '@mui/icons-material/Nature';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import HikingIcon from '@mui/icons-material/Hiking';
 import WineBarIcon from '@mui/icons-material/WineBar';
+import PublicIcon from '@mui/icons-material/Public';
 import { Link as RouterLink } from 'react-router-dom';
 import { DayTrip, loadDayTrips } from '../utils/dataLoader';
 
@@ -296,6 +297,32 @@ const DayTrips = () => {
                   >
                     View Details
                   </Button>
+                  
+                  {trip.website && trip.website !== 'N/A' && (
+                    <Box 
+                      component="a" 
+                      href={trip.website.startsWith('http') ? trip.website : `https://${trip.website}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        color: 'primary.main',
+                        textDecoration: 'none',
+                        fontSize: '0.875rem',
+                        fontWeight: 500,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '100%',
+                        mt: 1,
+                        '&:hover': {
+                          textDecoration: 'underline',
+                        },
+                      }}
+                    >
+                      <PublicIcon sx={{ mr: 0.5, fontSize: '1rem' }} />
+                      Visit Website
+                    </Box>
+                  )}
                 </CardContent>
               </Card>
             </Grid>

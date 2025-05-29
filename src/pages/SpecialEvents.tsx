@@ -26,6 +26,7 @@ import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import PaletteIcon from '@mui/icons-material/Palette';
 import FestivalIcon from '@mui/icons-material/Festival';
+import PublicIcon from '@mui/icons-material/Public';
 import { Link as RouterLink } from 'react-router-dom';
 import { SpecialEvent, loadSpecialEvents } from '../utils/dataLoader';
 
@@ -269,6 +270,32 @@ const SpecialEvents = () => {
                   >
                     View Details
                   </Button>
+                  
+                  {event.website && event.website !== 'N/A' && (
+                    <Box 
+                      component="a" 
+                      href={event.website.startsWith('http') ? event.website : `https://${event.website}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        color: 'primary.main',
+                        textDecoration: 'none',
+                        fontSize: '0.875rem',
+                        fontWeight: 500,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '100%',
+                        mt: 1,
+                        '&:hover': {
+                          textDecoration: 'underline',
+                        },
+                      }}
+                    >
+                      <PublicIcon sx={{ mr: 0.5, fontSize: '1rem' }} />
+                      Visit Website
+                    </Box>
+                  )}
                 </CardContent>
               </Card>
             </Grid>

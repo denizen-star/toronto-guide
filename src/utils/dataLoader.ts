@@ -87,6 +87,7 @@ export interface DayTrip {
   season: string;
   distance: string;
   duration: string;
+  website: string;
   tags: string[];
   lastUpdated: string;
 }
@@ -99,6 +100,7 @@ export interface AmateurSport {
   location: string;
   type: string;
   skillLevel: string;
+  website: string;
   tags: string[];
   lastUpdated: string;
 }
@@ -112,6 +114,7 @@ export interface SportingEvent {
   location: string;
   type: string;
   priceRange: string;
+  website: string;
   tags: string[];
   lastUpdated: string;
 }
@@ -124,6 +127,7 @@ export interface SpecialEvent {
   date: string;
   location: string;
   type: string;
+  website: string;
   tags: string[];
   lastUpdated: string;
 }
@@ -559,35 +563,18 @@ export const loadDayTrips = async (): Promise<DayTrip[]> => {
       delimiter: '|',
     });
 
-    return parsedData.map((row: any) => {
-      // Derive season from date range or tags
-      let season = 'Year-round';
-      if (row.startDate && row.endDate) {
-        const startMonth = new Date(row.startDate).getMonth();
-        const endMonth = new Date(row.endDate).getMonth();
-        if (startMonth >= 5 && endMonth <= 8) season = 'Summer';
-        else if (startMonth >= 8 && endMonth <= 10) season = 'Fall';
-        else if (startMonth <= 2 || startMonth >= 11) season = 'Winter';
-        else if (startMonth >= 2 && startMonth <= 5) season = 'Spring';
-      }
-      
-      // Check tags for season hints
-      const tagList = row.tags ? row.tags.split(',').map((tag: string) => tag.trim().toLowerCase()) : [];
-      if (tagList.some(tag => tag.includes('summer'))) season = 'Summer';
-      else if (tagList.some(tag => tag.includes('winter'))) season = 'Winter';
-      
-      return {
-        id: row.id,
-        title: row.title,
-        description: row.description,
-        image: row.image || `https://source.unsplash.com/random/?${encodeURIComponent(row.title)}`,
-        season: season,
-        distance: row.travelTime || 'Unknown distance',
-        duration: row.duration || 'Full day',
-        tags: row.tags ? row.tags.split(',').map((tag: string) => tag.trim()) : [],
-        lastUpdated: row.lastUpdated || new Date().toISOString(),
-      };
-    });
+    return parsedData.map((row: any) => ({
+      id: row.id,
+      title: row.title,
+      description: row.description,
+      image: row.image || `https://source.unsplash.com/random/?nature,${encodeURIComponent(row.title)}`,
+      season: row.bestTimeToVisit || row.season || 'Year-round', // Use bestTimeToVisit if available, fallback to season
+      distance: row.travelTime || row.distance || 'N/A', // Use travelTime as distance
+      duration: row.duration || 'Full day',
+      website: row.website || '',
+      tags: row.tags ? row.tags.split(',').map((tag: string) => tag.trim()) : [],
+      lastUpdated: row.lastUpdated || new Date().toISOString(),
+    }));
   } catch (error) {
     console.error('Error loading day trips:', error);
     throw error;
@@ -616,6 +603,7 @@ export const loadAmateurSports = async (): Promise<AmateurSport[]> => {
       location: row.location,
       type: row.type,
       skillLevel: row.skillLevel,
+      website: row.website || '',
       tags: row.tags ? row.tags.split(',').map((tag: string) => tag.trim()) : [],
       lastUpdated: row.lastUpdated || new Date().toISOString(),
     }));
@@ -648,6 +636,7 @@ export const loadSportingEvents = async (): Promise<SportingEvent[]> => {
       location: row.location,
       type: row.type,
       priceRange: row.cost || 'Contact venue for pricing', // Use cost field as priceRange
+      website: row.website || '',
       tags: row.tags ? row.tags.split(',').map((tag: string) => tag.trim()) : [],
       lastUpdated: row.lastUpdated || new Date().toISOString(),
     }));
@@ -679,6 +668,7 @@ export const loadSpecialEvents = async (): Promise<SpecialEvent[]> => {
       date: row.startDate || row.date || new Date().toISOString(), // Use startDate if available, fallback to date
       location: row.location,
       type: row.type,
+      website: row.website || '',
       tags: row.tags ? row.tags.split(',').map((tag: string) => tag.trim()) : [],
       lastUpdated: row.lastUpdated || new Date().toISOString(),
     }));
