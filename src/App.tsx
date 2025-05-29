@@ -13,6 +13,7 @@ import Activities from './pages/Activities';
 import HappyHours from './pages/HappyHours';
 import Layout from './components/Layout';
 import DayTrips from './pages/DayTrips';
+import DayTripDetails from './pages/DayTripDetails';
 import AmateurSports from './pages/AmateurSports';
 import SportingEvents from './pages/SportingEvents';
 import SpecialEvents from './pages/SpecialEvents';
@@ -32,6 +33,7 @@ function App() {
             <Route path="neighborhoods" element={<Neighborhoods />} />
             <Route path="venue/:id" element={<VenueDetails />} />
             <Route path="day-trips" element={<DayTrips />} />
+            <Route path="day-trips/:id" element={<DayTripDetails />} />
             <Route path="amateur-sports" element={<AmateurSports />} />
             <Route path="sporting-events" element={<SportingEvents />} />
             <Route path="special-events" element={<SpecialEvents />} />

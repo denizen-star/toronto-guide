@@ -40,6 +40,7 @@ const getTripIcon = (title: string, tags: string[]) => {
 
 const DayTrips = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
+  const [selectedTags, setSelectedTags] = React.useState<string[]>([]);
   const [dayTrips, setDayTrips] = useState<DayTrip[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -58,11 +59,46 @@ const DayTrips = () => {
     fetchData();
   }, []);
 
-  const filteredTrips = dayTrips.filter(trip =>
-    trip.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    trip.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    trip.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-  );
+  const filteredTrips = dayTrips.filter(trip => {
+    const matchesSearch = 
+      trip.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      trip.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      trip.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+    
+    const matchesTags = selectedTags.length === 0 || 
+      selectedTags.some(selectedTag => 
+        trip.tags.some(tag => tag.toLowerCase() === selectedTag.toLowerCase())
+      );
+    
+    return matchesSearch && matchesTags;
+  });
+
+  // Get popular tags (tags that appear in multiple trips)
+  const popularTags = React.useMemo(() => {
+    const tagCounts = new Map<string, number>();
+    dayTrips.forEach(trip => {
+      trip.tags.forEach(tag => {
+        tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+      });
+    });
+    return Array.from(tagCounts.entries())
+      .filter(([, count]) => count > 1)
+      .sort((a, b) => b[1] - a[1])
+      .map(([tag]) => tag)
+      .slice(0, 8); // Show top 8 popular tags
+  }, [dayTrips]);
+
+  const handleTagClick = (tag: string) => {
+    setSelectedTags(prev => 
+      prev.includes(tag) 
+        ? prev.filter(t => t !== tag)
+        : [...prev, tag]
+    );
+  };
+
+  const clearAllTags = () => {
+    setSelectedTags([]);
+  };
 
   if (loading) {
     return (
@@ -88,9 +124,7 @@ const DayTrips = () => {
           sx={{
             p: 4,
             mb: 4,
-            background: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://source.unsplash.com/random/?toronto,skyline)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundColor: 'primary.main',
             color: 'white',
             borderRadius: 2,
           }}
@@ -135,10 +169,52 @@ const DayTrips = () => {
           />
         </Paper>
 
+        {/* Popular Tags Section */}
+        {popularTags.length > 0 && (
+          <Paper sx={{ p: 3, mb: 3 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+              <Typography variant="h6" sx={{ mr: 2 }}>
+                Popular Tags
+              </Typography>
+              {selectedTags.length > 0 && (
+                <Button
+                  size="small"
+                  onClick={clearAllTags}
+                  sx={{ ml: 'auto' }}
+                >
+                  Clear All ({selectedTags.length})
+                </Button>
+              )}
+            </Box>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+              {popularTags.map((tag) => (
+                <Chip
+                  key={tag}
+                  label={tag}
+                  onClick={() => handleTagClick(tag)}
+                  color={selectedTags.includes(tag) ? 'primary' : 'default'}
+                  variant={selectedTags.includes(tag) ? 'filled' : 'outlined'}
+                  sx={{
+                    cursor: 'pointer',
+                    '&:hover': {
+                      backgroundColor: selectedTags.includes(tag) 
+                        ? 'primary.dark' 
+                        : 'action.hover',
+                    },
+                  }}
+                />
+              ))}
+            </Box>
+          </Paper>
+        )}
+
         {/* Results Count */}
         <Box sx={{ mb: 3 }}>
           <Typography variant="subtitle1" color="text.secondary">
             {filteredTrips.length} trips available
+            {selectedTags.length > 0 && (
+              <span> • Filtered by: {selectedTags.join(', ')}</span>
+            )}
           </Typography>
         </Box>
 
@@ -195,8 +271,17 @@ const DayTrips = () => {
                         key={tagIndex}
                         label={tag}
                         size="small"
-                        color="primary"
-                        variant="outlined"
+                        color={selectedTags.includes(tag) ? 'primary' : 'default'}
+                        variant={selectedTags.includes(tag) ? 'filled' : 'outlined'}
+                        onClick={() => handleTagClick(tag)}
+                        sx={{
+                          cursor: 'pointer',
+                          '&:hover': {
+                            backgroundColor: selectedTags.includes(tag) 
+                              ? 'primary.dark' 
+                              : 'action.hover',
+                          },
+                        }}
                       />
                     ))}
                   </Box>

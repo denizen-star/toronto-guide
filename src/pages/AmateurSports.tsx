@@ -105,9 +105,7 @@ const AmateurSports = () => {
           sx={{
             p: 4,
             mb: 4,
-            background: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://source.unsplash.com/random/?sports,toronto)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundColor: 'primary.main',
             color: 'white',
             borderRadius: 2,
           }}
