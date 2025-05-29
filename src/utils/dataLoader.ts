@@ -616,7 +616,7 @@ export const loadAmateurSports = async (): Promise<AmateurSport[]> => {
       location: row.location,
       type: row.type,
       skillLevel: row.skillLevel,
-      tags: row.tags.split(',').map((tag: string) => tag.trim()),
+      tags: row.tags ? row.tags.split(',').map((tag: string) => tag.trim()) : [],
       lastUpdated: row.lastUpdated || new Date().toISOString(),
     }));
   } catch (error) {
@@ -644,11 +644,11 @@ export const loadSportingEvents = async (): Promise<SportingEvent[]> => {
       title: row.title,
       description: row.description,
       image: row.image || `https://source.unsplash.com/random/?${encodeURIComponent(row.type)},stadium`,
-      date: row.date,
+      date: row.startDate || row.date || new Date().toISOString(), // Use startDate if available, fallback to date
       location: row.location,
       type: row.type,
-      priceRange: row.priceRange,
-      tags: row.tags.split(',').map((tag: string) => tag.trim()),
+      priceRange: row.cost || 'Contact venue for pricing', // Use cost field as priceRange
+      tags: row.tags ? row.tags.split(',').map((tag: string) => tag.trim()) : [],
       lastUpdated: row.lastUpdated || new Date().toISOString(),
     }));
   } catch (error) {
@@ -676,10 +676,10 @@ export const loadSpecialEvents = async (): Promise<SpecialEvent[]> => {
       title: row.title,
       description: row.description,
       image: row.image || `https://source.unsplash.com/random/?${encodeURIComponent(row.type)},festival`,
-      date: row.date,
+      date: row.startDate || row.date || new Date().toISOString(), // Use startDate if available, fallback to date
       location: row.location,
       type: row.type,
-      tags: row.tags.split(',').map((tag: string) => tag.trim()),
+      tags: row.tags ? row.tags.split(',').map((tag: string) => tag.trim()) : [],
       lastUpdated: row.lastUpdated || new Date().toISOString(),
     }));
   } catch (error) {

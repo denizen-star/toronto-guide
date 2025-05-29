@@ -10,14 +10,8 @@ import {
   Button,
   Card,
   CardContent,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Alert,
   CircularProgress,
-  Stack,
-  useTheme,
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -28,6 +22,15 @@ import DirectionsIcon from '@mui/icons-material/Directions';
 import ShareIcon from '@mui/icons-material/Share';
 import PublicIcon from '@mui/icons-material/Public';
 import CategoryIcon from '@mui/icons-material/Category';
+import SportsIcon from '@mui/icons-material/Sports';
+import MusicNoteIcon from '@mui/icons-material/MusicNote';
+import TheaterComedyIcon from '@mui/icons-material/TheaterComedy';
+import PaletteIcon from '@mui/icons-material/Palette';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
+import NaturePeopleIcon from '@mui/icons-material/NaturePeople';
+import BusinessIcon from '@mui/icons-material/Business';
 import { 
   loadActivities, 
   loadLocations,
@@ -41,10 +44,41 @@ import {
   type Schedule,
 } from '../utils/dataLoader';
 
+const getActivityIcon = (category: string, title: string, tags: string[]) => {
+  const categoryLower = category.toLowerCase();
+  const titleLower = title.toLowerCase();
+  const allTags = tags.join(' ').toLowerCase();
+  
+  if (categoryLower.includes('sport') || titleLower.includes('sport') || allTags.includes('sport')) {
+    return <SportsIcon sx={{ fontSize: 80 }} />;
+  }
+  if (categoryLower.includes('music') || titleLower.includes('music') || allTags.includes('music')) {
+    return <MusicNoteIcon sx={{ fontSize: 80 }} />;
+  }
+  if (categoryLower.includes('theater') || categoryLower.includes('comedy') || titleLower.includes('comedy')) {
+    return <TheaterComedyIcon sx={{ fontSize: 80 }} />;
+  }
+  if (categoryLower.includes('art') || titleLower.includes('art') || allTags.includes('art')) {
+    return <PaletteIcon sx={{ fontSize: 80 }} />;
+  }
+  if (categoryLower.includes('food') || titleLower.includes('food') || allTags.includes('food')) {
+    return <RestaurantIcon sx={{ fontSize: 80 }} />;
+  }
+  if (categoryLower.includes('fitness') || titleLower.includes('fitness') || allTags.includes('fitness')) {
+    return <FitnessCenterIcon sx={{ fontSize: 80 }} />;
+  }
+  if (categoryLower.includes('education') || titleLower.includes('education') || allTags.includes('education')) {
+    return <LocalLibraryIcon sx={{ fontSize: 80 }} />;
+  }
+  if (categoryLower.includes('outdoor') || titleLower.includes('outdoor') || allTags.includes('outdoor')) {
+    return <NaturePeopleIcon sx={{ fontSize: 80 }} />;
+  }
+  return <BusinessIcon sx={{ fontSize: 80 }} />;
+};
+
 const ActivityDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const theme = useTheme();
   const [activity, setActivity] = useState<Activity | null>(null);
   const [location, setLocation] = useState<Location | null>(null);
   const [category, setCategory] = useState<Category | null>(null);
@@ -146,8 +180,8 @@ const ActivityDetails = () => {
         <Alert severity="error" sx={{ mb: 4 }}>
           {error || 'Activity not found'}
         </Alert>
-        <Button variant="contained" onClick={() => window.location.reload()}>
-          Retry
+        <Button variant="contained" onClick={() => navigate('/activities')}>
+          Back to Activities
         </Button>
       </Container>
     );
@@ -158,7 +192,7 @@ const ActivityDetails = () => {
       {/* Back Button */}
       <Box sx={{ mb: 3 }}>
         <Button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/activities')}
           startIcon={<ArrowBackIcon />}
           sx={{
             color: 'text.secondary',
@@ -169,83 +203,176 @@ const ActivityDetails = () => {
             py: 1,
           }}
         >
-          Back
+          Back to Activities
         </Button>
       </Box>
 
       {/* Activity Header */}
-      <Paper sx={{ p: 4, mb: 4, borderRadius: 2 }}>
+      <Paper sx={{ p: 4, mb: 4 }}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={8}>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h3" gutterBottom>
               {activity.title}
             </Typography>
             
-            {location && (
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <LocationOnIcon sx={{ mr: 1, color: 'text.secondary' }} />
-                <Typography variant="subtitle1" color="text.secondary">
-                  {location.address}
-                  {location.neighborhood && ` • ${location.neighborhood}`}
-                </Typography>
-              </Box>
-            )}
+            <Typography variant="body1" sx={{ mb: 3, fontSize: '1.1rem', lineHeight: 1.6 }}>
+              {activity.description}
+            </Typography>
 
-            {category && (
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <CategoryIcon sx={{ mr: 1, color: 'text.secondary' }} />
-                <Typography variant="subtitle1" color="text.secondary">
-                  {category.name}
-                </Typography>
-              </Box>
-            )}
+            {/* Activity Info */}
+            <Grid container spacing={3} sx={{ mb: 3 }}>
+              {location && (
+                <Grid item xs={12} sm={6}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                    <LocationOnIcon sx={{ mr: 1, color: 'primary.main' }} />
+                    <Box>
+                      <Typography variant="subtitle2" color="text.secondary">
+                        Location
+                      </Typography>
+                      <Typography variant="body1" fontWeight="bold">
+                        {location.address}
+                        {location.neighborhood && `, ${location.neighborhood}`}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grid>
+              )}
+              
+              {category && (
+                <Grid item xs={12} sm={6}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                    <CategoryIcon sx={{ mr: 1, color: 'primary.main' }} />
+                    <Box>
+                      <Typography variant="subtitle2" color="text.secondary">
+                        Category
+                      </Typography>
+                      <Typography variant="body1" fontWeight="bold">
+                        {category.name}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grid>
+              )}
+              
+              {price && (
+                <Grid item xs={12} sm={6}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                    <AttachMoneyIcon sx={{ mr: 1, color: 'primary.main' }} />
+                    <Box>
+                      <Typography variant="subtitle2" color="text.secondary">
+                        Price
+                      </Typography>
+                      <Typography variant="body1" fontWeight="bold">
+                        {price.type === 'FREE' ? 'Free' : `${price.currency} ${price.amount}`}
+                        {price.notes && ` - ${price.notes}`}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grid>
+              )}
 
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
-              {activity.tags.map((tag, index) => (
-                <Chip
-                  key={index}
-                  label={tag}
-                  size="small"
-                  color="primary"
-                  variant="outlined"
-                  sx={{ borderRadius: 1 }}
-                />
-              ))}
+              {(activity.start_date || activity.end_date) && (
+                <Grid item xs={12} sm={6}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                    <EventIcon sx={{ mr: 1, color: 'primary.main' }} />
+                    <Box>
+                      <Typography variant="subtitle2" color="text.secondary">
+                        Date(s)
+                      </Typography>
+                      <Typography variant="body1" fontWeight="bold">
+                        {activity.start_date === activity.end_date ? 
+                          formatDate(activity.start_date) : 
+                          `${formatDate(activity.start_date)} - ${formatDate(activity.end_date)}`
+                        }
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grid>
+              )}
+
+              {schedule && schedule.type === 'RECURRING' && (
+                <Grid item xs={12} sm={6}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                    <AccessTimeIcon sx={{ mr: 1, color: 'primary.main' }} />
+                    <Box>
+                      <Typography variant="subtitle2" color="text.secondary">
+                        Schedule
+                      </Typography>
+                      <Typography variant="body1" fontWeight="bold">
+                        {schedule.daysOfWeek?.split('|').join(', ')}
+                        {schedule.timeSlots && ` - ${schedule.timeSlots}`}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grid>
+              )}
+            </Grid>
+
+            {/* Tags */}
+            <Box sx={{ mb: 3 }}>
+              <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
+                Tags
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                {activity.tags.map((tag, index) => (
+                  <Chip
+                    key={index}
+                    label={tag}
+                    size="medium"
+                    color="primary"
+                    variant="outlined"
+                    sx={{ borderRadius: 2 }}
+                  />
+                ))}
+              </Box>
             </Box>
 
+            {/* Website Link */}
             {activity.website && (
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <PublicIcon sx={{ mr: 1, color: 'text.secondary' }} />
-                <Typography variant="subtitle1">
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                <PublicIcon sx={{ mr: 1, color: 'primary.main' }} />
+                <Typography variant="body1">
                   <a 
                     href={activity.website} 
                     target="_blank" 
                     rel="noopener noreferrer"
                     style={{ 
-                      color: theme.palette.primary.main,
+                      color: 'inherit',
                       textDecoration: 'none',
                     }}
                   >
-                    Visit Website
+                    Visit Official Website
                   </a>
                 </Typography>
               </Box>
             )}
-
-            <Typography variant="body1" sx={{ mt: 3 }}>
-              {activity.description}
-            </Typography>
           </Grid>
-
+          
           <Grid item xs={12} md={4}>
-            <Stack spacing={2}>
+            {/* Activity Icon */}
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 200,
+                backgroundColor: 'primary.main',
+                color: 'white',
+                borderRadius: 2,
+                mb: 3,
+              }}
+            >
+              {getActivityIcon(category?.name || '', activity.title, activity.tags)}
+            </Box>
+            
+            {/* Action Buttons */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               {location && (
                 <Button
                   variant="contained"
                   startIcon={<DirectionsIcon />}
                   onClick={handleDirections}
-                  fullWidth
-                  sx={{ borderRadius: 2 }}
+                  size="large"
                 >
                   Get Directions
                 </Button>
@@ -254,96 +381,62 @@ const ActivityDetails = () => {
                 variant="outlined"
                 startIcon={<ShareIcon />}
                 onClick={handleShare}
-                fullWidth
-                sx={{ borderRadius: 2 }}
+                size="large"
               >
-                Share
+                Share Activity
               </Button>
-            </Stack>
-
-            <Card sx={{ mt: 3, borderRadius: 2 }}>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  Activity Details
-                </Typography>
-                <List dense>
-                  {schedule && (
-                    <ListItem>
-                      <ListItemIcon>
-                        <AccessTimeIcon color="primary" />
-                      </ListItemIcon>
-                      <ListItemText 
-                        primary="Schedule"
-                        secondary={
-                          schedule.type === 'RECURRING' ? (
-                            <>
-                              {schedule.daysOfWeek?.split('|').join(', ')}
-                              {schedule.timeSlots && <Box component="div">{schedule.timeSlots}</Box>}
-                            </>
-                          ) : 'One-time event'
-                        }
-                      />
-                    </ListItem>
-                  )}
-                  
-                  {(activity.start_date || activity.end_date) && (
-                    <ListItem>
-                      <ListItemIcon>
-                        <EventIcon color="primary" />
-                      </ListItemIcon>
-                      <ListItemText 
-                        primary="Dates"
-                        secondary={
-                          activity.start_date === activity.end_date ? (
-                            formatDate(activity.start_date)
-                          ) : (
-                            `${activity.start_date ? formatDate(activity.start_date) : ''} - ${
-                              activity.end_date ? formatDate(activity.end_date) : ''
-                            }`
-                          )
-                        }
-                      />
-                    </ListItem>
-                  )}
-
-                  {price && (
-                    <ListItem>
-                      <ListItemIcon>
-                        <AttachMoneyIcon color="primary" />
-                      </ListItemIcon>
-                      <ListItemText 
-                        primary="Price"
-                        secondary={
-                          price.type === 'FREE' ? 'Free' : (
-                            <>
-                              {price.amount && `${price.currency} ${price.amount}`}
-                              {price.notes && <Box component="div">{price.notes}</Box>}
-                            </>
-                          )
-                        }
-                      />
-                    </ListItem>
-                  )}
-                </List>
-              </CardContent>
-            </Card>
+            </Box>
           </Grid>
         </Grid>
       </Paper>
 
       {/* Additional Information */}
-      {category?.description && (
-        <Box sx={{ mt: 4 }}>
-          <Typography variant="h5" gutterBottom>
-            Additional Information
-          </Typography>
-          <Paper sx={{ p: 3, borderRadius: 2 }}>
-            <Typography variant="body1">
-              {category.description}
-            </Typography>
-          </Paper>
-        </Box>
-      )}
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6}>
+          <Card sx={{ height: '100%' }}>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                Activity Details
+              </Typography>
+              <Typography variant="body2" color="text.secondary" paragraph>
+                {activity.description}
+              </Typography>
+              {location && (
+                <Typography variant="body2" color="text.secondary">
+                  Location: {location.address}
+                  {location.neighborhood && `, ${location.neighborhood}`}
+                </Typography>
+              )}
+            </CardContent>
+          </Card>
+        </Grid>
+        
+        <Grid item xs={12} md={6}>
+          <Card sx={{ height: '100%' }}>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                Getting There
+              </Typography>
+              {category && (
+                <Typography variant="body2" color="text.secondary" paragraph>
+                  • Category: {category.name}
+                </Typography>
+              )}
+              {price && (
+                <Typography variant="body2" color="text.secondary" paragraph>
+                  • Price: {price.type === 'FREE' ? 'Free' : `${price.currency} ${price.amount}`}
+                </Typography>
+              )}
+              <Typography variant="body2" color="text.secondary" paragraph>
+                • Check the official website for current schedules and availability
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                • Contact the venue directly for specific requirements or accessibility needs
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </Container>
   );
 };
