@@ -265,10 +265,78 @@ const Home = () => {
 
   // Helper function to generate card links with filters
   const getCardLink = (basePath: string, item: any) => {
-    if (basePath === '/neighborhoods') {
-      return `/neighborhoods?area=${encodeURIComponent(item.name)}`;
+    switch (basePath) {
+      case '/neighborhoods':
+        return `/neighborhoods?area=${encodeURIComponent(item.name)}`;
+      
+      case '/activities':
+        // Map activity types to relevant search terms or categories
+        if (item.name === 'Outdoor Adventures') {
+          return '/activities?search=outdoor';
+        }
+        if (item.name === 'Arts & Culture') {
+          return '/activities?search=museum';
+        }
+        if (item.name === 'Food & Dining') {
+          return '/activities?search=food';
+        }
+        return basePath;
+      
+      case '/day-trips':
+        // Map to popular tags for filtering
+        if (item.name === 'Niagara Falls') {
+          return '/day-trips?search=niagara';
+        }
+        if (item.name === 'Muskoka Lakes') {
+          return '/day-trips?search=muskoka';
+        }
+        if (item.name === 'Blue Mountain') {
+          return '/day-trips?search=blue%20mountain';
+        }
+        return basePath;
+      
+      case '/amateur-sports':
+        // Map to sport types for search filtering
+        if (item.name === 'Local Leagues') {
+          return '/amateur-sports?search=league';
+        }
+        if (item.name === 'Drop-in Sports') {
+          return '/amateur-sports?search=drop-in';
+        }
+        if (item.name === 'Sports Facilities') {
+          return '/amateur-sports?search=facility';
+        }
+        return basePath;
+      
+      case '/sporting-events':
+        // Map to team/sport types
+        if (item.name === 'Toronto Maple Leafs') {
+          return '/sporting-events?search=leafs';
+        }
+        if (item.name === 'Toronto Raptors') {
+          return '/sporting-events?search=raptors';
+        }
+        if (item.name === 'Toronto Blue Jays') {
+          return '/sporting-events?search=jays';
+        }
+        return basePath;
+      
+      case '/special-events':
+        // Map to event categories
+        if (item.name === 'Cultural Festivals') {
+          return '/special-events?search=festival';
+        }
+        if (item.name === 'Seasonal Events') {
+          return '/special-events?search=seasonal';
+        }
+        if (item.name === 'Community Events') {
+          return '/special-events?search=community';
+        }
+        return basePath;
+      
+      default:
+        return basePath;
     }
-    return basePath; // For other sections, just go to the main page
   };
 
   return (

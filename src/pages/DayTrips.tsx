@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   Container,
   Typography,
@@ -40,7 +41,8 @@ const getTripIcon = (title: string, tags: string[]) => {
 };
 
 const DayTrips = () => {
-  const [searchQuery, setSearchQuery] = React.useState('');
+  const [searchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = React.useState(searchParams.get('search') || '');
   const [selectedTags, setSelectedTags] = React.useState<string[]>([]);
   const [dayTrips, setDayTrips] = useState<DayTrip[]>([]);
   const [loading, setLoading] = useState(true);

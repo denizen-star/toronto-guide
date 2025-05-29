@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   Container,
   Typography,
@@ -49,7 +50,8 @@ const getSportIcon = (type: string, title: string) => {
 };
 
 const AmateurSports = () => {
-  const [searchQuery, setSearchQuery] = React.useState('');
+  const [searchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = React.useState(searchParams.get('search') || '');
   const [sportType, setSportType] = React.useState('all');
   const [sports, setSports] = useState<AmateurSport[]>([]);
   const [loading, setLoading] = useState(true);

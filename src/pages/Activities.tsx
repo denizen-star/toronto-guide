@@ -53,7 +53,7 @@ const Activities = () => {
   const [categories, setCategories] = useState<{ [key: string]: Category }>({});
   const [prices, setPrices] = useState<{ [key: string]: Price }>({});
   const [schedules, setSchedules] = useState<{ [key: string]: Schedule }>({});
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedCity, setSelectedCity] = useState(searchParams.get('city')?.toLowerCase() || 'all');
   const [selectedPrice, setSelectedPrice] = useState('all');
