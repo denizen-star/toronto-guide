@@ -26,11 +26,12 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import CelebrationIcon from '@mui/icons-material/Celebration';
 import SportsIcon from '@mui/icons-material/Sports';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const location = useLocation();
 
   const handleDrawerToggle = () => {
@@ -53,93 +54,131 @@ const Navbar = () => {
   };
 
   const drawer = (
-    <List sx={{ pt: 1 }}>
-      {menuItems.map((item) => {
-        const active = isActive(item.path);
-        return (
-          <ListItem
-            button
-            key={item.text}
-            component={RouterLink}
-            to={item.path}
-            onClick={handleDrawerToggle}
-            sx={{
-              py: 2,
-              px: 3,
-              my: 0.5,
-              borderRadius: '0 24px 24px 0',
-              marginRight: 2,
-              position: 'relative',
-              ...(active && {
-                bgcolor: alpha(theme.palette.primary.main, 0.1),
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  left: 0,
-                  top: 0,
-                  bottom: 0,
-                  width: 4,
-                  bgcolor: 'primary.main',
-                  borderRadius: '0 2px 2px 0',
-                },
-                '& .MuiListItemIcon-root': {
-                  color: 'primary.main',
-                },
-                '& .MuiListItemText-primary': {
-                  color: 'primary.main',
-                  fontWeight: 600,
-                },
-              }),
-            }}
-          >
-            <ListItemIcon 
-              sx={{ 
-                minWidth: 40,
-                color: active ? 'primary.main' : 'inherit',
-                transition: 'color 0.2s',
+    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'space-between',
+        p: 3,
+        borderBottom: `1px solid ${theme.palette.divider}`,
+      }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <ExploreIcon sx={{ mr: 1.5, color: 'primary.main', fontSize: '1.75rem' }} />
+          <Typography variant="h6" sx={{ fontWeight: 600, color: 'text.primary' }}>
+            Toronto Guide
+          </Typography>
+        </Box>
+        <IconButton
+          onClick={handleDrawerToggle}
+          sx={{
+            width: 40,
+            height: 40,
+            color: 'text.secondary',
+            '&:hover': {
+              bgcolor: alpha(theme.palette.primary.main, 0.08),
+              color: 'primary.main',
+            },
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </Box>
+      
+      <List sx={{ flex: 1, px: 2, py: 3 }}>
+        {menuItems.map((item) => {
+          const active = isActive(item.path);
+          return (
+            <ListItem
+              button
+              key={item.text}
+              component={RouterLink}
+              to={item.path}
+              onClick={handleDrawerToggle}
+              sx={{
+                py: 2,
+                px: 3,
+                my: 0.5,
+                borderRadius: 2,
+                position: 'relative',
+                transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                ...(active && {
+                  bgcolor: alpha(theme.palette.primary.main, 0.08),
+                  '& .MuiListItemIcon-root': {
+                    color: 'primary.main',
+                  },
+                  '& .MuiListItemText-primary': {
+                    color: 'primary.main',
+                    fontWeight: 600,
+                  },
+                }),
+                ...(!active && {
+                  '&:hover': {
+                    bgcolor: alpha(theme.palette.primary.main, 0.04),
+                    '& .MuiListItemIcon-root': {
+                      color: 'primary.main',
+                      transform: 'scale(1.1)',
+                    },
+                    '& .MuiListItemText-primary': {
+                      color: 'primary.main',
+                    },
+                  },
+                }),
               }}
             >
-              {item.icon}
-            </ListItemIcon>
-            <ListItemText 
-              primary={item.text}
-              sx={{
-                '& .MuiListItemText-primary': {
-                  fontSize: '0.95rem',
-                  fontWeight: active ? 600 : 400,
-                  transition: 'color 0.2s, font-weight 0.2s',
-                },
-              }}
-            />
-          </ListItem>
-        );
-      })}
-    </List>
+              <ListItemIcon 
+                sx={{ 
+                  minWidth: 44,
+                  color: active ? 'primary.main' : 'text.secondary',
+                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                }}
+              >
+                {item.icon}
+              </ListItemIcon>
+              <ListItemText 
+                primary={item.text}
+                sx={{
+                  '& .MuiListItemText-primary': {
+                    fontSize: '1rem',
+                    fontWeight: active ? 600 : 400,
+                    color: active ? 'primary.main' : 'text.primary',
+                    transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  },
+                }}
+              />
+            </ListItem>
+          );
+        })}
+      </List>
+    </Box>
   );
 
   return (
     <AppBar 
       position="sticky" 
-      color="primary"
-      elevation={1}
+      color="default"
+      elevation={0}
       sx={{
-        bgcolor: alpha(theme.palette.background.default, 0.9),
-        backdropFilter: 'blur(8px)',
+        bgcolor: alpha(theme.palette.background.paper, 0.95),
+        backdropFilter: 'blur(16px)',
+        borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
         color: 'text.primary',
       }}
     >
-      <Container maxWidth="lg">
-        <Toolbar sx={{ py: { xs: 1, md: 0 } }}>
+      <Container maxWidth="lg" disableGutters>
+        <Toolbar sx={{ py: { xs: 1, md: 1.5 }, px: { xs: 2, sm: 3 } }}>
           <Box 
             sx={{ 
               display: 'flex', 
               alignItems: 'center', 
               flexGrow: 1,
+              textDecoration: 'none',
+              transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
               '&:hover': {
-                '& .MuiTypography-root': {
+                '& .logo-icon': {
                   color: 'primary.main',
+                  transform: 'rotate(15deg) scale(1.05)',
                 },
-                '& .MuiSvgIcon-root': {
+                '& .logo-text': {
                   color: 'primary.main',
                 },
               },
@@ -148,21 +187,24 @@ const Navbar = () => {
             to="/"
           >
             <ExploreIcon 
+              className="logo-icon"
               sx={{ 
-                mr: 1.5,
+                mr: { xs: 1, md: 1.5 },
                 fontSize: { xs: '1.75rem', md: '2rem' },
-                color: 'inherit',
-                transition: 'color 0.2s',
+                color: 'text.primary',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
               }} 
             />
             <Typography
+              className="logo-text"
               variant="h6"
               sx={{
                 textDecoration: 'none',
-                color: 'inherit',
+                color: 'text.primary',
                 fontWeight: 700,
-                fontSize: { xs: '1.15rem', md: '1.25rem' },
-                transition: 'color 0.2s',
+                fontSize: { xs: '1.1rem', md: '1.25rem' },
+                letterSpacing: '-0.025em',
+                transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
               }}
             >
               Toronto Guide
@@ -174,13 +216,17 @@ const Navbar = () => {
               <IconButton
                 color="inherit"
                 aria-label="open drawer"
-                edge="start"
+                edge="end"
                 onClick={handleDrawerToggle}
                 sx={{
-                  width: 40,
-                  height: 40,
+                  width: 44,
+                  height: 44,
+                  color: 'text.secondary',
+                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                   '&:hover': {
-                    bgcolor: alpha(theme.palette.primary.main, 0.1),
+                    bgcolor: alpha(theme.palette.primary.main, 0.08),
+                    color: 'primary.main',
+                    transform: 'scale(1.05)',
                   },
                 }}
               >
@@ -197,17 +243,10 @@ const Navbar = () => {
                 sx={{
                   '& .MuiDrawer-paper': { 
                     boxSizing: 'border-box', 
-                    width: 280,
-                    bgcolor: theme.palette.background.default,
-                    borderLeft: 'none',
-                    boxShadow: theme.shadows[8],
-                  },
-                }}
-                PaperProps={{
-                  sx: {
-                    mt: '56px',
-                    height: 'calc(100% - 56px)',
-                    borderTopLeftRadius: '16px',
+                    width: 320,
+                    bgcolor: 'background.paper',
+                    border: 'none',
+                    boxShadow: theme.shadows[24],
                   },
                 }}
               >
@@ -216,7 +255,7 @@ const Navbar = () => {
             </>
           ) : (
             <Box sx={{ display: 'flex', gap: 1 }}>
-              {menuItems.map((item) => {
+              {menuItems.slice(1).map((item) => {
                 const active = isActive(item.path);
                 return (
                   <Button
@@ -225,24 +264,40 @@ const Navbar = () => {
                     to={item.path}
                     startIcon={item.icon}
                     sx={{
-                      px: 2,
-                      py: 1,
+                      px: 3,
+                      py: 1.5,
                       color: active ? 'primary.main' : 'text.primary',
-                      bgcolor: active ? alpha(theme.palette.primary.main, 0.1) : 'transparent',
-                      borderRadius: '8px',
+                      bgcolor: 'transparent',
+                      borderRadius: 2,
+                      fontSize: '0.95rem',
+                      fontWeight: active ? 600 : 500,
+                      transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                      position: 'relative',
                       '&:hover': {
-                        bgcolor: active 
-                          ? alpha(theme.palette.primary.main, 0.15)
-                          : alpha(theme.palette.primary.main, 0.08),
+                        bgcolor: alpha(theme.palette.primary.main, 0.08),
+                        color: 'primary.main',
+                        transform: 'translateY(-1px)',
+                        '& .MuiButton-startIcon': {
+                          transform: 'scale(1.1)',
+                        },
                       },
                       '& .MuiButton-startIcon': {
-                        transition: 'transform 0.2s',
+                        transition: 'transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                        marginRight: 1,
                       },
-                      '&:hover .MuiButton-startIcon': {
-                        transform: 'scale(1.1)',
-                      },
-                      fontWeight: active ? 600 : 400,
-                      transition: 'all 0.2s',
+                      ...(active && {
+                        '&::after': {
+                          content: '""',
+                          position: 'absolute',
+                          bottom: 0,
+                          left: '50%',
+                          transform: 'translateX(-50%)',
+                          width: '60%',
+                          height: 2,
+                          bgcolor: 'primary.main',
+                          borderRadius: 1,
+                        },
+                      }),
                     }}
                   >
                     {item.text}

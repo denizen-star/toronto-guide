@@ -5,33 +5,25 @@ import {
   Typography,
   Box,
   Grid,
-  Card,
-  CardContent,
-  CardActions,
   Button,
-  Chip,
   TextField,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
   Paper,
-  Stack,
   InputAdornment,
-  useTheme,
   IconButton,
-  Tooltip,
+  CircularProgress,
+  Alert,
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import SearchIcon from '@mui/icons-material/Search';
-import CategoryIcon from '@mui/icons-material/Category';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import PlaceIcon from '@mui/icons-material/Place';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import DirectionsIcon from '@mui/icons-material/Directions';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import ClearIcon from '@mui/icons-material/Clear';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import { 
   loadActivities, 
   loadLocations, 
@@ -44,9 +36,10 @@ import {
   type Price,
   type Schedule,
 } from '../utils/dataLoader';
+import Section from '../components/Section';
+import MinimalistCard from '../components/MinimalistCard';
 
 const Activities = () => {
-  const theme = useTheme();
   const [searchParams] = useSearchParams();
   const [activities, setActivities] = useState<Activity[]>([]);
   const [locations, setLocations] = useState<{ [key: string]: Location }>({});
@@ -62,11 +55,7 @@ const Activities = () => {
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const getDirectionsUrl = (location: Location) => {
-    if (!location?.address) return null;
-    return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(location.address)}`;
-  };
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,14 +68,14 @@ const Activities = () => {
           loadPrices(),
           loadSchedules(),
         ]);
-      setActivities(activitiesData);
-      
+        setActivities(activitiesData);
+        
         // Create maps for efficient lookups
-      const locationMap = locationsData.reduce((acc: { [key: string]: Location }, location: Location) => {
-        acc[location.id] = location;
-        return acc;
-      }, {});
-      setLocations(locationMap);
+        const locationMap = locationsData.reduce((acc: { [key: string]: Location }, location: Location) => {
+          acc[location.id] = location;
+          return acc;
+        }, {});
+        setLocations(locationMap);
 
         const categoryMap = categoriesData.reduce((acc: { [key: string]: Category }, category: Category) => {
           acc[category.id] = category;
@@ -179,30 +168,14 @@ const Activities = () => {
            matchesDateRange;
   });
 
-  const getPriceRangeColor = (priceId: string) => {
-    const price = prices[priceId];
-    if (!price) return 'default';
-    
-    if (price.type === 'FREE') return 'success';
-    if (price.type === 'PAID') {
-      const amount = parseFloat(price.amount);
-      if (isNaN(amount)) return 'info';
-      if (amount <= 20) return 'info';
-      if (amount <= 50) return 'warning';
-      return 'error';
-    }
-    if (price.type === 'SPECIAL') return 'secondary';
-    return 'default';
-  };
-
   const getPriceDisplay = (priceId: string) => {
     const price = prices[priceId];
     if (!price) return `Price ID ${priceId}`;
     
     if (price.type === 'FREE') return 'Free';
-    if (price.type === 'SPECIAL') return 'Special Offer';
-    if (price.amount) return `${price.currency} ${price.amount}${price.notes ? '+' : ''}`;
-    return price.notes || 'Price varies';
+    if (price.type === 'PAID') return `$${price.amount}`;
+    if (price.type === 'SPECIAL') return price.notes || 'Special';
+    return 'Check website';
   };
 
   const getCategoryName = (categoryId: string) => {
@@ -211,17 +184,16 @@ const Activities = () => {
 
   const formatSchedule = (scheduleId: string) => {
     const schedule = schedules[scheduleId];
-    if (!schedule) return null;
-
-    const days = schedule.daysOfWeek?.split('|').join(', ') || '';
-    const times = schedule.timeSlots || '';
+    if (!schedule) return '';
     
-    return { days, times };
+    const days = schedule.daysOfWeek?.split('|').join(', ') || '';
+    const time = schedule.timeSlots || '';
+    return `${days}: ${time}`;
   };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
+    return date.toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
       year: 'numeric'
@@ -229,427 +201,302 @@ const Activities = () => {
   };
 
   const getDateDisplay = (activity: Activity) => {
-    if (!activity.start_date || !activity.end_date) return null;
-    
-    const start = formatDate(activity.start_date);
-    const end = formatDate(activity.end_date);
-    
-    if (start === end) return start;
-    return `${start} - ${end}`;
+    if (activity.start_date && activity.end_date) {
+      return `${formatDate(activity.start_date)} - ${formatDate(activity.end_date)}`;
+    } else if (activity.start_date) {
+      return `From ${formatDate(activity.start_date)}`;
+    }
+    return '';
   };
 
   const hasDetails = (activity: Activity) => {
-    // Check if activity has enough details to warrant a details page
-    return activity.description.length > 100 || // Has substantial description
-           (activity.start_date && activity.end_date) || // Has date information
-           activity.tags.length > 2 || // Has multiple tags
-           locations[activity.locationId]?.address; // Has location details
+    return activity.description.trim().length > 50 || 
+           activity.tags.length > 0 || 
+           activity.scheduleId;
   };
 
-  const renderActivityCard = (activity: Activity) => {
-    const location = locations[activity.locationId];
-    const schedule = formatSchedule(activity.scheduleId);
-    const dateDisplay = getDateDisplay(activity);
-    const neighborhood = activity.neighborhood || location?.neighborhood;
-    const detailsAvailable = hasDetails(activity);
-    const directionsUrl = getDirectionsUrl(location);
-
-    return (
-      <Grid item xs={12} sm={6} md={4} key={activity.id}>
-        <Card
-          sx={{
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            transition: 'all 0.3s ease',
-            '&:hover': {
-              transform: 'translateY(-8px)',
-              boxShadow: theme.shadows[8],
-            },
-            borderRadius: 2,
-          }}
-        >
-          <CardContent sx={{ flexGrow: 1, p: 3 }}>
-            <Typography 
-              variant="h6" 
-              component="h2" 
-              gutterBottom
-              sx={{ 
-                color: theme.palette.primary.main,
-                fontWeight: 600,
-                mb: 2,
-                minHeight: '3em',
-                display: '-webkit-box',
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
-              }}
-            >
-              {activity.title}
-            </Typography>
-
-            <Stack spacing={2}>
-              <Stack direction="row" spacing={1} alignItems="center">
-                <CategoryIcon sx={{ color: theme.palette.secondary.main }} />
-                <Typography variant="body2" color="text.secondary">
-                  {getCategoryName(activity.categoryId)}
-                </Typography>
-              </Stack>
-
-              {neighborhood && (
-                <Stack direction="row" spacing={1} alignItems="center" justifyContent="space-between">
-                  <Stack direction="row" spacing={1} alignItems="center" sx={{ flex: 1 }}>
-                    <PlaceIcon sx={{ color: theme.palette.secondary.main }} />
-                    <Typography variant="body2" color="text.secondary">
-                      {neighborhood}, {activity.city.charAt(0).toUpperCase() + activity.city.slice(1)}
-                    </Typography>
-                  </Stack>
-                  {directionsUrl && (
-                    <Tooltip title="Get Directions">
-                      <IconButton
-                        size="small"
-                        href={directionsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        sx={{ color: theme.palette.primary.main }}
-                      >
-                        <DirectionsIcon />
-                      </IconButton>
-                    </Tooltip>
-                  )}
-                </Stack>
-              )}
-
-              {dateDisplay && (
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <CalendarTodayIcon sx={{ color: theme.palette.secondary.main }} />
-                  <Typography variant="body2" color="text.secondary">
-                    {dateDisplay}
-                  </Typography>
-                </Stack>
-              )}
-
-              {schedule?.days && !dateDisplay && (
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <CalendarTodayIcon sx={{ color: theme.palette.secondary.main }} />
-                  <Typography variant="body2" color="text.secondary">
-                    {schedule.days}
-                  </Typography>
-                </Stack>
-              )}
-
-              {schedule?.times && (
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <AccessTimeIcon sx={{ color: theme.palette.secondary.main }} />
-                  <Typography variant="body2" color="text.secondary">
-                    {schedule.times}
-                  </Typography>
-                </Stack>
-              )}
-
-              <Stack direction="row" spacing={1} alignItems="center">
-                <AttachMoneyIcon sx={{ color: theme.palette.secondary.main }} />
-                <Chip
-                  label={getPriceDisplay(activity.priceId)}
-                  size="small"
-                  color={getPriceRangeColor(activity.priceId)}
-                  sx={{ 
-                    borderRadius: '16px',
-                    fontWeight: 600,
-                    '& .MuiChip-label': {
-                      px: 2
-                    },
-                    boxShadow: 1
-                  }}
-                />
-              </Stack>
-            </Stack>
-
-            <Typography 
-              variant="body2" 
-              color="text.secondary" 
-              sx={{ 
-                mt: 2,
-                mb: 2,
-                minHeight: '4.5em',
-                display: '-webkit-box',
-                WebkitLineClamp: 3,
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis'
-              }}
-            >
-              {activity.description}
-            </Typography>
-
-            <Box sx={{ mt: 2, display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {activity.tags.map(tag => (
-                <Chip
-                  key={tag}
-                  label={tag.trim()}
-                  size="small"
-                  sx={{ 
-                    borderRadius: 1,
-                    backgroundColor: theme.palette.grey[100],
-                    color: theme.palette.text.secondary,
-                    '& .MuiChip-label': {
-                      px: 1
-                    }
-                  }}
-                />
-              ))}
-            </Box>
-          </CardContent>
-          <CardActions sx={{ p: 2, pt: 0, display: 'flex', flexDirection: 'column', gap: 1 }}>
-            <Button
-              size="large"
-              variant="outlined"
-              fullWidth
-              href={detailsAvailable ? `/activity/${activity.id}` : undefined}
-              disabled={!detailsAvailable}
-              sx={{
-                borderRadius: 2,
-                textTransform: 'none',
-                fontWeight: 600,
-                opacity: detailsAvailable ? 1 : 0.6,
-                '&.Mui-disabled': {
-                  backgroundColor: theme.palette.grey[100],
-                  color: theme.palette.text.secondary,
-                }
-              }}
-            >
-              {detailsAvailable ? 'View Details' : 'No Details Available'}
-            </Button>
-            <Box 
-              component="a" 
-              href={activity.website}
-              target="_blank"
-              rel="noopener noreferrer"
-              sx={{
-                color: theme.palette.primary.main,
-                textDecoration: 'none',
-                fontSize: '0.875rem',
-                fontWeight: 500,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '100%',
-                mt: 1,
-                '&:hover': {
-                  textDecoration: 'underline',
-                },
-              }}
-            >
-              Visit Website
-            </Box>
-          </CardActions>
-        </Card>
-      </Grid>
-    );
+  const clearFilters = () => {
+    setSearchTerm('');
+    setSelectedCategory('all');
+    setSelectedCity('all');
+    setSelectedPrice('all');
+    setSelectedNeighborhood('all');
+    setStartDate(null);
+    setEndDate(null);
   };
+
+  const hasActiveFilters = searchTerm || 
+    selectedCategory !== 'all' || 
+    selectedCity !== 'all' || 
+    selectedPrice !== 'all' || 
+    selectedNeighborhood !== 'all' || 
+    startDate || 
+    endDate;
 
   if (loading) {
     return (
-      <Container sx={{ py: 8, textAlign: 'center' }}>
-        <Typography variant="h5" gutterBottom>Loading Activities...</Typography>
-        <Typography color="text.secondary">Please wait while we fetch the latest activities.</Typography>
-      </Container>
+      <Box sx={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        minHeight: '60vh' 
+      }}>
+        <CircularProgress size={60} />
+      </Box>
     );
   }
 
   if (error) {
     return (
-      <Container sx={{ py: 8 }}>
-        <Paper sx={{ p: 4, textAlign: 'center', borderRadius: 2 }}>
-          <Typography variant="h5" color="error" gutterBottom>Error Loading Activities</Typography>
-          <Typography color="text.secondary" paragraph>{error}</Typography>
-          <Button variant="contained" onClick={() => window.location.reload()}>
-            Try Again
-          </Button>
-        </Paper>
+      <Container maxWidth="lg" sx={{ py: 8 }}>
+        <Alert severity="error">
+          <Typography variant="h6" gutterBottom>
+            Error Loading Activities
+          </Typography>
+          <Typography>{error}</Typography>
+        </Alert>
       </Container>
     );
   }
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Paper elevation={2} sx={{ p: 4, mb: 4, borderRadius: 2, backgroundColor: theme.palette.background.paper }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-          <Typography variant="h4" sx={{ color: theme.palette.primary.main, fontWeight: 600 }}>
-            Discover Activities
-      </Typography>
-        </Box>
+    <Box>
+      {/* Hero Section */}
+      <Section
+        title="Activities & Attractions"
+        subtitle="Discover the best experiences Toronto has to offer"
+        backgroundColor="background.default"
+        spacing="compact"
+        textAlign="center"
+      >
+        <Box />
+      </Section>
 
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
+      {/* Search and Filters */}
+      <Box sx={{ bgcolor: 'background.paper', py: 4 }}>
+        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
+          {/* Search Bar */}
+          <Box sx={{ mb: 3 }}>
             <TextField
               fullWidth
-              label="Search activities"
-              placeholder="Type to search..."
-              variant="outlined"
+              placeholder="Search activities, neighborhoods, or categories..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon color="primary" />
+                    <SearchIcon sx={{ color: 'text.secondary' }} />
+                  </InputAdornment>
+                ),
+                endAdornment: searchTerm && (
+                  <InputAdornment position="end">
+                    <IconButton onClick={() => setSearchTerm('')} size="small">
+                      <ClearIcon />
+                    </IconButton>
                   </InputAdornment>
                 ),
               }}
-              helperText="Search by title, description, location, or tags"
-              sx={{ backgroundColor: 'white' }}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <FormControl fullWidth>
-              <InputLabel>Category</InputLabel>
-              <Select
-                value={selectedCategory}
-                label="Category"
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                sx={{ backgroundColor: 'white' }}
-              >
-                <MenuItem value="all">All Categories</MenuItem>
-                {categoryOptions.filter(id => id !== 'all').map(categoryId => (
-                  <MenuItem key={categoryId} value={categoryId}>
-                    {getCategoryName(categoryId)}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <FormControl fullWidth>
-              <InputLabel>City</InputLabel>
-              <Select
-                value={selectedCity}
-                label="City"
-                onChange={(e) => setSelectedCity(e.target.value)}
-                sx={{ backgroundColor: 'white' }}
-              >
-                <MenuItem value="all">All Cities</MenuItem>
-                <MenuItem value="toronto">Toronto</MenuItem>
-                <MenuItem value="montreal">Montreal</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <FormControl fullWidth>
-              <InputLabel>Neighborhood</InputLabel>
-              <Select
-                value={selectedNeighborhood}
-                label="Neighborhood"
-                onChange={(e) => setSelectedNeighborhood(e.target.value)}
-                sx={{ backgroundColor: 'white' }}
-              >
-                <MenuItem value="all">All Neighborhoods</MenuItem>
-                {neighborhoods
-                  .filter(n => n !== 'all')
-                  .filter(neighborhood => {
-                    if (selectedCity === 'all') return true;
-                    return activities.some(activity => 
-                      activity.city === selectedCity && 
-                      (activity.neighborhood === neighborhood || 
-                       locations[activity.locationId]?.neighborhood === neighborhood)
-                    );
-                  })
-                  .map(neighborhood => (
-                    <MenuItem key={neighborhood} value={neighborhood}>
-                      {neighborhood}
-                    </MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <FormControl fullWidth>
-              <InputLabel>Price Range</InputLabel>
-              <Select
-                value={selectedPrice}
-                label="Price Range"
-                onChange={(e) => setSelectedPrice(e.target.value)}
-                sx={{ backgroundColor: 'white' }}
-              >
-                <MenuItem value="all">All Prices</MenuItem>
-                {priceOptions.filter(id => id !== 'all').map(priceId => (
-                  <MenuItem key={priceId} value={priceId}>
-                    {getPriceDisplay(priceId)}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-        </Grid>
-          <Grid item xs={12} md={6}>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <Stack spacing={2}>
-                <DatePicker
-                  label="Start Date"
-                  value={startDate}
-                  onChange={(newValue) => setStartDate(newValue)}
-                  slotProps={{
-                    textField: {
-                      fullWidth: true,
-                      sx: { backgroundColor: 'white' }
-                    }
-                  }}
-                />
-                <DatePicker
-                  label="End Date"
-                  value={endDate}
-                  onChange={(newValue) => setEndDate(newValue)}
-                  minDate={startDate || undefined}
-                  slotProps={{
-                    textField: {
-                      fullWidth: true,
-                      sx: { backgroundColor: 'white' }
-                    }
-                  }}
-                    />
-                  </Stack>
-            </LocalizationProvider>
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              variant="outlined"
-              onClick={() => {
-                setStartDate(null);
-                setEndDate(null);
-                setSelectedCategory('all');
-                setSelectedPrice('all');
-                setSelectedNeighborhood('all');
-                setSearchTerm('');
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  bgcolor: 'background.paper',
+                  borderRadius: 3,
+                },
               }}
-              sx={{ mt: 1 }}
+            />
+          </Box>
+
+          {/* Filter Toggle */}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+            <Button
+              startIcon={<FilterListIcon />}
+              onClick={() => setShowFilters(!showFilters)}
+              variant={showFilters ? 'contained' : 'outlined'}
+              sx={{ borderRadius: 2 }}
             >
-              Clear All Filters
+              Filters {hasActiveFilters && `(${Object.values({
+                searchTerm: !!searchTerm,
+                category: selectedCategory !== 'all',
+                city: selectedCity !== 'all',
+                price: selectedPrice !== 'all',
+                neighborhood: selectedNeighborhood !== 'all',
+                dates: !!(startDate || endDate)
+              }).filter(Boolean).length})`}
             </Button>
+            
+            {hasActiveFilters && (
+              <Button
+                startIcon={<ClearIcon />}
+                onClick={clearFilters}
+                variant="text"
+                color="secondary"
+              >
+                Clear Filters
+              </Button>
+            )}
+          </Box>
+
+          {/* Filters Panel */}
+          {showFilters && (
+            <Paper sx={{ p: 3, borderRadius: 3, mb: 3 }}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={6} md={3}>
+                  <FormControl fullWidth size="small">
+                    <InputLabel>Category</InputLabel>
+                    <Select
+                      value={selectedCategory}
+                      onChange={(e) => setSelectedCategory(e.target.value)}
+                      label="Category"
+                    >
+                      <MenuItem value="all">All Categories</MenuItem>
+                      {categoryOptions.slice(1).map(categoryId => (
+                        <MenuItem key={categoryId} value={categoryId}>
+                          {getCategoryName(categoryId)}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+
+                <Grid item xs={12} sm={6} md={3}>
+                  <FormControl fullWidth size="small">
+                    <InputLabel>Neighborhood</InputLabel>
+                    <Select
+                      value={selectedNeighborhood}
+                      onChange={(e) => setSelectedNeighborhood(e.target.value)}
+                      label="Neighborhood"
+                    >
+                      <MenuItem value="all">All Neighborhoods</MenuItem>
+                      {neighborhoods.slice(1).map(neighborhood => (
+                        <MenuItem key={neighborhood} value={neighborhood}>
+                          {neighborhood}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+
+                <Grid item xs={12} sm={6} md={3}>
+                  <FormControl fullWidth size="small">
+                    <InputLabel>Price Range</InputLabel>
+                    <Select
+                      value={selectedPrice}
+                      onChange={(e) => setSelectedPrice(e.target.value)}
+                      label="Price Range"
+                    >
+                      <MenuItem value="all">All Prices</MenuItem>
+                      {priceOptions.slice(1).map(priceId => (
+                        <MenuItem key={priceId} value={priceId}>
+                          {getPriceDisplay(priceId)}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+
+                <Grid item xs={12} sm={6} md={3}>
+                  <FormControl fullWidth size="small">
+                    <InputLabel>City</InputLabel>
+                    <Select
+                      value={selectedCity}
+                      onChange={(e) => setSelectedCity(e.target.value)}
+                      label="City"
+                    >
+                      <MenuItem value="all">All Cities</MenuItem>
+                      {[...new Set(activities.map(a => a.city))].map(city => (
+                        <MenuItem key={city} value={city.toLowerCase()}>
+                          {city}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DatePicker
+                      label="Start Date"
+                      value={startDate}
+                      onChange={setStartDate}
+                      slotProps={{ textField: { size: 'small', fullWidth: true } }}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DatePicker
+                      label="End Date"
+                      value={endDate}
+                      onChange={setEndDate}
+                      slotProps={{ textField: { size: 'small', fullWidth: true } }}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+              </Grid>
+            </Paper>
+          )}
+
+          {/* Results Summary */}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+            <Typography variant="body1" color="text.secondary">
+              {filteredActivities.length} {filteredActivities.length === 1 ? 'activity' : 'activities'} found
+            </Typography>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* Activities Grid */}
+      <Section
+        title=""
+        backgroundColor="background.default"
+        spacing="compact"
+      >
+        {filteredActivities.length === 0 ? (
+          <Box sx={{ textAlign: 'center', py: 8 }}>
+            <LocalActivityIcon sx={{ fontSize: 64, color: 'text.disabled', mb: 2 }} />
+            <Typography variant="h6" color="text.secondary" gutterBottom>
+              No activities found
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Try adjusting your search terms or filters
+            </Typography>
+          </Box>
+        ) : (
+          <Grid container spacing={4}>
+            {filteredActivities.map((activity) => {
+              const location = locations[activity.locationId];
+              const priceDisplay = getPriceDisplay(activity.priceId);
+              const categoryName = getCategoryName(activity.categoryId);
+              const schedule = activity.scheduleId ? formatSchedule(activity.scheduleId) : '';
+              const dateDisplay = getDateDisplay(activity);
+              
+              const features = [
+                priceDisplay,
+                categoryName,
+                activity.neighborhood || location?.neighborhood,
+                schedule,
+                dateDisplay,
+                ...activity.tags
+              ].filter(Boolean).slice(0, 4);
+
+              return (
+                <Grid item xs={12} sm={6} lg={4} key={activity.id}>
+                  <MinimalistCard
+                    title={activity.title}
+                    description={activity.description}
+                    features={features}
+                    icon={<LocalActivityIcon />}
+                    to={hasDetails(activity) ? `/activity/${activity.id}` : undefined}
+                    color="secondary"
+                    variant="default"
+                  />
+                </Grid>
+              );
+            })}
           </Grid>
-        </Grid>
-      </Paper>
-
-      <Box sx={{ mb: 4 }}>
-        <Typography variant="h6" sx={{ color: theme.palette.text.secondary, fontWeight: 500 }}>
-          {filteredActivities.length} activities found
-          {selectedCity !== 'all' && ` in ${selectedCity.charAt(0).toUpperCase() + selectedCity.slice(1)}`}
-          {selectedNeighborhood !== 'all' && ` - ${selectedNeighborhood}`}
-                  </Typography>
-                  </Box>
-
-      <Grid container spacing={4}>
-        {filteredActivities.map(renderActivityCard)}
-      </Grid>
-
-      {filteredActivities.length === 0 && (
-        <Box sx={{ textAlign: 'center', py: 8 }}>
-          <Typography variant="h6" color="text.secondary" gutterBottom>
-            No activities found matching your criteria
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Try adjusting your filters or search terms
-          </Typography>
-        </Box>
-      )}
-    </Container>
+        )}
+      </Section>
+    </Box>
   );
 };
 
