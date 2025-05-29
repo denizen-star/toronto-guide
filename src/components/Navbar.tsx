@@ -19,7 +19,6 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import LocalBarIcon from '@mui/icons-material/LocalBar';
-import MapIcon from '@mui/icons-material/Map';
 import ExploreIcon from '@mui/icons-material/Explore';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import HomeIcon from '@mui/icons-material/Home';
@@ -46,7 +45,6 @@ const Navbar = () => {
     { text: 'Amateur Sports', icon: <SportsSoccerIcon />, path: '/amateur-sports' },
     { text: 'Sporting Events', icon: <SportsIcon />, path: '/sporting-events' },
     { text: 'Special Events', icon: <CelebrationIcon />, path: '/special-events' },
-    { text: 'Map View', icon: <MapIcon />, path: '/map' },
   ];
 
   const isActive = (path: string) => {

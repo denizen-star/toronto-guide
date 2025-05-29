@@ -1,6 +1,4 @@
 import Papa from 'papaparse';
-import { MapMode } from '../types/mapTypes';
-import { MapItem } from '../types/mapTypes';
 
 export interface Venue {
   id: number;
@@ -781,29 +779,4 @@ export const loadStandardizedDayTrips = async (): Promise<StandardizedDayTrip[]>
     console.error('Error loading standardized day trips:', error);
     throw error;
   }
-};
-
-// Helper function to convert standardized items to map items
-export const standardizedToMapItem = (item: StandardizedItem, type: MapMode): MapItem => {
-  // Extract latitude and longitude from Google Maps link if available
-  let lat: number | undefined;
-  let lng: number | undefined;
-  
-  if (item.googleMapLink && item.googleMapLink !== 'N/A') {
-    const match = item.googleMapLink.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
-    if (match) {
-      lat = parseFloat(match[1]);
-      lng = parseFloat(match[2]);
-    }
-  }
-  
-  return {
-    id: item.id,
-    name: item.title,
-    address: item.location,
-    neighborhood: item.travelTime.split('(')[0].trim(),
-    lat,
-    lng,
-    type
-  };
 }; 

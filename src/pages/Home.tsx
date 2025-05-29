@@ -189,23 +189,6 @@ const Home = () => {
               >
                 Activities
               </Button>
-              <Button
-                variant="outlined"
-                color="inherit"
-                size="large"
-                component={RouterLink}
-                to="/map"
-                sx={{ 
-                  px: 4,
-                  borderColor: 'white',
-                  '&:hover': {
-                    borderColor: 'white',
-                    backgroundColor: 'rgba(255,255,255,0.1)',
-                  }
-                }}
-              >
-                View Map
-              </Button>
             </Stack>
           </Box>
         </Container>
