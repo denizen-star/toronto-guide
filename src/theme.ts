@@ -207,9 +207,10 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 12,
-          backgroundColor: '#1E293B',
-          backgroundImage: 'linear-gradient(145deg, #1E293B 0%, #334155 100%)',
-          border: `1px solid ${alpha('#475569', 0.2)}`,
+          backgroundColor: '#334155',
+          backgroundImage: 'linear-gradient(145deg, #334155 0%, #475569 100%)',
+          border: `1px solid ${alpha('#60A5FA', 0.15)}`,
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
         },
       },
     },

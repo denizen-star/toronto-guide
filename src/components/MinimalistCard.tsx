@@ -87,7 +87,8 @@ const MinimalistCard: React.FC<MinimalistCardProps> = ({
             sx={{
               p: 2,
               borderRadius: 3,
-              bgcolor: alpha(theme.palette[color].main, 0.1),
+              bgcolor: alpha(theme.palette[color].main, 0.15),
+              border: `1px solid ${alpha(theme.palette[color].main, 0.3)}`,
               color: `${color}.main`,
               transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
               '& .MuiSvgIcon-root': {
