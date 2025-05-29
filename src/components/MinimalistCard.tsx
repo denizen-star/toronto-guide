@@ -32,24 +32,32 @@ const MinimalistCard: React.FC<MinimalistCardProps> = ({
       cursor: to || onClick ? 'pointer' : 'default',
       position: 'relative',
       overflow: 'hidden',
-      background: 'linear-gradient(145deg, #ffffff 0%, #fafafa 100%)',
+      background: `linear-gradient(145deg, ${theme.palette.background.paper} 0%, ${alpha(theme.palette.grey[700], 0.8)} 100%)`,
+      border: `1px solid ${alpha(theme.palette.primary.main, 0.3)}`,
+      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
       transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
       '&:hover': {
-        transform: to || onClick ? 'translateY(-4px)' : 'none',
+        transform: to || onClick ? 'translateY(-6px)' : 'none',
+        background: `linear-gradient(145deg, ${alpha(theme.palette.background.paper, 1.1)} 0%, ${alpha(theme.palette.grey[600], 0.9)} 100%)`,
+        border: `1px solid ${alpha(theme.palette.primary.main, 0.6)}`,
         boxShadow: to || onClick ? 
-          '0 12px 40px rgba(46, 59, 78, 0.15)' : 
-          '0 1px 3px rgba(46, 59, 78, 0.1)',
+          '0 12px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(96, 165, 250, 0.4)' : 
+          '0 4px 20px rgba(0, 0, 0, 0.4)',
         '& .card-icon': {
-          transform: 'scale(1.1) rotate(5deg)',
-          color: `${color}.main`,
+          transform: 'scale(1.15) rotate(8deg)',
+          background: `linear-gradient(135deg, ${alpha(theme.palette[color].main, 0.2)} 0%, ${alpha(theme.palette[color].light, 0.1)} 100%)`,
+          boxShadow: `0 2px 8px ${alpha(theme.palette[color].main, 0.2)}`,
         },
         '& .card-arrow': {
-          transform: 'translateX(4px)',
+          transform: 'translateX(6px)',
           opacity: 1,
+          color: theme.palette.primary.main,
         },
         '& .card-features': {
           '& .MuiChip-root': {
-            transform: 'scale(1.02)',
+            transform: 'scale(1.05)',
+            backgroundColor: alpha(theme.palette[color].main, 0.15),
+            color: theme.palette[color].light,
           },
         },
       },
@@ -87,12 +95,14 @@ const MinimalistCard: React.FC<MinimalistCardProps> = ({
             sx={{
               p: 2,
               borderRadius: 3,
-              bgcolor: alpha(theme.palette[color].main, 0.15),
-              border: `1px solid ${alpha(theme.palette[color].main, 0.3)}`,
-              color: `${color}.main`,
+              background: `linear-gradient(135deg, ${alpha(theme.palette[color].main, 0.2)} 0%, ${alpha(theme.palette[color].light, 0.1)} 100%)`,
+              border: `1px solid ${alpha(theme.palette[color].main, 0.4)}`,
+              color: theme.palette[color].light,
+              boxShadow: `0 2px 8px ${alpha(theme.palette[color].main, 0.2)}`,
               transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
               '& .MuiSvgIcon-root': {
                 fontSize: iconSize,
+                filter: 'drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3))',
               },
             }}
           >
@@ -154,15 +164,18 @@ const MinimalistCard: React.FC<MinimalistCardProps> = ({
                   label={feature}
                   size="small"
                   sx={{
-                    bgcolor: alpha(theme.palette.grey[100], 0.8),
-                    color: 'text.secondary',
+                    bgcolor: alpha(theme.palette.grey[800], 0.8),
+                    color: theme.palette.text.secondary,
+                    border: `1px solid ${alpha(theme.palette.grey[600], 0.3)}`,
                     fontWeight: 500,
                     fontSize: '0.75rem',
-                    height: 24,
+                    height: 26,
                     transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                     '&:hover': {
-                      bgcolor: alpha(theme.palette[color].main, 0.1),
-                      color: `${color}.main`,
+                      bgcolor: alpha(theme.palette[color].main, 0.15),
+                      color: theme.palette[color].light,
+                      borderColor: alpha(theme.palette[color].main, 0.4),
+                      transform: 'translateY(-1px)',
                     },
                   }}
                 />

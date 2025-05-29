@@ -56,6 +56,9 @@ const Section: React.FC<SectionProps> = ({
       bgcolor: backgroundColor,
       py: getPadding(),
       position: 'relative',
+      borderBottom: backgroundColor === 'background.paper' ? 
+        `1px solid ${alpha(theme.palette.divider, 0.1)}` : 
+        'none',
       '&::before': {
         content: '""',
         position: 'absolute',
@@ -63,7 +66,9 @@ const Section: React.FC<SectionProps> = ({
         left: 0,
         right: 0,
         height: '1px',
-        background: `linear-gradient(90deg, transparent 0%, ${alpha(theme.palette.divider, 0.3)} 50%, transparent 100%)`,
+        background: backgroundColor === 'background.paper' ?
+          `linear-gradient(90deg, transparent 0%, ${alpha(theme.palette.primary.main, 0.2)} 50%, transparent 100%)` :
+          `linear-gradient(90deg, transparent 0%, ${alpha(theme.palette.divider, 0.3)} 50%, transparent 100%)`,
       },
     }}>
       <Container maxWidth={maxWidth} sx={{ px: { xs: 2, sm: 3 } }}>

@@ -335,7 +335,7 @@ const Home = () => {
         buttonText="Browse Activities"
         buttonPath="/activities"
         buttonColor="secondary"
-        backgroundColor={alpha(theme.palette.background.default, 0.7)}
+        backgroundColor="background.default"
       >
         <Grid container spacing={4}>
           {activities.map((item, index) => (
@@ -385,7 +385,7 @@ const Home = () => {
         buttonText="Find Sports"
         buttonPath="/amateur-sports"
         buttonColor="warning"
-        backgroundColor={alpha(theme.palette.background.default, 0.7)}
+        backgroundColor="background.default"
       >
         <Grid container spacing={4}>
           {amateurSports.map((item, index) => (
@@ -435,7 +435,7 @@ const Home = () => {
         buttonText="Discover Events"
         buttonPath="/special-events"
         buttonColor="secondary"
-        backgroundColor={alpha(theme.palette.background.default, 0.7)}
+        backgroundColor="background.default"
         spacing="spacious"
       >
         <Grid container spacing={4}>
