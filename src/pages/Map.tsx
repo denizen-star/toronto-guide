@@ -9,41 +9,6 @@ import {
   standardizedToMapItem
 } from '../utils/dataLoader';
 
-const TORONTO_CENTER = {
-  lat: 43.6532,
-  lng: -79.3832,
-};
-
-const INITIAL_ZOOM = 12;
-
-const FILTER_OPTIONS = {
-  neighborhoods: [
-    'Downtown',
-    'North York',
-    'Scarborough',
-    'Etobicoke',
-    'East York',
-    'York',
-  ],
-  days: [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday',
-  ],
-  offerings: [
-    'Special Events',
-    'Sporting Events',
-    'Amateur Sports',
-    'Day Trips',
-    'Activities',
-    'Happy Hours',
-  ],
-};
-
 type FilterState = {
   neighborhoods: string[];
   days: string[];
@@ -56,16 +21,11 @@ export default function Map() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedMode, setSelectedMode] = useState<MapMode>('SPECIAL_EVENTS');
-  const [filterState, setFilterState] = useState<FilterState>({
+  const [filterState] = useState<FilterState>({
     neighborhoods: [],
     days: [],
     offerings: [],
     search: '',
-  });
-  const [filtersOpen, setFiltersOpen] = useState({
-    neighborhoods: false,
-    days: false,
-    offerings: false,
   });
 
   useEffect(() => {

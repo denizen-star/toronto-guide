@@ -178,56 +178,6 @@ export interface StandardizedDayTrip extends StandardizedItem {
 
 const DAYS_OF_WEEK = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
 
-const validateVenue = (venue: Partial<Venue>): venue is Venue => {
-  return (
-    typeof venue.id === 'number' &&
-    typeof venue.name === 'string' &&
-    venue.name.trim() !== '' &&
-    typeof venue.address === 'string' &&
-    venue.address.trim() !== '' &&
-    typeof venue.neighborhood === 'string' &&
-    venue.neighborhood.trim() !== '' &&
-    typeof venue.area === 'string' &&
-    venue.area.trim() !== ''
-  );
-};
-
-const validateHappyHour = (happyHour: Partial<HappyHour>): happyHour is HappyHour => {
-  return (
-    typeof happyHour.id === 'string' &&
-    typeof happyHour.location_id === 'number' &&
-    typeof happyHour.day_of_week === 'string' &&
-    DAYS_OF_WEEK.includes(happyHour.day_of_week) &&
-    typeof happyHour.start_time === 'string' &&
-    /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(happyHour.start_time) &&
-    typeof happyHour.end_time === 'string' &&
-    /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(happyHour.end_time) &&
-    typeof happyHour.offerings === 'string' &&
-    happyHour.offerings.trim() !== '' &&
-    typeof happyHour.description === 'string'
-  );
-};
-
-const parseCSVLine = (line: string): string[] => {
-  const values: string[] = [];
-  let currentValue = '';
-  let insideQuotes = false;
-
-  for (let i = 0; i < line.length; i++) {
-    const char = line[i];
-    if (char === '"') {
-      insideQuotes = !insideQuotes;
-    } else if (char === ',' && !insideQuotes) {
-      values.push(currentValue.trim());
-      currentValue = '';
-    } else {
-      currentValue += char;
-    }
-  }
-  values.push(currentValue.trim());
-  return values;
-};
-
 export const loadVenues = async (): Promise<Venue[]> => {
   try {
     const response = await fetch('/tovibes/data/locations.csv');

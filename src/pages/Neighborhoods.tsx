@@ -15,19 +15,13 @@ import {
   FormControl,
   InputLabel,
   Select,
-  IconButton,
-  InputAdornment,
-  Paper,
-  Divider,
   Alert,
   CircularProgress,
+  InputAdornment,
 } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SearchIcon from '@mui/icons-material/Search';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import LocalBarIcon from '@mui/icons-material/LocalBar';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { loadVenues, loadHappyHours, getVenueTags, type Venue, type HappyHour } from '../utils/dataLoader';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -130,7 +124,7 @@ const Neighborhoods = () => {
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       {/* Filters Section */}
-      <Paper sx={{ p: 3, mb: 4 }}>
+      <Box sx={{ p: 3, mb: 4 }}>
         <Typography variant="h4" gutterBottom>
           Find Happy Hours
         </Typography>
@@ -202,7 +196,7 @@ const Neighborhoods = () => {
             </FormControl>
           </Grid>
         </Grid>
-      </Paper>
+      </Box>
 
       {/* Results Section */}
       <Box sx={{ mb: 4 }}>

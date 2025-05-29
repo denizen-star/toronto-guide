@@ -45,19 +45,9 @@ import {
   type Schedule,
 } from '../utils/dataLoader';
 
-const TORONTO_CENTER = {
-  lat: 43.6532,
-  lng: -79.3832,
-};
-
-const MONTREAL_CENTER = {
-  lat: 45.5017,
-  lng: -73.5673,
-};
-
 const Activities = () => {
   const theme = useTheme();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [activities, setActivities] = useState<Activity[]>([]);
   const [locations, setLocations] = useState<{ [key: string]: Location }>({});
   const [categories, setCategories] = useState<{ [key: string]: Category }>({});

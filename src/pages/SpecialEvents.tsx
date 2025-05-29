@@ -20,7 +20,6 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import EventIcon from '@mui/icons-material/Event';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import CelebrationIcon from '@mui/icons-material/Celebration';
 import { Link as RouterLink } from 'react-router-dom';
 import { SpecialEvent, loadSpecialEvents } from '../utils/dataLoader';
 

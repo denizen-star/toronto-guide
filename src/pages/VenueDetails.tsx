@@ -17,12 +17,10 @@ import {
   ListItemText,
   Alert,
   CircularProgress,
-  IconButton,
 } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LocalBarIcon from '@mui/icons-material/LocalBar';
-import RestaurantIcon from '@mui/icons-material/Restaurant';
 import PhoneIcon from '@mui/icons-material/Phone';
 import PublicIcon from '@mui/icons-material/Public';
 import DirectionsIcon from '@mui/icons-material/Directions';
