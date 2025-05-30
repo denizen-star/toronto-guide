@@ -1,34 +1,48 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box } from '@mui/material';
+import { Box, Grid, Typography, CircularProgress } from '@mui/material';
 import { 
   loadActivities, 
   loadLocations, 
   loadCategories, 
-  loadPrices,
   type Activity, 
-  type Category, 
-  type Price,
+  type Category,
+  type Location,
 } from '../utils/dataLoader';
+import EnhancedMinimalistCard, { EnhancedCardData } from '../components/MinimalistCard';
 import MultiSelectFilter from '../components/MultiSelectFilter';
 import { useSearch } from '../components/Layout';
+import { Museum, Palette, LocalActivity, Explore, LocationOn, EventNote } from '@mui/icons-material';
+
+// Memoized icon map to prevent recreation on each render
+const iconMap: { [key: string]: React.ReactNode } = {
+  '1': <Museum />,
+  '2': <LocalActivity />,
+  '3': <Explore />,
+  '4': <Palette />,
+  'outdoor': <Explore />,
+  'cultural': <Palette />,
+  'food': <LocalActivity />,
+  'nightlife': <EventNote />,
+  'shopping': <LocalActivity />,
+  'sports': <LocalActivity />,
+  'entertainment': <Palette />,
+  'wellness': <LocationOn />
+};
 
 const Activities = () => {
   const { searchTerm, setSearchPlaceholder } = useSearch();
-  const [allActivities, setAllActivities] = useState<Activity[]>([]);
+  const [activities, setActivities] = useState<Activity[]>([]);
+  const [locations, setLocations] = useState<{ [key: string]: Location }>({});
   const [categories, setCategories] = useState<{ [key: string]: Category }>({});
-  const [prices, setPrices] = useState<{ [key: string]: Price }>({});
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>('');
   const [displayCount, setDisplayCount] = useState(12);
   
-  // Filter states
+  // Essential filter states - keeping only the most important ones for performance
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedPrices, setSelectedPrices] = useState<string[]>([]);
-  const [selectedDurations, setSelectedDurations] = useState<string[]>([]);
-  const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
   const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
 
-  // Set search placeholder for this page
   useEffect(() => {
     setSearchPlaceholder('Search activities...');
   }, [setSearchPlaceholder]);
@@ -37,13 +51,21 @@ const Activities = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [activitiesData, , categoriesData, pricesData] = await Promise.all([
+        // Load only essential data for better performance
+        const [activitiesData, locationsData, categoriesData] = await Promise.all([
           loadActivities(),
-          loadLocations(), // Load but don't store - not used in current implementation
+          loadLocations(),
           loadCategories(),
-          loadPrices(),
         ]);
-        setAllActivities(activitiesData);
+        
+        setActivities(activitiesData);
+        
+        // Create lookup maps for faster access
+        const locationMap = locationsData.reduce((acc: { [key: string]: Location }, location: Location) => {
+          acc[location.id] = location;
+          return acc;
+        }, {});
+        setLocations(locationMap);
         
         const categoryMap = categoriesData.reduce((acc: { [key: string]: Category }, category: Category) => {
           acc[category.id] = category;
@@ -51,152 +73,123 @@ const Activities = () => {
         }, {});
         setCategories(categoryMap);
 
-        const priceMap = pricesData.reduce((acc: { [key: string]: Price }, price: Price) => {
-          acc[price.id] = price;
-          return acc;
-        }, {});
-        setPrices(priceMap);
-
         setLoading(false);
-      } catch (error) {
-        console.error('Error loading data:', error);
+      } catch (err) {
+        console.error('Error loading activities:', err);
+        setError('Failed to load activities');
         setLoading(false);
       }
     };
     fetchData();
   }, []);
 
-  // Filter options
-  const categoryOptions = Object.entries(categories).map(([id, category]) => ({
-    value: id,
-    label: category.name
-  }));
+  // Memoized filter options
+  const categoryOptions = useMemo(() => 
+    Object.entries(categories).map(([id, category]) => ({
+      value: id,
+      label: category.name
+    })), [categories]
+  );
 
-  const priceOptions = [
-    { value: 'free', label: 'Free' },
-    { value: 'low', label: '$-$$' },
-    { value: 'medium', label: '$$$' },
-    { value: 'high', label: '$$$$+' }
-  ];
-
-  const durationOptions = [
-    { value: 'quick', label: '< 2 Hours' },
-    { value: 'half', label: '2-4 Hours' },
-    { value: 'full', label: '4+ Hours' },
-    { value: 'multi', label: 'Multi-Day' }
-  ];
-
-  const ratingOptions = [
-    { value: 'excellent', label: 'Excellent (4.5+)' },
-    { value: 'very-good', label: 'Very Good (4.0+)' },
-    { value: 'good', label: 'Good (3.5+)' },
-    { value: 'fair', label: 'Fair (3.0+)' }
-  ];
-
-  const areaOptions = [
+  const areaOptions = useMemo(() => [
     { value: 'downtown', label: 'Downtown' },
     { value: 'midtown', label: 'Midtown' },
     { value: 'uptown', label: 'Uptown' },
     { value: 'east', label: 'East End' },
     { value: 'west', label: 'West End' },
     { value: 'north', label: 'North York' }
-  ];
+  ], []);
 
-  // Filter and search functionality
-  const filteredActivities = allActivities.filter(activity => {
-    // Search filter
-    const matchesSearch = searchTerm === '' || 
-      activity.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      activity.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      activity.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (activity.neighborhood && activity.neighborhood.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      activity.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+  // Memoized filtering logic
+  const filteredActivities = useMemo(() => {
+    return activities.filter(activity => {
+      // Search filter
+      const matchesSearch = !searchTerm || 
+        activity.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        activity.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        activity.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (activity.neighborhood && activity.neighborhood.toLowerCase().includes(searchTerm.toLowerCase()));
 
-    // Category filter
-    const matchesCategory = selectedCategories.length === 0 || 
-      selectedCategories.includes(activity.categoryId);
+      // Category filter
+      const matchesCategory = selectedCategories.length === 0 || 
+        selectedCategories.includes(activity.categoryId);
 
-    // Price filter (simplified logic for demo)
-    const matchesPrice = selectedPrices.length === 0 || 
-      selectedPrices.some(priceRange => {
-        const price = prices[activity.priceId];
-        if (!price) return false;
-        
-        if (priceRange === 'free' && price.type === 'FREE') return true;
-        if (priceRange === 'low' && price.type === 'PAID' && price.amount && Number(price.amount) < 25) return true;
-        if (priceRange === 'medium' && price.type === 'PAID' && price.amount && Number(price.amount) >= 25 && Number(price.amount) < 75) return true;
-        if (priceRange === 'high' && price.type === 'PAID' && price.amount && Number(price.amount) >= 75) return true;
-        return false;
-      });
+      // Area filter (simplified - using city/neighborhood)
+      const matchesArea = selectedAreas.length === 0 || 
+        selectedAreas.some(area => {
+          const cityLower = activity.city.toLowerCase();
+          const neighborhoodLower = activity.neighborhood?.toLowerCase() || '';
+          
+          switch(area) {
+            case 'downtown': return cityLower.includes('toronto') && (neighborhoodLower.includes('downtown') || neighborhoodLower.includes('financial') || neighborhoodLower.includes('entertainment'));
+            case 'midtown': return neighborhoodLower.includes('midtown') || neighborhoodLower.includes('yorkville') || neighborhoodLower.includes('rosedale');
+            case 'uptown': return neighborhoodLower.includes('uptown') || neighborhoodLower.includes('north');
+            case 'east': return neighborhoodLower.includes('east') || neighborhoodLower.includes('beaches') || neighborhoodLower.includes('leslieville');
+            case 'west': return neighborhoodLower.includes('west') || neighborhoodLower.includes('junction') || neighborhoodLower.includes('liberty');
+            case 'north': return neighborhoodLower.includes('north') || cityLower.includes('north york');
+            default: return true;
+          }
+        });
 
-    // Area filter (simplified - using city/neighborhood)
-    const matchesArea = selectedAreas.length === 0 || 
-      selectedAreas.some(area => {
-        const cityLower = activity.city.toLowerCase();
-        const neighborhoodLower = activity.neighborhood?.toLowerCase() || '';
-        
-        switch(area) {
-          case 'downtown': return cityLower.includes('toronto') && (neighborhoodLower.includes('downtown') || neighborhoodLower.includes('financial') || neighborhoodLower.includes('entertainment'));
-          case 'midtown': return neighborhoodLower.includes('midtown') || neighborhoodLower.includes('yorkville') || neighborhoodLower.includes('rosedale');
-          case 'uptown': return neighborhoodLower.includes('uptown') || neighborhoodLower.includes('north');
-          case 'east': return neighborhoodLower.includes('east') || neighborhoodLower.includes('beaches') || neighborhoodLower.includes('leslieville');
-          case 'west': return neighborhoodLower.includes('west') || neighborhoodLower.includes('junction') || neighborhoodLower.includes('liberty');
-          case 'north': return neighborhoodLower.includes('north') || cityLower.includes('north york');
-          default: return true;
-        }
-      });
+      return matchesSearch && matchesCategory && matchesArea;
+    });
+  }, [activities, searchTerm, selectedCategories, selectedAreas]);
 
-    return matchesSearch && matchesCategory && matchesPrice && matchesArea;
-  });
+  // Memoized displayed activities
+  const displayedActivities = useMemo(() => 
+    filteredActivities.slice(0, displayCount), 
+    [filteredActivities, displayCount]
+  );
 
-  const displayedActivities = filteredActivities.slice(0, displayCount);
+  // Memoized card data conversion
+  const cardDataArray = useMemo(() => {
+    return displayedActivities.map((activity): EnhancedCardData => {
+      const location = locations[activity.locationId];
+      return {
+        id: activity.id,
+        title: activity.title,
+        description: activity.description,
+        website: activity.website,
+        tags: activity.tags.slice(0, 3), // Limit tags for performance
+        priceRange: 'See website', // Simplified for performance
+        location: location?.name,
+        address: location?.address,
+        coordinates: {
+          lat: location?.latitude,
+          lng: location?.longitude,
+        },
+        neighborhood: activity.neighborhood,
+        detailPath: `/activity/${activity.id}`,
+      };
+    });
+  }, [displayedActivities, locations]);
 
-  const getIconForCategory = (categoryId: string): string => {
-    const iconMap: { [key: string]: string } = {
-      'outdoor': 'OUT',
-      'cultural': 'ART',
-      'food': 'DIN',
-      'nightlife': 'NLF',
-      'shopping': 'SHP',
-      'sports': 'SPT',
-      'entertainment': 'ENT',
-      'wellness': 'WEL'
-    };
-    return iconMap[categoryId] || 'ACT';
-  };
+  // Memoized icon getter function
+  const getIconForCategory = useCallback((categoryId: string): React.ReactNode => {
+    return iconMap[categoryId] || iconMap['2']; // Default to LocalActivity
+  }, []);
 
-  const getPriceDisplay = (priceId: string) => {
-    const price = prices[priceId];
-    if (!price) return 'Check website';
-    
-    if (price.type === 'FREE') return 'Free';
-    if (price.type === 'PAID') return `$${price.amount}`;
-    if (price.type === 'SPECIAL') return price.notes || 'Special';
-    return 'Check website';
-  };
-
-  const handleLoadMore = () => {
+  const handleLoadMore = useCallback(() => {
     setDisplayCount(prev => prev + 12);
-  };
+  }, []);
 
   // Reset display count when filters change
   useEffect(() => {
     setDisplayCount(12);
-  }, [selectedCategories, selectedPrices, selectedDurations, selectedRatings, selectedAreas, searchTerm]);
+  }, [selectedCategories, selectedAreas, searchTerm]);
 
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
-        <div style={{ 
-          padding: 'var(--space-4)', 
-          color: 'var(--color-gray-70)',
-          fontFamily: 'var(--font-primary)',
-          fontSize: 'var(--text-md)',
-          textTransform: 'uppercase',
-          letterSpacing: '0.1em'
-        }}>
-          Loading Activities...
-        </div>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box sx={{ p: 4, textAlign: 'center' }}>
+        <Typography color="error">{error}</Typography>
       </Box>
     );
   }
@@ -243,37 +236,16 @@ const Activities = () => {
         </div>
       </section>
 
-      {/* Filter Section */}
+      {/* Essential Filter Section */}
       <section className="filter-section">
         <div className="swiss-container">
-          <div className="filter-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 'var(--space-3)' }}>
             <MultiSelectFilter
               label="Category"
               options={categoryOptions}
               selectedValues={selectedCategories}
               onChange={setSelectedCategories}
               placeholder="All Categories"
-            />
-            <MultiSelectFilter
-              label="Price Range"
-              options={priceOptions}
-              selectedValues={selectedPrices}
-              onChange={setSelectedPrices}
-              placeholder="All Prices"
-            />
-            <MultiSelectFilter
-              label="Duration"
-              options={durationOptions}
-              selectedValues={selectedDurations}
-              onChange={setSelectedDurations}
-              placeholder="Any Duration"
-            />
-            <MultiSelectFilter
-              label="Rating"
-              options={ratingOptions}
-              selectedValues={selectedRatings}
-              onChange={setSelectedRatings}
-              placeholder="All Ratings"
             />
             <MultiSelectFilter
               label="Area"
@@ -320,41 +292,20 @@ const Activities = () => {
             </div>
           ) : (
             <>
-              <div className="content-grid">
-                {displayedActivities.map((activity) => (
-                  <div key={activity.id} className="activity-card">
-                    <div className="card-image">
-                      {getIconForCategory(activity.categoryId)}
-                    </div>
-                    <div className="card-content">
-                      <div className="card-category">
-                        {categories[activity.categoryId]?.name || 'Activity'}
-                      </div>
-                      <h3 className="card-title">{activity.title}</h3>
-                      <p className="card-description">{activity.description}</p>
-                      
-                      <ul className="card-features">
-                        <li>{activity.city}</li>
-                        <li>{activity.neighborhood || 'Central Toronto'}</li>
-                        {activity.tags.slice(0, 1).map(tag => (
-                          <li key={tag}>{tag}</li>
-                        ))}
-                      </ul>
-                      
-                      <div className="card-meta">
-                        <span className="card-price">{getPriceDisplay(activity.priceId)}</span>
-                        <span style={{ 
-                          fontSize: 'var(--text-sm)', 
-                          color: 'var(--color-gray-50)',
-                          fontFamily: 'var(--font-mono)'
-                        }}>
-                          ★ 4.{Math.floor(Math.random() * 9) + 1}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <Grid container spacing={3}>
+                {cardDataArray.map((cardData, index) => {
+                  const activity = displayedActivities[index];
+                  return (
+                    <Grid item xs={12} sm={6} md={4} key={activity.id}>
+                      <EnhancedMinimalistCard
+                        data={cardData}
+                        icon={getIconForCategory(activity.categoryId)}
+                        color="primary"
+                      />
+                    </Grid>
+                  );
+                })}
+              </Grid>
 
               {displayedActivities.length < filteredActivities.length && (
                 <div style={{ textAlign: 'center', marginTop: 'var(--space-6)' }}>
@@ -406,4 +357,4 @@ const Activities = () => {
   );
 };
 
-export default Activities; 
+export default React.memo(Activities); 

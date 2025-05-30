@@ -79,6 +79,14 @@ export interface Schedule {
   lastUpdated: string;
 }
 
+export interface Tag {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  lastUpdated: string;
+}
+
 export interface DayTrip {
   id: string;
   title: string;
@@ -785,6 +793,26 @@ export const loadStandardizedDayTrips = async (): Promise<StandardizedDayTrip[]>
     return data as StandardizedDayTrip[];
   } catch (error) {
     console.error('Error loading standardized day trips:', error);
+    throw error;
+  }
+};
+
+export const loadTags = async (): Promise<Tag[]> => {
+  try {
+    const response = await fetch('/data/tags.csv');
+    if (!response.ok) {
+      throw new Error('Failed to load tags data');
+    }
+
+    const csvText = await response.text();
+    const { data } = Papa.parse(csvText, {
+      header: true,
+      skipEmptyLines: true,
+    });
+    
+    return data as Tag[];
+  } catch (error) {
+    console.error('Error loading tags:', error);
     throw error;
   }
 }; 

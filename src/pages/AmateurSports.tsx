@@ -1,179 +1,181 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box } from '@mui/material';
-import { AmateurSport, loadAmateurSports } from '../utils/dataLoader';
+import { Box, Grid, Typography, CircularProgress } from '@mui/material';
+import { 
+  loadStandardizedAmateurSports, 
+  type StandardizedAmateurSport 
+} from '../utils/dataLoader';
+import EnhancedMinimalistCard, { EnhancedCardData } from '../components/MinimalistCard';
 import MultiSelectFilter from '../components/MultiSelectFilter';
 import { useSearch } from '../components/Layout';
+import { 
+  SportsBaseball, 
+  SportsTennis, 
+  SportsGolf, 
+  Pool, 
+  FitnessCenter,
+  DirectionsRun
+} from '@mui/icons-material';
+
+// Memoized icon map
+const iconMap: { [key: string]: React.ReactNode } = {
+  'golf': <SportsGolf />,
+  'tennis': <SportsTennis />,
+  'baseball': <SportsBaseball />,
+  'swimming': <Pool />,
+  'fitness': <FitnessCenter />,
+  'running': <DirectionsRun />
+};
 
 const AmateurSports = () => {
   const { searchTerm, setSearchPlaceholder } = useSearch();
-  const [allSports, setAllSports] = useState<AmateurSport[]>([]);
+  const [sports, setSports] = useState<StandardizedAmateurSport[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>('');
   const [displayCount, setDisplayCount] = useState(12);
-
-  // Filter states
+  
+  // Essential filter states
   const [selectedSportTypes, setSelectedSportTypes] = useState<string[]>([]);
-  const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
-  const [selectedSkillLevels, setSelectedSkillLevels] = useState<string[]>([]);
-  const [selectedFrequencies, setSelectedFrequencies] = useState<string[]>([]);
-  const [selectedCosts, setSelectedCosts] = useState<string[]>([]);
+  const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
 
-  // Set search placeholder for this page
   useEffect(() => {
-    setSearchPlaceholder('Search play activities...');
+    setSearchPlaceholder('Search amateur sports...');
   }, [setSearchPlaceholder]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const data = await loadAmateurSports();
-        setAllSports(data);
+        const sportsData = await loadStandardizedAmateurSports();
+        setSports(sportsData);
         setLoading(false);
-      } catch (error) {
-        console.error('Error loading amateur sports data:', error);
+      } catch (err) {
+        console.error('Error loading amateur sports:', err);
+        setError('Failed to load amateur sports');
         setLoading(false);
       }
     };
     fetchData();
   }, []);
 
-  // Filter options
-  const sportTypeOptions = [
-    { value: 'basketball', label: 'Basketball' },
-    { value: 'soccer', label: 'Soccer/Football' },
-    { value: 'volleyball', label: 'Volleyball' },
+  // Memoized filter options
+  const sportTypeOptions = useMemo(() => [
+    { value: 'golf', label: 'Golf' },
     { value: 'tennis', label: 'Tennis' },
-    { value: 'ultimate', label: 'Ultimate Frisbee' },
-    { value: 'fitness', label: 'Fitness Groups' }
-  ];
+    { value: 'baseball', label: 'Baseball & Softball' },
+    { value: 'swimming', label: 'Swimming' },
+    { value: 'fitness', label: 'Fitness & Gym' },
+    { value: 'running', label: 'Running & Track' }
+  ], []);
 
-  const locationOptions = [
+  const areaOptions = useMemo(() => [
     { value: 'downtown', label: 'Downtown' },
-    { value: 'west-end', label: 'West End' },
-    { value: 'east-end', label: 'East End' },
-    { value: 'north-york', label: 'North York' },
-    { value: 'etobicoke', label: 'Etobicoke' },
-    { value: 'scarborough', label: 'Scarborough' }
-  ];
+    { value: 'north', label: 'North York' },
+    { value: 'east', label: 'East End' },
+    { value: 'west', label: 'West End' },
+    { value: 'scarborough', label: 'Scarborough' },
+    { value: 'etobicoke', label: 'Etobicoke' }
+  ], []);
 
-  const skillLevelOptions = [
-    { value: 'beginner', label: 'Beginner' },
-    { value: 'intermediate', label: 'Intermediate' },
-    { value: 'advanced', label: 'Advanced' },
-    { value: 'all-levels', label: 'All Levels' }
-  ];
-
-  const frequencyOptions = [
-    { value: 'weekly', label: 'Weekly' },
-    { value: 'bi-weekly', label: 'Bi-weekly' },
-    { value: 'monthly', label: 'Monthly' },
-    { value: 'drop-in', label: 'Drop-in' }
-  ];
-
-  const costOptions = [
-    { value: 'free', label: 'Free' },
-    { value: 'low', label: 'Low Cost ($0-20)' },
-    { value: 'moderate', label: 'Moderate ($20-50)' },
-    { value: 'premium', label: 'Premium ($50+)' }
-  ];
-
-  // Helper functions
-  const getSportType = (sport: AmateurSport): string => {
+  // Memoized helper functions
+  const getSportType = useCallback((sport: StandardizedAmateurSport): string => {
     const title = sport.title.toLowerCase();
-    const type = sport.type.toLowerCase();
+    const tags = sport.tags.join(' ').toLowerCase();
     
-    if (title.includes('basketball') || type.includes('basketball')) return 'basketball';
-    if (title.includes('soccer') || title.includes('football') || type.includes('soccer')) return 'soccer';
-    if (title.includes('volleyball') || type.includes('volleyball')) return 'volleyball';
-    if (title.includes('tennis') || type.includes('tennis')) return 'tennis';
-    if (title.includes('ultimate') || title.includes('frisbee') || type.includes('ultimate')) return 'ultimate';
-    if (title.includes('fitness') || title.includes('bootcamp') || type.includes('fitness')) return 'fitness';
-    return 'fitness';
-  };
+    if (title.includes('golf') || tags.includes('golf')) return 'golf';
+    if (title.includes('tennis') || tags.includes('tennis')) return 'tennis';
+    if (title.includes('baseball') || title.includes('softball') || tags.includes('baseball')) return 'baseball';
+    if (title.includes('swim') || tags.includes('swim')) return 'swimming';
+    if (title.includes('gym') || title.includes('fitness') || tags.includes('fitness')) return 'fitness';
+    if (title.includes('run') || tags.includes('running')) return 'running';
+    
+    return 'fitness'; // default
+  }, []);
 
-  const getLocationCategory = (location: string): string => {
+  const getAreaCategory = useCallback((location: string): string => {
     const loc = location.toLowerCase();
     
     if (loc.includes('downtown') || loc.includes('financial')) return 'downtown';
-    if (loc.includes('west') || loc.includes('ossington') || loc.includes('trinity')) return 'west-end';
-    if (loc.includes('east') || loc.includes('beaches') || loc.includes('leslieville')) return 'east-end';
-    if (loc.includes('north york') || loc.includes('sheppard')) return 'north-york';
-    if (loc.includes('etobicoke')) return 'etobicoke';
+    if (loc.includes('north york') || loc.includes('north')) return 'north';
+    if (loc.includes('east') || loc.includes('beaches')) return 'east';
+    if (loc.includes('west') || loc.includes('junction')) return 'west';
     if (loc.includes('scarborough')) return 'scarborough';
-    return 'downtown';
-  };
-
-  const getSkillLevel = (skill: string): string => {
-    const s = skill.toLowerCase();
+    if (loc.includes('etobicoke')) return 'etobicoke';
     
-    if (s.includes('beginner') || s.includes('novice')) return 'beginner';
-    if (s.includes('intermediate')) return 'intermediate';
-    if (s.includes('advanced') || s.includes('competitive')) return 'advanced';
-    return 'all-levels';
-  };
+    return 'downtown'; // default
+  }, []);
 
-  const getIconForSport = (sport: AmateurSport): string => {
+  const getIconForSport = useCallback((sport: StandardizedAmateurSport): React.ReactNode => {
     const sportType = getSportType(sport);
-    const iconMap: { [key: string]: string } = {
-      'basketball': 'BBL',
-      'soccer': 'SOC',
-      'volleyball': 'VBL',
-      'tennis': 'TEN',
-      'ultimate': 'ULT',
-      'fitness': 'FIT'
-    };
-    return iconMap[sportType] || 'SPT';
-  };
+    return iconMap[sportType] || iconMap['fitness'];
+  }, [getSportType]);
 
-  // Filter functionality
-  const filteredSports = allSports.filter(sport => {
-    // Search filter
-    const matchesSearch = searchTerm === '' || 
-      sport.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      sport.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      sport.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      sport.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+  // Memoized filtering logic
+  const filteredSports = useMemo(() => {
+    return sports.filter(sport => {
+      // Search filter
+      const matchesSearch = !searchTerm || 
+        sport.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        sport.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        sport.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        sport.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
 
-    // Sport type filter
-    const matchesSportType = selectedSportTypes.length === 0 || 
-      selectedSportTypes.includes(getSportType(sport));
+      // Sport type filter
+      const matchesSportType = selectedSportTypes.length === 0 || 
+        selectedSportTypes.includes(getSportType(sport));
 
-    // Location filter
-    const matchesLocation = selectedLocations.length === 0 || 
-      selectedLocations.includes(getLocationCategory(sport.location));
+      // Area filter
+      const matchesArea = selectedAreas.length === 0 || 
+        selectedAreas.includes(getAreaCategory(sport.location));
 
-    // Skill level filter
-    const matchesSkillLevel = selectedSkillLevels.length === 0 || 
-      selectedSkillLevels.includes(getSkillLevel(sport.skillLevel));
+      return matchesSearch && matchesSportType && matchesArea;
+    });
+  }, [sports, searchTerm, selectedSportTypes, selectedAreas, getSportType, getAreaCategory]);
 
-    return matchesSearch && matchesSportType && matchesLocation && matchesSkillLevel;
-  });
+  // Memoized displayed sports
+  const displayedSports = useMemo(() => 
+    filteredSports.slice(0, displayCount), 
+    [filteredSports, displayCount]
+  );
 
-  const displayedSports = filteredSports.slice(0, displayCount);
+  // Memoized card data conversion
+  const cardDataArray = useMemo(() => {
+    return displayedSports.map((sport): EnhancedCardData => ({
+      id: sport.id,
+      title: sport.title,
+      description: sport.description,
+      website: sport.website,
+      tags: sport.tags.slice(0, 3),
+      priceRange: 'See details',
+      location: sport.location,
+      address: sport.location,
+      lgbtqFriendly: sport.lgbtqFriendly,
+      neighborhood: sport.location,
+      detailPath: `/amateur-sports/${sport.id}`,
+    }));
+  }, [displayedSports]);
 
-  const handleLoadMore = () => {
+  const handleLoadMore = useCallback(() => {
     setDisplayCount(prev => prev + 12);
-  };
+  }, []);
 
   // Reset display count when filters change
-  React.useEffect(() => {
+  useEffect(() => {
     setDisplayCount(12);
-  }, [selectedSportTypes, selectedLocations, selectedSkillLevels, selectedFrequencies, selectedCosts, searchTerm]);
+  }, [selectedSportTypes, selectedAreas, searchTerm]);
 
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
-        <div style={{ 
-          padding: 'var(--space-4)', 
-          color: 'var(--color-gray-70)',
-          fontFamily: 'var(--font-primary)',
-          fontSize: 'var(--text-md)',
-          textTransform: 'uppercase',
-          letterSpacing: '0.1em'
-        }}>
-          Loading Play Activities...
-        </div>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box sx={{ p: 4, textAlign: 'center' }}>
+        <Typography color="error">{error}</Typography>
       </Box>
     );
   }
@@ -186,7 +188,7 @@ const AmateurSports = () => {
           <ul className="breadcrumb-list">
             <li><RouterLink to="/" className="breadcrumb-link">Home</RouterLink></li>
             <li>/</li>
-            <li>Play</li>
+            <li>Amateur Sports</li>
           </ul>
         </div>
       </section>
@@ -196,34 +198,34 @@ const AmateurSports = () => {
         <div className="swiss-container">
           <div className="header-content">
             <div>
-              <h1 className="page-title">Play</h1>
+              <h1 className="page-title">Amateur Sports</h1>
               <p className="page-subtitle">
-                Toronto's vibrant amateur sports and recreational activities. 
-                From pick-up basketball to organized leagues, discover opportunities to stay active and connect with like-minded players.
+                Stay active with Toronto's best recreational sports facilities and programs. 
+                From golf courses to tennis courts, find your perfect sporting venue.
               </p>
             </div>
             <div className="stats-box">
               <div className="stat">
                 <div className="stat-number">{filteredSports.length}</div>
-                <div className="stat-label">Filtered Results</div>
+                <div className="stat-label">Facilities</div>
               </div>
               <div className="stat">
                 <div className="stat-number">6</div>
                 <div className="stat-label">Sport Types</div>
               </div>
               <div className="stat">
-                <div className="stat-number">50+</div>
-                <div className="stat-label">Locations</div>
+                <div className="stat-number">6</div>
+                <div className="stat-label">Areas</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Filter Section */}
+      {/* Essential Filter Section */}
       <section className="filter-section">
         <div className="swiss-container">
-          <div className="filter-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 'var(--space-3)' }}>
             <MultiSelectFilter
               label="Sport Type"
               options={sportTypeOptions}
@@ -232,32 +234,11 @@ const AmateurSports = () => {
               placeholder="All Sports"
             />
             <MultiSelectFilter
-              label="Location"
-              options={locationOptions}
-              selectedValues={selectedLocations}
-              onChange={setSelectedLocations}
+              label="Area"
+              options={areaOptions}
+              selectedValues={selectedAreas}
+              onChange={setSelectedAreas}
               placeholder="All Areas"
-            />
-            <MultiSelectFilter
-              label="Skill Level"
-              options={skillLevelOptions}
-              selectedValues={selectedSkillLevels}
-              onChange={setSelectedSkillLevels}
-              placeholder="All Levels"
-            />
-            <MultiSelectFilter
-              label="Frequency"
-              options={frequencyOptions}
-              selectedValues={selectedFrequencies}
-              onChange={setSelectedFrequencies}
-              placeholder="Any Frequency"
-            />
-            <MultiSelectFilter
-              label="Cost"
-              options={costOptions}
-              selectedValues={selectedCosts}
-              onChange={setSelectedCosts}
-              placeholder="Any Cost"
             />
           </div>
         </div>
@@ -277,7 +258,7 @@ const AmateurSports = () => {
             }}>
               {filteredSports.length} Results
             </div>
-            <h2 className="section-title">Available Activities</h2>
+            <h2 className="section-title">Available Sports</h2>
           </div>
           
           {filteredSports.length === 0 ? (
@@ -291,45 +272,26 @@ const AmateurSports = () => {
                 fontWeight: 'var(--weight-semibold)',
                 marginBottom: 'var(--space-2)'
               }}>
-                No activities found
+                No sports activities found
               </div>
               <p>Try adjusting your search terms or filters</p>
             </div>
           ) : (
             <>
-              <div className="content-grid">
-                {displayedSports.map((sport) => (
-                  <div key={sport.id} className="activity-card">
-                    <div className="card-image">
-                      {getIconForSport(sport)}
-                    </div>
-                    <div className="card-content">
-                      <div className="card-category">{sport.type}</div>
-                      <h3 className="card-title">{sport.title}</h3>
-                      <p className="card-description">{sport.description}</p>
-                      
-                      <ul className="card-features">
-                        <li>{sport.location}</li>
-                        <li>Skill: {sport.skillLevel}</li>
-                        {sport.tags.slice(0, 1).map(tag => (
-                          <li key={tag}>{tag}</li>
-                        ))}
-                      </ul>
-                      
-                      <div className="card-meta">
-                        <span className="card-price">Drop-in Welcome</span>
-                        <span style={{ 
-                          fontSize: 'var(--text-sm)', 
-                          color: 'var(--color-gray-50)',
-                          fontFamily: 'var(--font-mono)'
-                        }}>
-                          ★ 4.{Math.floor(Math.random() * 9) + 1}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <Grid container spacing={3}>
+                {cardDataArray.map((cardData, index) => {
+                  const sport = displayedSports[index];
+                  return (
+                    <Grid item xs={12} sm={6} md={4} key={sport.id}>
+                      <EnhancedMinimalistCard
+                        data={cardData}
+                        icon={getIconForSport(sport)}
+                        color="info"
+                      />
+                    </Grid>
+                  );
+                })}
+              </Grid>
 
               {displayedSports.length < filteredSports.length && (
                 <div style={{ textAlign: 'center', marginTop: 'var(--space-6)' }}>
@@ -337,7 +299,7 @@ const AmateurSports = () => {
                     className="btn-secondary"
                     onClick={handleLoadMore}
                   >
-                    Load More Activities ({filteredSports.length - displayedSports.length} remaining)
+                    Load More Sports ({filteredSports.length - displayedSports.length} remaining)
                   </button>
                 </div>
               )}
@@ -360,7 +322,7 @@ const AmateurSports = () => {
             textTransform: 'uppercase',
             letterSpacing: '-0.01em',
             marginBottom: 'var(--space-2)'
-          }}>Get Moving!</h2>
+          }}>Stay Active</h2>
           <p style={{ 
             fontSize: 'var(--text-md)', 
             fontWeight: 'var(--weight-light)',
@@ -370,11 +332,10 @@ const AmateurSports = () => {
             marginLeft: 'auto',
             marginRight: 'auto'
           }}>
-            Explore activities and events throughout Toronto.
+            Explore more activities and events in Toronto.
           </p>
-          <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'center' }}>
-            <RouterLink to="/activities" className="btn-primary">Browse Activities</RouterLink>
-            <RouterLink to="/sporting-events" className="btn-secondary">Pro Sports</RouterLink>
+          <div className="intro-actions">
+            <RouterLink to="/activities" className="btn-primary">View Activities</RouterLink>
           </div>
         </div>
       </section>
@@ -382,4 +343,4 @@ const AmateurSports = () => {
   );
 };
 
-export default AmateurSports; 
+export default React.memo(AmateurSports); 

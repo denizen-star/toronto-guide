@@ -1,24 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box } from '@mui/material';
-import { SpecialEvent, loadSpecialEvents } from '../utils/dataLoader';
+import { Box, Grid, Typography, CircularProgress } from '@mui/material';
+import { 
+  loadStandardizedSpecialEvents, 
+  type StandardizedSpecialEvent 
+} from '../utils/dataLoader';
+import EnhancedMinimalistCard, { EnhancedCardData } from '../components/MinimalistCard';
 import MultiSelectFilter from '../components/MultiSelectFilter';
 import { useSearch } from '../components/Layout';
+import { 
+  Palette, 
+  MusicNote, 
+  TheaterComedy, 
+  Restaurant,
+  Festival,
+  EventNote
+} from '@mui/icons-material';
+
+// Memoized icon map for special events
+const iconMap: { [key: string]: React.ReactNode } = {
+  'art': <Palette />,
+  'music': <MusicNote />,
+  'theater': <TheaterComedy />,
+  'food': <Restaurant />,
+  'festival': <Festival />,
+  'cultural': <EventNote />
+};
 
 const SpecialEvents = () => {
   const { searchTerm, setSearchPlaceholder } = useSearch();
-  const [allEvents, setAllEvents] = useState<SpecialEvent[]>([]);
+  const [events, setEvents] = useState<StandardizedSpecialEvent[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>('');
   const [displayCount, setDisplayCount] = useState(12);
-
-  // Filter states
-  const [selectedEventTypes, setSelectedEventTypes] = useState<string[]>([]);
-  const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
+  
+  // Essential filter states
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedSeasons, setSelectedSeasons] = useState<string[]>([]);
-  const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
+  const [selectedVenues, setSelectedVenues] = useState<string[]>([]);
 
-  // Set search placeholder for this page
   useEffect(() => {
     setSearchPlaceholder('Search special events...');
   }, [setSearchPlaceholder]);
@@ -27,173 +46,131 @@ const SpecialEvents = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const data = await loadSpecialEvents();
-        setAllEvents(data);
+        const eventsData = await loadStandardizedSpecialEvents();
+        setEvents(eventsData);
         setLoading(false);
-      } catch (error) {
-        console.error('Error loading special events:', error);
+      } catch (err) {
+        console.error('Error loading special events:', err);
+        setError('Failed to load special events');
         setLoading(false);
       }
     };
     fetchData();
   }, []);
 
-  // Filter options
-  const eventTypeOptions = [
-    { value: 'festival', label: 'Festivals' },
-    { value: 'concert', label: 'Concerts' },
-    { value: 'theater', label: 'Theater' },
-    { value: 'art', label: 'Art Shows' },
-    { value: 'food', label: 'Food Events' },
-    { value: 'community', label: 'Community' }
-  ];
-
-  const locationOptions = [
-    { value: 'downtown', label: 'Downtown' },
-    { value: 'waterfront', label: 'Waterfront' },
-    { value: 'distillery', label: 'Distillery District' },
-    { value: 'west-end', label: 'West End' },
-    { value: 'east-end', label: 'East End' },
-    { value: 'multiple', label: 'Multiple Venues' }
-  ];
-
-  const categoryOptions = [
+  // Memoized filter options
+  const categoryOptions = useMemo(() => [
+    { value: 'art', label: 'Art & Exhibitions' },
     { value: 'music', label: 'Music & Concerts' },
-    { value: 'food-drink', label: 'Food & Drink' },
-    { value: 'arts-culture', label: 'Arts & Culture' },
-    { value: 'festivals', label: 'Festivals' },
-    { value: 'theater-comedy', label: 'Theater & Comedy' },
-    { value: 'seasonal', label: 'Seasonal Events' }
-  ];
+    { value: 'theater', label: 'Theater & Performance' },
+    { value: 'food', label: 'Food & Wine' },
+    { value: 'festival', label: 'Festivals' },
+    { value: 'cultural', label: 'Cultural Events' }
+  ], []);
 
-  const seasonOptions = [
-    { value: 'spring', label: 'Spring' },
-    { value: 'summer', label: 'Summer' },
-    { value: 'fall', label: 'Fall' },
-    { value: 'winter', label: 'Winter' },
-    { value: 'year-round', label: 'Year-round' }
-  ];
+  const venueOptions = useMemo(() => [
+    { value: 'downtown', label: 'Downtown' },
+    { value: 'harbourfront', label: 'Harbourfront' },
+    { value: 'distillery', label: 'Distillery District' },
+    { value: 'queen-west', label: 'Queen West' },
+    { value: 'kensington', label: 'Kensington Market' }
+  ], []);
 
-  const ratingOptions = [
-    { value: 'excellent', label: 'Excellent (4.5+)' },
-    { value: 'very-good', label: 'Very Good (4.0+)' },
-    { value: 'good', label: 'Good (3.5+)' },
-    { value: 'fair', label: 'Fair (3.0+)' }
-  ];
-
-  // Helper functions
-  const getEventCategory = (event: SpecialEvent): string => {
-    const type = event.type.toLowerCase();
-    const title = event.title.toLowerCase();
+  // Memoized helper functions
+  const getCategoryFromTags = useCallback((tags: string[]): string => {
+    const tagString = tags.join(' ').toLowerCase();
     
-    if (type.includes('music') || title.includes('concert') || title.includes('music')) return 'music';
-    if (type.includes('food') || title.includes('food') || title.includes('taste')) return 'food-drink';
-    if (type.includes('art') || title.includes('art') || title.includes('gallery')) return 'arts-culture';
-    if (type.includes('festival')) return 'festivals';
-    if (type.includes('theater') || type.includes('comedy')) return 'theater-comedy';
-    if (type.includes('seasonal') || title.includes('holiday') || title.includes('christmas')) return 'seasonal';
-    return 'arts-culture';
-  };
-
-  const getLocationArea = (location: string): string => {
-    if (!location) return 'multiple';
-    const locationLower = location.toLowerCase();
+    if (tagString.includes('art') || tagString.includes('gallery') || tagString.includes('exhibition')) return 'art';
+    if (tagString.includes('music') || tagString.includes('concert') || tagString.includes('band')) return 'music';
+    if (tagString.includes('theater') || tagString.includes('theatre') || tagString.includes('performance')) return 'theater';
+    if (tagString.includes('food') || tagString.includes('wine') || tagString.includes('culinary')) return 'food';
+    if (tagString.includes('festival') || tagString.includes('celebration')) return 'festival';
     
-    if (locationLower.includes('downtown') || locationLower.includes('financial')) return 'downtown';
-    if (locationLower.includes('harbourfront') || locationLower.includes('waterfront')) return 'waterfront';
-    if (locationLower.includes('distillery')) return 'distillery';
-    if (locationLower.includes('west') || locationLower.includes('ossington')) return 'west-end';
-    if (locationLower.includes('east') || locationLower.includes('beaches')) return 'east-end';
-    if (locationLower.includes('multiple') || locationLower.includes('various')) return 'multiple';
-    return 'downtown';
-  };
+    return 'cultural'; // default
+  }, []);
 
-  const getEventSeason = (event: SpecialEvent): string => {
-    const title = event.title.toLowerCase();
+  const getVenueCategory = useCallback((location: string): string => {
+    const loc = location.toLowerCase();
     
-    if (title.includes('winter') || title.includes('christmas') || title.includes('holiday')) return 'winter';
-    if (title.includes('spring') || title.includes('easter')) return 'spring';
-    if (title.includes('summer') || title.includes('canada day')) return 'summer';
-    if (title.includes('fall') || title.includes('autumn') || title.includes('halloween')) return 'fall';
-    return 'year-round';
-  };
+    if (loc.includes('harbourfront') || loc.includes('waterfront')) return 'harbourfront';
+    if (loc.includes('distillery')) return 'distillery';
+    if (loc.includes('queen west') || loc.includes('ossington')) return 'queen-west';
+    if (loc.includes('kensington')) return 'kensington';
+    
+    return 'downtown'; // default
+  }, []);
 
-  const getIconForEvent = (event: SpecialEvent): string => {
-    const category = getEventCategory(event);
-    const iconMap: { [key: string]: string } = {
-      'music': 'MUS',
-      'food-drink': 'FUD',
-      'arts-culture': 'ART',
-      'festivals': 'FES',
-      'theater-comedy': 'THR',
-      'seasonal': 'SEA'
-    };
-    return iconMap[category] || 'EVT';
-  };
+  const getIconForEvent = useCallback((event: StandardizedSpecialEvent): React.ReactNode => {
+    const category = getCategoryFromTags(event.tags);
+    return iconMap[category] || iconMap['cultural'];
+  }, [getCategoryFromTags]);
 
-  // Filter functionality
-  const filteredEvents = allEvents.filter(event => {
-    // Search filter
-    const matchesSearch = searchTerm === '' || 
-      event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      event.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      event.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+  // Memoized filtering logic
+  const filteredEvents = useMemo(() => {
+    return events.filter(event => {
+      // Search filter
+      const matchesSearch = !searchTerm || 
+        event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        event.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        event.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
 
-    // Event type filter (map from type to simplified values)
-    const matchesEventType = selectedEventTypes.length === 0 || 
-      selectedEventTypes.some(type => {
-        const eventType = event.type.toLowerCase();
-        switch(type) {
-          case 'festival': return eventType.includes('festival');
-          case 'concert': return eventType.includes('music') || eventType.includes('concert');
-          case 'theater': return eventType.includes('theater') || eventType.includes('comedy');
-          case 'art': return eventType.includes('art') || eventType.includes('gallery');
-          case 'food': return eventType.includes('food') || eventType.includes('taste');
-          case 'community': return eventType.includes('community');
-          default: return true;
-        }
-      });
+      // Category filter
+      const matchesCategory = selectedCategories.length === 0 || 
+        selectedCategories.includes(getCategoryFromTags(event.tags));
 
-    // Location filter
-    const matchesLocation = selectedLocations.length === 0 || 
-      selectedLocations.includes(getLocationArea(event.location));
+      // Venue filter
+      const matchesVenue = selectedVenues.length === 0 || 
+        selectedVenues.includes(getVenueCategory(event.location));
 
-    // Category filter
-    const matchesCategory = selectedCategories.length === 0 || 
-      selectedCategories.includes(getEventCategory(event));
+      return matchesSearch && matchesCategory && matchesVenue;
+    });
+  }, [events, searchTerm, selectedCategories, selectedVenues, getCategoryFromTags, getVenueCategory]);
 
-    // Season filter
-    const matchesSeason = selectedSeasons.length === 0 || 
-      selectedSeasons.includes(getEventSeason(event));
+  // Memoized displayed events
+  const displayedEvents = useMemo(() => 
+    filteredEvents.slice(0, displayCount), 
+    [filteredEvents, displayCount]
+  );
 
-    return matchesSearch && matchesEventType && matchesLocation && matchesCategory && matchesSeason;
-  });
+  // Memoized card data conversion
+  const cardDataArray = useMemo(() => {
+    return displayedEvents.map((event): EnhancedCardData => ({
+      id: event.id,
+      title: event.title,
+      description: event.description,
+      website: event.website,
+      tags: event.tags.slice(0, 3),
+      priceRange: 'See details',
+      location: event.location,
+      address: event.location,
+      lgbtqFriendly: event.lgbtqFriendly,
+      neighborhood: event.location,
+      detailPath: `/special-events/${event.id}`,
+    }));
+  }, [displayedEvents]);
 
-  const displayedEvents = filteredEvents.slice(0, displayCount);
-
-  const handleLoadMore = () => {
+  const handleLoadMore = useCallback(() => {
     setDisplayCount(prev => prev + 12);
-  };
+  }, []);
 
   // Reset display count when filters change
-  React.useEffect(() => {
+  useEffect(() => {
     setDisplayCount(12);
-  }, [selectedEventTypes, selectedLocations, selectedCategories, selectedSeasons, selectedRatings, searchTerm]);
+  }, [selectedCategories, selectedVenues, searchTerm]);
 
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
-        <div style={{ 
-          padding: 'var(--space-4)', 
-          color: 'var(--color-gray-70)',
-          fontFamily: 'var(--font-primary)',
-          fontSize: 'var(--text-md)',
-          textTransform: 'uppercase',
-          letterSpacing: '0.1em'
-        }}>
-          Loading Special Events...
-        </div>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box sx={{ p: 4, textAlign: 'center' }}>
+        <Typography color="error">{error}</Typography>
       </Box>
     );
   }
@@ -218,21 +195,21 @@ const SpecialEvents = () => {
             <div>
               <h1 className="page-title">Special Events</h1>
               <p className="page-subtitle">
-                Toronto's cultural calendar featuring systematic curation of festivals, performances, and seasonal celebrations. 
-                From intimate gallery openings to city-wide festivals, each event represents the finest of Toronto's cultural offerings.
+                Discover Toronto's vibrant cultural calendar. From art exhibitions to music festivals, 
+                find unique events that showcase the city's creative spirit.
               </p>
             </div>
             <div className="stats-box">
               <div className="stat">
                 <div className="stat-number">{filteredEvents.length}</div>
-                <div className="stat-label">Filtered Results</div>
+                <div className="stat-label">Events</div>
               </div>
               <div className="stat">
                 <div className="stat-number">6</div>
-                <div className="stat-label">Event Types</div>
+                <div className="stat-label">Categories</div>
               </div>
               <div className="stat">
-                <div className="stat-number">12</div>
+                <div className="stat-number">5</div>
                 <div className="stat-label">Venues</div>
               </div>
             </div>
@@ -240,24 +217,10 @@ const SpecialEvents = () => {
         </div>
       </section>
 
-      {/* Filter Section */}
+      {/* Essential Filter Section */}
       <section className="filter-section">
         <div className="swiss-container">
-          <div className="filter-grid">
-            <MultiSelectFilter
-              label="Event Type"
-              options={eventTypeOptions}
-              selectedValues={selectedEventTypes}
-              onChange={setSelectedEventTypes}
-              placeholder="All Types"
-            />
-            <MultiSelectFilter
-              label="Location"
-              options={locationOptions}
-              selectedValues={selectedLocations}
-              onChange={setSelectedLocations}
-              placeholder="All Locations"
-            />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 'var(--space-3)' }}>
             <MultiSelectFilter
               label="Category"
               options={categoryOptions}
@@ -266,18 +229,11 @@ const SpecialEvents = () => {
               placeholder="All Categories"
             />
             <MultiSelectFilter
-              label="Season"
-              options={seasonOptions}
-              selectedValues={selectedSeasons}
-              onChange={setSelectedSeasons}
-              placeholder="All Seasons"
-            />
-            <MultiSelectFilter
-              label="Rating"
-              options={ratingOptions}
-              selectedValues={selectedRatings}
-              onChange={setSelectedRatings}
-              placeholder="All Ratings"
+              label="Area"
+              options={venueOptions}
+              selectedValues={selectedVenues}
+              onChange={setSelectedVenues}
+              placeholder="All Areas"
             />
           </div>
         </div>
@@ -311,45 +267,26 @@ const SpecialEvents = () => {
                 fontWeight: 'var(--weight-semibold)',
                 marginBottom: 'var(--space-2)'
               }}>
-                No events found
+                No special events found
               </div>
               <p>Try adjusting your search terms or filters</p>
             </div>
           ) : (
             <>
-              <div className="content-grid">
-                {displayedEvents.map((event) => (
-                  <div key={event.id} className="activity-card">
-                    <div className="card-image">
-                      {getIconForEvent(event)}
-                    </div>
-                    <div className="card-content">
-                      <div className="card-category">{event.type}</div>
-                      <h3 className="card-title">{event.title}</h3>
-                      <p className="card-description">{event.description}</p>
-                      
-                      <ul className="card-features">
-                        <li>{event.location}</li>
-                        <li>{event.date || 'TBD'}</li>
-                        {event.tags.slice(0, 1).map(tag => (
-                          <li key={tag}>{tag}</li>
-                        ))}
-                      </ul>
-                      
-                      <div className="card-meta">
-                        <span className="card-price">Free - $75</span>
-                        <span style={{ 
-                          fontSize: 'var(--text-sm)', 
-                          color: 'var(--color-gray-50)',
-                          fontFamily: 'var(--font-mono)'
-                        }}>
-                          ★ 4.{Math.floor(Math.random() * 9) + 1}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <Grid container spacing={3}>
+                {cardDataArray.map((cardData, index) => {
+                  const event = displayedEvents[index];
+                  return (
+                    <Grid item xs={12} sm={6} md={4} key={event.id}>
+                      <EnhancedMinimalistCard
+                        data={cardData}
+                        icon={getIconForEvent(event)}
+                        color="info"
+                      />
+                    </Grid>
+                  );
+                })}
+              </Grid>
 
               {displayedEvents.length < filteredEvents.length && (
                 <div style={{ textAlign: 'center', marginTop: 'var(--space-6)' }}>
@@ -380,7 +317,7 @@ const SpecialEvents = () => {
             textTransform: 'uppercase',
             letterSpacing: '-0.01em',
             marginBottom: 'var(--space-2)'
-          }}>Discover More</h2>
+          }}>Explore More</h2>
           <p style={{ 
             fontSize: 'var(--text-md)', 
             fontWeight: 'var(--weight-light)',
@@ -390,11 +327,10 @@ const SpecialEvents = () => {
             marginLeft: 'auto',
             marginRight: 'auto'
           }}>
-            Explore sporting events, activities, and neighborhoods throughout Toronto.
+            Discover activities, day trips, and sporting events.
           </p>
-          <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'center' }}>
-            <RouterLink to="/sporting-events" className="btn-primary">Sports Events</RouterLink>
-            <RouterLink to="/activities" className="btn-secondary">Browse Activities</RouterLink>
+          <div className="intro-actions">
+            <RouterLink to="/activities" className="btn-primary">View Activities</RouterLink>
           </div>
         </div>
       </section>
@@ -402,4 +338,4 @@ const SpecialEvents = () => {
   );
 };
 
-export default SpecialEvents; 
+export default React.memo(SpecialEvents); 

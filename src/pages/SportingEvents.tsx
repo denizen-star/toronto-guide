@@ -1,24 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box } from '@mui/material';
-import { SportingEvent, loadSportingEvents } from '../utils/dataLoader';
+import { Box, Grid, Typography, CircularProgress } from '@mui/material';
+import { 
+  loadStandardizedSportingEvents, 
+  type StandardizedSportingEvent 
+} from '../utils/dataLoader';
+import EnhancedMinimalistCard, { EnhancedCardData } from '../components/MinimalistCard';
 import MultiSelectFilter from '../components/MultiSelectFilter';
 import { useSearch } from '../components/Layout';
+import { 
+  SportsHockey, 
+  SportsBasketball, 
+  SportsSoccer, 
+  SportsBaseball,
+  Stadium
+} from '@mui/icons-material';
+
+// Memoized icon map for sporting events
+const iconMap: { [key: string]: React.ReactNode } = {
+  'hockey': <SportsHockey />,
+  'basketball': <SportsBasketball />,
+  'soccer': <SportsSoccer />,
+  'baseball': <SportsBaseball />,
+  'general': <Stadium />
+};
 
 const SportingEvents = () => {
   const { searchTerm, setSearchPlaceholder } = useSearch();
-  const [allEvents, setAllEvents] = useState<SportingEvent[]>([]);
+  const [events, setEvents] = useState<StandardizedSportingEvent[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>('');
   const [displayCount, setDisplayCount] = useState(12);
-
-  // Filter states
+  
+  // Essential filter states
   const [selectedSports, setSelectedSports] = useState<string[]>([]);
   const [selectedVenues, setSelectedVenues] = useState<string[]>([]);
-  const [selectedSeasons, setSelectedSeasons] = useState<string[]>([]);
-  const [selectedPrices, setSelectedPrices] = useState<string[]>([]);
-  const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
 
-  // Set search placeholder for this page
   useEffect(() => {
     setSearchPlaceholder('Search sporting events...');
   }, [setSearchPlaceholder]);
@@ -27,167 +44,126 @@ const SportingEvents = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const data = await loadSportingEvents();
-        setAllEvents(data);
+        const eventsData = await loadStandardizedSportingEvents();
+        setEvents(eventsData);
         setLoading(false);
-      } catch (error) {
-        console.error('Error loading sporting events:', error);
+      } catch (err) {
+        console.error('Error loading sporting events:', err);
+        setError('Failed to load sporting events');
         setLoading(false);
       }
     };
     fetchData();
   }, []);
 
-  // Filter options
-  const sportsOptions = [
-    { value: 'hockey', label: 'Hockey' },
-    { value: 'basketball', label: 'Basketball' },
-    { value: 'baseball', label: 'Baseball' },
-    { value: 'soccer', label: 'Soccer' },
-    { value: 'football', label: 'Football' },
-    { value: 'tennis', label: 'Tennis' }
-  ];
+  // Memoized filter options
+  const sportOptions = useMemo(() => [
+    { value: 'hockey', label: 'Hockey (Leafs)' },
+    { value: 'basketball', label: 'Basketball (Raptors)' },
+    { value: 'soccer', label: 'Soccer (TFC)' },
+    { value: 'baseball', label: 'Baseball (Blue Jays)' }
+  ], []);
 
-  const venueOptions = [
+  const venueOptions = useMemo(() => [
     { value: 'scotiabank', label: 'Scotiabank Arena' },
-    { value: 'rogers-centre', label: 'Rogers Centre' },
-    { value: 'bmo-field', label: 'BMO Field' },
-    { value: 'ricoh-coliseum', label: 'Ricoh Coliseum' },
-    { value: 'aviva-centre', label: 'Aviva Centre' },
-    { value: 'other', label: 'Other Venues' }
-  ];
+    { value: 'rogers', label: 'Rogers Centre' },
+    { value: 'bmo', label: 'BMO Field' }
+  ], []);
 
-  const seasonOptions = [
-    { value: 'spring', label: 'Spring' },
-    { value: 'summer', label: 'Summer' },
-    { value: 'fall', label: 'Fall' },
-    { value: 'winter', label: 'Winter' },
-    { value: 'year-round', label: 'Year-round' }
-  ];
-
-  const priceOptions = [
-    { value: 'budget', label: 'Budget ($0-50)' },
-    { value: 'moderate', label: 'Moderate ($50-150)' },
-    { value: 'premium', label: 'Premium ($150-300)' },
-    { value: 'luxury', label: 'Luxury ($300+)' }
-  ];
-
-  const ratingOptions = [
-    { value: 'excellent', label: 'Excellent (4.5+)' },
-    { value: 'very-good', label: 'Very Good (4.0+)' },
-    { value: 'good', label: 'Good (3.5+)' },
-    { value: 'fair', label: 'Fair (3.0+)' }
-  ];
-
-  // Helper functions
-  const getSportType = (event: SportingEvent): string => {
+  // Memoized helper functions
+  const getSportType = useCallback((event: StandardizedSportingEvent): string => {
     const title = event.title.toLowerCase();
-    const location = event.location.toLowerCase();
+    const tags = event.tags.join(' ').toLowerCase();
     
-    if (title.includes('leafs') || title.includes('hockey') || location.includes('maple leafs')) return 'hockey';
-    if (title.includes('raptors') || title.includes('basketball')) return 'basketball';
-    if (title.includes('jays') || title.includes('baseball') || location.includes('rogers centre')) return 'baseball';
-    if (title.includes('fc') || title.includes('soccer') || location.includes('bmo')) return 'soccer';
-    if (title.includes('argos') || title.includes('football')) return 'football';
-    if (title.includes('tennis') || location.includes('aviva')) return 'tennis';
-    return 'other';
-  };
-
-  const getVenueCategory = (location: string): string => {
-    const locationLower = location.toLowerCase();
+    if (title.includes('leafs') || title.includes('hockey') || tags.includes('hockey')) return 'hockey';
+    if (title.includes('raptors') || title.includes('basketball') || tags.includes('basketball')) return 'basketball';
+    if (title.includes('tfc') || title.includes('soccer') || tags.includes('soccer')) return 'soccer';
+    if (title.includes('jays') || title.includes('baseball') || tags.includes('baseball')) return 'baseball';
     
-    if (locationLower.includes('scotiabank')) return 'scotiabank';
-    if (locationLower.includes('rogers centre')) return 'rogers-centre';
-    if (locationLower.includes('bmo')) return 'bmo-field';
-    if (locationLower.includes('ricoh')) return 'ricoh-coliseum';
-    if (locationLower.includes('aviva')) return 'aviva-centre';
-    return 'other';
-  };
+    return 'general';
+  }, []);
 
-  const getEventSeason = (event: SportingEvent): string => {
-    // Determine season based on sport type
-    const sport = getSportType(event);
-    switch(sport) {
-      case 'hockey': return 'winter';
-      case 'basketball': return 'winter';
-      case 'baseball': return 'summer';
-      case 'soccer': return 'spring';
-      case 'football': return 'fall';
-      case 'tennis': return 'summer';
-      default: return 'year-round';
-    }
-  };
+  const getVenueCategory = useCallback((venue: string): string => {
+    const v = venue.toLowerCase();
+    
+    if (v.includes('scotiabank')) return 'scotiabank';
+    if (v.includes('rogers')) return 'rogers';
+    if (v.includes('bmo')) return 'bmo';
+    
+    return 'scotiabank'; // default
+  }, []);
 
-  const getIconForEvent = (event: SportingEvent): string => {
-    const sport = getSportType(event);
-    const iconMap: { [key: string]: string } = {
-      'hockey': 'HCK',
-      'basketball': 'BBL',
-      'baseball': 'BSB',
-      'soccer': 'SOC',
-      'football': 'FBL',
-      'tennis': 'TEN'
-    };
-    return iconMap[sport] || 'SPT';
-  };
+  const getIconForEvent = useCallback((event: StandardizedSportingEvent): React.ReactNode => {
+    const sportType = getSportType(event);
+    return iconMap[sportType] || iconMap['general'];
+  }, [getSportType]);
 
-  const getTeamsFromTitle = (title: string): string => {
-    // Extract team names from title - this is a simplified approach
-    if (title.includes(' vs ') || title.includes(' v ')) {
-      return title.includes(' vs ') ? title : title.replace(' v ', ' vs ');
-    }
-    // For single team events, just return the team name
-    return title;
-  };
+  // Memoized filtering logic
+  const filteredEvents = useMemo(() => {
+    return events.filter(event => {
+      // Search filter
+      const matchesSearch = !searchTerm || 
+        event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        event.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        event.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
 
-  // Filter functionality
-  const filteredEvents = allEvents.filter(event => {
-    // Search filter
-    const matchesSearch = searchTerm === '' || 
-      event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      event.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      event.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+      // Sport filter
+      const matchesSport = selectedSports.length === 0 || 
+        selectedSports.includes(getSportType(event));
 
-    // Sport filter
-    const matchesSport = selectedSports.length === 0 || 
-      selectedSports.includes(getSportType(event));
+      // Venue filter
+      const matchesVenue = selectedVenues.length === 0 || 
+        selectedVenues.includes(getVenueCategory(event.location));
 
-    // Venue filter
-    const matchesVenue = selectedVenues.length === 0 || 
-      selectedVenues.includes(getVenueCategory(event.location));
+      return matchesSearch && matchesSport && matchesVenue;
+    });
+  }, [events, searchTerm, selectedSports, selectedVenues, getSportType, getVenueCategory]);
 
-    // Season filter
-    const matchesSeason = selectedSeasons.length === 0 || 
-      selectedSeasons.includes(getEventSeason(event));
+  // Memoized displayed events
+  const displayedEvents = useMemo(() => 
+    filteredEvents.slice(0, displayCount), 
+    [filteredEvents, displayCount]
+  );
 
-    return matchesSearch && matchesSport && matchesVenue && matchesSeason;
-  });
+  // Memoized card data conversion
+  const cardDataArray = useMemo(() => {
+    return displayedEvents.map((event): EnhancedCardData => ({
+      id: event.id,
+      title: event.title,
+      description: event.description,
+      website: event.website,
+      tags: event.tags.slice(0, 3),
+      priceRange: 'Tickets available',
+      location: event.location,
+      address: event.location,
+      lgbtqFriendly: event.lgbtqFriendly,
+      neighborhood: event.location,
+      detailPath: `/sporting-events/${event.id}`,
+    }));
+  }, [displayedEvents]);
 
-  const displayedEvents = filteredEvents.slice(0, displayCount);
-
-  const handleLoadMore = () => {
+  const handleLoadMore = useCallback(() => {
     setDisplayCount(prev => prev + 12);
-  };
+  }, []);
 
   // Reset display count when filters change
-  React.useEffect(() => {
+  useEffect(() => {
     setDisplayCount(12);
-  }, [selectedSports, selectedVenues, selectedSeasons, selectedPrices, selectedRatings, searchTerm]);
+  }, [selectedSports, selectedVenues, searchTerm]);
 
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
-        <div style={{ 
-          padding: 'var(--space-4)', 
-          color: 'var(--color-gray-70)',
-          fontFamily: 'var(--font-primary)',
-          fontSize: 'var(--text-md)',
-          textTransform: 'uppercase',
-          letterSpacing: '0.1em'
-        }}>
-          Loading Sporting Events...
-        </div>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box sx={{ p: 4, textAlign: 'center' }}>
+        <Typography color="error">{error}</Typography>
       </Box>
     );
   }
@@ -212,35 +188,35 @@ const SportingEvents = () => {
             <div>
               <h1 className="page-title">Sporting Events</h1>
               <p className="page-subtitle">
-                Toronto's professional sports calendar featuring world-class teams and venues. 
-                From NHL championship pursuit to MLB excitement, experience the city's passionate sports culture.
+                Experience Toronto's professional sports scene. From Leafs hockey to Raptors basketball, 
+                catch the excitement of live professional sports.
               </p>
             </div>
             <div className="stats-box">
               <div className="stat">
                 <div className="stat-number">{filteredEvents.length}</div>
-                <div className="stat-label">Filtered Results</div>
+                <div className="stat-label">Events</div>
               </div>
               <div className="stat">
-                <div className="stat-number">6</div>
+                <div className="stat-number">4</div>
                 <div className="stat-label">Sports</div>
               </div>
               <div className="stat">
-                <div className="stat-number">5</div>
-                <div className="stat-label">Major Venues</div>
+                <div className="stat-number">3</div>
+                <div className="stat-label">Venues</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Filter Section */}
+      {/* Essential Filter Section */}
       <section className="filter-section">
         <div className="swiss-container">
-          <div className="filter-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 'var(--space-3)' }}>
             <MultiSelectFilter
               label="Sport"
-              options={sportsOptions}
+              options={sportOptions}
               selectedValues={selectedSports}
               onChange={setSelectedSports}
               placeholder="All Sports"
@@ -251,27 +227,6 @@ const SportingEvents = () => {
               selectedValues={selectedVenues}
               onChange={setSelectedVenues}
               placeholder="All Venues"
-            />
-            <MultiSelectFilter
-              label="Season"
-              options={seasonOptions}
-              selectedValues={selectedSeasons}
-              onChange={setSelectedSeasons}
-              placeholder="All Seasons"
-            />
-            <MultiSelectFilter
-              label="Price Range"
-              options={priceOptions}
-              selectedValues={selectedPrices}
-              onChange={setSelectedPrices}
-              placeholder="All Prices"
-            />
-            <MultiSelectFilter
-              label="Rating"
-              options={ratingOptions}
-              selectedValues={selectedRatings}
-              onChange={setSelectedRatings}
-              placeholder="All Ratings"
             />
           </div>
         </div>
@@ -291,7 +246,7 @@ const SportingEvents = () => {
             }}>
               {filteredEvents.length} Results
             </div>
-            <h2 className="section-title">Upcoming Games</h2>
+            <h2 className="section-title">Upcoming Events</h2>
           </div>
           
           {filteredEvents.length === 0 ? (
@@ -311,37 +266,20 @@ const SportingEvents = () => {
             </div>
           ) : (
             <>
-              <div className="content-grid">
-                {displayedEvents.map((event) => (
-                  <div key={event.id} className="activity-card">
-                    <div className="card-image">
-                      {getIconForEvent(event)}
-                    </div>
-                    <div className="card-content">
-                      <div className="card-category">{getSportType(event).toUpperCase()}</div>
-                      <h3 className="card-title">{event.title}</h3>
-                      <p className="card-description">{event.description}</p>
-                      
-                      <ul className="card-features">
-                        <li>{event.location}</li>
-                        <li>{event.date || 'TBD'}</li>
-                        <li>{getTeamsFromTitle(event.title)}</li>
-                      </ul>
-                      
-                      <div className="card-meta">
-                        <span className="card-price">$25 - $200</span>
-                        <span style={{ 
-                          fontSize: 'var(--text-sm)', 
-                          color: 'var(--color-gray-50)',
-                          fontFamily: 'var(--font-mono)'
-                        }}>
-                          ★ 4.{Math.floor(Math.random() * 9) + 1}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <Grid container spacing={3}>
+                {cardDataArray.map((cardData, index) => {
+                  const event = displayedEvents[index];
+                  return (
+                    <Grid item xs={12} sm={6} md={4} key={event.id}>
+                      <EnhancedMinimalistCard
+                        data={cardData}
+                        icon={getIconForEvent(event)}
+                        color="warning"
+                      />
+                    </Grid>
+                  );
+                })}
+              </Grid>
 
               {displayedEvents.length < filteredEvents.length && (
                 <div style={{ textAlign: 'center', marginTop: 'var(--space-6)' }}>
@@ -372,7 +310,7 @@ const SportingEvents = () => {
             textTransform: 'uppercase',
             letterSpacing: '-0.01em',
             marginBottom: 'var(--space-2)'
-          }}>Game On!</h2>
+          }}>More to Explore</h2>
           <p style={{ 
             fontSize: 'var(--text-md)', 
             fontWeight: 'var(--weight-light)',
@@ -382,11 +320,10 @@ const SportingEvents = () => {
             marginLeft: 'auto',
             marginRight: 'auto'
           }}>
-            Explore special events and activities throughout Toronto.
+            Discover activities, day trips, and amateur sports.
           </p>
-          <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'center' }}>
-            <RouterLink to="/special-events" className="btn-primary">Special Events</RouterLink>
-            <RouterLink to="/activities" className="btn-secondary">Browse Activities</RouterLink>
+          <div className="intro-actions">
+            <RouterLink to="/activities" className="btn-primary">View Activities</RouterLink>
           </div>
         </div>
       </section>
@@ -394,4 +331,4 @@ const SportingEvents = () => {
   );
 };
 
-export default SportingEvents; 
+export default React.memo(SportingEvents); 

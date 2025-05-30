@@ -1,24 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box } from '@mui/material';
-import { DayTrip, loadDayTrips } from '../utils/dataLoader';
+import { Box, Grid, Typography, CircularProgress } from '@mui/material';
+import { 
+  loadStandardizedDayTrips, 
+  type StandardizedDayTrip 
+} from '../utils/dataLoader';
+import EnhancedMinimalistCard, { EnhancedCardData } from '../components/MinimalistCard';
 import MultiSelectFilter from '../components/MultiSelectFilter';
 import { useSearch } from '../components/Layout';
+import { 
+  DriveEta, 
+  Nature, 
+  LocalDining, 
+  Museum, 
+  LocalBar, 
+  Castle,
+  Park
+} from '@mui/icons-material';
+
+// Memoized icon map for day trip categories
+const iconMap: { [key: string]: React.ReactNode } = {
+  'nature': <Nature />,
+  'wine': <LocalBar />,
+  'historic': <Castle />,
+  'cultural': <Museum />,
+  'food': <LocalDining />,
+  'outdoor': <Park />,
+  'scenic': <DriveEta />
+};
 
 const DayTrips = () => {
   const { searchTerm, setSearchPlaceholder } = useSearch();
-  const [allDayTrips, setAllDayTrips] = useState<DayTrip[]>([]);
+  const [dayTrips, setDayTrips] = useState<StandardizedDayTrip[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>('');
   const [displayCount, setDisplayCount] = useState(12);
-
-  // Filter states
-  const [selectedTripTypes, setSelectedTripTypes] = useState<string[]>([]);
-  const [selectedDurations, setSelectedDurations] = useState<string[]>([]);
-  const [selectedCosts, setSelectedCosts] = useState<string[]>([]);
+  
+  // Essential filter states
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedDistances, setSelectedDistances] = useState<string[]>([]);
-  const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
 
-  // Set search placeholder for this page
   useEffect(() => {
     setSearchPlaceholder('Search day trips...');
   }, [setSearchPlaceholder]);
@@ -27,149 +48,127 @@ const DayTrips = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const data = await loadDayTrips();
-        setAllDayTrips(data);
+        const dayTripsData = await loadStandardizedDayTrips();
+        setDayTrips(dayTripsData);
         setLoading(false);
-      } catch (error) {
-        console.error('Error loading day trips:', error);
+      } catch (err) {
+        console.error('Error loading day trips:', err);
+        setError('Failed to load day trips');
         setLoading(false);
       }
     };
     fetchData();
   }, []);
 
-  // Filter options
-  const tripTypeOptions = [
+  // Memoized filter options
+  const categoryOptions = useMemo(() => [
     { value: 'nature', label: 'Nature & Outdoor' },
-    { value: 'wine', label: 'Wine & Food' },
-    { value: 'beach', label: 'Beach & Water' },
-    { value: 'culture', label: 'Culture & Arts' },
-    { value: 'adventure', label: 'Adventure Sports' },
-    { value: 'urban', label: 'Urban Exploration' }
-  ];
+    { value: 'wine', label: 'Wine Country' },
+    { value: 'historic', label: 'Historic Sites' },
+    { value: 'cultural', label: 'Cultural Attractions' },
+    { value: 'food', label: 'Food & Dining' },
+    { value: 'scenic', label: 'Scenic Routes' }
+  ], []);
 
-  const durationOptions = [
-    { value: 'half-day', label: 'Half Day (4-6 hrs)' },
-    { value: 'full-day', label: 'Full Day (6-8 hrs)' },
-    { value: 'weekend', label: 'Weekend (2 days)' },
-    { value: 'extended', label: 'Extended (3+ days)' }
-  ];
+  const distanceOptions = useMemo(() => [
+    { value: 'close', label: 'Under 1 Hour' },
+    { value: 'medium', label: '1-2 Hours' },
+    { value: 'far', label: '2+ Hours' }
+  ], []);
 
-  const costOptions = [
-    { value: 'budget', label: 'Budget ($0-50)' },
-    { value: 'moderate', label: 'Moderate ($50-150)' },
-    { value: 'premium', label: 'Premium ($150-300)' },
-    { value: 'luxury', label: 'Luxury ($300+)' }
-  ];
-
-  const distanceOptions = [
-    { value: 'close', label: 'Close (< 1 hour)' },
-    { value: 'nearby', label: 'Nearby (1-2 hours)' },
-    { value: 'moderate', label: 'Moderate (2-3 hours)' },
-    { value: 'far', label: 'Far (3+ hours)' }
-  ];
-
-  const ratingOptions = [
-    { value: 'excellent', label: 'Excellent (4.5+)' },
-    { value: 'very-good', label: 'Very Good (4.0+)' },
-    { value: 'good', label: 'Good (3.5+)' },
-    { value: 'fair', label: 'Fair (3.0+)' }
-  ];
-
-  // Helper functions
-  const getTripType = (trip: DayTrip): string => {
-    const description = trip.description.toLowerCase();
-    const tags = trip.tags.join(' ').toLowerCase();
+  // Memoized helper functions
+  const getCategoryFromTags = useCallback((tags: string[]): string => {
+    const tagString = tags.join(' ').toLowerCase();
     
-    if (tags.includes('beach') || description.includes('beach')) return 'beach';
-    if (tags.includes('wine') || description.includes('wine')) return 'wine';
-    if (tags.includes('hiking') || tags.includes('nature') || description.includes('hiking')) return 'nature';
-    if (tags.includes('culture') || tags.includes('theatre') || tags.includes('history')) return 'culture';
-    if (tags.includes('city') || tags.includes('urban')) return 'urban';
-    if (tags.includes('adventure') || tags.includes('caves')) return 'adventure';
-    return 'nature';
-  };
+    if (tagString.includes('wine') || tagString.includes('vineyard')) return 'wine';
+    if (tagString.includes('nature') || tagString.includes('hiking') || tagString.includes('outdoor')) return 'nature';
+    if (tagString.includes('historic') || tagString.includes('heritage')) return 'historic';
+    if (tagString.includes('museum') || tagString.includes('cultural')) return 'cultural';
+    if (tagString.includes('food') || tagString.includes('dining')) return 'food';
+    if (tagString.includes('scenic') || tagString.includes('drive')) return 'scenic';
+    
+    return 'nature'; // default
+  }, []);
 
-  const getIconForTrip = (trip: DayTrip): string => {
-    const tripType = getTripType(trip);
-    const iconMap: { [key: string]: string } = {
-      'nature': 'NAT',
-      'wine': 'WIN',
-      'beach': 'BCH',
-      'culture': 'CUL',
-      'adventure': 'ADV',
-      'urban': 'URB'
-    };
-    return iconMap[tripType] || 'TRP';
-  };
-
-  const extractTravelTime = (distance: string): number => {
-    if (!distance) return 0;
-    const match = distance.match(/(\d+(?:\.\d+)?)/);
-    return match ? parseFloat(match[1]) : 0;
-  };
-
-  const getDistanceCategory = (trip: DayTrip): string => {
-    const time = extractTravelTime(trip.distance);
-    if (time < 1) return 'close';
-    if (time < 2) return 'nearby';
-    if (time < 3) return 'moderate';
+  const getDistanceCategory = useCallback((distance: string): string => {
+    const dist = distance.toLowerCase();
+    
+    if (dist.includes('30 min') || dist.includes('45 min')) return 'close';
+    if (dist.includes('1 hour') || dist.includes('1.5 hour')) return 'medium';
     return 'far';
-  };
+  }, []);
 
-  // Filter functionality
-  const filteredTrips = allDayTrips.filter(trip => {
-    // Search filter
-    const matchesSearch = searchTerm === '' || 
-      trip.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      trip.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      trip.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+  const getIconForTrip = useCallback((trip: StandardizedDayTrip): React.ReactNode => {
+    const category = getCategoryFromTags(trip.tags);
+    return iconMap[category] || iconMap['nature'];
+  }, [getCategoryFromTags]);
 
-    // Trip type filter
-    const matchesTripType = selectedTripTypes.length === 0 || 
-      selectedTripTypes.includes(getTripType(trip));
+  // Memoized filtering logic
+  const filteredDayTrips = useMemo(() => {
+    return dayTrips.filter(trip => {
+      // Search filter
+      const matchesSearch = !searchTerm || 
+        trip.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        trip.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        trip.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        trip.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
 
-    // Duration filter (simplified mapping)
-    const matchesDuration = selectedDurations.length === 0 || 
-      selectedDurations.some(duration => {
-        if (duration === 'half-day' && trip.duration.includes('Half')) return true;
-        if (duration === 'full-day' && trip.duration.includes('Full')) return true;
-        if (duration === 'weekend' && trip.duration.includes('2')) return true;
-        if (duration === 'extended' && trip.duration.includes('3')) return true;
-        return false;
-      });
+      // Category filter
+      const matchesCategory = selectedCategories.length === 0 || 
+        selectedCategories.includes(getCategoryFromTags(trip.tags));
 
-    // Distance filter
-    const matchesDistance = selectedDistances.length === 0 || 
-      selectedDistances.includes(getDistanceCategory(trip));
+      // Distance filter
+      const matchesDistance = selectedDistances.length === 0 || 
+        selectedDistances.includes(getDistanceCategory(trip.distance));
 
-    return matchesSearch && matchesTripType && matchesDuration && matchesDistance;
-  });
+      return matchesSearch && matchesCategory && matchesDistance;
+    });
+  }, [dayTrips, searchTerm, selectedCategories, selectedDistances, getCategoryFromTags, getDistanceCategory]);
 
-  const displayedTrips = filteredTrips.slice(0, displayCount);
+  // Memoized displayed day trips
+  const displayedDayTrips = useMemo(() => 
+    filteredDayTrips.slice(0, displayCount), 
+    [filteredDayTrips, displayCount]
+  );
 
-  const handleLoadMore = () => {
+  // Memoized card data conversion
+  const cardDataArray = useMemo(() => {
+    return displayedDayTrips.map((trip): EnhancedCardData => ({
+      id: trip.id,
+      title: trip.title,
+      description: trip.description,
+      website: trip.website,
+      tags: trip.tags.slice(0, 3),
+      priceRange: 'See details',
+      location: trip.location,
+      address: trip.location,
+      lgbtqFriendly: trip.lgbtqFriendly,
+      neighborhood: trip.location,
+      detailPath: `/day-trips/${trip.id}`,
+    }));
+  }, [displayedDayTrips]);
+
+  const handleLoadMore = useCallback(() => {
     setDisplayCount(prev => prev + 12);
-  };
+  }, []);
 
   // Reset display count when filters change
-  React.useEffect(() => {
+  useEffect(() => {
     setDisplayCount(12);
-  }, [selectedTripTypes, selectedDurations, selectedCosts, selectedDistances, selectedRatings, searchTerm]);
+  }, [selectedCategories, selectedDistances, searchTerm]);
 
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
-        <div style={{ 
-          padding: 'var(--space-4)', 
-          color: 'var(--color-gray-70)',
-          fontFamily: 'var(--font-primary)',
-          fontSize: 'var(--text-md)',
-          textTransform: 'uppercase',
-          letterSpacing: '0.1em'
-        }}>
-          Loading Day Trips...
-        </div>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box sx={{ p: 4, textAlign: 'center' }}>
+        <Typography color="error">{error}</Typography>
       </Box>
     );
   }
@@ -194,21 +193,21 @@ const DayTrips = () => {
             <div>
               <h1 className="page-title">Day Trips</h1>
               <p className="page-subtitle">
-                Systematically curated escapes from Toronto's urban landscape. 
-                From wine country to pristine beaches, each trip is selected for memorable experiences within driving distance.
+                Escape the city with carefully curated day trips across Ontario. 
+                From wine country adventures to historic towns, discover the perfect getaway.
               </p>
             </div>
             <div className="stats-box">
               <div className="stat">
-                <div className="stat-number">{filteredTrips.length}</div>
-                <div className="stat-label">Filtered Results</div>
+                <div className="stat-number">{filteredDayTrips.length}</div>
+                <div className="stat-label">Destinations</div>
               </div>
               <div className="stat">
                 <div className="stat-number">6</div>
-                <div className="stat-label">Trip Types</div>
+                <div className="stat-label">Categories</div>
               </div>
               <div className="stat">
-                <div className="stat-number">4</div>
+                <div className="stat-number">3</div>
                 <div className="stat-label">Distance Ranges</div>
               </div>
             </div>
@@ -216,30 +215,16 @@ const DayTrips = () => {
         </div>
       </section>
 
-      {/* Filter Section */}
+      {/* Essential Filter Section */}
       <section className="filter-section">
         <div className="swiss-container">
-          <div className="filter-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 'var(--space-3)' }}>
             <MultiSelectFilter
-              label="Trip Type"
-              options={tripTypeOptions}
-              selectedValues={selectedTripTypes}
-              onChange={setSelectedTripTypes}
-              placeholder="All Types"
-            />
-            <MultiSelectFilter
-              label="Duration"
-              options={durationOptions}
-              selectedValues={selectedDurations}
-              onChange={setSelectedDurations}
-              placeholder="Any Duration"
-            />
-            <MultiSelectFilter
-              label="Cost"
-              options={costOptions}
-              selectedValues={selectedCosts}
-              onChange={setSelectedCosts}
-              placeholder="All Costs"
+              label="Category"
+              options={categoryOptions}
+              selectedValues={selectedCategories}
+              onChange={setSelectedCategories}
+              placeholder="All Categories"
             />
             <MultiSelectFilter
               label="Distance"
@@ -247,13 +232,6 @@ const DayTrips = () => {
               selectedValues={selectedDistances}
               onChange={setSelectedDistances}
               placeholder="Any Distance"
-            />
-            <MultiSelectFilter
-              label="Rating"
-              options={ratingOptions}
-              selectedValues={selectedRatings}
-              onChange={setSelectedRatings}
-              placeholder="All Ratings"
             />
           </div>
         </div>
@@ -271,12 +249,12 @@ const DayTrips = () => {
               letterSpacing: '0.1em',
               marginBottom: 'var(--space-1)'
             }}>
-              {filteredTrips.length} Results
+              {filteredDayTrips.length} Results
             </div>
             <h2 className="section-title">Available Day Trips</h2>
           </div>
           
-          {filteredTrips.length === 0 ? (
+          {filteredDayTrips.length === 0 ? (
             <div style={{ 
               textAlign: 'center', 
               padding: 'var(--space-8) 0',
@@ -293,47 +271,28 @@ const DayTrips = () => {
             </div>
           ) : (
             <>
-              <div className="content-grid">
-                {displayedTrips.map((trip) => (
-                  <div key={trip.id} className="activity-card">
-                    <div className="card-image">
-                      {getIconForTrip(trip)}
-                    </div>
-                    <div className="card-content">
-                      <div className="card-category">{trip.season}</div>
-                      <h3 className="card-title">{trip.title}</h3>
-                      <p className="card-description">{trip.description}</p>
-                      
-                      <ul className="card-features">
-                        <li>{trip.duration}</li>
-                        <li>{trip.distance}</li>
-                        {trip.tags.slice(0, 1).map(tag => (
-                          <li key={tag}>{tag}</li>
-                        ))}
-                      </ul>
-                      
-                      <div className="card-meta">
-                        <span className="card-price">From $50</span>
-                        <span style={{ 
-                          fontSize: 'var(--text-sm)', 
-                          color: 'var(--color-gray-50)',
-                          fontFamily: 'var(--font-mono)'
-                        }}>
-                          ★ 4.{Math.floor(Math.random() * 9) + 1}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <Grid container spacing={3}>
+                {cardDataArray.map((cardData, index) => {
+                  const trip = displayedDayTrips[index];
+                  return (
+                    <Grid item xs={12} sm={6} md={4} key={trip.id}>
+                      <EnhancedMinimalistCard
+                        data={cardData}
+                        icon={getIconForTrip(trip)}
+                        color="success"
+                      />
+                    </Grid>
+                  );
+                })}
+              </Grid>
 
-              {displayedTrips.length < filteredTrips.length && (
+              {displayedDayTrips.length < filteredDayTrips.length && (
                 <div style={{ textAlign: 'center', marginTop: 'var(--space-6)' }}>
                   <button 
                     className="btn-secondary"
                     onClick={handleLoadMore}
                   >
-                    Load More Trips ({filteredTrips.length - displayedTrips.length} remaining)
+                    Load More Trips ({filteredDayTrips.length - displayedDayTrips.length} remaining)
                   </button>
                 </div>
               )}
@@ -366,11 +325,10 @@ const DayTrips = () => {
             marginLeft: 'auto',
             marginRight: 'auto'
           }}>
-            Discover activities and neighborhoods to complete your Toronto experience.
+            Discover more activities and events in Toronto.
           </p>
-          <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'center' }}>
-            <RouterLink to="/activities" className="btn-primary">Browse Activities</RouterLink>
-            <RouterLink to="/neighborhoods" className="btn-secondary">Explore Areas</RouterLink>
+          <div className="intro-actions">
+            <RouterLink to="/activities" className="btn-primary">View Activities</RouterLink>
           </div>
         </div>
       </section>
@@ -378,4 +336,4 @@ const DayTrips = () => {
   );
 };
 
-export default DayTrips; 
+export default React.memo(DayTrips); 
