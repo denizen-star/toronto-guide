@@ -122,184 +122,209 @@ const Neighborhoods = () => {
   }
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      {/* Filters Section */}
-      <Box sx={{ p: 3, mb: 4 }}>
-        <Typography variant="h4" gutterBottom>
-          Find Happy Hours
-        </Typography>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={4}>
+    <Box>
+      {/* Hero Section */}
+      <Box sx={{ 
+        bgcolor: 'background.default',
+        py: { xs: 2, md: 3 },
+        textAlign: 'center'
+      }}>
+        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
+          <Typography 
+            variant="h4"
+            component="h1"
+            sx={{ 
+              mb: 1,
+              fontWeight: 600,
+              color: 'text.primary',
+            }}
+          >
+            Find Happy Hours
+          </Typography>
+          
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              color: 'text.secondary',
+              maxWidth: '600px',
+              mx: 'auto',
+            }}
+          >
+            Discover the best happy hour deals across Toronto neighborhoods
+          </Typography>
+        </Container>
+      </Box>
+
+      {/* Search and Filters */}
+      <Box sx={{ bgcolor: 'background.paper', py: 1.5 }}>
+        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
+          {/* Search Bar */}
+          <Box sx={{ mb: 2, display: 'flex', justifyContent: 'center' }}>
             <TextField
-              fullWidth
-              label="Search venues"
+              placeholder="Search venues, neighborhoods, or offerings..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              size="small"
+              sx={{
+                width: '100%',
+                maxWidth: 600,
+                '& .MuiOutlinedInput-root': {
+                  bgcolor: 'background.paper',
+                  borderRadius: 3,
+                },
+              }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon />
+                    <SearchIcon sx={{ color: 'text.secondary' }} />
                   </InputAdornment>
                 ),
               }}
             />
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <FormControl fullWidth>
-              <InputLabel>Neighborhood</InputLabel>
-              <Select
-                value={selectedNeighborhood}
-                label="Neighborhood"
-                onChange={(e) => {
-                  setSelectedNeighborhood(e.target.value);
-                  setSearchParams({ area: e.target.value });
-                }}
-              >
-                {neighborhoods.map((neighborhood) => (
-                  <MenuItem key={neighborhood} value={neighborhood}>
-                    {neighborhood}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <FormControl fullWidth>
-              <InputLabel>Day</InputLabel>
-              <Select
-                value={dayFilter}
-                label="Day"
-                onChange={(e) => setDayFilter(e.target.value)}
-              >
-                {days.map((day) => (
-                  <MenuItem key={day} value={day}>
-                    {day.charAt(0).toUpperCase() + day.slice(1).toLowerCase()}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} md={2}>
-            <FormControl fullWidth>
-              <InputLabel>Price Range</InputLabel>
-              <Select
-                value={priceRange}
-                label="Price Range"
-                onChange={(e) => setPriceRange(e.target.value)}
-              >
-                {priceRanges.map((range) => (
-                  <MenuItem key={range.value} value={range.value}>
-                    {range.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-        </Grid>
+          </Box>
+
+          {/* Filter Dropdowns */}
+          <Box sx={{ mb: 2 }}>
+            <Grid container spacing={2} justifyContent="center">
+              <Grid item xs={12} sm={6} md={3}>
+                <FormControl fullWidth size="small">
+                  <InputLabel>Neighborhood</InputLabel>
+                  <Select
+                    value={selectedNeighborhood}
+                    onChange={(e) => {
+                      setSelectedNeighborhood(e.target.value);
+                      setSearchParams({ area: e.target.value });
+                    }}
+                    label="Neighborhood"
+                  >
+                    {neighborhoods.map((neighborhood) => (
+                      <MenuItem key={neighborhood} value={neighborhood}>
+                        {neighborhood}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} sm={6} md={3}>
+                <FormControl fullWidth size="small">
+                  <InputLabel>Day</InputLabel>
+                  <Select
+                    value={dayFilter}
+                    onChange={(e) => setDayFilter(e.target.value)}
+                    label="Day"
+                  >
+                    {days.map((day) => (
+                      <MenuItem key={day} value={day}>
+                        {day === 'all' ? 'All Days' : day.charAt(0).toUpperCase() + day.slice(1).toLowerCase()}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} sm={6} md={3}>
+                <FormControl fullWidth size="small">
+                  <InputLabel>Price Range</InputLabel>
+                  <Select
+                    value={priceRange}
+                    onChange={(e) => setPriceRange(e.target.value)}
+                    label="Price Range"
+                  >
+                    {priceRanges.map((range) => (
+                      <MenuItem key={range.value} value={range.value}>
+                        {range.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+            </Grid>
+          </Box>
+
+          {/* Results Summary */}
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 2 }}>
+            <Typography variant="body2" color="text.secondary">
+              {filteredVenues.length} {filteredVenues.length === 1 ? 'venue' : 'venues'} found
+            </Typography>
+          </Box>
+        </Container>
       </Box>
 
-      {/* Results Section */}
-      <Box sx={{ mb: 4 }}>
-        <Typography variant="h6" color="text.secondary" gutterBottom>
-          {filteredVenues.length} venues found
-        </Typography>
-      </Box>
-
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={3}>
-          {filteredVenues.map((venue) => {
-            const venueHappyHours = getVenueHappyHours(venue.id);
-            const tags = getVenueTags(venue, venueHappyHours);
-
-            return (
-              <Grid item xs={12} sm={6} md={4} key={venue.id}>
-                <Card
-                  sx={{
+      {/* Venues Grid */}
+      <Box sx={{ bgcolor: 'background.default', py: 4 }}>
+        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
+          <Grid container spacing={4}>
+            {filteredVenues.map((venue) => {
+              const venueHappyHours = getVenueHappyHours(venue.id);
+              const tags = getVenueTags(venue, venueHappyHours);
+              
+              return (
+                <Grid item xs={12} sm={6} lg={4} key={venue.id}>
+                  <Card sx={{
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column',
                     '&:hover': {
-                      transform: 'translateY(-4px)',
-                      boxShadow: (theme) => theme.shadows[4],
-                      transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+                      transform: 'translateY(-2px)',
+                      boxShadow: 4,
                     },
-                  }}
-                >
-                  <CardContent sx={{ flexGrow: 1, p: 2 }}>
-                    <Typography variant="h6" component="h2" gutterBottom noWrap>
-                      {venue.name}
-                    </Typography>
-                    
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                      <LocationOnIcon fontSize="small" sx={{ mr: 1, color: 'text.secondary' }} />
-                      <Typography variant="body2" color="text.secondary" noWrap>
-                        {venue.address}
+                    transition: 'all 0.2s ease-in-out',
+                  }}>
+                    <CardContent sx={{ flexGrow: 1 }}>
+                      <Typography variant="h6" gutterBottom>
+                        {venue.name}
                       </Typography>
-                    </Box>
+                      
+                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                        <LocationOnIcon sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
+                        <Typography variant="body2" color="text.secondary">
+                          {venue.neighborhood}
+                        </Typography>
+                      </Box>
+                      
+                      <Box sx={{ mb: 2 }}>
+                        {venueHappyHours.length > 0 && (
+                          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                            <AccessTimeIcon sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
+                            <Typography variant="body2" color="text.secondary">
+                              {venueHappyHours[0].day_of_week}: {venueHappyHours[0].start_time} - {venueHappyHours[0].end_time}
+                            </Typography>
+                          </Box>
+                        )}
+                      </Box>
 
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                      <AccessTimeIcon fontSize="small" sx={{ mr: 1, color: 'text.secondary' }} />
-                      <Typography variant="body2" color="text.secondary">
-                        {venueHappyHours.length} Happy Hour{venueHappyHours.length !== 1 ? 's' : ''}
-                      </Typography>
-                    </Box>
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 2 }}>
+                        {tags.slice(0, 3).map((tag, index) => (
+                          <Chip 
+                            key={index} 
+                            label={tag.label} 
+                            size="small" 
+                            color={tag.color}
+                          />
+                        ))}
+                      </Box>
+                    </CardContent>
 
-                    <Box sx={{ 
-                      display: 'flex', 
-                      flexWrap: 'wrap', 
-                      gap: 0.5, 
-                      mb: 2,
-                      maxHeight: '100px',
-                      overflow: 'auto'
-                    }}>
-                      {tags.map((tag, index) => (
-                        <Chip
-                          key={index}
-                          label={tag.label}
-                          color={tag.color}
-                          size="small"
-                          sx={{ 
-                            borderRadius: '4px',
-                            fontSize: '0.75rem',
-                          }}
-                        />
-                      ))}
-                    </Box>
-                  </CardContent>
-
-                  <CardActions sx={{ p: 2, pt: 0 }}>
-                    <Button
-                      component={RouterLink}
-                      to={`/venue/${venue.id}`}
-                      variant="contained"
-                      fullWidth
-                      size="small"
-                      sx={{
-                        borderRadius: '20px',
-                        textTransform: 'none',
-                      }}
-                    >
-                      View Details
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            );
-          })}
-        </Grid>
+                    <CardActions>
+                      <Button
+                        component={RouterLink}
+                        to={`/venue/${venue.id}`}
+                        size="small"
+                        variant="contained"
+                        fullWidth
+                      >
+                        View Details
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Container>
       </Box>
-
-      {filteredVenues.length === 0 && (
-        <Box sx={{ textAlign: 'center', py: 8 }}>
-          <Typography variant="h6" color="text.secondary" gutterBottom>
-            No venues found matching your criteria
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Try adjusting your filters or search terms
-          </Typography>
-        </Box>
-      )}
-    </Container>
+    </Box>
   );
 };
 

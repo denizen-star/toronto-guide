@@ -8,12 +8,13 @@ import {
   Card,
   CardContent,
   Button,
-  Paper,
   Chip,
   TextField,
   InputAdornment,
-  ToggleButton,
-  ToggleButtonGroup,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -23,7 +24,6 @@ import SportsVolleyballIcon from '@mui/icons-material/SportsVolleyball';
 import SportsTennisIcon from '@mui/icons-material/SportsTennis';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import SportsIcon from '@mui/icons-material/Sports';
-import PublicIcon from '@mui/icons-material/Public';
 import { Link as RouterLink } from 'react-router-dom';
 import { AmateurSport, loadAmateurSports } from '../utils/dataLoader';
 
@@ -101,188 +101,161 @@ const AmateurSports = () => {
   const sportTypes = ['all', ...new Set(sports.map(sport => sport.type))];
 
   return (
-    <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', py: 4 }}>
-      <Container maxWidth="lg">
-        {/* Header Section */}
-        <Paper
-          sx={{
-            p: 4,
-            mb: 4,
-            backgroundColor: 'primary.main',
-            color: 'white',
-            borderRadius: 2,
-          }}
-        >
-          <Typography variant="h4" gutterBottom>
+    <Box>
+      {/* Hero Section */}
+      <Box sx={{ 
+        bgcolor: 'background.default',
+        py: { xs: 2, md: 3 },
+        textAlign: 'center'
+      }}>
+        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
+          <Typography 
+            variant="h4"
+            component="h1"
+            sx={{ 
+              mb: 1,
+              fontWeight: 600,
+              color: 'text.primary',
+            }}
+          >
             Amateur Sports & Pick-Up Games
           </Typography>
-          <Typography variant="subtitle1" sx={{ mb: 3 }}>
+          
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              color: 'text.secondary',
+              maxWidth: '600px',
+              mx: 'auto',
+            }}
+          >
             Find local sports activities and join the community
           </Typography>
-          
-          {/* Search and Filter Section */}
-          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+        </Container>
+      </Box>
+
+      {/* Search and Filters */}
+      <Box sx={{ bgcolor: 'background.paper', py: 1.5 }}>
+        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
+          {/* Search Bar */}
+          <Box sx={{ mb: 2, display: 'flex', justifyContent: 'center' }}>
             <TextField
-              placeholder="Search activities..."
+              placeholder="Search activities, sports types, or tags..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              size="small"
               sx={{
-                flexGrow: 1,
-                maxWidth: { xs: '100%', sm: 400 },
-                bgcolor: 'white',
-                borderRadius: 1,
+                width: '100%',
+                maxWidth: 600,
                 '& .MuiOutlinedInput-root': {
-                  '& fieldset': {
-                    borderColor: 'transparent',
-                  },
-                  '&:hover fieldset': {
-                    borderColor: 'transparent',
-                  },
-                  '&.Mui-focused fieldset': {
-                    borderColor: 'transparent',
-                  },
+                  bgcolor: 'background.paper',
+                  borderRadius: 3,
                 },
               }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon />
+                    <SearchIcon sx={{ color: 'text.secondary' }} />
                   </InputAdornment>
                 ),
               }}
             />
-            
-            <ToggleButtonGroup
-              value={sportType}
-              onChange={(event, newValue) => {
-                if (newValue !== null) {
-                  setSportType(newValue);
-                }
-              }}
-              exclusive
-              sx={{
-                minWidth: 200,
-                bgcolor: 'white',
-                borderRadius: 1,
-              }}
-            >
-              {sportTypes.map((type) => (
-                <ToggleButton key={type} value={type}>
-                  {type === 'all' ? 'All Sports' : type}
-                </ToggleButton>
-              ))}
-            </ToggleButtonGroup>
           </Box>
-        </Paper>
 
-        {/* Results Count */}
-        <Box sx={{ mb: 3 }}>
-          <Typography variant="subtitle1" color="text.secondary">
-            {filteredActivities.length} activities available
-          </Typography>
-        </Box>
+          {/* Filter Dropdowns */}
+          <Box sx={{ mb: 2 }}>
+            <Grid container spacing={2} justifyContent="center">
+              <Grid item xs={12} sm={6} md={4}>
+                <FormControl fullWidth size="small">
+                  <InputLabel>Sport Type</InputLabel>
+                  <Select
+                    value={sportType}
+                    onChange={(e) => setSportType(e.target.value)}
+                    label="Sport Type"
+                  >
+                    {sportTypes.map((type) => (
+                      <MenuItem key={type} value={type}>
+                        {type === 'all' ? 'All Sports' : type}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+            </Grid>
+          </Box>
 
-        {/* Activities Grid */}
-        <Grid container spacing={3}>
-          {filteredActivities.map((activity) => (
-            <Grid item xs={12} md={4} key={activity.id}>
-              <Card
-                sx={{
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
-                  '&:hover': {
-                    transform: 'translateY(-4px)',
-                    boxShadow: 4,
-                  },
-                }}
-              >
-                <Box
+          {/* Results Summary */}
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 2 }}>
+            <Typography variant="body2" color="text.secondary">
+              {filteredActivities.length} {filteredActivities.length === 1 ? 'activity' : 'activities'} found
+            </Typography>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* Activities Grid */}
+      <Box sx={{ bgcolor: 'background.default', py: 4 }}>
+        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
+          <Grid container spacing={4}>
+            {filteredActivities.map((activity) => (
+              <Grid item xs={12} sm={6} lg={4} key={activity.id}>
+                <Card
                   sx={{
-                    height: 200,
+                    height: '100%',
                     display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: 'secondary.main',
-                    color: 'white',
+                    flexDirection: 'column',
+                    transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: 4,
+                    },
                   }}
                 >
-                  {getSportIcon(activity.type, activity.title)}
-                </Box>
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography variant="h6" gutterBottom>
-                    {activity.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" paragraph>
-                    {activity.description}
-                  </Typography>
-                  
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                    <LocationOnIcon sx={{ mr: 1, color: 'text.secondary' }} />
-                    <Typography variant="body2" color="text.secondary">
-                      {activity.location}
-                    </Typography>
-                    <SportsSoccerIcon sx={{ ml: 2, mr: 1, color: 'text.secondary' }} />
-                    <Typography variant="body2" color="text.secondary">
-                      {activity.skillLevel}
-                    </Typography>
-                  </Box>
-
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
-                    {activity.tags.map((tag, tagIndex) => (
-                      <Chip
-                        key={tagIndex}
-                        label={tag}
-                        size="small"
-                        color="primary"
-                        variant="outlined"
-                      />
-                    ))}
-                  </Box>
-
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    component={RouterLink}
-                    to={`/amateur-sports/${activity.id}`}
-                    sx={{ mt: 2 }}
-                  >
-                    View Details
-                  </Button>
-                  
-                  {activity.website && activity.website !== 'N/A' && (
-                    <Box 
-                      component="a" 
-                      href={activity.website.startsWith('http') ? activity.website : `https://${activity.website}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      sx={{
-                        color: 'primary.main',
-                        textDecoration: 'none',
-                        fontSize: '0.875rem',
-                        fontWeight: 500,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: '100%',
-                        mt: 1,
-                        '&:hover': {
-                          textDecoration: 'underline',
-                        },
-                      }}
-                    >
-                      <PublicIcon sx={{ mr: 0.5, fontSize: '1rem' }} />
-                      Visit Website
+                  <CardContent sx={{ flexGrow: 1, p: 3, textAlign: 'center' }}>
+                    <Box sx={{ mb: 2 }}>
+                      {getSportIcon(activity.type, activity.title)}
                     </Box>
-                  )}
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
+                    
+                    <Typography variant="h6" gutterBottom>
+                      {activity.title}
+                    </Typography>
+                    
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      {activity.description}
+                    </Typography>
+
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
+                      <LocationOnIcon sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
+                      <Typography variant="body2" color="text.secondary">
+                        {activity.location || 'Various Locations'}
+                      </Typography>
+                    </Box>
+
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, justifyContent: 'center' }}>
+                      <Chip label={activity.type} size="small" color="primary" />
+                      {activity.tags.slice(0, 2).map((tag, index) => (
+                        <Chip key={index} label={tag} size="small" />
+                      ))}
+                    </Box>
+                  </CardContent>
+
+                  <Box sx={{ p: 2, pt: 0 }}>
+                    <Button
+                      component={RouterLink}
+                      to={`/amateur-sport/${activity.id}`}
+                      variant="contained"
+                      fullWidth
+                      size="small"
+                    >
+                      View Details
+                    </Button>
+                  </Box>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
     </Box>
   );
 };

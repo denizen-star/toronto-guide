@@ -262,26 +262,48 @@ const Activities = () => {
   return (
     <Box>
       {/* Hero Section */}
-      <Section
-        title="Activities & Attractions"
-        subtitle="Discover the best experiences Toronto has to offer"
-        backgroundColor="background.default"
-        spacing="compact"
-        textAlign="center"
-      >
-        <Box />
-      </Section>
+      <Box sx={{ 
+        bgcolor: 'background.default',
+        py: { xs: 2, md: 3 },
+        textAlign: 'center'
+      }}>
+        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
+          <Typography 
+            variant="h4"
+            component="h1"
+            sx={{ 
+              mb: 1,
+              fontWeight: 600,
+              color: 'text.primary',
+            }}
+          >
+            Activities & Attractions
+          </Typography>
+          
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              color: 'text.secondary',
+              maxWidth: '600px',
+              mx: 'auto',
+            }}
+          >
+            Discover the best experiences Toronto has to offer
+          </Typography>
+        </Container>
+      </Box>
 
       {/* Search and Filters */}
-      <Box sx={{ bgcolor: 'background.paper', py: 4 }}>
+      <Box sx={{ bgcolor: 'background.paper', py: 1.5 }}>
         <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
           {/* Search Bar */}
-          <Box sx={{ mb: 3 }}>
+          <Box sx={{ mb: 2 }}>
             <TextField
               fullWidth
               placeholder="Search activities, neighborhoods, or categories..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              size="small"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -306,11 +328,12 @@ const Activities = () => {
           </Box>
 
           {/* Filter Toggle */}
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
             <Button
               startIcon={<FilterListIcon />}
               onClick={() => setShowFilters(!showFilters)}
               variant={showFilters ? 'contained' : 'outlined'}
+              size="small"
               sx={{ borderRadius: 2 }}
             >
               Filters {hasActiveFilters && `(${Object.values({
@@ -329,6 +352,7 @@ const Activities = () => {
                 onClick={clearFilters}
                 variant="text"
                 color="secondary"
+                size="small"
               >
                 Clear Filters
               </Button>
@@ -337,8 +361,8 @@ const Activities = () => {
 
           {/* Filters Panel */}
           {showFilters && (
-            <Paper sx={{ p: 3, borderRadius: 3, mb: 3 }}>
-              <Grid container spacing={3}>
+            <Paper sx={{ p: 2, borderRadius: 3, mb: 2 }}>
+              <Grid container spacing={2}>
                 <Grid item xs={12} sm={6} md={3}>
                   <FormControl fullWidth size="small">
                     <InputLabel>Category</InputLabel>
@@ -437,8 +461,8 @@ const Activities = () => {
           )}
 
           {/* Results Summary */}
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-            <Typography variant="body1" color="text.secondary">
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+            <Typography variant="body2" color="text.secondary">
               {filteredActivities.length} {filteredActivities.length === 1 ? 'activity' : 'activities'} found
             </Typography>
           </Box>
