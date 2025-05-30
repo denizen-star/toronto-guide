@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
   FormControl,
   InputLabel,
@@ -65,13 +65,6 @@ const MultiSelectFilter: React.FC<MultiSelectFilterProps> = React.memo(({
   const selectedOptions = useMemo(() => {
     return options.filter(option => selectedValues.includes(option.value));
   }, [options, selectedValues]);
-
-  // Memoized display value
-  const displayValue = useMemo(() => {
-    if (selectedValues.length === 0) return '';
-    if (selectedValues.length === 1) return selectedOptions[0]?.label || '';
-    return `${selectedValues.length} selected`;
-  }, [selectedValues.length, selectedOptions]);
 
   // Optimized change handler
   const handleChange = useCallback((event: SelectChangeEvent<string[]>) => {

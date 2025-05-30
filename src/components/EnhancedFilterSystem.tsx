@@ -12,9 +12,7 @@ import {
 } from '@mui/material';
 import { 
   Clear, 
-  FilterList, 
   ExpandMore, 
-  ExpandLess,
   Tune
 } from '@mui/icons-material';
 import MultiSelectFilter from './MultiSelectFilter';
