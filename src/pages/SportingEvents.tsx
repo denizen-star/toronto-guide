@@ -15,6 +15,8 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Checkbox,
+  ListItemText,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import EventIcon from '@mui/icons-material/Event';
@@ -52,13 +54,50 @@ const getEventIcon = (type: string, title: string) => {
   return <SportsIcon sx={{ fontSize: 60 }} />;
 };
 
+// Helper functions for filters
+const extractPriceValue = (priceRange: string): number => {
+  if (!priceRange) return 0;
+  const match = priceRange.match(/\$(\d+)/);
+  return match ? parseInt(match[1]) : 0;
+};
+
+const getPriceCategory = (priceRange: string): string => {
+  const price = extractPriceValue(priceRange);
+  if (price === 0) return 'Free';
+  if (price <= 50) return 'Budget ($50 or less)';
+  if (price <= 150) return 'Moderate ($51-$150)';
+  return 'Premium ($150+)';
+};
+
+const getEventCategory = (event: SportingEvent): string => {
+  const type = event.type.toLowerCase();
+  if (type.includes('hockey') || type.includes('basketball') || type.includes('baseball') || type.includes('football') || type.includes('soccer')) {
+    return 'Major League Sports';
+  }
+  if (type.includes('running') || type.includes('race')) {
+    return 'Running & Racing';
+  }
+  if (type.includes('tennis') || type.includes('motorsports')) {
+    return 'Individual Sports';
+  }
+  if (type.includes('multi-sport') || type.includes('water sports')) {
+    return 'Multi-Sport Events';
+  }
+  return 'Other Sports';
+};
+
 const SportingEvents = () => {
   const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = React.useState(searchParams.get('search') || '');
-  const [eventType, setEventType] = React.useState('all');
   const [events, setEvents] = useState<SportingEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Filter states - updated to arrays for multi-select
+  const [selectedEventType, setSelectedEventType] = React.useState<string[]>([]);
+  const [selectedTag, setSelectedTag] = React.useState<string[]>([]);
+  const [selectedPriceRange, setSelectedPriceRange] = React.useState<string[]>([]);
+  const [selectedEventCategory, setSelectedEventCategory] = React.useState<string[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,28 +113,73 @@ const SportingEvents = () => {
     fetchData();
   }, []);
 
-  // Get all unique tags for the tags filter
-  const allTags = React.useMemo(() => {
-    const tagSet = new Set<string>();
+  // Get all unique values for filters
+  const filterOptions = React.useMemo(() => {
+    const tags = new Set<string>();
+    const eventTypes = new Set<string>();
+    const priceCategories = new Set<string>();
+    const eventCategories = new Set<string>();
+    
     events.forEach(event => {
-      event.tags.forEach(tag => tagSet.add(tag));
+      event.tags.forEach(tag => tags.add(tag));
+      eventTypes.add(event.type);
+      priceCategories.add(getPriceCategory(event.priceRange));
+      eventCategories.add(getEventCategory(event));
     });
-    return Array.from(tagSet).sort();
+    
+    return {
+      tags: Array.from(tags).sort(),
+      eventTypes: Array.from(eventTypes).sort(),
+      priceCategories: Array.from(priceCategories).sort(),
+      eventCategories: Array.from(eventCategories).sort(),
+    };
   }, [events]);
 
-  const [selectedTag, setSelectedTag] = React.useState('all');
-
   const filteredEvents = events.filter(event => {
+    // Search filter
     const matchesSearch = 
       event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       event.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       event.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
     
-    const matchesType = eventType === 'all' || event.type === eventType;
-    const matchesTag = selectedTag === 'all' || event.tags.includes(selectedTag);
+    // Event type filter
+    const matchesType = selectedEventType.length === 0 || selectedEventType.includes(event.type);
     
-    return matchesSearch && matchesType && matchesTag;
+    // Tag filter
+    const matchesTag = selectedTag.length === 0 || event.tags.some(tag => selectedTag.includes(tag));
+    
+    // Price range filter
+    const matchesPriceRange = selectedPriceRange.length === 0 || selectedPriceRange.includes(getPriceCategory(event.priceRange));
+    
+    // Event category filter
+    const matchesEventCategory = selectedEventCategory.length === 0 || selectedEventCategory.includes(getEventCategory(event));
+    
+    return matchesSearch && matchesType && matchesTag && matchesPriceRange && matchesEventCategory;
   });
+
+  const handleTagClick = (tag: string) => {
+    if (selectedTag.includes(tag)) {
+      setSelectedTag(selectedTag.filter((t) => t !== tag));
+    } else {
+      setSelectedTag([...selectedTag, tag]);
+    }
+  };
+
+  const clearAllFilters = () => {
+    setSelectedEventType([]);
+    setSelectedTag([]);
+    setSelectedPriceRange([]);
+    setSelectedEventCategory([]);
+    setSearchQuery('');
+  };
+
+  const activeFiltersCount = [
+    selectedEventType.length > 0,
+    selectedTag.length > 0,
+    selectedPriceRange.length > 0,
+    selectedEventCategory.length > 0,
+    searchQuery !== ''
+  ].filter(Boolean).length;
 
   if (loading) {
     return (
@@ -112,8 +196,6 @@ const SportingEvents = () => {
       </Box>
     );
   }
-
-  const eventTypes = ['all', ...new Set(events.map(event => event.type))];
 
   return (
     <Box>
@@ -150,10 +232,10 @@ const SportingEvents = () => {
       </Box>
 
       {/* Search and Filters */}
-      <Box sx={{ bgcolor: 'background.paper', py: 1.5 }}>
+      <Box sx={{ bgcolor: 'background.paper', py: 2 }}>
         <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
           {/* Search Bar */}
-          <Box sx={{ mb: 2, display: 'flex', justifyContent: 'center' }}>
+          <Box sx={{ mb: 3, display: 'flex', justifyContent: 'center' }}>
             <TextField
               placeholder="Search events, teams, or tags..."
               value={searchQuery}
@@ -179,18 +261,24 @@ const SportingEvents = () => {
 
           {/* Filter Dropdowns */}
           <Box sx={{ mb: 2 }}>
-            <Grid container spacing={2} justifyContent="center">
+            <Grid container spacing={2}>
               <Grid item xs={12} sm={6} md={3}>
                 <FormControl fullWidth size="small">
                   <InputLabel>Event Type</InputLabel>
                   <Select
-                    value={eventType}
-                    onChange={(e) => setEventType(e.target.value)}
+                    value={selectedEventType}
+                    onChange={(e) => setSelectedEventType(e.target.value as string[])}
                     label="Event Type"
+                    multiple
+                    renderValue={(selected) => 
+                      selected.length === 0 ? 'All Events' : 
+                      `${selected.length} type${selected.length !== 1 ? 's' : ''}`
+                    }
                   >
-                    {eventTypes.map((type) => (
+                    {filterOptions.eventTypes.map((type) => (
                       <MenuItem key={type} value={type}>
-                        {type === 'all' ? 'All Events' : type}
+                        <Checkbox checked={selectedEventType.includes(type)} />
+                        <ListItemText primary={type} />
                       </MenuItem>
                     ))}
                   </Select>
@@ -199,16 +287,67 @@ const SportingEvents = () => {
 
               <Grid item xs={12} sm={6} md={3}>
                 <FormControl fullWidth size="small">
-                  <InputLabel>Tag Filter</InputLabel>
+                  <InputLabel>Category</InputLabel>
+                  <Select
+                    value={selectedEventCategory}
+                    onChange={(e) => setSelectedEventCategory(e.target.value as string[])}
+                    label="Category"
+                    multiple
+                    renderValue={(selected) => 
+                      selected.length === 0 ? 'All Categories' : 
+                      `${selected.length} category${selected.length !== 1 ? 'ies' : 'y'}`
+                    }
+                  >
+                    {filterOptions.eventCategories.map((category) => (
+                      <MenuItem key={category} value={category}>
+                        <Checkbox checked={selectedEventCategory.includes(category)} />
+                        <ListItemText primary={category} />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} sm={6} md={3}>
+                <FormControl fullWidth size="small">
+                  <InputLabel>Price Range</InputLabel>
+                  <Select
+                    value={selectedPriceRange}
+                    onChange={(e) => setSelectedPriceRange(e.target.value as string[])}
+                    label="Price Range"
+                    multiple
+                    renderValue={(selected) => 
+                      selected.length === 0 ? 'Any Price' : 
+                      `${selected.length} range${selected.length !== 1 ? 's' : ''}`
+                    }
+                  >
+                    {filterOptions.priceCategories.map((priceCategory) => (
+                      <MenuItem key={priceCategory} value={priceCategory}>
+                        <Checkbox checked={selectedPriceRange.includes(priceCategory)} />
+                        <ListItemText primary={priceCategory} />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} sm={6} md={3}>
+                <FormControl fullWidth size="small">
+                  <InputLabel>Tags</InputLabel>
                   <Select
                     value={selectedTag}
-                    onChange={(e) => setSelectedTag(e.target.value)}
-                    label="Tag Filter"
+                    onChange={(e) => setSelectedTag(e.target.value as string[])}
+                    label="Tags"
+                    multiple
+                    renderValue={(selected) => 
+                      selected.length === 0 ? 'All Tags' : 
+                      `${selected.length} tag${selected.length !== 1 ? 's' : ''}`
+                    }
                   >
-                    <MenuItem value="all">All Tags</MenuItem>
-                    {allTags.map((tag) => (
+                    {filterOptions.tags.map((tag) => (
                       <MenuItem key={tag} value={tag}>
-                        {tag}
+                        <Checkbox checked={selectedTag.includes(tag)} />
+                        <ListItemText primary={tag} />
                       </MenuItem>
                     ))}
                   </Select>
@@ -217,10 +356,69 @@ const SportingEvents = () => {
             </Grid>
           </Box>
 
+          {/* Active Filters Display */}
+          {activeFiltersCount > 0 && (
+            <Box sx={{ mb: 2, display: 'flex', flexWrap: 'wrap', gap: 1, alignItems: 'center' }}>
+              <Typography variant="body2" color="text.secondary" sx={{ mr: 1 }}>
+                Active filters:
+              </Typography>
+              {searchQuery && (
+                <Chip
+                  label={`Search: "${searchQuery}"`}
+                  size="small"
+                  onDelete={() => setSearchQuery('')}
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+              {selectedEventType.length > 0 && (
+                <Chip
+                  label={`Event Type: ${selectedEventType.join(', ')}`}
+                  size="small"
+                  onDelete={() => setSelectedEventType([])}
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+              {selectedEventCategory.length > 0 && (
+                <Chip
+                  label={`Category: ${selectedEventCategory.join(', ')}`}
+                  size="small"
+                  onDelete={() => setSelectedEventCategory([])}
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+              {selectedPriceRange.length > 0 && (
+                <Chip
+                  label={`Price: ${selectedPriceRange.join(', ')}`}
+                  size="small"
+                  onDelete={() => setSelectedPriceRange([])}
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+              {selectedTag.length > 0 && (
+                <Chip
+                  label={`Tags: ${selectedTag.join(', ')}`}
+                  size="small"
+                  onDelete={() => setSelectedTag([])}
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+            </Box>
+          )}
+
           {/* Results Summary */}
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 2 }}>
             <Typography variant="body2" color="text.secondary">
               {filteredEvents.length} {filteredEvents.length === 1 ? 'event' : 'events'} found
+              {activeFiltersCount > 0 && (
+                <> • <Button variant="text" size="small" onClick={clearAllFilters} sx={{ minWidth: 'auto', p: 0.5 }}>
+                  Clear all filters
+                </Button></>
+              )}
             </Typography>
           </Box>
         </Container>
@@ -298,8 +496,17 @@ const SportingEvents = () => {
                           key={tagIndex}
                           label={tag}
                           size="small"
-                          color="primary"
-                          variant="outlined"
+                          color={selectedTag.includes(tag) ? 'primary' : 'default'}
+                          variant={selectedTag.includes(tag) ? 'filled' : 'outlined'}
+                          onClick={() => handleTagClick(tag)}
+                          sx={{
+                            cursor: 'pointer',
+                            '&:hover': {
+                              backgroundColor: selectedTag.includes(tag) 
+                                ? 'primary.dark' 
+                                : 'action.hover',
+                            },
+                          }}
                         />
                       ))}
                     </Box>

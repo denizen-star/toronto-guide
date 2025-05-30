@@ -15,6 +15,8 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Checkbox,
+  ListItemText,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
@@ -43,12 +45,52 @@ const getTripIcon = (title: string, tags: string[]) => {
   return <NatureIcon sx={{ fontSize: 60 }} />;
 };
 
+// Helper functions for filters
+const extractTravelTimeValue = (travelTime: string): number => {
+  if (!travelTime) return 0;
+  const match = travelTime.match(/(\d+(?:\.\d+)?)/);
+  return match ? parseFloat(match[1]) : 0;
+};
+
+const getTripType = (trip: DayTrip): string => {
+  const description = trip.description.toLowerCase();
+  const tags = trip.tags.join(' ').toLowerCase();
+  
+  if (tags.includes('beach') || description.includes('beach')) return 'Beach & Water';
+  if (tags.includes('wine') || description.includes('wine')) return 'Wine & Food';
+  if (tags.includes('hiking') || tags.includes('nature') || description.includes('hiking')) return 'Nature & Outdoor';
+  if (tags.includes('culture') || tags.includes('theatre') || tags.includes('history')) return 'Culture & Arts';
+  if (tags.includes('city') || tags.includes('urban')) return 'Urban Exploration';
+  if (tags.includes('adventure') || tags.includes('caves')) return 'Adventure Sports';
+  return 'Other';
+};
+
+const getDistanceLabel = (distance: string): string => {
+  switch (distance) {
+    case 'short':
+      return '≤ 2 hrs';
+    case 'medium':
+      return '2-3.5 hrs';
+    case 'long':
+      return '> 3.5 hrs';
+    default:
+      return '';
+  }
+};
+
 const DayTrips = () => {
   const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = React.useState(searchParams.get('search') || '');
   const [dayTrips, setDayTrips] = useState<DayTrip[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Filter states
+  const [selectedTag, setSelectedTag] = React.useState<string[]>([]);
+  const [selectedDistance, setSelectedDistance] = React.useState<string[]>([]);
+  const [selectedSeason, setSelectedSeason] = React.useState<string[]>([]);
+  const [selectedDuration, setSelectedDuration] = React.useState<string[]>([]);
+  const [selectedTripType, setSelectedTripType] = React.useState<string[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,31 +106,84 @@ const DayTrips = () => {
     fetchData();
   }, []);
 
-  // Get all unique tags for the tags filter
-  const allTags = React.useMemo(() => {
-    const tagSet = new Set<string>();
+  // Get all unique values for filters
+  const filterOptions = React.useMemo(() => {
+    const tags = new Set<string>();
+    const seasons = new Set<string>();
+    const durations = new Set<string>();
+    const tripTypes = new Set<string>();
+    
     dayTrips.forEach(trip => {
-      trip.tags.forEach(tag => tagSet.add(tag));
+      trip.tags.forEach(tag => tags.add(tag));
+      seasons.add(trip.season);
+      durations.add(trip.duration);
+      tripTypes.add(getTripType(trip));
     });
-    return Array.from(tagSet).sort();
+    
+    return {
+      tags: Array.from(tags).sort(),
+      seasons: Array.from(seasons).sort(),
+      durations: Array.from(durations).sort(),
+      tripTypes: Array.from(tripTypes).sort(),
+    };
   }, [dayTrips]);
 
-  const [selectedTag, setSelectedTag] = React.useState('all');
-
   const filteredTrips = dayTrips.filter(trip => {
+    // Search filter
     const matchesSearch = 
       trip.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       trip.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       trip.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
     
-    const matchesTag = selectedTag === 'all' || trip.tags.includes(selectedTag);
+    // Tag filter
+    const matchesTag = selectedTag.length === 0 || trip.tags.some(tag => selectedTag.includes(tag));
     
-    return matchesSearch && matchesTag;
+    // Distance filter
+    let matchesDistance = true;
+    if (selectedDistance.length > 0) {
+      const travelTime = extractTravelTimeValue(trip.distance);
+      matchesDistance = selectedDistance.includes(travelTime <= 2 ? 'short' : travelTime > 2 && travelTime <= 3.5 ? 'medium' : 'long');
+    }
+    
+    // Season filter
+    const matchesSeason = selectedSeason.length === 0 || selectedSeason.some(season => 
+      trip.season.toLowerCase().includes(season.toLowerCase())
+    );
+    
+    // Duration filter
+    const matchesDuration = selectedDuration.length === 0 || selectedDuration.includes(trip.duration);
+    
+    // Trip type filter
+    const matchesTripType = selectedTripType.length === 0 || selectedTripType.includes(getTripType(trip));
+    
+    return matchesSearch && matchesTag && matchesDistance && matchesSeason && matchesDuration && matchesTripType;
   });
 
   const handleTagClick = (tag: string) => {
-    setSelectedTag(tag);
+    if (selectedTag.includes(tag)) {
+      setSelectedTag(selectedTag.filter((t) => t !== tag));
+    } else {
+      setSelectedTag([...selectedTag, tag]);
+    }
   };
+
+  const clearAllFilters = () => {
+    setSelectedTag([]);
+    setSelectedDistance([]);
+    setSelectedSeason([]);
+    setSelectedDuration([]);
+    setSelectedTripType([]);
+    setSearchQuery('');
+  };
+
+  const activeFiltersCount = [
+    selectedTag.length > 0,
+    selectedDistance.length > 0,
+    selectedSeason.length > 0,
+    selectedDuration.length > 0,
+    selectedTripType.length > 0,
+    searchQuery !== ''
+  ].filter(Boolean).length;
 
   if (loading) {
     return (
@@ -141,10 +236,10 @@ const DayTrips = () => {
       </Box>
 
       {/* Search and Filters */}
-      <Box sx={{ bgcolor: 'background.paper', py: 1.5 }}>
+      <Box sx={{ bgcolor: 'background.paper', py: 2 }}>
         <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
           {/* Search Bar */}
-          <Box sx={{ mb: 2, display: 'flex', justifyContent: 'center' }}>
+          <Box sx={{ mb: 3, display: 'flex', justifyContent: 'center' }}>
             <TextField
               placeholder="Search day trips, destinations, or tags..."
               value={searchQuery}
@@ -168,21 +263,124 @@ const DayTrips = () => {
             />
           </Box>
 
-          {/* Filter Dropdowns */}
+          {/* Quick Filters */}
           <Box sx={{ mb: 2 }}>
-            <Grid container spacing={2} justifyContent="center">
-              <Grid item xs={12} sm={6} md={4}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6} md={2.4}>
                 <FormControl fullWidth size="small">
-                  <InputLabel>Tag Filter</InputLabel>
+                  <InputLabel>Distance</InputLabel>
+                  <Select
+                    value={selectedDistance}
+                    onChange={(e) => setSelectedDistance(e.target.value as string[])}
+                    label="Distance"
+                    multiple
+                    renderValue={(selected) => 
+                      selected.length === 0 ? 'Any Distance' : 
+                      selected.map(getDistanceLabel).join(', ')
+                    }
+                  >
+                    <MenuItem value="short">
+                      <Checkbox checked={selectedDistance.includes('short')} />
+                      <ListItemText primary="≤ 2 hours" />
+                    </MenuItem>
+                    <MenuItem value="medium">
+                      <Checkbox checked={selectedDistance.includes('medium')} />
+                      <ListItemText primary="2-3.5 hours" />
+                    </MenuItem>
+                    <MenuItem value="long">
+                      <Checkbox checked={selectedDistance.includes('long')} />
+                      <ListItemText primary="> 3.5 hours" />
+                    </MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              
+              <Grid item xs={12} sm={6} md={2.4}>
+                <FormControl fullWidth size="small">
+                  <InputLabel>Trip Type</InputLabel>
+                  <Select
+                    value={selectedTripType}
+                    onChange={(e) => setSelectedTripType(e.target.value as string[])}
+                    label="Trip Type"
+                    multiple
+                    renderValue={(selected) => 
+                      selected.length === 0 ? 'All Types' : 
+                      selected.join(', ')
+                    }
+                  >
+                    {filterOptions.tripTypes.map((type) => (
+                      <MenuItem key={type} value={type}>
+                        <Checkbox checked={selectedTripType.includes(type)} />
+                        <ListItemText primary={type} />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} sm={6} md={2.4}>
+                <FormControl fullWidth size="small">
+                  <InputLabel>Season</InputLabel>
+                  <Select
+                    value={selectedSeason}
+                    onChange={(e) => setSelectedSeason(e.target.value as string[])}
+                    label="Season"
+                    multiple
+                    renderValue={(selected) => 
+                      selected.length === 0 ? 'Any Season' : 
+                      selected.join(', ')
+                    }
+                  >
+                    {filterOptions.seasons.map((season) => (
+                      <MenuItem key={season} value={season}>
+                        <Checkbox checked={selectedSeason.includes(season)} />
+                        <ListItemText primary={season} />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} sm={6} md={2.4}>
+                <FormControl fullWidth size="small">
+                  <InputLabel>Duration</InputLabel>
+                  <Select
+                    value={selectedDuration}
+                    onChange={(e) => setSelectedDuration(e.target.value as string[])}
+                    label="Duration"
+                    multiple
+                    renderValue={(selected) => 
+                      selected.length === 0 ? 'Any Duration' : 
+                      selected.join(', ')
+                    }
+                  >
+                    {filterOptions.durations.map((duration) => (
+                      <MenuItem key={duration} value={duration}>
+                        <Checkbox checked={selectedDuration.includes(duration)} />
+                        <ListItemText primary={duration} />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} sm={6} md={2.4}>
+                <FormControl fullWidth size="small">
+                  <InputLabel>Tags</InputLabel>
                   <Select
                     value={selectedTag}
-                    onChange={(e) => setSelectedTag(e.target.value)}
-                    label="Tag Filter"
+                    onChange={(e) => setSelectedTag(e.target.value as string[])}
+                    label="Tags"
+                    multiple
+                    renderValue={(selected) => 
+                      selected.length === 0 ? 'All Tags' : 
+                      `${selected.length} tag${selected.length !== 1 ? 's' : ''}`
+                    }
                   >
-                    <MenuItem value="all">All Tags</MenuItem>
-                    {allTags.map((tag) => (
+                    {filterOptions.tags.map((tag) => (
                       <MenuItem key={tag} value={tag}>
-                        {tag}
+                        <Checkbox checked={selectedTag.includes(tag)} />
+                        <ListItemText primary={tag} />
                       </MenuItem>
                     ))}
                   </Select>
@@ -191,10 +389,78 @@ const DayTrips = () => {
             </Grid>
           </Box>
 
+          {/* Active Filters Display */}
+          {activeFiltersCount > 0 && (
+            <Box sx={{ mb: 2, display: 'flex', flexWrap: 'wrap', gap: 1, alignItems: 'center' }}>
+              <Typography variant="body2" color="text.secondary" sx={{ mr: 1 }}>
+                Active filters:
+              </Typography>
+              {searchQuery && (
+                <Chip
+                  label={`Search: "${searchQuery}"`}
+                  size="small"
+                  onDelete={() => setSearchQuery('')}
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+              {selectedDistance.length > 0 && (
+                <Chip
+                  label={`Distance: ${selectedDistance.map(getDistanceLabel).join(', ')}`}
+                  size="small"
+                  onDelete={() => setSelectedDistance([])}
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+              {selectedTripType.length > 0 && (
+                <Chip
+                  label={`Type: ${selectedTripType.join(', ')}`}
+                  size="small"
+                  onDelete={() => setSelectedTripType([])}
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+              {selectedSeason.length > 0 && (
+                <Chip
+                  label={`Season: ${selectedSeason.join(', ')}`}
+                  size="small"
+                  onDelete={() => setSelectedSeason([])}
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+              {selectedDuration.length > 0 && (
+                <Chip
+                  label={`Duration: ${selectedDuration.join(', ')}`}
+                  size="small"
+                  onDelete={() => setSelectedDuration([])}
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+              {selectedTag.length > 0 && (
+                <Chip
+                  label={`Tag: ${selectedTag.join(', ')}`}
+                  size="small"
+                  onDelete={() => setSelectedTag([])}
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+            </Box>
+          )}
+
           {/* Results Summary */}
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 2 }}>
             <Typography variant="body2" color="text.secondary">
               {filteredTrips.length} {filteredTrips.length === 1 ? 'trip' : 'trips'} found
+              {activeFiltersCount > 0 && (
+                <> • <Button variant="text" size="small" onClick={clearAllFilters} sx={{ minWidth: 'auto', p: 0.5 }}>
+                  Clear all filters
+                </Button></>
+              )}
             </Typography>
           </Box>
         </Container>
@@ -262,13 +528,13 @@ const DayTrips = () => {
                           key={tagIndex}
                           label={tag}
                           size="small"
-                          color={selectedTag === tag ? 'primary' : 'default'}
-                          variant={selectedTag === tag ? 'filled' : 'outlined'}
+                          color={selectedTag.includes(tag) ? 'primary' : 'default'}
+                          variant={selectedTag.includes(tag) ? 'filled' : 'outlined'}
                           onClick={() => handleTagClick(tag)}
                           sx={{
                             cursor: 'pointer',
                             '&:hover': {
-                              backgroundColor: selectedTag === tag 
+                              backgroundColor: selectedTag.includes(tag) 
                                 ? 'primary.dark' 
                                 : 'action.hover',
                             },
