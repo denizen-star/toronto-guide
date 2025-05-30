@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import LaunchIcon from '@mui/icons-material/Launch';
 import DirectionsIcon from '@mui/icons-material/Directions';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import RainbowFlagIcon from './RainbowFlagIcon';
 
 export interface EnhancedCardData {
   id: string;
@@ -105,7 +105,7 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
           {/* Action buttons */}
           <Box sx={{ display: 'flex', gap: 1 }}>
             {data.lgbtqFriendly && (
-              <FavoriteIcon sx={{ color: '#ff6b9d', fontSize: '1.2rem' }} />
+              <RainbowFlagIcon sx={{ fontSize: '1.2rem' }} />
             )}
             
             {directionsUrl && (
