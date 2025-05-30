@@ -11,13 +11,14 @@ import {
   type Price,
 } from '../utils/dataLoader';
 import MultiSelectFilter from '../components/MultiSelectFilter';
+import { useSearch } from '../components/Layout';
 
 const Activities = () => {
+  const { searchTerm, setSearchPlaceholder } = useSearch();
   const [allActivities, setAllActivities] = useState<Activity[]>([]);
   const [categories, setCategories] = useState<{ [key: string]: Category }>({});
   const [prices, setPrices] = useState<{ [key: string]: Price }>({});
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
   const [displayCount, setDisplayCount] = useState(12);
   
   // Filter states
@@ -26,6 +27,11 @@ const Activities = () => {
   const [selectedDurations, setSelectedDurations] = useState<string[]>([]);
   const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
   const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
+
+  // Set search placeholder for this page
+  useEffect(() => {
+    setSearchPlaceholder('Search activities...');
+  }, [setSearchPlaceholder]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -173,15 +179,10 @@ const Activities = () => {
     setDisplayCount(prev => prev + 12);
   };
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-    setDisplayCount(12); // Reset display count when searching
-  };
-
   // Reset display count when filters change
   useEffect(() => {
     setDisplayCount(12);
-  }, [selectedCategories, selectedPrices, selectedDurations, selectedRatings, selectedAreas]);
+  }, [selectedCategories, selectedPrices, selectedDurations, selectedRatings, selectedAreas, searchTerm]);
 
   if (loading) {
     return (
@@ -202,38 +203,6 @@ const Activities = () => {
 
   return (
     <Box>
-      {/* Swiss Navigation */}
-      <nav className="swiss-nav">
-        <div className="swiss-container">
-          <div className="nav-grid">
-            <RouterLink to="/" className="swiss-logo">Toronto</RouterLink>
-            
-            <div className="search-container">
-              <div className="search-wrapper">
-                <span className="search-icon">🔍</span>
-                <input 
-                  type="text" 
-                  className="search-input" 
-                  placeholder="Search activities..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-              </div>
-            </div>
-            
-            <ul className="nav-menu">
-              <li><RouterLink to="/activities" className="nav-link active">Activities</RouterLink></li>
-              <li><RouterLink to="/neighborhoods" className="nav-link">Areas</RouterLink></li>
-              <li><RouterLink to="/day-trips" className="nav-link">Trips</RouterLink></li>
-              <li><RouterLink to="/special-events" className="nav-link">Events</RouterLink></li>
-              <li><RouterLink to="/sporting-events" className="nav-link">Sports</RouterLink></li>
-              <li><RouterLink to="/happy-hours" className="nav-link">Happy Hours</RouterLink></li>
-              <li><RouterLink to="/amateur-sports" className="nav-link">Play</RouterLink></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
       {/* Breadcrumb */}
       <section className="breadcrumb">
         <div className="swiss-container">

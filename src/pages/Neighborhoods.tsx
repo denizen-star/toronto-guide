@@ -165,36 +165,6 @@ const Neighborhoods = () => {
 
   return (
     <Box>
-      {/* Swiss Navigation */}
-      <nav className="swiss-nav">
-        <div className="swiss-container">
-          <div className="nav-grid">
-            <RouterLink to="/" className="swiss-logo">Toronto</RouterLink>
-            
-            <div className="search-container">
-              <div className="search-wrapper">
-                <span className="search-icon">🔍</span>
-                <input 
-                  type="text" 
-                  className="search-input" 
-                  placeholder="Search neighborhoods..."
-                />
-              </div>
-            </div>
-            
-            <ul className="nav-menu">
-              <li><RouterLink to="/activities" className="nav-link">Activities</RouterLink></li>
-              <li><RouterLink to="/neighborhoods" className="nav-link active">Areas</RouterLink></li>
-              <li><RouterLink to="/day-trips" className="nav-link">Trips</RouterLink></li>
-              <li><RouterLink to="/special-events" className="nav-link">Events</RouterLink></li>
-              <li><RouterLink to="/sporting-events" className="nav-link">Sports</RouterLink></li>
-              <li><RouterLink to="/happy-hours" className="nav-link">Happy Hours</RouterLink></li>
-              <li><RouterLink to="/amateur-sports" className="nav-link">Play</RouterLink></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
       {/* Breadcrumb */}
       <section className="breadcrumb">
         <div className="swiss-container">

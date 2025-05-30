@@ -3,11 +3,12 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { SportingEvent, loadSportingEvents } from '../utils/dataLoader';
 import MultiSelectFilter from '../components/MultiSelectFilter';
+import { useSearch } from '../components/Layout';
 
 const SportingEvents = () => {
+  const { searchTerm, setSearchPlaceholder } = useSearch();
   const [allEvents, setAllEvents] = useState<SportingEvent[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
   const [displayCount, setDisplayCount] = useState(12);
 
   // Filter states
@@ -16,6 +17,11 @@ const SportingEvents = () => {
   const [selectedSeasons, setSelectedSeasons] = useState<string[]>([]);
   const [selectedPrices, setSelectedPrices] = useState<string[]>([]);
   const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
+
+  // Set search placeholder for this page
+  useEffect(() => {
+    setSearchPlaceholder('Search sporting events...');
+  }, [setSearchPlaceholder]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -164,15 +170,10 @@ const SportingEvents = () => {
     setDisplayCount(prev => prev + 12);
   };
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-    setDisplayCount(12);
-  };
-
   // Reset display count when filters change
   React.useEffect(() => {
     setDisplayCount(12);
-  }, [selectedSports, selectedVenues, selectedSeasons, selectedPrices, selectedRatings]);
+  }, [selectedSports, selectedVenues, selectedSeasons, selectedPrices, selectedRatings, searchTerm]);
 
   if (loading) {
     return (
@@ -193,38 +194,6 @@ const SportingEvents = () => {
 
   return (
     <Box>
-      {/* Swiss Navigation */}
-      <nav className="swiss-nav">
-        <div className="swiss-container">
-          <div className="nav-grid">
-            <RouterLink to="/" className="swiss-logo">Toronto</RouterLink>
-            
-            <div className="search-container">
-              <div className="search-wrapper">
-                <span className="search-icon">🔍</span>
-                <input 
-                  type="text" 
-                  className="search-input" 
-                  placeholder="Search sporting events..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-              </div>
-            </div>
-            
-            <ul className="nav-menu">
-              <li><RouterLink to="/activities" className="nav-link">Activities</RouterLink></li>
-              <li><RouterLink to="/neighborhoods" className="nav-link">Areas</RouterLink></li>
-              <li><RouterLink to="/day-trips" className="nav-link">Trips</RouterLink></li>
-              <li><RouterLink to="/special-events" className="nav-link">Events</RouterLink></li>
-              <li><RouterLink to="/sporting-events" className="nav-link active">Sports</RouterLink></li>
-              <li><RouterLink to="/happy-hours" className="nav-link">Happy Hours</RouterLink></li>
-              <li><RouterLink to="/amateur-sports" className="nav-link">Play</RouterLink></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
       {/* Breadcrumb */}
       <section className="breadcrumb">
         <div className="swiss-container">
