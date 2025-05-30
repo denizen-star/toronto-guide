@@ -200,7 +200,7 @@ const Neighborhoods = () => {
               component="h1"
               sx={{ 
                 mb: 0.5,
-                fontWeight: 400,
+                fontWeight: 700,
                 fontSize: { xs: 1.6 * 16, md: 2 * 16 },
                 letterSpacing: '0.02em',
                 fontFamily: '"Lato", sans-serif',

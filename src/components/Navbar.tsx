@@ -264,12 +264,12 @@ const Navbar = () => {
                     to={item.path}
                     startIcon={item.icon}
                     sx={{
-                      px: 3,
+                      px: 2,
                       py: 1.5,
                       color: active ? 'primary.main' : 'text.primary',
                       bgcolor: 'transparent',
                       borderRadius: 2,
-                      fontSize: '0.95rem',
+                      fontSize: '0.85rem',
                       fontWeight: active ? 600 : 500,
                       transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                       position: 'relative',

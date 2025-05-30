@@ -331,10 +331,10 @@ const SpecialEvents = () => {
               component="h1"
               sx={{ 
                 mb: 0.5,
-                fontWeight: 600,
+                fontWeight: 700,
                 fontSize: { xs: 1.6 * 16, md: 2 * 16 },
                 letterSpacing: '0.02em',
-                fontFamily: '"Playfair Display", serif',
+                fontFamily: '"Inter", sans-serif',
                 background: 'linear-gradient(135deg, #8A2BE2 0%, #DA70D6 50%, #DDA0DD 100%)',
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',

@@ -280,7 +280,7 @@ const AmateurSports = () => {
               component="h1"
               sx={{ 
                 mb: 0.5,
-                fontWeight: 500,
+                fontWeight: 700,
                 fontSize: { xs: 1.6 * 16, md: 2 * 16 },
                 letterSpacing: '0.005em',
                 fontFamily: '"Source Sans Pro", sans-serif',
