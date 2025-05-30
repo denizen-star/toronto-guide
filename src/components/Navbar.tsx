@@ -40,7 +40,7 @@ const Navbar = () => {
 
   const menuItems = [
     { text: 'Home', icon: <HomeIcon />, path: '/' },
-    { text: 'Happy Hours', icon: <LocalBarIcon />, path: '/neighborhoods' },
+    { text: 'Happy Hours', icon: <LocalBarIcon />, path: '/happy-hours' },
     { text: 'Activities', icon: <LocalActivityIcon />, path: '/activities' },
     { text: 'Day Trips', icon: <DirectionsCarIcon />, path: '/day-trips' },
     { text: 'Amateur Sports', icon: <SportsSoccerIcon />, path: '/amateur-sports' },
