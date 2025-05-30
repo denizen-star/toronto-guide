@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Box, Grid, Typography, CircularProgress } from '@mui/material';
 import { loadVenues, loadHappyHours, type Venue, type HappyHour } from '../utils/dataLoader';
 import EnhancedMinimalistCard, { EnhancedCardData } from '../components/MinimalistCard';
-import MultiSelectFilter from '../components/MultiSelectFilter';
+import EnhancedFilterSystem, { FilterConfig } from '../components/EnhancedFilterSystem';
 import { useSearch } from '../components/Layout';
 import { LocalBar, Restaurant, SportsBar, NightlifeOutlined, LocalDrink } from '@mui/icons-material';
 
@@ -29,9 +29,16 @@ const HappyHours = () => {
   const [error, setError] = useState<string>('');
   const [displayCount, setDisplayCount] = useState(12);
 
-  // Essential filter states
-  const [selectedVenueTypes, setSelectedVenueTypes] = useState<string[]>([]);
-  const [selectedNeighborhoods, setSelectedNeighborhoods] = useState<string[]>([]);
+  // Enhanced filter states
+  const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({
+    venueType: [],
+    neighborhood: [],
+    eventType: [],
+    season: [],
+    tags: [],
+    duration: [],
+    priceRange: []
+  });
 
   useEffect(() => {
     setSearchPlaceholder('Search happy hours...');
@@ -71,26 +78,7 @@ const HappyHours = () => {
     fetchData();
   }, []);
 
-  // Memoized filter options
-  const venueTypeOptions = useMemo(() => [
-    { value: 'bar', label: 'Bars & Lounges' },
-    { value: 'restaurant', label: 'Restaurants' },
-    { value: 'pub', label: 'Pubs & Gastropubs' },
-    { value: 'club', label: 'Clubs & Nightlife' },
-    { value: 'brewery', label: 'Breweries' },
-    { value: 'rooftop', label: 'Rooftop Venues' }
-  ], []);
-
-  const neighborhoodOptions = useMemo(() => [
-    { value: 'downtown', label: 'Downtown' },
-    { value: 'king-west', label: 'King West' },
-    { value: 'yorkville', label: 'Yorkville' },
-    { value: 'entertainment', label: 'Entertainment District' },
-    { value: 'ossington', label: 'Ossington' },
-    { value: 'waterfront', label: 'Waterfront' }
-  ], []);
-
-  // Memoized helper functions
+  // Helper functions for categorization
   const getVenueType = useCallback((venue: VenueWithHappyHours): string => {
     const name = venue.name.toLowerCase();
     
@@ -115,10 +103,105 @@ const HappyHours = () => {
     return 'downtown';
   }, []);
 
+  const getEventType = useCallback((venue: VenueWithHappyHours): string => {
+    const offerings = venue.happyHours[0]?.offerings.toLowerCase() || '';
+    
+    if (offerings.includes('wine') || offerings.includes('vino')) return 'wine-special';
+    if (offerings.includes('cocktail') || offerings.includes('mixed')) return 'cocktail-special';
+    if (offerings.includes('beer') || offerings.includes('draft')) return 'beer-special';
+    if (offerings.includes('food') || offerings.includes('appetizer')) return 'food-drink';
+    if (offerings.includes('live') || offerings.includes('music')) return 'entertainment';
+    return 'drink-special';
+  }, []);
+
+  const getDuration = useCallback((venue: VenueWithHappyHours): string => {
+    if (venue.happyHours.length === 0) return 'varies';
+    
+    const hh = venue.happyHours[0];
+    const startHour = parseInt(hh.start_time.split(':')[0]);
+    const endHour = parseInt(hh.end_time.split(':')[0]);
+    const duration = endHour - startHour;
+    
+    if (duration <= 2) return 'short';
+    if (duration <= 4) return 'medium';
+    return 'extended';
+  }, []);
+
+  const getPriceRange = useCallback((venue: VenueWithHappyHours): string => {
+    const offerings = venue.happyHours[0]?.offerings.toLowerCase() || '';
+    
+    if (offerings.includes('$3') || offerings.includes('$4')) return 'budget';
+    if (offerings.includes('$5') || offerings.includes('$6') || offerings.includes('$7')) return 'moderate';
+    if (offerings.includes('$8') || offerings.includes('$9') || offerings.includes('$10')) return 'premium';
+    return 'varies';
+  }, []);
+
   const getIconForVenue = useCallback((venue: VenueWithHappyHours): React.ReactNode => {
     const venueType = getVenueType(venue);
     return iconMap[venueType] || iconMap['bar'];
   }, [getVenueType]);
+
+  // Create filter configurations
+  const filterConfigs: FilterConfig[] = useMemo(() => {
+    const venueTypeOptions = [
+      { value: 'bar', label: 'Bars & Lounges' },
+      { value: 'restaurant', label: 'Restaurants' },
+      { value: 'pub', label: 'Pubs & Gastropubs' },
+      { value: 'club', label: 'Clubs & Nightlife' },
+      { value: 'brewery', label: 'Breweries' },
+      { value: 'rooftop', label: 'Rooftop Venues' }
+    ];
+
+    const neighborhoodOptions = [
+      { value: 'downtown', label: 'Downtown' },
+      { value: 'king-west', label: 'King West' },
+      { value: 'yorkville', label: 'Yorkville' },
+      { value: 'entertainment', label: 'Entertainment District' },
+      { value: 'ossington', label: 'Ossington' },
+      { value: 'waterfront', label: 'Waterfront' }
+    ];
+
+    const eventTypeOptions = [
+      { value: 'wine-special', label: 'Wine Specials' },
+      { value: 'cocktail-special', label: 'Cocktail Specials' },
+      { value: 'beer-special', label: 'Beer Specials' },
+      { value: 'food-drink', label: 'Food & Drink Combos' },
+      { value: 'entertainment', label: 'Entertainment' },
+      { value: 'drink-special', label: 'General Drink Specials' }
+    ];
+
+    const durationOptions = [
+      { value: 'short', label: 'Short (2 hours)' },
+      { value: 'medium', label: 'Medium (3-4 hours)' },
+      { value: 'extended', label: 'Extended (5+ hours)' },
+      { value: 'varies', label: 'Varies' }
+    ];
+
+    const priceRangeOptions = [
+      { value: 'budget', label: 'Budget ($3-5)' },
+      { value: 'moderate', label: 'Moderate ($5-8)' },
+      { value: 'premium', label: 'Premium ($8-12)' },
+      { value: 'varies', label: 'Varies' }
+    ];
+
+    const tagOptions = [
+      { value: 'happy-hour', label: 'Happy Hour' },
+      { value: 'drinks', label: 'Drinks' },
+      { value: 'social', label: 'Social' },
+      { value: 'after-work', label: 'After Work' },
+      { value: 'date-night', label: 'Date Night' },
+      { value: 'group-friendly', label: 'Group Friendly' }
+    ];
+
+    return [
+      { key: 'venueType', label: 'Venue Type', options: venueTypeOptions, placeholder: 'All Venue Types' },
+      { key: 'neighborhood', label: 'Neighborhood', options: neighborhoodOptions, placeholder: 'All Neighborhoods' },
+      { key: 'eventType', label: 'Special Type', options: eventTypeOptions, placeholder: 'All Specials' },
+      { key: 'duration', label: 'Duration', options: durationOptions, placeholder: 'Any Duration' },
+      { key: 'priceRange', label: 'Price Range', options: priceRangeOptions, placeholder: 'Any Price' },
+      { key: 'tags', label: 'Tags', options: tagOptions, placeholder: 'Select Tags' }
+    ];
+  }, []);
 
   // Memoized filtering logic
   const filteredVenues = useMemo(() => {
@@ -130,16 +213,37 @@ const HappyHours = () => {
         venue.happyHours.some(hh => hh.offerings.toLowerCase().includes(searchTerm.toLowerCase()));
 
       // Venue type filter
-      const matchesVenueType = selectedVenueTypes.length === 0 || 
-        selectedVenueTypes.includes(getVenueType(venue));
+      const matchesVenueType = selectedFilters.venueType.length === 0 || 
+        selectedFilters.venueType.includes(getVenueType(venue));
 
       // Neighborhood filter
-      const matchesNeighborhood = selectedNeighborhoods.length === 0 || 
-        selectedNeighborhoods.includes(getNeighborhoodCategory(venue.neighborhood));
+      const matchesNeighborhood = selectedFilters.neighborhood.length === 0 || 
+        selectedFilters.neighborhood.includes(getNeighborhoodCategory(venue.neighborhood));
 
-      return matchesSearch && matchesVenueType && matchesNeighborhood;
+      // Event Type filter
+      const matchesEventType = selectedFilters.eventType.length === 0 || 
+        selectedFilters.eventType.includes(getEventType(venue));
+
+      // Duration filter
+      const matchesDuration = selectedFilters.duration.length === 0 || 
+        selectedFilters.duration.includes(getDuration(venue));
+
+      // Price Range filter
+      const matchesPriceRange = selectedFilters.priceRange.length === 0 || 
+        selectedFilters.priceRange.includes(getPriceRange(venue));
+
+      // Tags filter
+      const matchesTags = selectedFilters.tags.length === 0 || 
+        selectedFilters.tags.some(selectedTag => 
+          venue.tags.some(venueTag => 
+            venueTag.toLowerCase().replace(/\s+/g, '-') === selectedTag
+          )
+        );
+
+      return matchesSearch && matchesVenueType && matchesNeighborhood && 
+             matchesEventType && matchesDuration && matchesPriceRange && matchesTags;
     });
-  }, [allVenues, searchTerm, selectedVenueTypes, selectedNeighborhoods, getVenueType, getNeighborhoodCategory]);
+  }, [allVenues, searchTerm, selectedFilters, getVenueType, getNeighborhoodCategory, getEventType, getDuration, getPriceRange]);
 
   // Memoized displayed venues
   const displayedVenues = useMemo(() => 
@@ -181,10 +285,26 @@ const HappyHours = () => {
     setDisplayCount(prev => prev + 12);
   }, []);
 
-  // Reset display count when filters change
-  useEffect(() => {
+  const handleFilterChange = useCallback((filterKey: string, values: string[]) => {
+    setSelectedFilters(prev => ({
+      ...prev,
+      [filterKey]: values
+    }));
     setDisplayCount(12);
-  }, [selectedVenueTypes, selectedNeighborhoods, searchTerm]);
+  }, []);
+
+  const handleResetFilters = useCallback(() => {
+    setSelectedFilters({
+      venueType: [],
+      neighborhood: [],
+      eventType: [],
+      season: [],
+      tags: [],
+      duration: [],
+      priceRange: []
+    });
+    setDisplayCount(12);
+  }, []);
 
   if (loading) {
     return (
@@ -244,27 +364,13 @@ const HappyHours = () => {
         </div>
       </section>
 
-      {/* Essential Filter Section */}
-      <section className="filter-section">
-        <div className="swiss-container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 'var(--space-3)' }}>
-            <MultiSelectFilter
-              label="Venue Type"
-              options={venueTypeOptions}
-              selectedValues={selectedVenueTypes}
-              onChange={setSelectedVenueTypes}
-              placeholder="All Venue Types"
-            />
-            <MultiSelectFilter
-              label="Neighborhood"
-              options={neighborhoodOptions}
-              selectedValues={selectedNeighborhoods}
-              onChange={setSelectedNeighborhoods}
-              placeholder="All Neighborhoods"
-            />
-          </div>
-        </div>
-      </section>
+      {/* Enhanced Filter Section */}
+      <EnhancedFilterSystem
+        filters={filterConfigs}
+        selectedFilters={selectedFilters}
+        onFilterChange={handleFilterChange}
+        onResetFilters={handleResetFilters}
+      />
 
       {/* Happy Hours Grid */}
       <section className="section-large">

@@ -6,25 +6,29 @@ import {
   type StandardizedAmateurSport 
 } from '../utils/dataLoader';
 import EnhancedMinimalistCard, { EnhancedCardData } from '../components/MinimalistCard';
-import MultiSelectFilter from '../components/MultiSelectFilter';
+import EnhancedFilterSystem, { FilterConfig } from '../components/EnhancedFilterSystem';
 import { useSearch } from '../components/Layout';
 import { 
-  SportsBaseball, 
-  SportsTennis, 
   SportsGolf, 
+  SportsTennis, 
+  FitnessCenter, 
   Pool, 
-  FitnessCenter,
-  DirectionsRun
+  Sports,
+  SportsBaseball,
+  SportsBasketball,
+  SportsFootball
 } from '@mui/icons-material';
 
-// Memoized icon map
+// Memoized icon map for sports
 const iconMap: { [key: string]: React.ReactNode } = {
   'golf': <SportsGolf />,
   'tennis': <SportsTennis />,
-  'baseball': <SportsBaseball />,
-  'swimming': <Pool />,
   'fitness': <FitnessCenter />,
-  'running': <DirectionsRun />
+  'swimming': <Pool />,
+  'baseball': <SportsBaseball />,
+  'basketball': <SportsBasketball />,
+  'football': <SportsFootball />,
+  'general': <Sports />
 };
 
 const AmateurSports = () => {
@@ -34,9 +38,16 @@ const AmateurSports = () => {
   const [error, setError] = useState<string>('');
   const [displayCount, setDisplayCount] = useState(12);
   
-  // Essential filter states
-  const [selectedSportTypes, setSelectedSportTypes] = useState<string[]>([]);
-  const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
+  // Enhanced filter states
+  const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({
+    sportType: [],
+    skillLevel: [],
+    neighborhood: [],
+    season: [],
+    tags: [],
+    duration: [],
+    priceRange: []
+  });
 
   useEffect(() => {
     setSearchPlaceholder('Search amateur sports...');
@@ -58,57 +69,152 @@ const AmateurSports = () => {
     fetchData();
   }, []);
 
-  // Memoized filter options
-  const sportTypeOptions = useMemo(() => [
-    { value: 'golf', label: 'Golf' },
-    { value: 'tennis', label: 'Tennis' },
-    { value: 'baseball', label: 'Baseball & Softball' },
-    { value: 'swimming', label: 'Swimming' },
-    { value: 'fitness', label: 'Fitness & Gym' },
-    { value: 'running', label: 'Running & Track' }
-  ], []);
-
-  const areaOptions = useMemo(() => [
-    { value: 'downtown', label: 'Downtown' },
-    { value: 'north', label: 'North York' },
-    { value: 'east', label: 'East End' },
-    { value: 'west', label: 'West End' },
-    { value: 'scarborough', label: 'Scarborough' },
-    { value: 'etobicoke', label: 'Etobicoke' }
-  ], []);
-
-  // Memoized helper functions
+  // Helper functions for categorization
   const getSportType = useCallback((sport: StandardizedAmateurSport): string => {
     const title = sport.title.toLowerCase();
-    const tags = sport.tags.join(' ').toLowerCase();
+    const description = sport.description.toLowerCase();
     
-    if (title.includes('golf') || tags.includes('golf')) return 'golf';
-    if (title.includes('tennis') || tags.includes('tennis')) return 'tennis';
-    if (title.includes('baseball') || title.includes('softball') || tags.includes('baseball')) return 'baseball';
-    if (title.includes('swim') || tags.includes('swim')) return 'swimming';
-    if (title.includes('gym') || title.includes('fitness') || tags.includes('fitness')) return 'fitness';
-    if (title.includes('run') || tags.includes('running')) return 'running';
-    
-    return 'fitness'; // default
+    if (title.includes('golf') || description.includes('golf')) return 'golf';
+    if (title.includes('tennis') || description.includes('tennis')) return 'tennis';
+    if (title.includes('fitness') || description.includes('gym') || title.includes('workout')) return 'fitness';
+    if (title.includes('swimming') || description.includes('pool') || title.includes('swim')) return 'swimming';
+    if (title.includes('baseball') || description.includes('baseball')) return 'baseball';
+    if (title.includes('basketball') || description.includes('basketball')) return 'basketball';
+    if (title.includes('football') || description.includes('football')) return 'football';
+    return 'general';
   }, []);
 
-  const getAreaCategory = useCallback((location: string): string => {
-    const loc = location.toLowerCase();
+  const getSkillLevel = useCallback((sport: StandardizedAmateurSport): string => {
+    const description = sport.description.toLowerCase();
+    const tags = sport.tags.join(' ').toLowerCase();
     
-    if (loc.includes('downtown') || loc.includes('financial')) return 'downtown';
-    if (loc.includes('north york') || loc.includes('north')) return 'north';
-    if (loc.includes('east') || loc.includes('beaches')) return 'east';
-    if (loc.includes('west') || loc.includes('junction')) return 'west';
-    if (loc.includes('scarborough')) return 'scarborough';
-    if (loc.includes('etobicoke')) return 'etobicoke';
+    if (description.includes('beginner') || tags.includes('beginner') || description.includes('novice')) return 'beginner';
+    if (description.includes('intermediate') || tags.includes('intermediate')) return 'intermediate';
+    if (description.includes('advanced') || tags.includes('advanced') || description.includes('expert')) return 'advanced';
+    if (description.includes('all levels') || tags.includes('all-levels')) return 'all-levels';
+    return 'all-levels'; // default
+  }, []);
+
+  const getNeighborhood = useCallback((sport: StandardizedAmateurSport): string => {
+    const location = sport.location?.toLowerCase() || '';
     
-    return 'downtown'; // default
+    if (location.includes('downtown')) return 'downtown';
+    if (location.includes('north')) return 'north';
+    if (location.includes('east')) return 'east';
+    if (location.includes('west')) return 'west';
+    if (location.includes('central')) return 'central';
+    return 'central'; // default
+  }, []);
+
+  const getSeason = useCallback((sport: StandardizedAmateurSport): string => {
+    const description = sport.description.toLowerCase();
+    const tags = sport.tags.join(' ').toLowerCase();
+    
+    if (description.includes('winter') || tags.includes('winter') || description.includes('indoor')) return 'winter';
+    if (description.includes('spring') || tags.includes('spring')) return 'spring';
+    if (description.includes('summer') || tags.includes('summer') || description.includes('outdoor')) return 'summer';
+    if (description.includes('fall') || tags.includes('fall') || tags.includes('autumn')) return 'fall';
+    return 'year-round';
+  }, []);
+
+  const getDuration = useCallback((sport: StandardizedAmateurSport): string => {
+    const description = sport.description.toLowerCase();
+    
+    if (description.includes('1 hour') || description.includes('60 min')) return 'short';
+    if (description.includes('2 hour') || description.includes('3 hour')) return 'medium';
+    if (description.includes('half day') || description.includes('4 hour')) return 'half-day';
+    if (description.includes('full day') || description.includes('tournament')) return 'full-day';
+    return 'varies';
+  }, []);
+
+  const getPriceRange = useCallback((sport: StandardizedAmateurSport): string => {
+    const description = sport.description.toLowerCase();
+    
+    if (description.includes('free') || description.includes('$0')) return 'free';
+    if (description.includes('$') && (description.includes('10') || description.includes('15'))) return 'budget';
+    if (description.includes('$') && (description.includes('25') || description.includes('30'))) return 'moderate';
+    if (description.includes('$') && (description.includes('50') || description.includes('75'))) return 'premium';
+    return 'varies';
   }, []);
 
   const getIconForSport = useCallback((sport: StandardizedAmateurSport): React.ReactNode => {
     const sportType = getSportType(sport);
-    return iconMap[sportType] || iconMap['fitness'];
+    return iconMap[sportType] || iconMap['general'];
   }, [getSportType]);
+
+  // Create filter configurations
+  const filterConfigs: FilterConfig[] = useMemo(() => {
+    const sportTypeOptions = [
+      { value: 'golf', label: 'Golf' },
+      { value: 'tennis', label: 'Tennis' },
+      { value: 'fitness', label: 'Fitness & Gym' },
+      { value: 'swimming', label: 'Swimming' },
+      { value: 'baseball', label: 'Baseball' },
+      { value: 'basketball', label: 'Basketball' },
+      { value: 'football', label: 'Football' },
+      { value: 'general', label: 'Other Sports' }
+    ];
+
+    const skillLevelOptions = [
+      { value: 'beginner', label: 'Beginner' },
+      { value: 'intermediate', label: 'Intermediate' },
+      { value: 'advanced', label: 'Advanced' },
+      { value: 'all-levels', label: 'All Levels' }
+    ];
+
+    const neighborhoodOptions = [
+      { value: 'downtown', label: 'Downtown' },
+      { value: 'north', label: 'North Toronto' },
+      { value: 'east', label: 'East Toronto' },
+      { value: 'west', label: 'West Toronto' },
+      { value: 'central', label: 'Central Toronto' }
+    ];
+
+    const seasonOptions = [
+      { value: 'spring', label: 'Spring' },
+      { value: 'summer', label: 'Summer' },
+      { value: 'fall', label: 'Fall' },
+      { value: 'winter', label: 'Winter' },
+      { value: 'year-round', label: 'Year Round' }
+    ];
+
+    const durationOptions = [
+      { value: 'short', label: 'Short (1-2 hours)' },
+      { value: 'medium', label: 'Medium (2-4 hours)' },
+      { value: 'half-day', label: 'Half Day (4-6 hours)' },
+      { value: 'full-day', label: 'Full Day (6+ hours)' },
+      { value: 'varies', label: 'Varies' }
+    ];
+
+    const priceRangeOptions = [
+      { value: 'free', label: 'Free' },
+      { value: 'budget', label: 'Budget ($0-20)' },
+      { value: 'moderate', label: 'Moderate ($20-40)' },
+      { value: 'premium', label: 'Premium ($40+)' },
+      { value: 'varies', label: 'Varies' }
+    ];
+
+    // Get unique tags from sports
+    const allTags = sports.reduce((tags: Set<string>, sport) => {
+      sport.tags.forEach(tag => tags.add(tag));
+      return tags;
+    }, new Set<string>());
+
+    const tagOptions = Array.from(allTags).map(tag => ({
+      value: tag.toLowerCase().replace(/\s+/g, '-'),
+      label: tag
+    }));
+
+    return [
+      { key: 'sportType', label: 'Sport Type', options: sportTypeOptions, placeholder: 'All Sports' },
+      { key: 'skillLevel', label: 'Skill Level', options: skillLevelOptions, placeholder: 'All Skill Levels' },
+      { key: 'neighborhood', label: 'Area', options: neighborhoodOptions, placeholder: 'All Areas' },
+      { key: 'season', label: 'Season', options: seasonOptions, placeholder: 'All Seasons' },
+      { key: 'duration', label: 'Duration', options: durationOptions, placeholder: 'Any Duration' },
+      { key: 'priceRange', label: 'Price Range', options: priceRangeOptions, placeholder: 'Any Price' },
+      { key: 'tags', label: 'Tags', options: tagOptions.slice(0, 15), placeholder: 'Select Tags' }
+    ];
+  }, [sports]);
 
   // Memoized filtering logic
   const filteredSports = useMemo(() => {
@@ -117,20 +223,46 @@ const AmateurSports = () => {
       const matchesSearch = !searchTerm || 
         sport.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         sport.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        sport.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        sport.location?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         sport.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
 
-      // Sport type filter
-      const matchesSportType = selectedSportTypes.length === 0 || 
-        selectedSportTypes.includes(getSportType(sport));
+      // Sport Type filter
+      const matchesSportType = selectedFilters.sportType.length === 0 || 
+        selectedFilters.sportType.includes(getSportType(sport));
 
-      // Area filter
-      const matchesArea = selectedAreas.length === 0 || 
-        selectedAreas.includes(getAreaCategory(sport.location));
+      // Skill Level filter
+      const matchesSkillLevel = selectedFilters.skillLevel.length === 0 || 
+        selectedFilters.skillLevel.includes(getSkillLevel(sport));
 
-      return matchesSearch && matchesSportType && matchesArea;
+      // Neighborhood filter
+      const matchesNeighborhood = selectedFilters.neighborhood.length === 0 || 
+        selectedFilters.neighborhood.includes(getNeighborhood(sport));
+
+      // Season filter
+      const matchesSeason = selectedFilters.season.length === 0 || 
+        selectedFilters.season.includes(getSeason(sport));
+
+      // Duration filter
+      const matchesDuration = selectedFilters.duration.length === 0 || 
+        selectedFilters.duration.includes(getDuration(sport));
+
+      // Price Range filter
+      const matchesPriceRange = selectedFilters.priceRange.length === 0 || 
+        selectedFilters.priceRange.includes(getPriceRange(sport));
+
+      // Tags filter
+      const matchesTags = selectedFilters.tags.length === 0 || 
+        selectedFilters.tags.some(selectedTag => 
+          sport.tags.some(sportTag => 
+            sportTag.toLowerCase().replace(/\s+/g, '-') === selectedTag
+          )
+        );
+
+      return matchesSearch && matchesSportType && matchesSkillLevel && 
+             matchesNeighborhood && matchesSeason && matchesDuration && 
+             matchesPriceRange && matchesTags;
     });
-  }, [sports, searchTerm, selectedSportTypes, selectedAreas, getSportType, getAreaCategory]);
+  }, [sports, searchTerm, selectedFilters, getSportType, getSkillLevel, getNeighborhood, getSeason, getDuration, getPriceRange]);
 
   // Memoized displayed sports
   const displayedSports = useMemo(() => 
@@ -147,9 +279,8 @@ const AmateurSports = () => {
       website: sport.website,
       tags: sport.tags.slice(0, 3),
       priceRange: 'See details',
-      location: sport.location,
+      location: sport.location || 'Toronto',
       address: sport.location,
-      lgbtqFriendly: sport.lgbtqFriendly,
       neighborhood: sport.location,
       detailPath: `/amateur-sports/${sport.id}`,
     }));
@@ -159,10 +290,26 @@ const AmateurSports = () => {
     setDisplayCount(prev => prev + 12);
   }, []);
 
-  // Reset display count when filters change
-  useEffect(() => {
+  const handleFilterChange = useCallback((filterKey: string, values: string[]) => {
+    setSelectedFilters(prev => ({
+      ...prev,
+      [filterKey]: values
+    }));
     setDisplayCount(12);
-  }, [selectedSportTypes, selectedAreas, searchTerm]);
+  }, []);
+
+  const handleResetFilters = useCallback(() => {
+    setSelectedFilters({
+      sportType: [],
+      skillLevel: [],
+      neighborhood: [],
+      season: [],
+      tags: [],
+      duration: [],
+      priceRange: []
+    });
+    setDisplayCount(12);
+  }, []);
 
   if (loading) {
     return (
@@ -201,20 +348,20 @@ const AmateurSports = () => {
               <h1 className="page-title">Amateur Sports</h1>
               <p className="page-subtitle">
                 Stay active with Toronto's best recreational sports facilities and programs. 
-                From golf courses to tennis courts, find your perfect sporting venue.
+                From golf courses to fitness centers, find your perfect way to play and compete.
               </p>
             </div>
             <div className="stats-box">
               <div className="stat">
                 <div className="stat-number">{filteredSports.length}</div>
-                <div className="stat-label">Facilities</div>
+                <div className="stat-label">Sports Options</div>
               </div>
               <div className="stat">
-                <div className="stat-number">6</div>
+                <div className="stat-number">8</div>
                 <div className="stat-label">Sport Types</div>
               </div>
               <div className="stat">
-                <div className="stat-number">6</div>
+                <div className="stat-number">5</div>
                 <div className="stat-label">Areas</div>
               </div>
             </div>
@@ -222,27 +369,13 @@ const AmateurSports = () => {
         </div>
       </section>
 
-      {/* Essential Filter Section */}
-      <section className="filter-section">
-        <div className="swiss-container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 'var(--space-3)' }}>
-            <MultiSelectFilter
-              label="Sport Type"
-              options={sportTypeOptions}
-              selectedValues={selectedSportTypes}
-              onChange={setSelectedSportTypes}
-              placeholder="All Sports"
-            />
-            <MultiSelectFilter
-              label="Area"
-              options={areaOptions}
-              selectedValues={selectedAreas}
-              onChange={setSelectedAreas}
-              placeholder="All Areas"
-            />
-          </div>
-        </div>
-      </section>
+      {/* Enhanced Filter Section */}
+      <EnhancedFilterSystem
+        filters={filterConfigs}
+        selectedFilters={selectedFilters}
+        onFilterChange={handleFilterChange}
+        onResetFilters={handleResetFilters}
+      />
 
       {/* Sports Grid */}
       <section className="section-large">
@@ -258,7 +391,7 @@ const AmateurSports = () => {
             }}>
               {filteredSports.length} Results
             </div>
-            <h2 className="section-title">Available Sports</h2>
+            <h2 className="section-title">Available Sports Activities</h2>
           </div>
           
           {filteredSports.length === 0 ? (
@@ -299,7 +432,7 @@ const AmateurSports = () => {
                     className="btn-secondary"
                     onClick={handleLoadMore}
                   >
-                    Load More Sports ({filteredSports.length - displayedSports.length} remaining)
+                    Load More Activities ({filteredSports.length - displayedSports.length} remaining)
                   </button>
                 </div>
               )}
@@ -332,10 +465,10 @@ const AmateurSports = () => {
             marginLeft: 'auto',
             marginRight: 'auto'
           }}>
-            Explore more activities and events in Toronto.
+            Explore professional sporting events and other activities.
           </p>
           <div className="intro-actions">
-            <RouterLink to="/activities" className="btn-primary">View Activities</RouterLink>
+            <RouterLink to="/sporting-events" className="btn-primary">View Sporting Events</RouterLink>
           </div>
         </div>
       </section>

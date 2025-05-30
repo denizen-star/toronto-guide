@@ -666,4 +666,151 @@ body {
 
 .MuiTextField-root .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
     border-color: var(--color-accent-sage) !important;
+}
+
+/* ===== ENHANCED FILTER SYSTEM STYLES ===== */
+.filter-section {
+    background: var(--color-warm-taupe);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.filter-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-soft-gray), transparent);
+}
+
+.filter-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-soft-gray), transparent);
+}
+
+/* Enhanced Filter Header Animations */
+.filter-section .MuiIconButton-root {
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filter-section .MuiIconButton-root:hover {
+    transform: scale(1.05);
+}
+
+/* Compact Filter Bubbles */
+.filter-section .MuiChip-root {
+    transition: all 0.15s ease;
+    backdrop-filter: blur(4px);
+}
+
+.filter-section .MuiChip-root:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced Select Dropdowns */
+.filter-section .MuiSelect-root {
+    transition: all 0.15s ease;
+}
+
+.filter-section .MuiSelect-root:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.filter-section .MuiMenuItem-root {
+    transition: all 0.1s ease;
+    border-radius: 4px;
+    margin: 2px 4px;
+}
+
+.filter-section .MuiMenuItem-root:hover {
+    background-color: var(--color-warm-taupe) !important;
+    transform: translateX(2px);
+}
+
+.filter-section .MuiMenuItem-root.Mui-selected {
+    background-color: var(--color-accent-sage) !important;
+    color: white !important;
+}
+
+.filter-section .MuiMenuItem-root.Mui-selected .MuiCheckbox-root {
+    color: white !important;
+}
+
+.filter-section .MuiMenuItem-root.Mui-selected .MuiListItemText-primary {
+    color: white !important;
+    font-weight: var(--weight-semibold) !important;
+}
+
+/* Swiss Typography Enhancement for Filters */
+.filter-section .MuiTypography-root {
+    font-family: var(--font-primary) !important;
+}
+
+/* Performance Enhancement - Hardware Acceleration */
+.filter-section .MuiCollapse-root {
+    will-change: height;
+    transform: translateZ(0);
+}
+
+.filter-section .MuiSelect-select {
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+/* Compact Status Indicators */
+.filter-section .filter-status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--text-xs);
+    color: var(--color-deep-slate);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: var(--weight-medium);
+}
+
+.filter-section .filter-status::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--color-accent-sage);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* Enhanced Focus States for Accessibility */
+.filter-section .MuiOutlinedInput-root.Mui-focused {
+    box-shadow: 0 0 0 2px rgba(168, 181, 160, 0.2);
+    border-color: var(--color-accent-sage) !important;
+}
+
+.filter-section .MuiIconButton-root:focus-visible {
+    outline: 2px solid var(--color-accent-sage);
+    outline-offset: 2px;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .filter-section {
+        background: rgba(42, 42, 42, 0.8);
+        backdrop-filter: blur(8px);
+    }
+    
+    .filter-section .MuiOutlinedInput-root {
+        background-color: rgba(255, 255, 255, 0.05) !important;
+    }
 } 

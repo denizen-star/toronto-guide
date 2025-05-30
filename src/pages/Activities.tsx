@@ -10,7 +10,7 @@ import {
   type Location,
 } from '../utils/dataLoader';
 import EnhancedMinimalistCard, { EnhancedCardData } from '../components/MinimalistCard';
-import MultiSelectFilter from '../components/MultiSelectFilter';
+import EnhancedFilterSystem, { FilterConfig } from '../components/EnhancedFilterSystem';
 import { useSearch } from '../components/Layout';
 import { Museum, Palette, LocalActivity, Explore, LocationOn, EventNote } from '@mui/icons-material';
 
@@ -39,9 +39,16 @@ const Activities = () => {
   const [error, setError] = useState<string>('');
   const [displayCount, setDisplayCount] = useState(12);
   
-  // Essential filter states - keeping only the most important ones for performance
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
+  // Enhanced filter states
+  const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({
+    category: [],
+    neighborhood: [],
+    eventType: [],
+    season: [],
+    tags: [],
+    duration: [],
+    priceRange: []
+  });
 
   useEffect(() => {
     setSearchPlaceholder('Search activities...');
@@ -51,7 +58,6 @@ const Activities = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        // Load only essential data for better performance
         const [activitiesData, locationsData, categoriesData] = await Promise.all([
           loadActivities(),
           loadLocations(),
@@ -83,22 +89,130 @@ const Activities = () => {
     fetchData();
   }, []);
 
-  // Memoized filter options
-  const categoryOptions = useMemo(() => 
-    Object.entries(categories).map(([id, category]) => ({
+  // Helper functions for categorization
+  const getEventType = useCallback((activity: Activity): string => {
+    const title = activity.title.toLowerCase();
+    const description = activity.description.toLowerCase();
+    
+    if (title.includes('tour') || description.includes('tour')) return 'tour';
+    if (title.includes('workshop') || description.includes('workshop')) return 'workshop';
+    if (title.includes('exhibition') || description.includes('exhibition')) return 'exhibition';
+    if (title.includes('performance') || description.includes('performance')) return 'performance';
+    if (title.includes('class') || description.includes('class')) return 'class';
+    return 'experience';
+  }, []);
+
+  const getSeason = useCallback((activity: Activity): string => {
+    const tags = activity.tags.join(' ').toLowerCase();
+    const description = activity.description.toLowerCase();
+    
+    if (tags.includes('winter') || description.includes('winter')) return 'winter';
+    if (tags.includes('spring') || description.includes('spring')) return 'spring';
+    if (tags.includes('summer') || description.includes('summer')) return 'summer';
+    if (tags.includes('fall') || tags.includes('autumn') || description.includes('fall')) return 'fall';
+    return 'year-round';
+  }, []);
+
+  const getDuration = useCallback((activity: Activity): string => {
+    const description = activity.description.toLowerCase();
+    
+    if (description.includes('1 hour') || description.includes('60 min')) return 'short';
+    if (description.includes('2 hour') || description.includes('3 hour')) return 'medium';
+    if (description.includes('half day') || description.includes('4 hour')) return 'half-day';
+    if (description.includes('full day') || description.includes('8 hour')) return 'full-day';
+    return 'varies';
+  }, []);
+
+  const getPriceRange = useCallback((activity: Activity): string => {
+    // Simple price categorization based on typical Toronto activity prices
+    return 'varies'; // Could be enhanced with actual price data
+  }, []);
+
+  const getNeighborhood = useCallback((activity: Activity): string => {
+    const neighborhood = activity.neighborhood?.toLowerCase() || '';
+    const city = activity.city.toLowerCase();
+    
+    if (neighborhood.includes('downtown') || city.includes('downtown')) return 'downtown';
+    if (neighborhood.includes('midtown') || neighborhood.includes('yorkville')) return 'midtown';
+    if (neighborhood.includes('uptown') || neighborhood.includes('north')) return 'uptown';
+    if (neighborhood.includes('east') || neighborhood.includes('beaches')) return 'east-end';
+    if (neighborhood.includes('west') || neighborhood.includes('junction')) return 'west-end';
+    if (neighborhood.includes('harbourfront') || neighborhood.includes('waterfront')) return 'waterfront';
+    return 'other';
+  }, []);
+
+  // Create filter configurations
+  const filterConfigs: FilterConfig[] = useMemo(() => {
+    const categoryOptions = Object.entries(categories).map(([id, category]) => ({
       value: id,
       label: category.name
-    })), [categories]
-  );
+    }));
 
-  const areaOptions = useMemo(() => [
-    { value: 'downtown', label: 'Downtown' },
-    { value: 'midtown', label: 'Midtown' },
-    { value: 'uptown', label: 'Uptown' },
-    { value: 'east', label: 'East End' },
-    { value: 'west', label: 'West End' },
-    { value: 'north', label: 'North York' }
-  ], []);
+    const neighborhoodOptions = [
+      { value: 'downtown', label: 'Downtown' },
+      { value: 'midtown', label: 'Midtown' },
+      { value: 'uptown', label: 'Uptown' },
+      { value: 'east-end', label: 'East End' },
+      { value: 'west-end', label: 'West End' },
+      { value: 'waterfront', label: 'Waterfront' },
+      { value: 'other', label: 'Other Areas' }
+    ];
+
+    const eventTypeOptions = [
+      { value: 'tour', label: 'Tours & Sightseeing' },
+      { value: 'workshop', label: 'Workshops' },
+      { value: 'exhibition', label: 'Exhibitions' },
+      { value: 'performance', label: 'Performances' },
+      { value: 'class', label: 'Classes' },
+      { value: 'experience', label: 'Experiences' }
+    ];
+
+    const seasonOptions = [
+      { value: 'spring', label: 'Spring' },
+      { value: 'summer', label: 'Summer' },
+      { value: 'fall', label: 'Fall' },
+      { value: 'winter', label: 'Winter' },
+      { value: 'year-round', label: 'Year Round' }
+    ];
+
+    const durationOptions = [
+      { value: 'short', label: 'Short (1-2 hours)' },
+      { value: 'medium', label: 'Medium (2-4 hours)' },
+      { value: 'half-day', label: 'Half Day (4-6 hours)' },
+      { value: 'full-day', label: 'Full Day (6+ hours)' },
+      { value: 'varies', label: 'Varies' }
+    ];
+
+    const priceRangeOptions = [
+      { value: 'free', label: 'Free' },
+      { value: 'budget', label: 'Budget ($0-25)' },
+      { value: 'moderate', label: 'Moderate ($25-75)' },
+      { value: 'premium', label: 'Premium ($75-150)' },
+      { value: 'luxury', label: 'Luxury ($150+)' },
+      { value: 'varies', label: 'Varies' }
+    ];
+
+    // Get unique tags from activities
+    const allTags = activities.reduce((tags: Set<string>, activity) => {
+      activity.tags.forEach(tag => tags.add(tag));
+      return tags;
+    }, new Set<string>());
+
+    const tagOptions = Array.from(allTags).map(tag => ({
+      value: tag.toLowerCase().replace(/\s+/g, '-'),
+      label: tag
+    }));
+
+    return [
+      { key: 'category', label: 'Category', options: categoryOptions, placeholder: 'All Categories' },
+      { key: 'neighborhood', label: 'Neighborhood', options: neighborhoodOptions, placeholder: 'All Neighborhoods' },
+      { key: 'eventType', label: 'Event Type', options: eventTypeOptions, placeholder: 'All Event Types' },
+      { key: 'season', label: 'Season', options: seasonOptions, placeholder: 'All Seasons' },
+      { key: 'duration', label: 'Duration', options: durationOptions, placeholder: 'Any Duration' },
+      { key: 'priceRange', label: 'Price Range', options: priceRangeOptions, placeholder: 'Any Price' },
+      { key: 'tags', label: 'Tags', options: tagOptions.slice(0, 20), placeholder: 'Select Tags' } // Limit tags for performance
+    ];
+  }, [categories, activities]);
 
   // Memoized filtering logic
   const filteredActivities = useMemo(() => {
@@ -111,29 +225,42 @@ const Activities = () => {
         (activity.neighborhood && activity.neighborhood.toLowerCase().includes(searchTerm.toLowerCase()));
 
       // Category filter
-      const matchesCategory = selectedCategories.length === 0 || 
-        selectedCategories.includes(activity.categoryId);
+      const matchesCategory = selectedFilters.category.length === 0 || 
+        selectedFilters.category.includes(activity.categoryId);
 
-      // Area filter (simplified - using city/neighborhood)
-      const matchesArea = selectedAreas.length === 0 || 
-        selectedAreas.some(area => {
-          const cityLower = activity.city.toLowerCase();
-          const neighborhoodLower = activity.neighborhood?.toLowerCase() || '';
-          
-          switch(area) {
-            case 'downtown': return cityLower.includes('toronto') && (neighborhoodLower.includes('downtown') || neighborhoodLower.includes('financial') || neighborhoodLower.includes('entertainment'));
-            case 'midtown': return neighborhoodLower.includes('midtown') || neighborhoodLower.includes('yorkville') || neighborhoodLower.includes('rosedale');
-            case 'uptown': return neighborhoodLower.includes('uptown') || neighborhoodLower.includes('north');
-            case 'east': return neighborhoodLower.includes('east') || neighborhoodLower.includes('beaches') || neighborhoodLower.includes('leslieville');
-            case 'west': return neighborhoodLower.includes('west') || neighborhoodLower.includes('junction') || neighborhoodLower.includes('liberty');
-            case 'north': return neighborhoodLower.includes('north') || cityLower.includes('north york');
-            default: return true;
-          }
-        });
+      // Neighborhood filter
+      const matchesNeighborhood = selectedFilters.neighborhood.length === 0 || 
+        selectedFilters.neighborhood.includes(getNeighborhood(activity));
 
-      return matchesSearch && matchesCategory && matchesArea;
+      // Event Type filter
+      const matchesEventType = selectedFilters.eventType.length === 0 || 
+        selectedFilters.eventType.includes(getEventType(activity));
+
+      // Season filter
+      const matchesSeason = selectedFilters.season.length === 0 || 
+        selectedFilters.season.includes(getSeason(activity));
+
+      // Duration filter
+      const matchesDuration = selectedFilters.duration.length === 0 || 
+        selectedFilters.duration.includes(getDuration(activity));
+
+      // Price Range filter
+      const matchesPriceRange = selectedFilters.priceRange.length === 0 || 
+        selectedFilters.priceRange.includes(getPriceRange(activity));
+
+      // Tags filter
+      const matchesTags = selectedFilters.tags.length === 0 || 
+        selectedFilters.tags.some(selectedTag => 
+          activity.tags.some(activityTag => 
+            activityTag.toLowerCase().replace(/\s+/g, '-') === selectedTag
+          )
+        );
+
+      return matchesSearch && matchesCategory && matchesNeighborhood && 
+             matchesEventType && matchesSeason && matchesDuration && 
+             matchesPriceRange && matchesTags;
     });
-  }, [activities, searchTerm, selectedCategories, selectedAreas]);
+  }, [activities, searchTerm, selectedFilters, getNeighborhood, getEventType, getSeason, getDuration, getPriceRange]);
 
   // Memoized displayed activities
   const displayedActivities = useMemo(() => 
@@ -150,8 +277,8 @@ const Activities = () => {
         title: activity.title,
         description: activity.description,
         website: activity.website,
-        tags: activity.tags.slice(0, 3), // Limit tags for performance
-        priceRange: 'See website', // Simplified for performance
+        tags: activity.tags.slice(0, 3),
+        priceRange: 'See website',
         location: location?.name,
         address: location?.address,
         coordinates: {
@@ -166,17 +293,33 @@ const Activities = () => {
 
   // Memoized icon getter function
   const getIconForCategory = useCallback((categoryId: string): React.ReactNode => {
-    return iconMap[categoryId] || iconMap['2']; // Default to LocalActivity
+    return iconMap[categoryId] || iconMap['2'];
   }, []);
 
   const handleLoadMore = useCallback(() => {
     setDisplayCount(prev => prev + 12);
   }, []);
 
-  // Reset display count when filters change
-  useEffect(() => {
+  const handleFilterChange = useCallback((filterKey: string, values: string[]) => {
+    setSelectedFilters(prev => ({
+      ...prev,
+      [filterKey]: values
+    }));
+    setDisplayCount(12); // Reset display count when filters change
+  }, []);
+
+  const handleResetFilters = useCallback(() => {
+    setSelectedFilters({
+      category: [],
+      neighborhood: [],
+      eventType: [],
+      season: [],
+      tags: [],
+      duration: [],
+      priceRange: []
+    });
     setDisplayCount(12);
-  }, [selectedCategories, selectedAreas, searchTerm]);
+  }, []);
 
   if (loading) {
     return (
@@ -228,35 +371,21 @@ const Activities = () => {
                 <div className="stat-label">Categories</div>
               </div>
               <div className="stat">
-                <div className="stat-number">15</div>
-                <div className="stat-label">Districts</div>
+                <div className="stat-number">7</div>
+                <div className="stat-label">Neighborhoods</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Essential Filter Section */}
-      <section className="filter-section">
-        <div className="swiss-container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 'var(--space-3)' }}>
-            <MultiSelectFilter
-              label="Category"
-              options={categoryOptions}
-              selectedValues={selectedCategories}
-              onChange={setSelectedCategories}
-              placeholder="All Categories"
-            />
-            <MultiSelectFilter
-              label="Area"
-              options={areaOptions}
-              selectedValues={selectedAreas}
-              onChange={setSelectedAreas}
-              placeholder="All Areas"
-            />
-          </div>
-        </div>
-      </section>
+      {/* Enhanced Filter Section */}
+      <EnhancedFilterSystem
+        filters={filterConfigs}
+        selectedFilters={selectedFilters}
+        onFilterChange={handleFilterChange}
+        onResetFilters={handleResetFilters}
+      />
 
       {/* Activities Grid */}
       <section className="section-large">
