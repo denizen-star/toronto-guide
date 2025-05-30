@@ -26,6 +26,7 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import SportsBarIcon from '@mui/icons-material/SportsBar';
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import PublicIcon from '@mui/icons-material/Public';
+import StarIcon from '@mui/icons-material/Star';
 
 // Mock data structure for happy hours (you'll replace this with actual data loading)
 interface HappyHour {
@@ -328,35 +329,125 @@ const HappyHours = () => {
 
   return (
     <Box>
-      {/* Hero Section */}
+      {/* Header Section */}
       <Box sx={{ 
-        bgcolor: 'background.default',
-        py: { xs: 2, md: 3 },
-        textAlign: 'center'
+        bgcolor: '#0A0F1C',
+        py: { xs: 2.5, md: 3 },
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 120,
+          height: 120,
+          border: '1px solid rgba(255, 152, 0, 0.4)',
+          borderRadius: '50%',
+          animation: 'orbit-ring 6s linear infinite',
+          '@keyframes orbit-ring': {
+            '0%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
+            '100%': { transform: 'translate(-50%, -50%) rotate(360deg)' },
+          },
+          zIndex: 1,
+        }
       }}>
-        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
-          <Typography 
-            variant="h4"
-            component="h1"
-            sx={{ 
-              mb: 1,
-              fontWeight: 600,
-              color: 'text.primary',
-            }}
-          >
-            Toronto Happy Hours
-          </Typography>
-          
-          <Typography 
-            variant="body1" 
-            sx={{ 
-              color: 'text.secondary',
-              maxWidth: '600px',
-              mx: 'auto',
-            }}
-          >
-            Discover the best happy hour deals and after-work spots in the city
-          </Typography>
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
+          <Box sx={{ 
+            textAlign: 'center',
+            maxWidth: '500px',
+            mx: 'auto',
+          }}>
+            <Box sx={{ 
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              mb: 1.5,
+              position: 'relative',
+            }}>
+              <StarIcon sx={{ 
+                fontSize: 10,
+                color: '#FF9800',
+                position: 'absolute',
+                animation: 'orbit1 5s linear infinite',
+                transformOrigin: '0 18px',
+                '@keyframes orbit1': {
+                  '0%': { transform: 'rotate(0deg) translateX(20px) rotate(0deg)' },
+                  '100%': { transform: 'rotate(360deg) translateX(20px) rotate(-360deg)' },
+                },
+              }} />
+              <StarIcon sx={{ 
+                fontSize: 7,
+                color: '#FFB74D',
+                position: 'absolute',
+                animation: 'orbit2 3s linear infinite reverse',
+                transformOrigin: '0 12px',
+                '@keyframes orbit2': {
+                  '0%': { transform: 'rotate(0deg) translateX(14px) rotate(0deg)' },
+                  '100%': { transform: 'rotate(360deg) translateX(14px) rotate(-360deg)' },
+                },
+              }} />
+              <LocalBarIcon sx={{ 
+                fontSize: 28,
+                background: 'linear-gradient(45deg, #FF9800, #FFB74D, #FFCC80)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 8px rgba(255, 152, 0, 0.6))',
+                position: 'relative',
+                zIndex: 2,
+                mr: 1,
+              }} />
+              <SportsBarIcon sx={{ 
+                fontSize: 24,
+                background: 'linear-gradient(45deg, #FFB74D, #FFCC80, #FFE0B2)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 6px rgba(255, 183, 77, 0.5))',
+                position: 'relative',
+                zIndex: 2,
+                transform: 'rotate(-10deg)',
+              }} />
+            </Box>
+            
+            <Typography 
+              variant="h4"
+              component="h1"
+              sx={{ 
+                mb: 0.5,
+                fontWeight: 400,
+                fontSize: { xs: 1.6 * 16, md: 2 * 16 },
+                letterSpacing: '0.03em',
+                fontFamily: '"Quicksand", sans-serif',
+                background: 'linear-gradient(135deg, #FF9800 0%, #FFB74D 50%, #FFCC80 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 8px rgba(255, 152, 0, 0.5))',
+                animation: 'hologram 2.5s ease-in-out infinite',
+                '@keyframes hologram': {
+                  '0%, 100%': { transform: 'translateY(0px)' },
+                  '50%': { transform: 'translateY(-1px)' },
+                },
+              }}
+            >
+              Happy Hours & After-Work Spots
+            </Typography>
+            
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                color: '#FFE0B2',
+                fontWeight: 300,
+                lineHeight: 1.4,
+                fontSize: 14,
+              }}
+            >
+              Unwind with Toronto's best happy hour deals, rooftop patios, and after-work destinations
+            </Typography>
+          </Box>
         </Container>
       </Box>
 

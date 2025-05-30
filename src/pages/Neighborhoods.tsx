@@ -24,6 +24,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SearchIcon from '@mui/icons-material/Search';
 import { loadVenues, loadHappyHours, getVenueTags, type Venue, type HappyHour } from '../utils/dataLoader';
 import { Link as RouterLink } from 'react-router-dom';
+import StarIcon from '@mui/icons-material/Star';
 
 const Neighborhoods = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -123,35 +124,113 @@ const Neighborhoods = () => {
 
   return (
     <Box>
-      {/* Hero Section */}
+      {/* Header Section */}
       <Box sx={{ 
-        bgcolor: 'background.default',
-        py: { xs: 2, md: 3 },
-        textAlign: 'center'
+        bgcolor: '#0A0F1C',
+        py: { xs: 2.5, md: 3 },
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 120,
+          height: 120,
+          border: '1px solid rgba(233, 30, 99, 0.4)',
+          borderRadius: '50%',
+          animation: 'orbit-ring 6s linear infinite',
+          '@keyframes orbit-ring': {
+            '0%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
+            '100%': { transform: 'translate(-50%, -50%) rotate(360deg)' },
+          },
+          zIndex: 1,
+        }
       }}>
-        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
-          <Typography 
-            variant="h4"
-            component="h1"
-            sx={{ 
-              mb: 1,
-              fontWeight: 600,
-              color: 'text.primary',
-            }}
-          >
-            Find Happy Hours
-          </Typography>
-          
-          <Typography 
-            variant="body1" 
-            sx={{ 
-              color: 'text.secondary',
-              maxWidth: '600px',
-              mx: 'auto',
-            }}
-          >
-            Discover the best happy hour deals across Toronto neighborhoods
-          </Typography>
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
+          <Box sx={{ 
+            textAlign: 'center',
+            maxWidth: '500px',
+            mx: 'auto',
+          }}>
+            <Box sx={{ 
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              mb: 1.5,
+              position: 'relative',
+            }}>
+              <StarIcon sx={{ 
+                fontSize: 10,
+                color: '#E91E63',
+                position: 'absolute',
+                animation: 'orbit1 5s linear infinite',
+                transformOrigin: '0 18px',
+                '@keyframes orbit1': {
+                  '0%': { transform: 'rotate(0deg) translateX(20px) rotate(0deg)' },
+                  '100%': { transform: 'rotate(360deg) translateX(20px) rotate(-360deg)' },
+                },
+              }} />
+              <StarIcon sx={{ 
+                fontSize: 7,
+                color: '#F06292',
+                position: 'absolute',
+                animation: 'orbit2 3s linear infinite reverse',
+                transformOrigin: '0 12px',
+                '@keyframes orbit2': {
+                  '0%': { transform: 'rotate(0deg) translateX(14px) rotate(0deg)' },
+                  '100%': { transform: 'rotate(360deg) translateX(14px) rotate(-360deg)' },
+                },
+              }} />
+              <LocationOnIcon sx={{ 
+                fontSize: 28,
+                background: 'linear-gradient(45deg, #E91E63, #F06292, #F8BBD9)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 8px rgba(233, 30, 99, 0.6))',
+                position: 'relative',
+                zIndex: 2,
+              }} />
+            </Box>
+            
+            <Typography 
+              variant="h4"
+              component="h1"
+              sx={{ 
+                mb: 0.5,
+                fontWeight: 400,
+                fontSize: { xs: 1.6 * 16, md: 2 * 16 },
+                letterSpacing: '0.02em',
+                fontFamily: '"Lato", sans-serif',
+                background: 'linear-gradient(135deg, #E91E63 0%, #F06292 50%, #F8BBD9 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 8px rgba(233, 30, 99, 0.5))',
+                animation: 'hologram 2.5s ease-in-out infinite',
+                '@keyframes hologram': {
+                  '0%, 100%': { transform: 'translateY(0px)' },
+                  '50%': { transform: 'translateY(-1px)' },
+                },
+              }}
+            >
+              Neighborhoods & Districts
+            </Typography>
+            
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                color: '#F8BBD9',
+                fontWeight: 300,
+                lineHeight: 1.4,
+                fontSize: 14,
+              }}
+            >
+              Explore Toronto's diverse neighborhoods, each with its own unique character and local gems
+            </Typography>
+          </Box>
         </Container>
       </Box>
 

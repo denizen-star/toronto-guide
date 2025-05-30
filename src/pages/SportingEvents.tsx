@@ -29,6 +29,7 @@ import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
 import SportsFootballIcon from '@mui/icons-material/SportsFootball';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import SportsIcon from '@mui/icons-material/Sports';
+import StarIcon from '@mui/icons-material/Star';
 import { Link as RouterLink } from 'react-router-dom';
 import { SportingEvent, loadSportingEvents } from '../utils/dataLoader';
 
@@ -199,35 +200,125 @@ const SportingEvents = () => {
 
   return (
     <Box>
-      {/* Hero Section */}
+      {/* Header Section */}
       <Box sx={{ 
-        bgcolor: 'background.default',
-        py: { xs: 2, md: 3 },
-        textAlign: 'center'
+        bgcolor: '#0A0F1C',
+        py: { xs: 2.5, md: 3 },
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 120,
+          height: 120,
+          border: '1px solid rgba(220, 53, 69, 0.4)',
+          borderRadius: '50%',
+          animation: 'orbit-ring 6s linear infinite',
+          '@keyframes orbit-ring': {
+            '0%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
+            '100%': { transform: 'translate(-50%, -50%) rotate(360deg)' },
+          },
+          zIndex: 1,
+        }
       }}>
-        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
-          <Typography 
-            variant="h4"
-            component="h1"
-            sx={{ 
-              mb: 1,
-              fontWeight: 600,
-              color: 'text.primary',
-            }}
-          >
-            Professional Sporting Events
-          </Typography>
-          
-          <Typography 
-            variant="body1" 
-            sx={{ 
-              color: 'text.secondary',
-              maxWidth: '600px',
-              mx: 'auto',
-            }}
-          >
-            Get tickets to Toronto's biggest sporting events
-          </Typography>
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
+          <Box sx={{ 
+            textAlign: 'center',
+            maxWidth: '500px',
+            mx: 'auto',
+          }}>
+            <Box sx={{ 
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              mb: 1.5,
+              position: 'relative',
+            }}>
+              <StarIcon sx={{ 
+                fontSize: 10,
+                color: '#DC3545',
+                position: 'absolute',
+                animation: 'orbit1 5s linear infinite',
+                transformOrigin: '0 18px',
+                '@keyframes orbit1': {
+                  '0%': { transform: 'rotate(0deg) translateX(20px) rotate(0deg)' },
+                  '100%': { transform: 'rotate(360deg) translateX(20px) rotate(-360deg)' },
+                },
+              }} />
+              <StarIcon sx={{ 
+                fontSize: 7,
+                color: '#F8D7DA',
+                position: 'absolute',
+                animation: 'orbit2 3s linear infinite reverse',
+                transformOrigin: '0 12px',
+                '@keyframes orbit2': {
+                  '0%': { transform: 'rotate(0deg) translateX(14px) rotate(0deg)' },
+                  '100%': { transform: 'rotate(360deg) translateX(14px) rotate(-360deg)' },
+                },
+              }} />
+              <SportsIcon sx={{ 
+                fontSize: 28,
+                background: 'linear-gradient(45deg, #DC3545, #F8D7DA, #FFB3BA)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 8px rgba(220, 53, 69, 0.6))',
+                position: 'relative',
+                zIndex: 2,
+                mr: 1,
+              }} />
+              <SportsHockeyIcon sx={{ 
+                fontSize: 24,
+                background: 'linear-gradient(45deg, #F8D7DA, #FFB3BA, #FFC0CB)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 6px rgba(248, 215, 218, 0.5))',
+                position: 'relative',
+                zIndex: 2,
+                transform: 'rotate(15deg)',
+              }} />
+            </Box>
+            
+            <Typography 
+              variant="h4"
+              component="h1"
+              sx={{ 
+                mb: 0.5,
+                fontWeight: 700,
+                fontSize: { xs: 1.6 * 16, md: 2 * 16 },
+                letterSpacing: '-0.01em',
+                fontFamily: '"Roboto Condensed", sans-serif',
+                background: 'linear-gradient(135deg, #DC3545 0%, #F8D7DA 50%, #FFB3BA 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 8px rgba(220, 53, 69, 0.5))',
+                animation: 'hologram 2.5s ease-in-out infinite',
+                '@keyframes hologram': {
+                  '0%, 100%': { transform: 'translateY(0px)' },
+                  '50%': { transform: 'translateY(-1px)' },
+                },
+              }}
+            >
+              Professional Sports & Games
+            </Typography>
+            
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                color: '#FFD6D6',
+                fontWeight: 300,
+                lineHeight: 1.4,
+                fontSize: 14,
+              }}
+            >
+              Catch Toronto's top professional teams in action - from Leafs hockey to Raptors basketball and Blue Jays baseball
+            </Typography>
+          </Box>
         </Container>
       </Box>
 

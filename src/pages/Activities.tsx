@@ -24,6 +24,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ClearIcon from '@mui/icons-material/Clear';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import StarIcon from '@mui/icons-material/Star';
 import { 
   loadActivities, 
   loadLocations, 
@@ -261,35 +262,113 @@ const Activities = () => {
 
   return (
     <Box>
-      {/* Hero Section */}
+      {/* Header Section */}
       <Box sx={{ 
-        bgcolor: 'background.default',
-        py: { xs: 2, md: 3 },
-        textAlign: 'center'
+        bgcolor: '#0A0F1C',
+        py: { xs: 2.5, md: 3 },
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 120,
+          height: 120,
+          border: '1px solid rgba(46, 204, 113, 0.4)',
+          borderRadius: '50%',
+          animation: 'orbit-ring 6s linear infinite',
+          '@keyframes orbit-ring': {
+            '0%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
+            '100%': { transform: 'translate(-50%, -50%) rotate(360deg)' },
+          },
+          zIndex: 1,
+        }
       }}>
-        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
-          <Typography 
-            variant="h4"
-            component="h1"
-            sx={{ 
-              mb: 1,
-              fontWeight: 600,
-              color: 'text.primary',
-            }}
-          >
-            Activities & Attractions
-          </Typography>
-          
-          <Typography 
-            variant="body1" 
-            sx={{ 
-              color: 'text.secondary',
-              maxWidth: '600px',
-              mx: 'auto',
-            }}
-          >
-            Discover the best experiences Toronto has to offer
-          </Typography>
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
+          <Box sx={{ 
+            textAlign: 'center',
+            maxWidth: '500px',
+            mx: 'auto',
+          }}>
+            <Box sx={{ 
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              mb: 1.5,
+              position: 'relative',
+            }}>
+              <StarIcon sx={{ 
+                fontSize: 10,
+                color: '#2ECC71',
+                position: 'absolute',
+                animation: 'orbit1 5s linear infinite',
+                transformOrigin: '0 18px',
+                '@keyframes orbit1': {
+                  '0%': { transform: 'rotate(0deg) translateX(20px) rotate(0deg)' },
+                  '100%': { transform: 'rotate(360deg) translateX(20px) rotate(-360deg)' },
+                },
+              }} />
+              <StarIcon sx={{ 
+                fontSize: 7,
+                color: '#58D68D',
+                position: 'absolute',
+                animation: 'orbit2 3s linear infinite reverse',
+                transformOrigin: '0 12px',
+                '@keyframes orbit2': {
+                  '0%': { transform: 'rotate(0deg) translateX(14px) rotate(0deg)' },
+                  '100%': { transform: 'rotate(360deg) translateX(14px) rotate(-360deg)' },
+                },
+              }} />
+              <LocalActivityIcon sx={{ 
+                fontSize: 28,
+                background: 'linear-gradient(45deg, #2ECC71, #58D68D, #85E085)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 8px rgba(46, 204, 113, 0.6))',
+                position: 'relative',
+                zIndex: 2,
+              }} />
+            </Box>
+            
+            <Typography 
+              variant="h4"
+              component="h1"
+              sx={{ 
+                mb: 0.5,
+                fontWeight: 500,
+                fontSize: { xs: 1.6 * 16, md: 2 * 16 },
+                letterSpacing: '0.01em',
+                fontFamily: '"Inter", sans-serif',
+                background: 'linear-gradient(135deg, #2ECC71 0%, #58D68D 50%, #85E085 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 8px rgba(46, 204, 113, 0.5))',
+                animation: 'hologram 2.5s ease-in-out infinite',
+                '@keyframes hologram': {
+                  '0%, 100%': { transform: 'translateY(0px)' },
+                  '50%': { transform: 'translateY(-1px)' },
+                },
+              }}
+            >
+              Things to Do & Attractions
+            </Typography>
+            
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                color: '#B8E6B8',
+                fontWeight: 300,
+                lineHeight: 1.4,
+                fontSize: 14,
+              }}
+            >
+              Explore Toronto's must-see attractions, unique experiences, and hidden gems across the city
+            </Typography>
+          </Box>
         </Container>
       </Box>
 

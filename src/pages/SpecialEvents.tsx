@@ -31,6 +31,7 @@ import FestivalIcon from '@mui/icons-material/Festival';
 import PublicIcon from '@mui/icons-material/Public';
 import { Link as RouterLink } from 'react-router-dom';
 import { SpecialEvent, loadSpecialEvents } from '../utils/dataLoader';
+import StarIcon from '@mui/icons-material/Star';
 
 const getEventIcon = (type: string, title: string) => {
   const eventType = type.toLowerCase();
@@ -101,10 +102,14 @@ const getEventSeason = (event: SpecialEvent): string => {
   const title = event.title.toLowerCase();
   const description = event.description.toLowerCase();
   
-  if (title.includes('winter') || title.includes('christmas') || title.includes('holiday')) return 'Winter';
-  if (title.includes('spring') || title.includes('easter')) return 'Spring';
-  if (title.includes('summer') || title.includes('canada day')) return 'Summer';
-  if (title.includes('fall') || title.includes('autumn') || title.includes('halloween')) return 'Fall';
+  if (title.includes('winter') || title.includes('christmas') || title.includes('holiday') || 
+      description.includes('winter') || description.includes('christmas') || description.includes('holiday')) return 'Winter';
+  if (title.includes('spring') || title.includes('easter') || 
+      description.includes('spring') || description.includes('easter')) return 'Spring';
+  if (title.includes('summer') || title.includes('canada day') || 
+      description.includes('summer') || description.includes('canada day')) return 'Summer';
+  if (title.includes('fall') || title.includes('autumn') || title.includes('halloween') || 
+      description.includes('fall') || description.includes('autumn') || description.includes('halloween')) return 'Fall';
   
   // Try to determine from date if available
   if (event.date) {
@@ -238,35 +243,125 @@ const SpecialEvents = () => {
 
   return (
     <Box>
-      {/* Hero Section */}
+      {/* Header Section */}
       <Box sx={{ 
-        bgcolor: 'background.default',
-        py: { xs: 2, md: 3 },
-        textAlign: 'center'
+        bgcolor: '#0A0F1C',
+        py: { xs: 2.5, md: 3 },
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 120,
+          height: 120,
+          border: '1px solid rgba(138, 43, 226, 0.4)',
+          borderRadius: '50%',
+          animation: 'orbit-ring 6s linear infinite',
+          '@keyframes orbit-ring': {
+            '0%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
+            '100%': { transform: 'translate(-50%, -50%) rotate(360deg)' },
+          },
+          zIndex: 1,
+        }
       }}>
-        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
-          <Typography 
-            variant="h4"
-            component="h1"
-            sx={{ 
-              mb: 1,
-              fontWeight: 600,
-              color: 'text.primary',
-            }}
-          >
-            Special Events & Festivals
-          </Typography>
-          
-          <Typography 
-            variant="body1" 
-            sx={{ 
-              color: 'text.secondary',
-              maxWidth: '600px',
-              mx: 'auto',
-            }}
-          >
-            Discover Toronto's most exciting festivals and cultural celebrations
-          </Typography>
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
+          <Box sx={{ 
+            textAlign: 'center',
+            maxWidth: '500px',
+            mx: 'auto',
+          }}>
+            <Box sx={{ 
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              mb: 1.5,
+              position: 'relative',
+            }}>
+              <StarIcon sx={{ 
+                fontSize: 10,
+                color: '#8A2BE2',
+                position: 'absolute',
+                animation: 'orbit1 5s linear infinite',
+                transformOrigin: '0 18px',
+                '@keyframes orbit1': {
+                  '0%': { transform: 'rotate(0deg) translateX(20px) rotate(0deg)' },
+                  '100%': { transform: 'rotate(360deg) translateX(20px) rotate(-360deg)' },
+                },
+              }} />
+              <StarIcon sx={{ 
+                fontSize: 7,
+                color: '#DA70D6',
+                position: 'absolute',
+                animation: 'orbit2 3s linear infinite reverse',
+                transformOrigin: '0 12px',
+                '@keyframes orbit2': {
+                  '0%': { transform: 'rotate(0deg) translateX(14px) rotate(0deg)' },
+                  '100%': { transform: 'rotate(360deg) translateX(14px) rotate(-360deg)' },
+                },
+              }} />
+              <CelebrationIcon sx={{ 
+                fontSize: 28,
+                background: 'linear-gradient(45deg, #8A2BE2, #DA70D6, #DDA0DD)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 8px rgba(138, 43, 226, 0.6))',
+                position: 'relative',
+                zIndex: 2,
+                mr: 1,
+              }} />
+              <FestivalIcon sx={{ 
+                fontSize: 24,
+                background: 'linear-gradient(45deg, #DA70D6, #DDA0DD, #E6E6FA)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 6px rgba(218, 112, 214, 0.5))',
+                position: 'relative',
+                zIndex: 2,
+                transform: 'rotate(-10deg)',
+              }} />
+            </Box>
+            
+            <Typography 
+              variant="h4"
+              component="h1"
+              sx={{ 
+                mb: 0.5,
+                fontWeight: 600,
+                fontSize: { xs: 1.6 * 16, md: 2 * 16 },
+                letterSpacing: '0.02em',
+                fontFamily: '"Playfair Display", serif',
+                background: 'linear-gradient(135deg, #8A2BE2 0%, #DA70D6 50%, #DDA0DD 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 8px rgba(138, 43, 226, 0.5))',
+                animation: 'hologram 2.5s ease-in-out infinite',
+                '@keyframes hologram': {
+                  '0%, 100%': { transform: 'translateY(0px)' },
+                  '50%': { transform: 'translateY(-1px)' },
+                },
+              }}
+            >
+              Festivals & Cultural Events
+            </Typography>
+            
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                color: '#E6D3FF',
+                fontWeight: 300,
+                lineHeight: 1.4,
+                fontSize: 14,
+              }}
+            >
+              Experience Toronto's vibrant cultural scene through year-round festivals, concerts, and special celebrations
+            </Typography>
+          </Box>
         </Container>
       </Box>
 
