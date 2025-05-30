@@ -395,11 +395,10 @@ const Activities = () => {
             marginLeft: 'auto',
             marginRight: 'auto'
           }}>
-            Explore neighborhoods, day trips, and special events.
+            Explore day trips, special events, and exciting activities.
           </p>
-          <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'center' }}>
-            <RouterLink to="/neighborhoods" className="btn-primary">Browse Areas</RouterLink>
-            <RouterLink to="/day-trips" className="btn-secondary">Day Trips</RouterLink>
+          <div className="intro-actions">
+            <RouterLink to="/day-trips" className="btn-primary">View Day Trips</RouterLink>
           </div>
         </div>
       </section>

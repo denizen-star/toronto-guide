@@ -382,7 +382,7 @@ const SportingEvents = () => {
             marginLeft: 'auto',
             marginRight: 'auto'
           }}>
-            Explore special events, activities, and neighborhoods throughout Toronto.
+            Explore special events and activities throughout Toronto.
           </p>
           <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'center' }}>
             <RouterLink to="/special-events" className="btn-primary">Special Events</RouterLink>

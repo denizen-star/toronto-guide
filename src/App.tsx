@@ -6,8 +6,6 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from './theme-new';
 import Home from './pages/Home';
-import Neighborhoods from './pages/Neighborhoods';
-import VenueDetails from './pages/VenueDetails';
 import Activities from './pages/Activities';
 import ActivityDetails from './pages/ActivityDetails';
 import HappyHours from './pages/HappyHours';
@@ -34,8 +32,6 @@ function App() {
             <Route path="activities" element={<Activities />} />
             <Route path="activity/:id" element={<ActivityDetails />} />
             <Route path="happy-hours" element={<HappyHours />} />
-            <Route path="neighborhoods" element={<Neighborhoods />} />
-            <Route path="venue/:id" element={<VenueDetails />} />
             <Route path="day-trips" element={<DayTrips />} />
             <Route path="day-trips/:id" element={<DayTripDetails />} />
             <Route path="amateur-sports" element={<AmateurSports />} />

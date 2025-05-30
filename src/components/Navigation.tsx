@@ -48,18 +48,19 @@ const SearchContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   backgroundColor: 'var(--color-warm-taupe, #F5F3F0)',
-  borderRadius: '4px',
-  padding: '8px 16px',
-  minWidth: '300px',
+  borderRadius: '20px',
+  padding: '6px 12px',
+  minWidth: '240px',
+  height: '36px',
   [theme.breakpoints.down('md')]: {
     display: 'none',
   },
 }));
 
 const SearchInput = styled(InputBase)({
-  marginLeft: '8px',
+  marginLeft: '6px',
   flex: 1,
-  fontSize: '0.875rem',
+  fontSize: '0.8rem',
   color: 'var(--color-charcoal, #1A1A1A)',
   '&::placeholder': {
     color: 'var(--color-deep-slate, #4A4A4A)',
@@ -131,9 +132,9 @@ const MobileSearchContainer = styled(Box)({
 const MobileSearchInput = styled(InputBase)({
   width: '100%',
   backgroundColor: 'var(--color-warm-taupe, #F5F3F0)',
-  padding: '12px 16px',
-  borderRadius: '4px',
-  fontSize: '1rem',
+  padding: '8px 12px',
+  borderRadius: '20px',
+  fontSize: '0.9rem',
   color: 'var(--color-charcoal, #1A1A1A)',
   '&::placeholder': {
     color: 'var(--color-deep-slate, #4A4A4A)',
@@ -156,14 +157,16 @@ const Navigation: React.FC<NavigationProps> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const location = useLocation();
 
+  // Hide search bar on home page
+  const isHomePage = location.pathname === '/';
+
   const navigationItems = [
-    { path: '/activities', label: 'Activities' },
-    { path: '/neighborhoods', label: 'Areas' },
-    { path: '/day-trips', label: 'Trips' },
-    { path: '/special-events', label: 'Events' },
-    { path: '/sporting-events', label: 'Sports' },
-    { path: '/happy-hours', label: 'Happy Hours' },
     { path: '/amateur-sports', label: 'Play' },
+    { path: '/activities', label: 'Activities' },
+    { path: '/happy-hours', label: 'Happy Hours' },
+    { path: '/day-trips', label: 'Trips' },
+    { path: '/special-events', label: 'Culture' },
+    { path: '/sporting-events', label: 'Sports' },
   ];
 
   const handleMobileMenuToggle = () => {
@@ -181,15 +184,17 @@ const Navigation: React.FC<NavigationProps> = ({
           {/* Logo */}
           <Logo to="/">Toronto</Logo>
 
-          {/* Desktop Search */}
-          <SearchContainer>
-            <SearchIcon sx={{ color: 'var(--color-deep-slate, #4A4A4A)' }} />
-            <SearchInput
-              placeholder={searchPlaceholder}
-              value={searchTerm}
-              onChange={onSearchChange}
-            />
-          </SearchContainer>
+          {/* Desktop Search - Hidden on home page */}
+          {!isHomePage && (
+            <SearchContainer>
+              <SearchIcon sx={{ color: 'var(--color-deep-slate, #4A4A4A)' }} />
+              <SearchInput
+                placeholder={searchPlaceholder}
+                value={searchTerm}
+                onChange={onSearchChange}
+              />
+            </SearchContainer>
+          )}
 
           {/* Desktop Navigation */}
           <NavMenu>
@@ -233,14 +238,16 @@ const Navigation: React.FC<NavigationProps> = ({
           </IconButton>
         </Box>
 
-        {/* Mobile Search */}
-        <MobileSearchContainer>
-          <MobileSearchInput
-            placeholder={searchPlaceholder}
-            value={searchTerm}
-            onChange={onSearchChange}
-          />
-        </MobileSearchContainer>
+        {/* Mobile Search - Hidden on home page */}
+        {!isHomePage && (
+          <MobileSearchContainer>
+            <MobileSearchInput
+              placeholder={searchPlaceholder}
+              value={searchTerm}
+              onChange={onSearchChange}
+            />
+          </MobileSearchContainer>
+        )}
 
         {/* Mobile Navigation Links */}
         <MobileNavList>

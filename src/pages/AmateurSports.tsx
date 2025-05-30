@@ -370,7 +370,7 @@ const AmateurSports = () => {
             marginLeft: 'auto',
             marginRight: 'auto'
           }}>
-            Explore activities, events, and neighborhoods throughout Toronto.
+            Explore activities and events throughout Toronto.
           </p>
           <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'center' }}>
             <RouterLink to="/activities" className="btn-primary">Browse Activities</RouterLink>

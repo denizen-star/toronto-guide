@@ -19,7 +19,7 @@ const Home = () => {
               </p>
               <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)' }}>
                 <RouterLink to="/activities" className="btn-primary">Explore Now</RouterLink>
-                <RouterLink to="/neighborhoods" className="btn-secondary">Browse Guide</RouterLink>
+                <RouterLink to="/day-trips" className="btn-secondary">View Day Trips</RouterLink>
               </div>
             </div>
             <div className="stats-box">
