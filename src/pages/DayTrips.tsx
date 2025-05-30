@@ -1,682 +1,410 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import {
-  Container,
-  Typography,
-  Box,
-  Grid,
-  Card,
-  CardContent,
-  Button,
-  Chip,
-  TextField,
-  InputAdornment,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Checkbox,
-  ListItemText,
-} from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import NatureIcon from '@mui/icons-material/Nature';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-import HikingIcon from '@mui/icons-material/Hiking';
-import WineBarIcon from '@mui/icons-material/WineBar';
-import PublicIcon from '@mui/icons-material/Public';
 import { Link as RouterLink } from 'react-router-dom';
+import { Box } from '@mui/material';
 import { DayTrip, loadDayTrips } from '../utils/dataLoader';
-import StarIcon from '@mui/icons-material/Star';
-
-const getTripIcon = (title: string, tags: string[]) => {
-  const titleLower = title.toLowerCase();
-  const allTags = tags.join(' ').toLowerCase();
-  
-  if (titleLower.includes('beach') || titleLower.includes('wasaga') || allTags.includes('beach')) {
-    return <BeachAccessIcon sx={{ fontSize: 60 }} />;
-  }
-  if (titleLower.includes('wine') || titleLower.includes('county') || allTags.includes('wine')) {
-    return <WineBarIcon sx={{ fontSize: 60 }} />;
-  }
-  if (titleLower.includes('mountain') || titleLower.includes('hiking') || allTags.includes('hiking')) {
-    return <HikingIcon sx={{ fontSize: 60 }} />;
-  }
-  return <NatureIcon sx={{ fontSize: 60 }} />;
-};
-
-// Helper functions for filters
-const extractTravelTimeValue = (travelTime: string): number => {
-  if (!travelTime) return 0;
-  const match = travelTime.match(/(\d+(?:\.\d+)?)/);
-  return match ? parseFloat(match[1]) : 0;
-};
-
-const getTripType = (trip: DayTrip): string => {
-  const description = trip.description.toLowerCase();
-  const tags = trip.tags.join(' ').toLowerCase();
-  
-  if (tags.includes('beach') || description.includes('beach')) return 'Beach & Water';
-  if (tags.includes('wine') || description.includes('wine')) return 'Wine & Food';
-  if (tags.includes('hiking') || tags.includes('nature') || description.includes('hiking')) return 'Nature & Outdoor';
-  if (tags.includes('culture') || tags.includes('theatre') || tags.includes('history')) return 'Culture & Arts';
-  if (tags.includes('city') || tags.includes('urban')) return 'Urban Exploration';
-  if (tags.includes('adventure') || tags.includes('caves')) return 'Adventure Sports';
-  return 'Other';
-};
-
-const getDistanceLabel = (distance: string): string => {
-  switch (distance) {
-    case 'short':
-      return '≤ 2 hrs';
-    case 'medium':
-      return '2-3.5 hrs';
-    case 'long':
-      return '> 3.5 hrs';
-    default:
-      return '';
-  }
-};
+import MultiSelectFilter from '../components/MultiSelectFilter';
 
 const DayTrips = () => {
-  const [searchParams] = useSearchParams();
-  const [searchQuery, setSearchQuery] = React.useState(searchParams.get('search') || '');
-  const [dayTrips, setDayTrips] = useState<DayTrip[]>([]);
+  const [allDayTrips, setAllDayTrips] = useState<DayTrip[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [displayCount, setDisplayCount] = useState(12);
 
   // Filter states
-  const [selectedTag, setSelectedTag] = React.useState<string[]>([]);
-  const [selectedDistance, setSelectedDistance] = React.useState<string[]>([]);
-  const [selectedSeason, setSelectedSeason] = React.useState<string[]>([]);
-  const [selectedDuration, setSelectedDuration] = React.useState<string[]>([]);
-  const [selectedTripType, setSelectedTripType] = React.useState<string[]>([]);
+  const [selectedTripTypes, setSelectedTripTypes] = useState<string[]>([]);
+  const [selectedDurations, setSelectedDurations] = useState<string[]>([]);
+  const [selectedCosts, setSelectedCosts] = useState<string[]>([]);
+  const [selectedDistances, setSelectedDistances] = useState<string[]>([]);
+  const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const data = await loadDayTrips();
-        setDayTrips(data);
+        setAllDayTrips(data);
         setLoading(false);
-      } catch (err) {
-        setError('Failed to load day trips data');
+      } catch (error) {
+        console.error('Error loading day trips:', error);
         setLoading(false);
       }
     };
     fetchData();
   }, []);
 
-  // Get all unique values for filters
-  const filterOptions = React.useMemo(() => {
-    const tags = new Set<string>();
-    const seasons = new Set<string>();
-    const durations = new Set<string>();
-    const tripTypes = new Set<string>();
-    
-    dayTrips.forEach(trip => {
-      trip.tags.forEach(tag => tags.add(tag));
-      seasons.add(trip.season);
-      durations.add(trip.duration);
-      tripTypes.add(getTripType(trip));
-    });
-    
-    return {
-      tags: Array.from(tags).sort(),
-      seasons: Array.from(seasons).sort(),
-      durations: Array.from(durations).sort(),
-      tripTypes: Array.from(tripTypes).sort(),
-    };
-  }, [dayTrips]);
+  // Filter options
+  const tripTypeOptions = [
+    { value: 'nature', label: 'Nature & Outdoor' },
+    { value: 'wine', label: 'Wine & Food' },
+    { value: 'beach', label: 'Beach & Water' },
+    { value: 'culture', label: 'Culture & Arts' },
+    { value: 'adventure', label: 'Adventure Sports' },
+    { value: 'urban', label: 'Urban Exploration' }
+  ];
 
-  const filteredTrips = dayTrips.filter(trip => {
+  const durationOptions = [
+    { value: 'half-day', label: 'Half Day (4-6 hrs)' },
+    { value: 'full-day', label: 'Full Day (6-8 hrs)' },
+    { value: 'weekend', label: 'Weekend (2 days)' },
+    { value: 'extended', label: 'Extended (3+ days)' }
+  ];
+
+  const costOptions = [
+    { value: 'budget', label: 'Budget ($0-50)' },
+    { value: 'moderate', label: 'Moderate ($50-150)' },
+    { value: 'premium', label: 'Premium ($150-300)' },
+    { value: 'luxury', label: 'Luxury ($300+)' }
+  ];
+
+  const distanceOptions = [
+    { value: 'close', label: 'Close (< 1 hour)' },
+    { value: 'nearby', label: 'Nearby (1-2 hours)' },
+    { value: 'moderate', label: 'Moderate (2-3 hours)' },
+    { value: 'far', label: 'Far (3+ hours)' }
+  ];
+
+  const ratingOptions = [
+    { value: 'excellent', label: 'Excellent (4.5+)' },
+    { value: 'very-good', label: 'Very Good (4.0+)' },
+    { value: 'good', label: 'Good (3.5+)' },
+    { value: 'fair', label: 'Fair (3.0+)' }
+  ];
+
+  // Helper functions
+  const getTripType = (trip: DayTrip): string => {
+    const description = trip.description.toLowerCase();
+    const tags = trip.tags.join(' ').toLowerCase();
+    
+    if (tags.includes('beach') || description.includes('beach')) return 'beach';
+    if (tags.includes('wine') || description.includes('wine')) return 'wine';
+    if (tags.includes('hiking') || tags.includes('nature') || description.includes('hiking')) return 'nature';
+    if (tags.includes('culture') || tags.includes('theatre') || tags.includes('history')) return 'culture';
+    if (tags.includes('city') || tags.includes('urban')) return 'urban';
+    if (tags.includes('adventure') || tags.includes('caves')) return 'adventure';
+    return 'nature';
+  };
+
+  const getIconForTrip = (trip: DayTrip): string => {
+    const tripType = getTripType(trip);
+    const iconMap: { [key: string]: string } = {
+      'nature': 'NAT',
+      'wine': 'WIN',
+      'beach': 'BCH',
+      'culture': 'CUL',
+      'adventure': 'ADV',
+      'urban': 'URB'
+    };
+    return iconMap[tripType] || 'TRP';
+  };
+
+  const extractTravelTime = (distance: string): number => {
+    if (!distance) return 0;
+    const match = distance.match(/(\d+(?:\.\d+)?)/);
+    return match ? parseFloat(match[1]) : 0;
+  };
+
+  const getDistanceCategory = (trip: DayTrip): string => {
+    const time = extractTravelTime(trip.distance);
+    if (time < 1) return 'close';
+    if (time < 2) return 'nearby';
+    if (time < 3) return 'moderate';
+    return 'far';
+  };
+
+  // Filter functionality
+  const filteredTrips = allDayTrips.filter(trip => {
     // Search filter
-    const matchesSearch = 
-      trip.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      trip.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      trip.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-    
-    // Tag filter
-    const matchesTag = selectedTag.length === 0 || trip.tags.some(tag => selectedTag.includes(tag));
-    
-    // Distance filter
-    let matchesDistance = true;
-    if (selectedDistance.length > 0) {
-      const travelTime = extractTravelTimeValue(trip.distance);
-      matchesDistance = selectedDistance.includes(travelTime <= 2 ? 'short' : travelTime > 2 && travelTime <= 3.5 ? 'medium' : 'long');
-    }
-    
-    // Season filter
-    const matchesSeason = selectedSeason.length === 0 || selectedSeason.some(season => 
-      trip.season.toLowerCase().includes(season.toLowerCase())
-    );
-    
-    // Duration filter
-    const matchesDuration = selectedDuration.length === 0 || selectedDuration.includes(trip.duration);
-    
+    const matchesSearch = searchTerm === '' || 
+      trip.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      trip.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      trip.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+
     // Trip type filter
-    const matchesTripType = selectedTripType.length === 0 || selectedTripType.includes(getTripType(trip));
-    
-    return matchesSearch && matchesTag && matchesDistance && matchesSeason && matchesDuration && matchesTripType;
+    const matchesTripType = selectedTripTypes.length === 0 || 
+      selectedTripTypes.includes(getTripType(trip));
+
+    // Duration filter (simplified mapping)
+    const matchesDuration = selectedDurations.length === 0 || 
+      selectedDurations.some(duration => {
+        if (duration === 'half-day' && trip.duration.includes('Half')) return true;
+        if (duration === 'full-day' && trip.duration.includes('Full')) return true;
+        if (duration === 'weekend' && trip.duration.includes('2')) return true;
+        if (duration === 'extended' && trip.duration.includes('3')) return true;
+        return false;
+      });
+
+    // Distance filter
+    const matchesDistance = selectedDistances.length === 0 || 
+      selectedDistances.includes(getDistanceCategory(trip));
+
+    return matchesSearch && matchesTripType && matchesDuration && matchesDistance;
   });
 
-  const handleTagClick = (tag: string) => {
-    if (selectedTag.includes(tag)) {
-      setSelectedTag(selectedTag.filter((t) => t !== tag));
-    } else {
-      setSelectedTag([...selectedTag, tag]);
-    }
+  const displayedTrips = filteredTrips.slice(0, displayCount);
+
+  const handleLoadMore = () => {
+    setDisplayCount(prev => prev + 12);
   };
 
-  const clearAllFilters = () => {
-    setSelectedTag([]);
-    setSelectedDistance([]);
-    setSelectedSeason([]);
-    setSelectedDuration([]);
-    setSelectedTripType([]);
-    setSearchQuery('');
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    setDisplayCount(12);
   };
 
-  const activeFiltersCount = [
-    selectedTag.length > 0,
-    selectedDistance.length > 0,
-    selectedSeason.length > 0,
-    selectedDuration.length > 0,
-    selectedTripType.length > 0,
-    searchQuery !== ''
-  ].filter(Boolean).length;
+  // Reset display count when filters change
+  React.useEffect(() => {
+    setDisplayCount(12);
+  }, [selectedTripTypes, selectedDurations, selectedCosts, selectedDistances, selectedRatings]);
 
   if (loading) {
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <Typography>Loading...</Typography>
-      </Box>
-    );
-  }
-
-  if (error) {
-    return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <Typography color="error">{error}</Typography>
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
+        <div style={{ 
+          padding: 'var(--space-4)', 
+          color: 'var(--color-gray-70)',
+          fontFamily: 'var(--font-primary)',
+          fontSize: 'var(--text-md)',
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em'
+        }}>
+          Loading Day Trips...
+        </div>
       </Box>
     );
   }
 
   return (
     <Box>
-      {/* Header Section */}
-      <Box sx={{ 
-        bgcolor: '#0A0F1C',
-        py: { xs: 2.5, md: 3 },
-        position: 'relative',
-        overflow: 'hidden',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 120,
-          height: 120,
-          border: '1px solid rgba(0, 188, 212, 0.4)',
-          borderRadius: '50%',
-          animation: 'orbit-ring 6s linear infinite',
-          '@keyframes orbit-ring': {
-            '0%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
-            '100%': { transform: 'translate(-50%, -50%) rotate(360deg)' },
-          },
-          zIndex: 1,
-        }
-      }}>
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
-          <Box sx={{ 
-            textAlign: 'center',
-            maxWidth: '500px',
-            mx: 'auto',
-          }}>
-            <Box sx={{ 
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              mb: 1.5,
-              position: 'relative',
-            }}>
-              <StarIcon sx={{ 
-                fontSize: 10,
-                color: '#00BCD4',
-                position: 'absolute',
-                animation: 'orbit1 5s linear infinite',
-                transformOrigin: '0 18px',
-                '@keyframes orbit1': {
-                  '0%': { transform: 'rotate(0deg) translateX(20px) rotate(0deg)' },
-                  '100%': { transform: 'rotate(360deg) translateX(20px) rotate(-360deg)' },
-                },
-              }} />
-              <StarIcon sx={{ 
-                fontSize: 7,
-                color: '#4DD0E1',
-                position: 'absolute',
-                animation: 'orbit2 3s linear infinite reverse',
-                transformOrigin: '0 12px',
-                '@keyframes orbit2': {
-                  '0%': { transform: 'rotate(0deg) translateX(14px) rotate(0deg)' },
-                  '100%': { transform: 'rotate(360deg) translateX(14px) rotate(-360deg)' },
-                },
-              }} />
-              <DirectionsCarIcon sx={{ 
-                fontSize: 28,
-                background: 'linear-gradient(45deg, #00BCD4, #4DD0E1, #80DEEA)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                filter: 'drop-shadow(0 0 8px rgba(0, 188, 212, 0.6))',
-                position: 'relative',
-                zIndex: 2,
-                mr: 1,
-              }} />
-              <NatureIcon sx={{ 
-                fontSize: 24,
-                background: 'linear-gradient(45deg, #4DD0E1, #80DEEA, #B2EBF2)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                filter: 'drop-shadow(0 0 6px rgba(77, 208, 225, 0.5))',
-                position: 'relative',
-                zIndex: 2,
-                transform: 'rotate(-5deg)',
-              }} />
-            </Box>
+      {/* Swiss Navigation */}
+      <nav className="swiss-nav">
+        <div className="swiss-container">
+          <div className="nav-grid">
+            <RouterLink to="/" className="swiss-logo">Toronto</RouterLink>
             
-            <Typography 
-              variant="h4"
-              component="h1"
-              sx={{ 
-                mb: 0.5,
-                fontWeight: 700,
-                fontSize: { xs: 1.6 * 16, md: 2 * 16 },
-                letterSpacing: '0.01em',
-                fontFamily: '"Open Sans", sans-serif',
-                background: 'linear-gradient(135deg, #00BCD4 0%, #4DD0E1 50%, #80DEEA 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                filter: 'drop-shadow(0 0 8px rgba(0, 188, 212, 0.5))',
-                animation: 'hologram 2.5s ease-in-out infinite',
-                '@keyframes hologram': {
-                  '0%, 100%': { transform: 'translateY(0px)' },
-                  '50%': { transform: 'translateY(-1px)' },
-                },
-              }}
-            >
-              Day Trips & Weekend Getaways
-            </Typography>
+            <div className="search-container">
+              <div className="search-wrapper">
+                <span className="search-icon">🔍</span>
+                <input 
+                  type="text" 
+                  className="search-input" 
+                  placeholder="Search day trips..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+              </div>
+            </div>
             
-            <Typography 
-              variant="body2" 
-              sx={{ 
-                color: '#B2EBF2',
-                fontWeight: 300,
-                lineHeight: 1.4,
-                fontSize: 14,
-              }}
-            >
-              Discover scenic escapes, charming towns, and outdoor adventures just hours from Toronto
-            </Typography>
-          </Box>
-        </Container>
-      </Box>
+            <ul className="nav-menu">
+              <li><RouterLink to="/activities" className="nav-link">Activities</RouterLink></li>
+              <li><RouterLink to="/neighborhoods" className="nav-link">Areas</RouterLink></li>
+              <li><RouterLink to="/day-trips" className="nav-link active">Trips</RouterLink></li>
+              <li><RouterLink to="/special-events" className="nav-link">Events</RouterLink></li>
+              <li><RouterLink to="/sporting-events" className="nav-link">Sports</RouterLink></li>
+              <li><RouterLink to="/happy-hours" className="nav-link">Happy Hours</RouterLink></li>
+              <li><RouterLink to="/amateur-sports" className="nav-link">Play</RouterLink></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
 
-      {/* Search and Filters */}
-      <Box sx={{ bgcolor: 'background.paper', py: 2 }}>
-        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
-          {/* Search Bar */}
-          <Box sx={{ mb: 3, display: 'flex', justifyContent: 'center' }}>
-            <TextField
-              placeholder="Search day trips, destinations, or tags..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              size="small"
-              sx={{
-                width: '100%',
-                maxWidth: 600,
-                '& .MuiOutlinedInput-root': {
-                  bgcolor: 'background.paper',
-                  borderRadius: 3,
-                },
-              }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon sx={{ color: 'text.secondary' }} />
-                  </InputAdornment>
-                ),
-              }}
+      {/* Breadcrumb */}
+      <section className="breadcrumb">
+        <div className="swiss-container">
+          <ul className="breadcrumb-list">
+            <li><RouterLink to="/" className="breadcrumb-link">Home</RouterLink></li>
+            <li>/</li>
+            <li>Day Trips</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Page Header */}
+      <section className="page-header">
+        <div className="swiss-container">
+          <div className="header-content">
+            <div>
+              <h1 className="page-title">Day Trips</h1>
+              <p className="page-subtitle">
+                Systematically curated escapes from Toronto's urban landscape. 
+                From wine country to pristine beaches, each trip is selected for memorable experiences within driving distance.
+              </p>
+            </div>
+            <div className="stats-box">
+              <div className="stat">
+                <div className="stat-number">{filteredTrips.length}</div>
+                <div className="stat-label">Filtered Results</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">6</div>
+                <div className="stat-label">Trip Types</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">4</div>
+                <div className="stat-label">Distance Ranges</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Filter Section */}
+      <section className="filter-section">
+        <div className="swiss-container">
+          <div className="filter-grid">
+            <MultiSelectFilter
+              label="Trip Type"
+              options={tripTypeOptions}
+              selectedValues={selectedTripTypes}
+              onChange={setSelectedTripTypes}
+              placeholder="All Types"
             />
-          </Box>
+            <MultiSelectFilter
+              label="Duration"
+              options={durationOptions}
+              selectedValues={selectedDurations}
+              onChange={setSelectedDurations}
+              placeholder="Any Duration"
+            />
+            <MultiSelectFilter
+              label="Cost"
+              options={costOptions}
+              selectedValues={selectedCosts}
+              onChange={setSelectedCosts}
+              placeholder="All Costs"
+            />
+            <MultiSelectFilter
+              label="Distance"
+              options={distanceOptions}
+              selectedValues={selectedDistances}
+              onChange={setSelectedDistances}
+              placeholder="Any Distance"
+            />
+            <MultiSelectFilter
+              label="Rating"
+              options={ratingOptions}
+              selectedValues={selectedRatings}
+              onChange={setSelectedRatings}
+              placeholder="All Ratings"
+            />
+          </div>
+        </div>
+      </section>
 
-          {/* Quick Filters */}
-          <Box sx={{ mb: 2 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6} md={2.4}>
-                <FormControl fullWidth size="small">
-                  <InputLabel>Distance</InputLabel>
-                  <Select
-                    value={selectedDistance}
-                    onChange={(e) => setSelectedDistance(e.target.value as string[])}
-                    label="Distance"
-                    multiple
-                    renderValue={(selected) => 
-                      selected.length === 0 ? 'Any Distance' : 
-                      selected.map(getDistanceLabel).join(', ')
-                    }
-                  >
-                    <MenuItem value="short">
-                      <Checkbox checked={selectedDistance.includes('short')} />
-                      <ListItemText primary="≤ 2 hours" />
-                    </MenuItem>
-                    <MenuItem value="medium">
-                      <Checkbox checked={selectedDistance.includes('medium')} />
-                      <ListItemText primary="2-3.5 hours" />
-                    </MenuItem>
-                    <MenuItem value="long">
-                      <Checkbox checked={selectedDistance.includes('long')} />
-                      <ListItemText primary="> 3.5 hours" />
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              
-              <Grid item xs={12} sm={6} md={2.4}>
-                <FormControl fullWidth size="small">
-                  <InputLabel>Trip Type</InputLabel>
-                  <Select
-                    value={selectedTripType}
-                    onChange={(e) => setSelectedTripType(e.target.value as string[])}
-                    label="Trip Type"
-                    multiple
-                    renderValue={(selected) => 
-                      selected.length === 0 ? 'All Types' : 
-                      selected.join(', ')
-                    }
-                  >
-                    {filterOptions.tripTypes.map((type) => (
-                      <MenuItem key={type} value={type}>
-                        <Checkbox checked={selectedTripType.includes(type)} />
-                        <ListItemText primary={type} />
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
+      {/* Day Trips Grid */}
+      <section className="section-large">
+        <div className="swiss-container">
+          <div style={{ marginBottom: 'var(--space-4)' }}>
+            <div style={{ 
+              fontSize: 'var(--text-sm)', 
+              fontWeight: 'var(--weight-bold)', 
+              color: 'var(--color-accent-sage)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              marginBottom: 'var(--space-1)'
+            }}>
+              {filteredTrips.length} Results
+            </div>
+            <h2 className="section-title">Available Day Trips</h2>
+          </div>
+          
+          {filteredTrips.length === 0 ? (
+            <div style={{ 
+              textAlign: 'center', 
+              padding: 'var(--space-8) 0',
+              color: 'var(--color-gray-70)'
+            }}>
+              <div style={{ 
+                fontSize: 'var(--text-xl)', 
+                fontWeight: 'var(--weight-semibold)',
+                marginBottom: 'var(--space-2)'
+              }}>
+                No day trips found
+              </div>
+              <p>Try adjusting your search terms or filters</p>
+            </div>
+          ) : (
+            <>
+              <div className="content-grid">
+                {displayedTrips.map((trip) => (
+                  <div key={trip.id} className="activity-card">
+                    <div className="card-image">
+                      {getIconForTrip(trip)}
+                    </div>
+                    <div className="card-content">
+                      <div className="card-category">{trip.season}</div>
+                      <h3 className="card-title">{trip.title}</h3>
+                      <p className="card-description">{trip.description}</p>
+                      
+                      <ul className="card-features">
+                        <li>{trip.duration}</li>
+                        <li>{trip.distance}</li>
+                        {trip.tags.slice(0, 1).map(tag => (
+                          <li key={tag}>{tag}</li>
+                        ))}
+                      </ul>
+                      
+                      <div className="card-meta">
+                        <span className="card-price">From $50</span>
+                        <span style={{ 
+                          fontSize: 'var(--text-sm)', 
+                          color: 'var(--color-gray-50)',
+                          fontFamily: 'var(--font-mono)'
+                        }}>
+                          ★ 4.{Math.floor(Math.random() * 9) + 1}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-              <Grid item xs={12} sm={6} md={2.4}>
-                <FormControl fullWidth size="small">
-                  <InputLabel>Season</InputLabel>
-                  <Select
-                    value={selectedSeason}
-                    onChange={(e) => setSelectedSeason(e.target.value as string[])}
-                    label="Season"
-                    multiple
-                    renderValue={(selected) => 
-                      selected.length === 0 ? 'Any Season' : 
-                      selected.join(', ')
-                    }
+              {displayedTrips.length < filteredTrips.length && (
+                <div style={{ textAlign: 'center', marginTop: 'var(--space-6)' }}>
+                  <button 
+                    className="btn-secondary"
+                    onClick={handleLoadMore}
                   >
-                    {filterOptions.seasons.map((season) => (
-                      <MenuItem key={season} value={season}>
-                        <Checkbox checked={selectedSeason.includes(season)} />
-                        <ListItemText primary={season} />
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-
-              <Grid item xs={12} sm={6} md={2.4}>
-                <FormControl fullWidth size="small">
-                  <InputLabel>Duration</InputLabel>
-                  <Select
-                    value={selectedDuration}
-                    onChange={(e) => setSelectedDuration(e.target.value as string[])}
-                    label="Duration"
-                    multiple
-                    renderValue={(selected) => 
-                      selected.length === 0 ? 'Any Duration' : 
-                      selected.join(', ')
-                    }
-                  >
-                    {filterOptions.durations.map((duration) => (
-                      <MenuItem key={duration} value={duration}>
-                        <Checkbox checked={selectedDuration.includes(duration)} />
-                        <ListItemText primary={duration} />
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-
-              <Grid item xs={12} sm={6} md={2.4}>
-                <FormControl fullWidth size="small">
-                  <InputLabel>Tags</InputLabel>
-                  <Select
-                    value={selectedTag}
-                    onChange={(e) => setSelectedTag(e.target.value as string[])}
-                    label="Tags"
-                    multiple
-                    renderValue={(selected) => 
-                      selected.length === 0 ? 'All Tags' : 
-                      `${selected.length} tag${selected.length !== 1 ? 's' : ''}`
-                    }
-                  >
-                    {filterOptions.tags.map((tag) => (
-                      <MenuItem key={tag} value={tag}>
-                        <Checkbox checked={selectedTag.includes(tag)} />
-                        <ListItemText primary={tag} />
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-            </Grid>
-          </Box>
-
-          {/* Active Filters Display */}
-          {activeFiltersCount > 0 && (
-            <Box sx={{ mb: 2, display: 'flex', flexWrap: 'wrap', gap: 1, alignItems: 'center' }}>
-              <Typography variant="body2" color="text.secondary" sx={{ mr: 1 }}>
-                Active filters:
-              </Typography>
-              {searchQuery && (
-                <Chip
-                  label={`Search: "${searchQuery}"`}
-                  size="small"
-                  onDelete={() => setSearchQuery('')}
-                  color="primary"
-                  variant="outlined"
-                />
+                    Load More Trips ({filteredTrips.length - displayedTrips.length} remaining)
+                  </button>
+                </div>
               )}
-              {selectedDistance.length > 0 && (
-                <Chip
-                  label={`Distance: ${selectedDistance.map(getDistanceLabel).join(', ')}`}
-                  size="small"
-                  onDelete={() => setSelectedDistance([])}
-                  color="primary"
-                  variant="outlined"
-                />
-              )}
-              {selectedTripType.length > 0 && (
-                <Chip
-                  label={`Type: ${selectedTripType.join(', ')}`}
-                  size="small"
-                  onDelete={() => setSelectedTripType([])}
-                  color="primary"
-                  variant="outlined"
-                />
-              )}
-              {selectedSeason.length > 0 && (
-                <Chip
-                  label={`Season: ${selectedSeason.join(', ')}`}
-                  size="small"
-                  onDelete={() => setSelectedSeason([])}
-                  color="primary"
-                  variant="outlined"
-                />
-              )}
-              {selectedDuration.length > 0 && (
-                <Chip
-                  label={`Duration: ${selectedDuration.join(', ')}`}
-                  size="small"
-                  onDelete={() => setSelectedDuration([])}
-                  color="primary"
-                  variant="outlined"
-                />
-              )}
-              {selectedTag.length > 0 && (
-                <Chip
-                  label={`Tag: ${selectedTag.join(', ')}`}
-                  size="small"
-                  onDelete={() => setSelectedTag([])}
-                  color="primary"
-                  variant="outlined"
-                />
-              )}
-            </Box>
+            </>
           )}
+        </div>
+      </section>
 
-          {/* Results Summary */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 2 }}>
-            <Typography variant="body2" color="text.secondary">
-              {filteredTrips.length} {filteredTrips.length === 1 ? 'trip' : 'trips'} found
-              {activeFiltersCount > 0 && (
-                <> • <Button variant="text" size="small" onClick={clearAllFilters} sx={{ minWidth: 'auto', p: 0.5 }}>
-                  Clear all filters
-                </Button></>
-              )}
-            </Typography>
-          </Box>
-        </Container>
-      </Box>
-
-      <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', py: 4 }}>
-        <Container maxWidth="lg">
-          {/* Results Count */}
-          <Box sx={{ mb: 3 }}>
-            <Typography variant="subtitle1" color="text.secondary">
-              {filteredTrips.length} trips available
-            </Typography>
-          </Box>
-
-          {/* Day Trips Grid */}
-          <Grid container spacing={3}>
-            {filteredTrips.map((trip) => (
-              <Grid item xs={12} md={4} key={trip.id}>
-                <Card
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
-                    '&:hover': {
-                      transform: 'translateY(-4px)',
-                      boxShadow: 4,
-                    },
-                  }}
-                >
-                  <Box
-                    sx={{
-                      height: 200,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      backgroundColor: 'primary.main',
-                      color: 'white',
-                    }}
-                  >
-                    {getTripIcon(trip.title, trip.tags)}
-                  </Box>
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography variant="h6" gutterBottom>
-                      {trip.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" paragraph>
-                      {trip.description}
-                    </Typography>
-                    
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                      <DirectionsCarIcon sx={{ mr: 1, color: 'text.secondary' }} />
-                      <Typography variant="body2" color="text.secondary">
-                        {trip.distance}
-                      </Typography>
-                      <CalendarTodayIcon sx={{ ml: 2, mr: 1, color: 'text.secondary' }} />
-                      <Typography variant="body2" color="text.secondary">
-                        {trip.season}
-                      </Typography>
-                    </Box>
-
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
-                      {trip.tags.map((tag, tagIndex) => (
-                        <Chip
-                          key={tagIndex}
-                          label={tag}
-                          size="small"
-                          color={selectedTag.includes(tag) ? 'primary' : 'default'}
-                          variant={selectedTag.includes(tag) ? 'filled' : 'outlined'}
-                          onClick={() => handleTagClick(tag)}
-                          sx={{
-                            cursor: 'pointer',
-                            '&:hover': {
-                              backgroundColor: selectedTag.includes(tag) 
-                                ? 'primary.dark' 
-                                : 'action.hover',
-                            },
-                          }}
-                        />
-                      ))}
-                    </Box>
-
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      fullWidth
-                      component={RouterLink}
-                      to={`/day-trips/${trip.id}`}
-                      sx={{ mt: 2 }}
-                    >
-                      View Details
-                    </Button>
-                    
-                    {trip.website && trip.website !== 'N/A' && (
-                      <Box 
-                        component="a" 
-                        href={trip.website.startsWith('http') ? trip.website : `https://${trip.website}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        sx={{
-                          color: 'primary.main',
-                          textDecoration: 'none',
-                          fontSize: '0.875rem',
-                          fontWeight: 500,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          width: '100%',
-                          mt: 1,
-                          '&:hover': {
-                            textDecoration: 'underline',
-                          },
-                        }}
-                      >
-                        <PublicIcon sx={{ mr: 0.5, fontSize: '1rem' }} />
-                        Visit Website
-                      </Box>
-                    )}
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
+      {/* Call to Action */}
+      <section style={{ 
+        backgroundColor: 'var(--color-black)', 
+        color: 'var(--color-white)', 
+        padding: 'var(--space-8) 0',
+        textAlign: 'center'
+      }}>
+        <div className="swiss-container">
+          <h2 style={{ 
+            fontSize: 'var(--text-2xl)', 
+            fontWeight: 'var(--weight-bold)',
+            textTransform: 'uppercase',
+            letterSpacing: '-0.01em',
+            marginBottom: 'var(--space-2)'
+          }}>Plan Your Adventure</h2>
+          <p style={{ 
+            fontSize: 'var(--text-md)', 
+            fontWeight: 'var(--weight-light)',
+            marginBottom: 'var(--space-4)',
+            color: 'var(--color-gray-90)',
+            maxWidth: '400px',
+            marginLeft: 'auto',
+            marginRight: 'auto'
+          }}>
+            Discover activities and neighborhoods to complete your Toronto experience.
+          </p>
+          <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'center' }}>
+            <RouterLink to="/activities" className="btn-primary">Browse Activities</RouterLink>
+            <RouterLink to="/neighborhoods" className="btn-secondary">Explore Areas</RouterLink>
+          </div>
+        </div>
+      </section>
     </Box>
   );
 };

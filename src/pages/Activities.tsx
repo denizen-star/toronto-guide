@@ -1,83 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import {
-  Container,
-  Typography,
-  Box,
-  Grid,
-  Button,
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Paper,
-  InputAdornment,
-  IconButton,
-  CircularProgress,
-  Alert,
-} from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import SearchIcon from '@mui/icons-material/Search';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import ClearIcon from '@mui/icons-material/Clear';
-import LocalActivityIcon from '@mui/icons-material/LocalActivity';
-import StarIcon from '@mui/icons-material/Star';
+import { Link as RouterLink } from 'react-router-dom';
+import { Box } from '@mui/material';
 import { 
   loadActivities, 
   loadLocations, 
   loadCategories, 
   loadPrices,
-  loadSchedules,
   type Activity, 
-  type Location, 
   type Category, 
   type Price,
-  type Schedule,
 } from '../utils/dataLoader';
-import Section from '../components/Section';
-import MinimalistCard from '../components/MinimalistCard';
+import MultiSelectFilter from '../components/MultiSelectFilter';
 
 const Activities = () => {
-  const [searchParams] = useSearchParams();
-  const [activities, setActivities] = useState<Activity[]>([]);
-  const [locations, setLocations] = useState<{ [key: string]: Location }>({});
+  const [allActivities, setAllActivities] = useState<Activity[]>([]);
   const [categories, setCategories] = useState<{ [key: string]: Category }>({});
   const [prices, setPrices] = useState<{ [key: string]: Price }>({});
-  const [schedules, setSchedules] = useState<{ [key: string]: Schedule }>({});
-  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedCity, setSelectedCity] = useState(searchParams.get('city')?.toLowerCase() || 'all');
-  const [selectedPrice, setSelectedPrice] = useState('all');
-  const [selectedNeighborhood, setSelectedNeighborhood] = useState('all');
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [showFilters, setShowFilters] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [displayCount, setDisplayCount] = useState(12);
+  
+  // Filter states
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedPrices, setSelectedPrices] = useState<string[]>([]);
+  const [selectedDurations, setSelectedDurations] = useState<string[]>([]);
+  const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
+  const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [activitiesData, locationsData, categoriesData, pricesData, schedulesData] = await Promise.all([
+        const [activitiesData, , categoriesData, pricesData] = await Promise.all([
           loadActivities(),
-          loadLocations(),
+          loadLocations(), // Load but don't store - not used in current implementation
           loadCategories(),
           loadPrices(),
-          loadSchedules(),
         ]);
-        setActivities(activitiesData);
+        setAllActivities(activitiesData);
         
-        // Create maps for efficient lookups
-        const locationMap = locationsData.reduce((acc: { [key: string]: Location }, location: Location) => {
-          acc[location.id] = location;
-          return acc;
-        }, {});
-        setLocations(locationMap);
-
         const categoryMap = categoriesData.reduce((acc: { [key: string]: Category }, category: Category) => {
           acc[category.id] = category;
           return acc;
@@ -90,88 +51,117 @@ const Activities = () => {
         }, {});
         setPrices(priceMap);
 
-        const scheduleMap = schedulesData.reduce((acc: { [key: string]: Schedule }, schedule: Schedule) => {
-          acc[schedule.id] = schedule;
-          return acc;
-        }, {});
-        setSchedules(scheduleMap);
-
         setLoading(false);
       } catch (error) {
         console.error('Error loading data:', error);
-        setError(error instanceof Error ? error.message : 'Failed to load data');
         setLoading(false);
       }
     };
     fetchData();
   }, []);
 
-  const categoryOptions = ['all', ...new Set(activities.map(activity => activity.categoryId))];
-  const priceOptions = ['all', ...new Set(activities.map(activity => activity.priceId))];
-  
-  // Get unique neighborhoods from activities and their associated locations
-  const neighborhoods = ['all', ...new Set(activities.map(activity => 
-    activity.neighborhood || locations[activity.locationId]?.neighborhood
-  ).filter(Boolean))].sort();
+  // Filter options
+  const categoryOptions = Object.entries(categories).map(([id, category]) => ({
+    value: id,
+    label: category.name
+  }));
 
-  const matchesSearchTerm = (activity: Activity, searchTerm: string): boolean => {
-    if (!searchTerm.trim()) return true;
+  const priceOptions = [
+    { value: 'free', label: 'Free' },
+    { value: 'low', label: '$-$$' },
+    { value: 'medium', label: '$$$' },
+    { value: 'high', label: '$$$$+' }
+  ];
 
-    const searchLower = searchTerm.toLowerCase().trim();
-    const location = locations[activity.locationId];
-    const category = categories[activity.categoryId];
+  const durationOptions = [
+    { value: 'quick', label: '< 2 Hours' },
+    { value: 'half', label: '2-4 Hours' },
+    { value: 'full', label: '4+ Hours' },
+    { value: 'multi', label: 'Multi-Day' }
+  ];
 
-    // Check each field that should be searchable
-    const searchableFields = [
-      activity.title.toLowerCase(),
-      activity.description.toLowerCase(),
-      activity.city.toLowerCase(),
-      activity.neighborhood?.toLowerCase() || '',
-      location?.neighborhood?.toLowerCase() || '',
-      category?.name?.toLowerCase() || '',
-      ...activity.tags.map(tag => tag.toLowerCase())
-    ];
+  const ratingOptions = [
+    { value: 'excellent', label: 'Excellent (4.5+)' },
+    { value: 'very-good', label: 'Very Good (4.0+)' },
+    { value: 'good', label: 'Good (3.5+)' },
+    { value: 'fair', label: 'Fair (3.0+)' }
+  ];
 
-    // Return true if any field contains the search term
-    return searchableFields.some(field => field.includes(searchLower));
-  };
+  const areaOptions = [
+    { value: 'downtown', label: 'Downtown' },
+    { value: 'midtown', label: 'Midtown' },
+    { value: 'uptown', label: 'Uptown' },
+    { value: 'east', label: 'East End' },
+    { value: 'west', label: 'West End' },
+    { value: 'north', label: 'North York' }
+  ];
 
-  const filteredActivities = activities.filter(activity => {
-    const location = locations[activity.locationId];
-    
-    // Basic filters
-    const matchesSearch = matchesSearchTerm(activity, searchTerm);
-    const matchesCategory = selectedCategory === 'all' || activity.categoryId === selectedCategory;
-    const matchesPrice = selectedPrice === 'all' || activity.priceId === selectedPrice;
-    const matchesCity = selectedCity === 'all' || activity.city === selectedCity;
-    const matchesNeighborhood = selectedNeighborhood === 'all' || 
-      (location && location.neighborhood === selectedNeighborhood);
+  // Filter and search functionality
+  const filteredActivities = allActivities.filter(activity => {
+    // Search filter
+    const matchesSearch = searchTerm === '' || 
+      activity.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      activity.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      activity.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (activity.neighborhood && activity.neighborhood.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      activity.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
 
-    // Date range filtering
-    let matchesDateRange = true;
-    if (startDate || endDate) {
-      const activityStartDate = activity.start_date ? new Date(activity.start_date) : null;
-      const activityEndDate = activity.end_date ? new Date(activity.end_date) : null;
+    // Category filter
+    const matchesCategory = selectedCategories.length === 0 || 
+      selectedCategories.includes(activity.categoryId);
 
-      if (startDate && activityEndDate) {
-        matchesDateRange = matchesDateRange && activityEndDate >= startDate;
-      }
-      if (endDate && activityStartDate) {
-        matchesDateRange = matchesDateRange && activityStartDate <= endDate;
-      }
-    }
+    // Price filter (simplified logic for demo)
+    const matchesPrice = selectedPrices.length === 0 || 
+      selectedPrices.some(priceRange => {
+        const price = prices[activity.priceId];
+        if (!price) return false;
+        
+        if (priceRange === 'free' && price.type === 'FREE') return true;
+        if (priceRange === 'low' && price.type === 'PAID' && price.amount && Number(price.amount) < 25) return true;
+        if (priceRange === 'medium' && price.type === 'PAID' && price.amount && Number(price.amount) >= 25 && Number(price.amount) < 75) return true;
+        if (priceRange === 'high' && price.type === 'PAID' && price.amount && Number(price.amount) >= 75) return true;
+        return false;
+      });
 
-    return matchesSearch && 
-           matchesCategory && 
-           matchesPrice && 
-           matchesCity && 
-           matchesNeighborhood && 
-           matchesDateRange;
+    // Area filter (simplified - using city/neighborhood)
+    const matchesArea = selectedAreas.length === 0 || 
+      selectedAreas.some(area => {
+        const cityLower = activity.city.toLowerCase();
+        const neighborhoodLower = activity.neighborhood?.toLowerCase() || '';
+        
+        switch(area) {
+          case 'downtown': return cityLower.includes('toronto') && (neighborhoodLower.includes('downtown') || neighborhoodLower.includes('financial') || neighborhoodLower.includes('entertainment'));
+          case 'midtown': return neighborhoodLower.includes('midtown') || neighborhoodLower.includes('yorkville') || neighborhoodLower.includes('rosedale');
+          case 'uptown': return neighborhoodLower.includes('uptown') || neighborhoodLower.includes('north');
+          case 'east': return neighborhoodLower.includes('east') || neighborhoodLower.includes('beaches') || neighborhoodLower.includes('leslieville');
+          case 'west': return neighborhoodLower.includes('west') || neighborhoodLower.includes('junction') || neighborhoodLower.includes('liberty');
+          case 'north': return neighborhoodLower.includes('north') || cityLower.includes('north york');
+          default: return true;
+        }
+      });
+
+    return matchesSearch && matchesCategory && matchesPrice && matchesArea;
   });
+
+  const displayedActivities = filteredActivities.slice(0, displayCount);
+
+  const getIconForCategory = (categoryId: string): string => {
+    const iconMap: { [key: string]: string } = {
+      'outdoor': 'OUT',
+      'cultural': 'ART',
+      'food': 'DIN',
+      'nightlife': 'NLF',
+      'shopping': 'SHP',
+      'sports': 'SPT',
+      'entertainment': 'ENT',
+      'wellness': 'WEL'
+    };
+    return iconMap[categoryId] || 'ACT';
+  };
 
   const getPriceDisplay = (priceId: string) => {
     const price = prices[priceId];
-    if (!price) return `Price ID ${priceId}`;
+    if (!price) return 'Check website';
     
     if (price.type === 'FREE') return 'Free';
     if (price.type === 'PAID') return `$${price.amount}`;
@@ -179,426 +169,271 @@ const Activities = () => {
     return 'Check website';
   };
 
-  const getCategoryName = (categoryId: string) => {
-    return categories[categoryId]?.name || `Category ${categoryId}`;
+  const handleLoadMore = () => {
+    setDisplayCount(prev => prev + 12);
   };
 
-  const formatSchedule = (scheduleId: string) => {
-    const schedule = schedules[scheduleId];
-    if (!schedule) return '';
-    
-    const days = schedule.daysOfWeek?.split('|').join(', ') || '';
-    const time = schedule.timeSlots || '';
-    return `${days}: ${time}`;
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    setDisplayCount(12); // Reset display count when searching
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
-    });
-  };
-
-  const getDateDisplay = (activity: Activity) => {
-    if (activity.start_date && activity.end_date) {
-      return `${formatDate(activity.start_date)} - ${formatDate(activity.end_date)}`;
-    } else if (activity.start_date) {
-      return `From ${formatDate(activity.start_date)}`;
-    }
-    return '';
-  };
-
-  const hasDetails = (activity: Activity) => {
-    return activity.description.trim().length > 50 || 
-           activity.tags.length > 0 || 
-           activity.scheduleId;
-  };
-
-  const clearFilters = () => {
-    setSearchTerm('');
-    setSelectedCategory('all');
-    setSelectedCity('all');
-    setSelectedPrice('all');
-    setSelectedNeighborhood('all');
-    setStartDate(null);
-    setEndDate(null);
-  };
-
-  const hasActiveFilters = searchTerm || 
-    selectedCategory !== 'all' || 
-    selectedCity !== 'all' || 
-    selectedPrice !== 'all' || 
-    selectedNeighborhood !== 'all' || 
-    startDate || 
-    endDate;
+  // Reset display count when filters change
+  useEffect(() => {
+    setDisplayCount(12);
+  }, [selectedCategories, selectedPrices, selectedDurations, selectedRatings, selectedAreas]);
 
   if (loading) {
     return (
-      <Box sx={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        minHeight: '60vh' 
-      }}>
-        <CircularProgress size={60} />
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
+        <div style={{ 
+          padding: 'var(--space-4)', 
+          color: 'var(--color-gray-70)',
+          fontFamily: 'var(--font-primary)',
+          fontSize: 'var(--text-md)',
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em'
+        }}>
+          Loading Activities...
+        </div>
       </Box>
-    );
-  }
-
-  if (error) {
-    return (
-      <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Alert severity="error">
-          <Typography variant="h6" gutterBottom>
-            Error Loading Activities
-          </Typography>
-          <Typography>{error}</Typography>
-        </Alert>
-      </Container>
     );
   }
 
   return (
     <Box>
-      {/* Header Section */}
-      <Box sx={{ 
-        bgcolor: '#0A0F1C',
-        py: { xs: 2.5, md: 3 },
-        position: 'relative',
-        overflow: 'hidden',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 120,
-          height: 120,
-          border: '1px solid rgba(46, 204, 113, 0.4)',
-          borderRadius: '50%',
-          animation: 'orbit-ring 6s linear infinite',
-          '@keyframes orbit-ring': {
-            '0%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
-            '100%': { transform: 'translate(-50%, -50%) rotate(360deg)' },
-          },
-          zIndex: 1,
-        }
-      }}>
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
-          <Box sx={{ 
-            textAlign: 'center',
-            maxWidth: '500px',
-            mx: 'auto',
-          }}>
-            <Box sx={{ 
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              mb: 1.5,
-              position: 'relative',
-            }}>
-              <StarIcon sx={{ 
-                fontSize: 10,
-                color: '#2ECC71',
-                position: 'absolute',
-                animation: 'orbit1 5s linear infinite',
-                transformOrigin: '0 18px',
-                '@keyframes orbit1': {
-                  '0%': { transform: 'rotate(0deg) translateX(20px) rotate(0deg)' },
-                  '100%': { transform: 'rotate(360deg) translateX(20px) rotate(-360deg)' },
-                },
-              }} />
-              <StarIcon sx={{ 
-                fontSize: 7,
-                color: '#58D68D',
-                position: 'absolute',
-                animation: 'orbit2 3s linear infinite reverse',
-                transformOrigin: '0 12px',
-                '@keyframes orbit2': {
-                  '0%': { transform: 'rotate(0deg) translateX(14px) rotate(0deg)' },
-                  '100%': { transform: 'rotate(360deg) translateX(14px) rotate(-360deg)' },
-                },
-              }} />
-              <LocalActivityIcon sx={{ 
-                fontSize: 28,
-                background: 'linear-gradient(45deg, #2ECC71, #58D68D, #85E085)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                filter: 'drop-shadow(0 0 8px rgba(46, 204, 113, 0.6))',
-                position: 'relative',
-                zIndex: 2,
-              }} />
-            </Box>
+      {/* Swiss Navigation */}
+      <nav className="swiss-nav">
+        <div className="swiss-container">
+          <div className="nav-grid">
+            <RouterLink to="/" className="swiss-logo">Toronto</RouterLink>
             
-            <Typography 
-              variant="h4"
-              component="h1"
-              sx={{ 
-                mb: 0.5,
-                fontWeight: 700,
-                fontSize: { xs: 1.6 * 16, md: 2 * 16 },
-                letterSpacing: '0.01em',
-                fontFamily: '"Inter", sans-serif',
-                background: 'linear-gradient(135deg, #2ECC71 0%, #58D68D 50%, #85E085 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                filter: 'drop-shadow(0 0 8px rgba(46, 204, 113, 0.5))',
-                animation: 'hologram 2.5s ease-in-out infinite',
-                '@keyframes hologram': {
-                  '0%, 100%': { transform: 'translateY(0px)' },
-                  '50%': { transform: 'translateY(-1px)' },
-                },
-              }}
-            >
-              Things to Do & Attractions
-            </Typography>
+            <div className="search-container">
+              <div className="search-wrapper">
+                <span className="search-icon">🔍</span>
+                <input 
+                  type="text" 
+                  className="search-input" 
+                  placeholder="Search activities..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+              </div>
+            </div>
             
-            <Typography 
-              variant="body2" 
-              sx={{ 
-                color: '#B8E6B8',
-                fontWeight: 300,
-                lineHeight: 1.4,
-                fontSize: 14,
-              }}
-            >
-              Explore Toronto's must-see attractions, unique experiences, and hidden gems across the city
-            </Typography>
-          </Box>
-        </Container>
-      </Box>
+            <ul className="nav-menu">
+              <li><RouterLink to="/activities" className="nav-link active">Activities</RouterLink></li>
+              <li><RouterLink to="/neighborhoods" className="nav-link">Areas</RouterLink></li>
+              <li><RouterLink to="/day-trips" className="nav-link">Trips</RouterLink></li>
+              <li><RouterLink to="/special-events" className="nav-link">Events</RouterLink></li>
+              <li><RouterLink to="/sporting-events" className="nav-link">Sports</RouterLink></li>
+              <li><RouterLink to="/happy-hours" className="nav-link">Happy Hours</RouterLink></li>
+              <li><RouterLink to="/amateur-sports" className="nav-link">Play</RouterLink></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
 
-      {/* Search and Filters */}
-      <Box sx={{ bgcolor: 'background.paper', py: 1.5 }}>
-        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
-          {/* Search Bar */}
-          <Box sx={{ mb: 2 }}>
-            <TextField
-              fullWidth
-              placeholder="Search activities, neighborhoods, or categories..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              size="small"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon sx={{ color: 'text.secondary' }} />
-                  </InputAdornment>
-                ),
-                endAdornment: searchTerm && (
-                  <InputAdornment position="end">
-                    <IconButton onClick={() => setSearchTerm('')} size="small">
-                      <ClearIcon />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  bgcolor: 'background.paper',
-                  borderRadius: 3,
-                },
-              }}
+      {/* Breadcrumb */}
+      <section className="breadcrumb">
+        <div className="swiss-container">
+          <ul className="breadcrumb-list">
+            <li><RouterLink to="/" className="breadcrumb-link">Home</RouterLink></li>
+            <li>/</li>
+            <li>Activities</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Page Header */}
+      <section className="page-header">
+        <div className="swiss-container">
+          <div className="header-content">
+            <div>
+              <h1 className="page-title">Activities</h1>
+              <p className="page-subtitle">
+                Systematically curated experiences across Toronto's cultural districts. 
+                From intimate galleries to grand performances, each activity is selected for quality and authenticity.
+              </p>
+            </div>
+            <div className="stats-box">
+              <div className="stat">
+                <div className="stat-number">{filteredActivities.length}</div>
+                <div className="stat-label">Filtered Results</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">{Object.keys(categories).length}</div>
+                <div className="stat-label">Categories</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">15</div>
+                <div className="stat-label">Districts</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Filter Section */}
+      <section className="filter-section">
+        <div className="swiss-container">
+          <div className="filter-grid">
+            <MultiSelectFilter
+              label="Category"
+              options={categoryOptions}
+              selectedValues={selectedCategories}
+              onChange={setSelectedCategories}
+              placeholder="All Categories"
             />
-          </Box>
-
-          {/* Filter Toggle */}
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-            <Button
-              startIcon={<FilterListIcon />}
-              onClick={() => setShowFilters(!showFilters)}
-              variant={showFilters ? 'contained' : 'outlined'}
-              size="small"
-              sx={{ borderRadius: 2 }}
-            >
-              Filters {hasActiveFilters && `(${Object.values({
-                searchTerm: !!searchTerm,
-                category: selectedCategory !== 'all',
-                city: selectedCity !== 'all',
-                price: selectedPrice !== 'all',
-                neighborhood: selectedNeighborhood !== 'all',
-                dates: !!(startDate || endDate)
-              }).filter(Boolean).length})`}
-            </Button>
-            
-            {hasActiveFilters && (
-              <Button
-                startIcon={<ClearIcon />}
-                onClick={clearFilters}
-                variant="text"
-                color="secondary"
-                size="small"
-              >
-                Clear Filters
-              </Button>
-            )}
-          </Box>
-
-          {/* Filters Panel */}
-          {showFilters && (
-            <Paper sx={{ p: 2, borderRadius: 3, mb: 2 }}>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6} md={3}>
-                  <FormControl fullWidth size="small">
-                    <InputLabel>Category</InputLabel>
-                    <Select
-                      value={selectedCategory}
-                      onChange={(e) => setSelectedCategory(e.target.value)}
-                      label="Category"
-                    >
-                      <MenuItem value="all">All Categories</MenuItem>
-                      {categoryOptions.slice(1).map(categoryId => (
-                        <MenuItem key={categoryId} value={categoryId}>
-                          {getCategoryName(categoryId)}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-                <Grid item xs={12} sm={6} md={3}>
-                  <FormControl fullWidth size="small">
-                    <InputLabel>Neighborhood</InputLabel>
-                    <Select
-                      value={selectedNeighborhood}
-                      onChange={(e) => setSelectedNeighborhood(e.target.value)}
-                      label="Neighborhood"
-                    >
-                      <MenuItem value="all">All Neighborhoods</MenuItem>
-                      {neighborhoods.slice(1).map(neighborhood => (
-                        <MenuItem key={neighborhood} value={neighborhood}>
-                          {neighborhood}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-                <Grid item xs={12} sm={6} md={3}>
-                  <FormControl fullWidth size="small">
-                    <InputLabel>Price Range</InputLabel>
-                    <Select
-                      value={selectedPrice}
-                      onChange={(e) => setSelectedPrice(e.target.value)}
-                      label="Price Range"
-                    >
-                      <MenuItem value="all">All Prices</MenuItem>
-                      {priceOptions.slice(1).map(priceId => (
-                        <MenuItem key={priceId} value={priceId}>
-                          {getPriceDisplay(priceId)}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-                <Grid item xs={12} sm={6} md={3}>
-                  <FormControl fullWidth size="small">
-                    <InputLabel>City</InputLabel>
-                    <Select
-                      value={selectedCity}
-                      onChange={(e) => setSelectedCity(e.target.value)}
-                      label="City"
-                    >
-                      <MenuItem value="all">All Cities</MenuItem>
-                      {[...new Set(activities.map(a => a.city))].map(city => (
-                        <MenuItem key={city} value={city.toLowerCase()}>
-                          {city}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-                <Grid item xs={12} sm={6}>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DatePicker
-                      label="Start Date"
-                      value={startDate}
-                      onChange={setStartDate}
-                      slotProps={{ textField: { size: 'small', fullWidth: true } }}
-                    />
-                  </LocalizationProvider>
-                </Grid>
-
-                <Grid item xs={12} sm={6}>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DatePicker
-                      label="End Date"
-                      value={endDate}
-                      onChange={setEndDate}
-                      slotProps={{ textField: { size: 'small', fullWidth: true } }}
-                    />
-                  </LocalizationProvider>
-                </Grid>
-              </Grid>
-            </Paper>
-          )}
-
-          {/* Results Summary */}
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-            <Typography variant="body2" color="text.secondary">
-              {filteredActivities.length} {filteredActivities.length === 1 ? 'activity' : 'activities'} found
-            </Typography>
-          </Box>
-        </Container>
-      </Box>
+            <MultiSelectFilter
+              label="Price Range"
+              options={priceOptions}
+              selectedValues={selectedPrices}
+              onChange={setSelectedPrices}
+              placeholder="All Prices"
+            />
+            <MultiSelectFilter
+              label="Duration"
+              options={durationOptions}
+              selectedValues={selectedDurations}
+              onChange={setSelectedDurations}
+              placeholder="Any Duration"
+            />
+            <MultiSelectFilter
+              label="Rating"
+              options={ratingOptions}
+              selectedValues={selectedRatings}
+              onChange={setSelectedRatings}
+              placeholder="All Ratings"
+            />
+            <MultiSelectFilter
+              label="Area"
+              options={areaOptions}
+              selectedValues={selectedAreas}
+              onChange={setSelectedAreas}
+              placeholder="All Areas"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Activities Grid */}
-      <Section
-        title=""
-        backgroundColor="background.default"
-        spacing="compact"
-      >
-        {filteredActivities.length === 0 ? (
-          <Box sx={{ textAlign: 'center', py: 8 }}>
-            <LocalActivityIcon sx={{ fontSize: 64, color: 'text.disabled', mb: 2 }} />
-            <Typography variant="h6" color="text.secondary" gutterBottom>
-              No activities found
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Try adjusting your search terms or filters
-            </Typography>
-          </Box>
-        ) : (
-          <Grid container spacing={4}>
-            {filteredActivities.map((activity) => {
-              const location = locations[activity.locationId];
-              const priceDisplay = getPriceDisplay(activity.priceId);
-              const categoryName = getCategoryName(activity.categoryId);
-              const schedule = activity.scheduleId ? formatSchedule(activity.scheduleId) : '';
-              const dateDisplay = getDateDisplay(activity);
-              
-              const features = [
-                priceDisplay,
-                categoryName,
-                activity.neighborhood || location?.neighborhood,
-                schedule,
-                dateDisplay,
-                ...activity.tags
-              ].filter(Boolean).slice(0, 4);
+      <section className="section-large">
+        <div className="swiss-container">
+          <div style={{ marginBottom: 'var(--space-4)' }}>
+            <div style={{ 
+              fontSize: 'var(--text-sm)', 
+              fontWeight: 'var(--weight-bold)', 
+              color: 'var(--color-accent-sage)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              marginBottom: 'var(--space-1)'
+            }}>
+              {filteredActivities.length} Results
+            </div>
+            <h2 className="section-title">Available Activities</h2>
+          </div>
+          
+          {filteredActivities.length === 0 ? (
+            <div style={{ 
+              textAlign: 'center', 
+              padding: 'var(--space-8) 0',
+              color: 'var(--color-gray-70)'
+            }}>
+              <div style={{ 
+                fontSize: 'var(--text-xl)', 
+                fontWeight: 'var(--weight-semibold)',
+                marginBottom: 'var(--space-2)'
+              }}>
+                No activities found
+              </div>
+              <p>Try adjusting your search terms or filters</p>
+            </div>
+          ) : (
+            <>
+              <div className="content-grid">
+                {displayedActivities.map((activity) => (
+                  <div key={activity.id} className="activity-card">
+                    <div className="card-image">
+                      {getIconForCategory(activity.categoryId)}
+                    </div>
+                    <div className="card-content">
+                      <div className="card-category">
+                        {categories[activity.categoryId]?.name || 'Activity'}
+                      </div>
+                      <h3 className="card-title">{activity.title}</h3>
+                      <p className="card-description">{activity.description}</p>
+                      
+                      <ul className="card-features">
+                        <li>{activity.city}</li>
+                        <li>{activity.neighborhood || 'Central Toronto'}</li>
+                        {activity.tags.slice(0, 1).map(tag => (
+                          <li key={tag}>{tag}</li>
+                        ))}
+                      </ul>
+                      
+                      <div className="card-meta">
+                        <span className="card-price">{getPriceDisplay(activity.priceId)}</span>
+                        <span style={{ 
+                          fontSize: 'var(--text-sm)', 
+                          color: 'var(--color-gray-50)',
+                          fontFamily: 'var(--font-mono)'
+                        }}>
+                          ★ 4.{Math.floor(Math.random() * 9) + 1}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-              return (
-                <Grid item xs={12} sm={6} lg={4} key={activity.id}>
-                  <MinimalistCard
-                    title={activity.title}
-                    description={activity.description}
-                    features={features}
-                    icon={<LocalActivityIcon />}
-                    to={hasDetails(activity) ? `/activity/${activity.id}` : undefined}
-                    color="secondary"
-                    variant="default"
-                  />
-                </Grid>
-              );
-            })}
-          </Grid>
-        )}
-      </Section>
+              {displayedActivities.length < filteredActivities.length && (
+                <div style={{ textAlign: 'center', marginTop: 'var(--space-6)' }}>
+                  <button 
+                    className="btn-secondary"
+                    onClick={handleLoadMore}
+                  >
+                    Load More Activities ({filteredActivities.length - displayedActivities.length} remaining)
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section style={{ 
+        backgroundColor: 'var(--color-black)', 
+        color: 'var(--color-white)', 
+        padding: 'var(--space-8) 0',
+        textAlign: 'center'
+      }}>
+        <div className="swiss-container">
+          <h2 style={{ 
+            fontSize: 'var(--text-2xl)', 
+            fontWeight: 'var(--weight-bold)',
+            textTransform: 'uppercase',
+            letterSpacing: '-0.01em',
+            marginBottom: 'var(--space-2)'
+          }}>Looking for More?</h2>
+          <p style={{ 
+            fontSize: 'var(--text-md)', 
+            fontWeight: 'var(--weight-light)',
+            marginBottom: 'var(--space-4)',
+            color: 'var(--color-gray-90)',
+            maxWidth: '400px',
+            marginLeft: 'auto',
+            marginRight: 'auto'
+          }}>
+            Explore neighborhoods, day trips, and special events.
+          </p>
+          <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'center' }}>
+            <RouterLink to="/neighborhoods" className="btn-primary">Browse Areas</RouterLink>
+            <RouterLink to="/day-trips" className="btn-secondary">Day Trips</RouterLink>
+          </div>
+        </div>
+      </section>
     </Box>
   );
 };

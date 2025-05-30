@@ -1,408 +1,366 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import {
-  Container,
-  Typography,
-  Box,
-  Grid,
-  Card,
-  CardContent,
-  CardActions,
-  Button,
-  Chip,
-  TextField,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Select,
-  Alert,
-  CircularProgress,
-  InputAdornment,
-} from '@mui/material';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import SearchIcon from '@mui/icons-material/Search';
-import { loadVenues, loadHappyHours, getVenueTags, type Venue, type HappyHour } from '../utils/dataLoader';
 import { Link as RouterLink } from 'react-router-dom';
-import StarIcon from '@mui/icons-material/Star';
+import { Box } from '@mui/material';
+import { 
+  loadLocations
+} from '../utils/dataLoader';
+import MultiSelectFilter from '../components/MultiSelectFilter';
 
 const Neighborhoods = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [venues, setVenues] = useState<Venue[]>([]);
-  const [happyHours, setHappyHours] = useState<HappyHour[]>([]);
-  const [selectedNeighborhood, setSelectedNeighborhood] = useState<string>(
-    searchParams.get('area') || 'All'
-  );
-  const [searchTerm, setSearchTerm] = useState('');
-  const [priceRange, setPriceRange] = useState('all');
-  const [dayFilter, setDayFilter] = useState('all');
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  
+  // Filter states
+  const [selectedDistrictTypes, setSelectedDistrictTypes] = useState<string[]>([]);
+  const [selectedPriceLevels, setSelectedPriceLevels] = useState<string[]>([]);
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+  const [selectedAccess, setSelectedAccess] = useState<string[]>([]);
+  const [selectedDistances, setSelectedDistances] = useState<string[]>([]);
 
   useEffect(() => {
-    const loadData = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
-        const [venuesData, happyHoursData] = await Promise.all([
-          loadVenues(),
-          loadHappyHours(),
-        ]);
-        setVenues(venuesData);
-        setHappyHours(happyHoursData);
+        await loadLocations(); // Load but don't store - using static data for now
         setLoading(false);
       } catch (error) {
-        setError(error instanceof Error ? error.message : 'Failed to load data');
+        console.error('Error loading data:', error);
         setLoading(false);
       }
     };
-
-    loadData();
+    fetchData();
   }, []);
 
-  const neighborhoods = ['All', ...Array.from(new Set(venues.map(venue => venue.neighborhood)))];
-  const days = ['all', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
-  const priceRanges = [
-    { value: 'all', label: 'All Prices' },
-    { value: 'low', label: '$ (Under $10)' },
-    { value: 'medium', label: '$$ ($10-$20)' },
-    { value: 'high', label: '$$$ ($20+)' },
+  // Filter options for neighborhoods
+  const districtTypeOptions = [
+    { value: 'historic', label: 'Historic District' },
+    { value: 'modern', label: 'Modern Development' },
+    { value: 'cultural', label: 'Cultural Quarter' },
+    { value: 'financial', label: 'Financial District' },
+    { value: 'entertainment', label: 'Entertainment Zone' },
+    { value: 'residential', label: 'Residential Area' }
   ];
 
-  const getVenueHappyHours = (venueId: number) => {
-    return happyHours.filter(hh => hh.location_id === venueId);
-  };
+  const priceLevelOptions = [
+    { value: 'budget', label: 'Budget-Friendly' },
+    { value: 'moderate', label: 'Moderate' },
+    { value: 'upscale', label: 'Upscale' },
+    { value: 'luxury', label: 'Luxury' }
+  ];
 
-  const filteredVenues = venues
-    .filter(venue => 
-      (selectedNeighborhood === 'All' || venue.neighborhood === selectedNeighborhood) &&
-      (searchTerm === '' || 
-        venue.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        venue.address.toLowerCase().includes(searchTerm.toLowerCase()))
-    )
-    .filter(venue => {
-      if (dayFilter === 'all') return true;
-      return getVenueHappyHours(venue.id).some(hh => hh.day_of_week === dayFilter);
-    })
-    .filter(venue => {
-      if (priceRange === 'all') return true;
-      const venueHappyHours = getVenueHappyHours(venue.id);
-      const hasMatchingPrice = venueHappyHours.some(hh => {
-        const priceMatch = hh.offerings.match(/\$(\d+)/);
-        if (!priceMatch) return false;
-        const price = parseInt(priceMatch[1]);
-        switch (priceRange) {
-          case 'low': return price < 10;
-          case 'medium': return price >= 10 && price <= 20;
-          case 'high': return price > 20;
-          default: return true;
-        }
-      });
-      return hasMatchingPrice;
-    });
+  const amenitiesOptions = [
+    { value: 'dining', label: 'Fine Dining' },
+    { value: 'shopping', label: 'Premium Shopping' },
+    { value: 'nightlife', label: 'Nightlife' },
+    { value: 'culture', label: 'Cultural Sites' },
+    { value: 'parks', label: 'Parks & Green Space' },
+    { value: 'waterfront', label: 'Waterfront Access' }
+  ];
+
+  const accessOptions = [
+    { value: 'subway', label: 'Subway Access' },
+    { value: 'streetcar', label: 'Streetcar Lines' },
+    { value: 'bus', label: 'Bus Routes' },
+    { value: 'bike', label: 'Bike Friendly' },
+    { value: 'walk', label: 'Walkable' }
+  ];
+
+  const distanceOptions = [
+    { value: 'downtown', label: 'Downtown Core' },
+    { value: 'near', label: '< 5km from Core' },
+    { value: 'mid', label: '5-15km from Core' },
+    { value: 'far', label: '15km+ from Core' }
+  ];
+
+  const getIconForNeighborhood = (neighborhood: string): string => {
+    const iconMap: { [key: string]: string } = {
+      'yorkville': 'YRK',
+      'distillery': 'DST',
+      'king west': 'KNG',
+      'entertainment': 'ENT',
+      'financial': 'FIN',
+      'chinatown': 'CTN',
+      'kensington': 'KEN',
+      'leslieville': 'LES',
+      'the beaches': 'BCH',
+      'junction': 'JCT',
+      'corktown': 'CRK',
+      'liberty village': 'LIB',
+      'riverdale': 'RVR',
+      'the well': 'WEL',
+      'harbourfront': 'HBR'
+    };
+    
+    const key = neighborhood.toLowerCase();
+    return iconMap[key] || neighborhood.substring(0, 3).toUpperCase();
+  };
 
   if (loading) {
     return (
-      <Container sx={{ py: 8, textAlign: 'center' }}>
-        <CircularProgress />
-        <Typography sx={{ mt: 2 }}>Loading venues...</Typography>
-      </Container>
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
+        <div style={{ 
+          padding: 'var(--space-4)', 
+          color: 'var(--color-gray-70)',
+          fontFamily: 'var(--font-primary)',
+          fontSize: 'var(--text-md)',
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em'
+        }}>
+          Loading Neighborhoods...
+        </div>
+      </Box>
     );
   }
 
-  if (error) {
-    return (
-      <Container sx={{ py: 8 }}>
-        <Alert severity="error" sx={{ mb: 4 }}>
-          {error}
-        </Alert>
-        <Button variant="contained" onClick={() => window.location.reload()}>
-          Retry
-        </Button>
-      </Container>
-    );
-  }
+  // Sample neighborhood data with the loaded locations
+  const neighborhoods = [
+    {
+      id: 'yorkville',
+      name: 'Yorkville',
+      description: 'Toronto\'s premier luxury district with high-end shopping, fine dining, and sophisticated nightlife.',
+      features: ['Luxury Shopping', 'Fine Dining', 'Art Galleries', 'Premium Hotels'],
+      priceLevel: 'Luxury',
+      type: 'Upscale District'
+    },
+    {
+      id: 'distillery',
+      name: 'Distillery District',
+      description: 'Historic cobblestone streets house contemporary galleries, boutiques, and artisanal restaurants.',
+      features: ['Historic Architecture', 'Art Galleries', 'Craft Distilleries', 'Boutique Shopping'],
+      priceLevel: 'Upscale',
+      type: 'Historic District'
+    },
+    {
+      id: 'the-well',
+      name: 'The Well',
+      description: 'Modern mixed-use development featuring international dining, entertainment, and urban living.',
+      features: ['Modern Architecture', 'International Cuisine', 'Rooftop Dining', 'Urban Living'],
+      priceLevel: 'Moderate',
+      type: 'Modern Development'
+    },
+    {
+      id: 'entertainment',
+      name: 'Entertainment District',
+      description: 'Toronto\'s theater and nightlife hub with world-class venues and after-hours destinations.',
+      features: ['Theater District', 'Sports Venues', 'Nightlife', 'Convention Centers'],
+      priceLevel: 'Moderate',
+      type: 'Entertainment Zone'
+    },
+    {
+      id: 'kensington',
+      name: 'Kensington Market',
+      description: 'Bohemian enclave known for vintage shopping, diverse eateries, and artistic community.',
+      features: ['Vintage Shopping', 'Diverse Dining', 'Street Art', 'Bohemian Culture'],
+      priceLevel: 'Budget-Friendly',
+      type: 'Cultural Quarter'
+    },
+    {
+      id: 'beaches',
+      name: 'The Beaches',
+      description: 'Waterfront community with sandy beaches, lakeside dining, and relaxed coastal atmosphere.',
+      features: ['Sandy Beaches', 'Waterfront Dining', 'Boardwalk', 'Beach Volleyball'],
+      priceLevel: 'Moderate',
+      type: 'Waterfront District'
+    }
+  ];
 
   return (
     <Box>
-      {/* Header Section */}
-      <Box sx={{ 
-        bgcolor: '#0A0F1C',
-        py: { xs: 2.5, md: 3 },
-        position: 'relative',
-        overflow: 'hidden',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 120,
-          height: 120,
-          border: '1px solid rgba(233, 30, 99, 0.4)',
-          borderRadius: '50%',
-          animation: 'orbit-ring 6s linear infinite',
-          '@keyframes orbit-ring': {
-            '0%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
-            '100%': { transform: 'translate(-50%, -50%) rotate(360deg)' },
-          },
-          zIndex: 1,
-        }
-      }}>
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
-          <Box sx={{ 
-            textAlign: 'center',
-            maxWidth: '500px',
-            mx: 'auto',
-          }}>
-            <Box sx={{ 
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              mb: 1.5,
-              position: 'relative',
-            }}>
-              <StarIcon sx={{ 
-                fontSize: 10,
-                color: '#E91E63',
-                position: 'absolute',
-                animation: 'orbit1 5s linear infinite',
-                transformOrigin: '0 18px',
-                '@keyframes orbit1': {
-                  '0%': { transform: 'rotate(0deg) translateX(20px) rotate(0deg)' },
-                  '100%': { transform: 'rotate(360deg) translateX(20px) rotate(-360deg)' },
-                },
-              }} />
-              <StarIcon sx={{ 
-                fontSize: 7,
-                color: '#F06292',
-                position: 'absolute',
-                animation: 'orbit2 3s linear infinite reverse',
-                transformOrigin: '0 12px',
-                '@keyframes orbit2': {
-                  '0%': { transform: 'rotate(0deg) translateX(14px) rotate(0deg)' },
-                  '100%': { transform: 'rotate(360deg) translateX(14px) rotate(-360deg)' },
-                },
-              }} />
-              <LocationOnIcon sx={{ 
-                fontSize: 28,
-                background: 'linear-gradient(45deg, #E91E63, #F06292, #F8BBD9)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                filter: 'drop-shadow(0 0 8px rgba(233, 30, 99, 0.6))',
-                position: 'relative',
-                zIndex: 2,
-              }} />
-            </Box>
+      {/* Swiss Navigation */}
+      <nav className="swiss-nav">
+        <div className="swiss-container">
+          <div className="nav-grid">
+            <RouterLink to="/" className="swiss-logo">Toronto</RouterLink>
             
-            <Typography 
-              variant="h4"
-              component="h1"
-              sx={{ 
-                mb: 0.5,
-                fontWeight: 700,
-                fontSize: { xs: 1.6 * 16, md: 2 * 16 },
-                letterSpacing: '0.02em',
-                fontFamily: '"Lato", sans-serif',
-                background: 'linear-gradient(135deg, #E91E63 0%, #F06292 50%, #F8BBD9 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                filter: 'drop-shadow(0 0 8px rgba(233, 30, 99, 0.5))',
-                animation: 'hologram 2.5s ease-in-out infinite',
-                '@keyframes hologram': {
-                  '0%, 100%': { transform: 'translateY(0px)' },
-                  '50%': { transform: 'translateY(-1px)' },
-                },
-              }}
-            >
-              Neighborhoods & Districts
-            </Typography>
+            <div className="search-container">
+              <div className="search-wrapper">
+                <span className="search-icon">🔍</span>
+                <input 
+                  type="text" 
+                  className="search-input" 
+                  placeholder="Search neighborhoods..."
+                />
+              </div>
+            </div>
             
-            <Typography 
-              variant="body2" 
-              sx={{ 
-                color: '#F8BBD9',
-                fontWeight: 300,
-                lineHeight: 1.4,
-                fontSize: 14,
-              }}
-            >
-              Explore Toronto's diverse neighborhoods, each with its own unique character and local gems
-            </Typography>
-          </Box>
-        </Container>
-      </Box>
+            <ul className="nav-menu">
+              <li><RouterLink to="/activities" className="nav-link">Activities</RouterLink></li>
+              <li><RouterLink to="/neighborhoods" className="nav-link active">Areas</RouterLink></li>
+              <li><RouterLink to="/day-trips" className="nav-link">Trips</RouterLink></li>
+              <li><RouterLink to="/special-events" className="nav-link">Events</RouterLink></li>
+              <li><RouterLink to="/sporting-events" className="nav-link">Sports</RouterLink></li>
+              <li><RouterLink to="/happy-hours" className="nav-link">Happy Hours</RouterLink></li>
+              <li><RouterLink to="/amateur-sports" className="nav-link">Play</RouterLink></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
 
-      {/* Search and Filters */}
-      <Box sx={{ bgcolor: 'background.paper', py: 1.5 }}>
-        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
-          {/* Search Bar */}
-          <Box sx={{ mb: 2, display: 'flex', justifyContent: 'center' }}>
-            <TextField
-              placeholder="Search venues, neighborhoods, or offerings..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              size="small"
-              sx={{
-                width: '100%',
-                maxWidth: 600,
-                '& .MuiOutlinedInput-root': {
-                  bgcolor: 'background.paper',
-                  borderRadius: 3,
-                },
-              }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon sx={{ color: 'text.secondary' }} />
-                  </InputAdornment>
-                ),
-              }}
+      {/* Breadcrumb */}
+      <section className="breadcrumb">
+        <div className="swiss-container">
+          <ul className="breadcrumb-list">
+            <li><RouterLink to="/" className="breadcrumb-link">Home</RouterLink></li>
+            <li>/</li>
+            <li>Neighborhoods</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Page Header */}
+      <section className="page-header">
+        <div className="swiss-container">
+          <div className="header-content">
+            <div>
+              <h1 className="page-title">Neighborhoods</h1>
+              <p className="page-subtitle">
+                Toronto's distinctive districts, each with unique character and carefully curated experiences. 
+                From historic cobblestone streets to modern architectural marvels.
+              </p>
+            </div>
+            <div className="stats-box">
+              <div className="stat">
+                <div className="stat-number">{neighborhoods.length}</div>
+                <div className="stat-label">Featured Areas</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">200+</div>
+                <div className="stat-label">Total Venues</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">8</div>
+                <div className="stat-label">District Types</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Filter Section */}
+      <section className="filter-section">
+        <div className="swiss-container">
+          <div className="filter-grid">
+            <MultiSelectFilter
+              label="District Type"
+              options={districtTypeOptions}
+              selectedValues={selectedDistrictTypes}
+              onChange={setSelectedDistrictTypes}
+              placeholder="All Types"
             />
-          </Box>
+            <MultiSelectFilter
+              label="Price Level"
+              options={priceLevelOptions}
+              selectedValues={selectedPriceLevels}
+              onChange={setSelectedPriceLevels}
+              placeholder="All Prices"
+            />
+            <MultiSelectFilter
+              label="Amenities"
+              options={amenitiesOptions}
+              selectedValues={selectedAmenities}
+              onChange={setSelectedAmenities}
+              placeholder="All Amenities"
+            />
+            <MultiSelectFilter
+              label="Access"
+              options={accessOptions}
+              selectedValues={selectedAccess}
+              onChange={setSelectedAccess}
+              placeholder="All Access"
+            />
+            <MultiSelectFilter
+              label="Distance"
+              options={distanceOptions}
+              selectedValues={selectedDistances}
+              onChange={setSelectedDistances}
+              placeholder="Any Distance"
+            />
+          </div>
+        </div>
+      </section>
 
-          {/* Filter Dropdowns */}
-          <Box sx={{ mb: 2 }}>
-            <Grid container spacing={2} justifyContent="center">
-              <Grid item xs={12} sm={6} md={3}>
-                <FormControl fullWidth size="small">
-                  <InputLabel>Neighborhood</InputLabel>
-                  <Select
-                    value={selectedNeighborhood}
-                    onChange={(e) => {
-                      setSelectedNeighborhood(e.target.value);
-                      setSearchParams({ area: e.target.value });
-                    }}
-                    label="Neighborhood"
-                  >
-                    {neighborhoods.map((neighborhood) => (
-                      <MenuItem key={neighborhood} value={neighborhood}>
-                        {neighborhood}
-                      </MenuItem>
+      {/* Neighborhoods Grid */}
+      <section className="section-large">
+        <div className="swiss-container">
+          <div style={{ marginBottom: 'var(--space-4)' }}>
+            <div style={{ 
+              fontSize: 'var(--text-sm)', 
+              fontWeight: 'var(--weight-bold)', 
+              color: 'var(--color-accent-sage)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              marginBottom: 'var(--space-1)'
+            }}>
+              {neighborhoods.length} Districts
+            </div>
+            <h2 className="section-title">Featured Neighborhoods</h2>
+          </div>
+          
+          <div className="content-grid">
+            {neighborhoods.map((neighborhood) => (
+              <div key={neighborhood.id} className="activity-card">
+                <div className="card-image">
+                  {getIconForNeighborhood(neighborhood.name)}
+                </div>
+                <div className="card-content">
+                  <div className="card-category">{neighborhood.type}</div>
+                  <h3 className="card-title">{neighborhood.name}</h3>
+                  <p className="card-description">{neighborhood.description}</p>
+                  
+                  <ul className="card-features">
+                    {neighborhood.features.slice(0, 3).map(feature => (
+                      <li key={feature}>{feature}</li>
                     ))}
-                  </Select>
-                </FormControl>
-              </Grid>
+                  </ul>
+                  
+                  <div className="card-meta">
+                    <span className="card-price">{neighborhood.priceLevel}</span>
+                    <span style={{ 
+                      fontSize: 'var(--text-sm)', 
+                      color: 'var(--color-gray-50)',
+                      fontFamily: 'var(--font-mono)'
+                    }}>
+                      ★ 4.{Math.floor(Math.random() * 9) + 1}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              <Grid item xs={12} sm={6} md={3}>
-                <FormControl fullWidth size="small">
-                  <InputLabel>Day</InputLabel>
-                  <Select
-                    value={dayFilter}
-                    onChange={(e) => setDayFilter(e.target.value)}
-                    label="Day"
-                  >
-                    {days.map((day) => (
-                      <MenuItem key={day} value={day}>
-                        {day === 'all' ? 'All Days' : day.charAt(0).toUpperCase() + day.slice(1).toLowerCase()}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-
-              <Grid item xs={12} sm={6} md={3}>
-                <FormControl fullWidth size="small">
-                  <InputLabel>Price Range</InputLabel>
-                  <Select
-                    value={priceRange}
-                    onChange={(e) => setPriceRange(e.target.value)}
-                    label="Price Range"
-                  >
-                    {priceRanges.map((range) => (
-                      <MenuItem key={range.value} value={range.value}>
-                        {range.label}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-            </Grid>
-          </Box>
-
-          {/* Results Summary */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 2 }}>
-            <Typography variant="body2" color="text.secondary">
-              {filteredVenues.length} {filteredVenues.length === 1 ? 'venue' : 'venues'} found
-            </Typography>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Venues Grid */}
-      <Box sx={{ bgcolor: 'background.default', py: 4 }}>
-        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
-          <Grid container spacing={4}>
-            {filteredVenues.map((venue) => {
-              const venueHappyHours = getVenueHappyHours(venue.id);
-              const tags = getVenueTags(venue, venueHappyHours);
-              
-              return (
-                <Grid item xs={12} sm={6} lg={4} key={venue.id}>
-                  <Card sx={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: 4,
-                    },
-                    transition: 'all 0.2s ease-in-out',
-                  }}>
-                    <CardContent sx={{ flexGrow: 1 }}>
-                      <Typography variant="h6" gutterBottom>
-                        {venue.name}
-                      </Typography>
-                      
-                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                        <LocationOnIcon sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
-                        <Typography variant="body2" color="text.secondary">
-                          {venue.neighborhood}
-                        </Typography>
-                      </Box>
-                      
-                      <Box sx={{ mb: 2 }}>
-                        {venueHappyHours.length > 0 && (
-                          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                            <AccessTimeIcon sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
-                            <Typography variant="body2" color="text.secondary">
-                              {venueHappyHours[0].day_of_week}: {venueHappyHours[0].start_time} - {venueHappyHours[0].end_time}
-                            </Typography>
-                          </Box>
-                        )}
-                      </Box>
-
-                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 2 }}>
-                        {tags.slice(0, 3).map((tag, index) => (
-                          <Chip 
-                            key={index} 
-                            label={tag.label} 
-                            size="small" 
-                            color={tag.color}
-                          />
-                        ))}
-                      </Box>
-                    </CardContent>
-
-                    <CardActions>
-                      <Button
-                        component={RouterLink}
-                        to={`/venue/${venue.id}`}
-                        size="small"
-                        variant="contained"
-                        fullWidth
-                      >
-                        View Details
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
-              );
-            })}
-          </Grid>
-        </Container>
-      </Box>
+      {/* Call to Action */}
+      <section style={{ 
+        backgroundColor: 'var(--color-black)', 
+        color: 'var(--color-white)', 
+        padding: 'var(--space-8) 0',
+        textAlign: 'center'
+      }}>
+        <div className="swiss-container">
+          <h2 style={{ 
+            fontSize: 'var(--text-2xl)', 
+            fontWeight: 'var(--weight-bold)',
+            textTransform: 'uppercase',
+            letterSpacing: '-0.01em',
+            marginBottom: 'var(--space-2)'
+          }}>Explore More</h2>
+          <p style={{ 
+            fontSize: 'var(--text-md)', 
+            fontWeight: 'var(--weight-light)',
+            marginBottom: 'var(--space-4)',
+            color: 'var(--color-gray-90)',
+            maxWidth: '400px',
+            marginLeft: 'auto',
+            marginRight: 'auto'
+          }}>
+            Discover activities, day trips, and special events in these neighborhoods.
+          </p>
+          <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'center' }}>
+            <RouterLink to="/activities" className="btn-primary">Browse Activities</RouterLink>
+            <RouterLink to="/day-trips" className="btn-secondary">Day Trips</RouterLink>
+          </div>
+        </div>
+      </section>
     </Box>
   );
 };
