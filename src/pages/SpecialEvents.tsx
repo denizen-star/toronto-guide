@@ -15,6 +15,8 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Checkbox,
+  ListItemText,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import EventIcon from '@mui/icons-material/Event';
@@ -34,20 +36,20 @@ const getEventIcon = (type: string, title: string) => {
   const eventType = type.toLowerCase();
   const titleLower = title.toLowerCase();
   
-  if (eventType.includes('film') || titleLower.includes('film') || titleLower.includes('movie') || titleLower.includes('cinema')) {
-    return <LocalMoviesIcon sx={{ fontSize: 60 }} />;
-  }
-  if (eventType.includes('food') || titleLower.includes('food') || titleLower.includes('taste') || titleLower.includes('culinary')) {
-    return <RestaurantIcon sx={{ fontSize: 60 }} />;
-  }
-  if (eventType.includes('music') || titleLower.includes('music') || titleLower.includes('concert')) {
+  if (eventType.includes('music') || titleLower.includes('concert') || titleLower.includes('music')) {
     return <MusicNoteIcon sx={{ fontSize: 60 }} />;
   }
-  if (eventType.includes('art') || titleLower.includes('art') || eventType.includes('gallery')) {
+  if (eventType.includes('food') || titleLower.includes('food') || titleLower.includes('taste')) {
+    return <RestaurantIcon sx={{ fontSize: 60 }} />;
+  }
+  if (eventType.includes('theater') || eventType.includes('comedy') || titleLower.includes('theater')) {
+    return <TheaterComedyIcon sx={{ fontSize: 60 }} />;
+  }
+  if (eventType.includes('art') || titleLower.includes('art') || titleLower.includes('gallery')) {
     return <PaletteIcon sx={{ fontSize: 60 }} />;
   }
-  if (eventType.includes('comedy') || titleLower.includes('comedy') || titleLower.includes('theater')) {
-    return <TheaterComedyIcon sx={{ fontSize: 60 }} />;
+  if (eventType.includes('film') || eventType.includes('movie') || titleLower.includes('film')) {
+    return <LocalMoviesIcon sx={{ fontSize: 60 }} />;
   }
   if (eventType.includes('festival')) {
     return <FestivalIcon sx={{ fontSize: 60 }} />;
@@ -55,13 +57,86 @@ const getEventIcon = (type: string, title: string) => {
   return <CelebrationIcon sx={{ fontSize: 60 }} />;
 };
 
+// Helper function to get location area from full location string
+const getEventLocationArea = (location: string): string => {
+  if (!location) return 'Various';
+  const locationLower = location.toLowerCase();
+  
+  if (locationLower.includes('downtown') || locationLower.includes('financial district')) return 'Downtown';
+  if (locationLower.includes('king west') || locationLower.includes('liberty village')) return 'King West';
+  if (locationLower.includes('ossington') || locationLower.includes('trinity bellwoods')) return 'West End';
+  if (locationLower.includes('beaches') || locationLower.includes('leslieville')) return 'East End';
+  if (locationLower.includes('high park') || locationLower.includes('roncesvalles')) return 'High Park Area';
+  if (locationLower.includes('harbourfront') || locationLower.includes('waterfront')) return 'Waterfront';
+  if (locationLower.includes('distillery') || locationLower.includes('st. lawrence')) return 'Distillery District';
+  if (locationLower.includes('cne') || locationLower.includes('exhibition')) return 'Exhibition Place';
+  if (locationLower.includes('yorkville') || locationLower.includes('midtown')) return 'Midtown';
+  if (locationLower.includes('multiple') || locationLower.includes('various')) return 'Multiple Venues';
+  if (locationLower.includes('outdoor') || locationLower.includes('park')) return 'Outdoor/Parks';
+  
+  return 'Other Areas';
+};
+
+// Helper function to get event category based on type and content
+const getEventCategory = (event: SpecialEvent): string => {
+  const type = event.type.toLowerCase();
+  const title = event.title.toLowerCase();
+  const description = event.description.toLowerCase();
+  
+  if (type.includes('music') || title.includes('concert') || title.includes('music')) return 'Music & Concerts';
+  if (type.includes('food') || title.includes('food') || title.includes('taste')) return 'Food & Drink';
+  if (type.includes('art') || title.includes('art') || title.includes('gallery')) return 'Arts & Culture';
+  if (type.includes('festival')) return 'Festivals';
+  if (type.includes('theater') || type.includes('comedy')) return 'Theater & Comedy';
+  if (type.includes('film') || type.includes('movie')) return 'Film & Media';
+  if (type.includes('seasonal') || title.includes('holiday') || title.includes('christmas')) return 'Seasonal Events';
+  if (type.includes('community') || description.includes('community')) return 'Community Events';
+  if (type.includes('sports') || title.includes('marathon') || title.includes('race')) return 'Sports Events';
+  
+  return 'Other Events';
+};
+
+// Helper function to get season based on date or title
+const getEventSeason = (event: SpecialEvent): string => {
+  const title = event.title.toLowerCase();
+  const description = event.description.toLowerCase();
+  
+  if (title.includes('winter') || title.includes('christmas') || title.includes('holiday')) return 'Winter';
+  if (title.includes('spring') || title.includes('easter')) return 'Spring';
+  if (title.includes('summer') || title.includes('canada day')) return 'Summer';
+  if (title.includes('fall') || title.includes('autumn') || title.includes('halloween')) return 'Fall';
+  
+  // Try to determine from date if available
+  if (event.date) {
+    try {
+      const eventDate = new Date(event.date);
+      const month = eventDate.getMonth() + 1; // getMonth() returns 0-11
+      
+      if (month >= 12 || month <= 2) return 'Winter';
+      if (month >= 3 && month <= 5) return 'Spring';
+      if (month >= 6 && month <= 8) return 'Summer';
+      if (month >= 9 && month <= 11) return 'Fall';
+    } catch (error) {
+      // Date parsing failed, continue to default
+    }
+  }
+  
+  return 'Year-round';
+};
+
 const SpecialEvents = () => {
   const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = React.useState(searchParams.get('search') || '');
-  const [eventType, setEventType] = React.useState('all');
   const [events, setEvents] = useState<SpecialEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Filter states - updated to arrays for multi-select
+  const [selectedEventType, setSelectedEventType] = React.useState<string[]>([]);
+  const [selectedLocation, setSelectedLocation] = React.useState<string[]>([]);
+  const [selectedEventCategory, setSelectedEventCategory] = React.useState<string[]>([]);
+  const [selectedSeason, setSelectedSeason] = React.useState<string[]>([]);
+  const [selectedTag, setSelectedTag] = React.useState<string[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,28 +152,73 @@ const SpecialEvents = () => {
     fetchData();
   }, []);
 
-  // Get all unique tags for the tags filter
-  const allTags = React.useMemo(() => {
-    const tagSet = new Set<string>();
+  // Get all unique values for filters
+  const filterOptions = React.useMemo(() => {
+    const eventTypes = new Set<string>();
+    const locations = new Set<string>();
+    const eventCategories = new Set<string>();
+    const seasons = new Set<string>();
+    const tags = new Set<string>();
+    
     events.forEach(event => {
-      event.tags.forEach(tag => tagSet.add(tag));
+      eventTypes.add(event.type);
+      locations.add(getEventLocationArea(event.location));
+      eventCategories.add(getEventCategory(event));
+      seasons.add(getEventSeason(event));
+      event.tags.forEach(tag => tags.add(tag));
     });
-    return Array.from(tagSet).sort();
+    
+    return {
+      eventTypes: Array.from(eventTypes).sort(),
+      locations: Array.from(locations).sort(),
+      eventCategories: Array.from(eventCategories).sort(),
+      seasons: Array.from(seasons).sort(),
+      tags: Array.from(tags).sort(),
+    };
   }, [events]);
 
-  const [selectedTag, setSelectedTag] = React.useState('all');
-
   const filteredEvents = events.filter(event => {
+    // Search filter
     const matchesSearch = 
       event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       event.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       event.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
     
-    const matchesType = eventType === 'all' || event.type === eventType;
-    const matchesTag = selectedTag === 'all' || event.tags.includes(selectedTag);
+    // Other filters
+    const matchesEventType = selectedEventType.length === 0 || selectedEventType.includes(event.type);
+    const matchesLocation = selectedLocation.length === 0 || selectedLocation.includes(getEventLocationArea(event.location));
+    const matchesEventCategory = selectedEventCategory.length === 0 || selectedEventCategory.includes(getEventCategory(event));
+    const matchesSeason = selectedSeason.length === 0 || selectedSeason.includes(getEventSeason(event));
+    const matchesTag = selectedTag.length === 0 || event.tags.some(tag => selectedTag.includes(tag));
     
-    return matchesSearch && matchesType && matchesTag;
+    return matchesSearch && matchesEventType && matchesLocation && matchesEventCategory && matchesSeason && matchesTag;
   });
+
+  const handleTagClick = (tag: string) => {
+    if (selectedTag.includes(tag)) {
+      setSelectedTag(selectedTag.filter((t) => t !== tag));
+    } else {
+      setSelectedTag([...selectedTag, tag]);
+    }
+  };
+
+  const clearAllFilters = () => {
+    setSelectedEventType([]);
+    setSelectedLocation([]);
+    setSelectedEventCategory([]);
+    setSelectedSeason([]);
+    setSelectedTag([]);
+    setSearchQuery('');
+  };
+
+  const activeFiltersCount = [
+    selectedEventType.length > 0,
+    selectedLocation.length > 0,
+    selectedEventCategory.length > 0,
+    selectedSeason.length > 0,
+    selectedTag.length > 0,
+    searchQuery !== ''
+  ].filter(Boolean).length;
 
   if (loading) {
     return (
@@ -115,8 +235,6 @@ const SpecialEvents = () => {
       </Box>
     );
   }
-
-  const eventTypes = ['all', ...new Set(events.map(event => event.type))];
 
   return (
     <Box>
@@ -153,10 +271,10 @@ const SpecialEvents = () => {
       </Box>
 
       {/* Search and Filters */}
-      <Box sx={{ bgcolor: 'background.paper', py: 1.5 }}>
+      <Box sx={{ bgcolor: 'background.paper', py: 2 }}>
         <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
           {/* Search Bar */}
-          <Box sx={{ mb: 2, display: 'flex', justifyContent: 'center' }}>
+          <Box sx={{ mb: 3, display: 'flex', justifyContent: 'center' }}>
             <TextField
               placeholder="Search events, festivals, or tags..."
               value={searchQuery}
@@ -180,38 +298,118 @@ const SpecialEvents = () => {
             />
           </Box>
 
-          {/* Filter Dropdowns */}
+          {/* Filter Controls */}
           <Box sx={{ mb: 2 }}>
-            <Grid container spacing={2} justifyContent="center">
-              <Grid item xs={12} sm={6} md={3}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6} md={2.4}>
                 <FormControl fullWidth size="small">
                   <InputLabel>Event Type</InputLabel>
                   <Select
-                    value={eventType}
-                    onChange={(e) => setEventType(e.target.value)}
+                    value={selectedEventType}
+                    onChange={(e) => setSelectedEventType(e.target.value as string[])}
                     label="Event Type"
+                    multiple
+                    renderValue={(selected) => 
+                      selected.length === 0 ? 'All Types' : 
+                      selected.length === 1 ? selected[0] : `${selected.length} types`
+                    }
                   >
-                    {eventTypes.map((type) => (
+                    {filterOptions.eventTypes.map((type) => (
                       <MenuItem key={type} value={type}>
-                        {type === 'all' ? 'All Events' : type}
+                        <Checkbox checked={selectedEventType.includes(type)} />
+                        <ListItemText primary={type} />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+              
+              <Grid item xs={12} sm={6} md={2.4}>
+                <FormControl fullWidth size="small">
+                  <InputLabel>Category</InputLabel>
+                  <Select
+                    value={selectedEventCategory}
+                    onChange={(e) => setSelectedEventCategory(e.target.value as string[])}
+                    label="Category"
+                    multiple
+                    renderValue={(selected) => 
+                      selected.length === 0 ? 'All Categories' : 
+                      selected.length === 1 ? selected[0] : `${selected.length} categories`
+                    }
+                  >
+                    {filterOptions.eventCategories.map((category) => (
+                      <MenuItem key={category} value={category}>
+                        <Checkbox checked={selectedEventCategory.includes(category)} />
+                        <ListItemText primary={category} />
                       </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
               </Grid>
 
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid item xs={12} sm={6} md={2.4}>
                 <FormControl fullWidth size="small">
-                  <InputLabel>Tag Filter</InputLabel>
+                  <InputLabel>Location</InputLabel>
+                  <Select
+                    value={selectedLocation}
+                    onChange={(e) => setSelectedLocation(e.target.value as string[])}
+                    label="Location"
+                    multiple
+                    renderValue={(selected) => 
+                      selected.length === 0 ? 'All Areas' : 
+                      selected.length === 1 ? selected[0] : `${selected.length} areas`
+                    }
+                  >
+                    {filterOptions.locations.map((location) => (
+                      <MenuItem key={location} value={location}>
+                        <Checkbox checked={selectedLocation.includes(location)} />
+                        <ListItemText primary={location} />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} sm={6} md={2.4}>
+                <FormControl fullWidth size="small">
+                  <InputLabel>Season</InputLabel>
+                  <Select
+                    value={selectedSeason}
+                    onChange={(e) => setSelectedSeason(e.target.value as string[])}
+                    label="Season"
+                    multiple
+                    renderValue={(selected) => 
+                      selected.length === 0 ? 'All Seasons' : 
+                      selected.length === 1 ? selected[0] : `${selected.length} seasons`
+                    }
+                  >
+                    {filterOptions.seasons.map((season) => (
+                      <MenuItem key={season} value={season}>
+                        <Checkbox checked={selectedSeason.includes(season)} />
+                        <ListItemText primary={season} />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} sm={6} md={2.4}>
+                <FormControl fullWidth size="small">
+                  <InputLabel>Tags</InputLabel>
                   <Select
                     value={selectedTag}
-                    onChange={(e) => setSelectedTag(e.target.value)}
-                    label="Tag Filter"
+                    onChange={(e) => setSelectedTag(e.target.value as string[])}
+                    label="Tags"
+                    multiple
+                    renderValue={(selected) => 
+                      selected.length === 0 ? 'All Tags' : 
+                      `${selected.length} tag${selected.length !== 1 ? 's' : ''}`
+                    }
                   >
-                    <MenuItem value="all">All Tags</MenuItem>
-                    {allTags.map((tag) => (
+                    {filterOptions.tags.map((tag) => (
                       <MenuItem key={tag} value={tag}>
-                        {tag}
+                        <Checkbox checked={selectedTag.includes(tag)} />
+                        <ListItemText primary={tag} />
                       </MenuItem>
                     ))}
                   </Select>
@@ -220,10 +418,78 @@ const SpecialEvents = () => {
             </Grid>
           </Box>
 
+          {/* Active Filters Display */}
+          {activeFiltersCount > 0 && (
+            <Box sx={{ mb: 2, display: 'flex', flexWrap: 'wrap', gap: 1, alignItems: 'center' }}>
+              <Typography variant="body2" color="text.secondary" sx={{ mr: 1 }}>
+                Active filters:
+              </Typography>
+              {searchQuery && (
+                <Chip
+                  label={`Search: "${searchQuery}"`}
+                  size="small"
+                  onDelete={() => setSearchQuery('')}
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+              {selectedEventType.length > 0 && (
+                <Chip
+                  label={`Type: ${selectedEventType.join(', ')}`}
+                  size="small"
+                  onDelete={() => setSelectedEventType([])}
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+              {selectedEventCategory.length > 0 && (
+                <Chip
+                  label={`Category: ${selectedEventCategory.join(', ')}`}
+                  size="small"
+                  onDelete={() => setSelectedEventCategory([])}
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+              {selectedLocation.length > 0 && (
+                <Chip
+                  label={`Area: ${selectedLocation.join(', ')}`}
+                  size="small"
+                  onDelete={() => setSelectedLocation([])}
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+              {selectedSeason.length > 0 && (
+                <Chip
+                  label={`Season: ${selectedSeason.join(', ')}`}
+                  size="small"
+                  onDelete={() => setSelectedSeason([])}
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+              {selectedTag.length > 0 && (
+                <Chip
+                  label={`Tags: ${selectedTag.join(', ')}`}
+                  size="small"
+                  onDelete={() => setSelectedTag([])}
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+            </Box>
+          )}
+
           {/* Results Summary */}
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 2 }}>
             <Typography variant="body2" color="text.secondary">
               {filteredEvents.length} {filteredEvents.length === 1 ? 'event' : 'events'} found
+              {activeFiltersCount > 0 && (
+                <> • <Button variant="text" size="small" onClick={clearAllFilters} sx={{ minWidth: 'auto', p: 0.5 }}>
+                  Clear all filters
+                </Button></>
+              )}
             </Typography>
           </Box>
         </Container>
@@ -289,13 +555,29 @@ const SpecialEvents = () => {
                     </Box>
 
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
-                      {event.tags.map((tag, tagIndex) => (
+                      <Chip
+                        label={getEventCategory(event)}
+                        size="small"
+                        color="secondary"
+                        sx={{ mb: 0.5 }}
+                      />
+                      {event.tags.slice(0, 3).map((tag, tagIndex) => (
                         <Chip
                           key={tagIndex}
                           label={tag}
                           size="small"
-                          color="primary"
-                          variant="outlined"
+                          color={selectedTag.includes(tag) ? 'primary' : 'default'}
+                          variant={selectedTag.includes(tag) ? 'filled' : 'outlined'}
+                          onClick={() => handleTagClick(tag)}
+                          sx={{
+                            cursor: 'pointer',
+                            mb: 0.5,
+                            '&:hover': {
+                              backgroundColor: selectedTag.includes(tag) 
+                                ? 'primary.dark' 
+                                : 'action.hover',
+                            },
+                          }}
                         />
                       ))}
                     </Box>
@@ -341,6 +623,17 @@ const SpecialEvents = () => {
               </Grid>
             ))}
           </Grid>
+
+          {filteredEvents.length === 0 && (
+            <Box sx={{ textAlign: 'center', py: 8 }}>
+              <Typography variant="h6" color="text.secondary" gutterBottom>
+                No events found
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Try adjusting your filters to see more results.
+              </Typography>
+            </Box>
+          )}
         </Container>
       </Box>
     </Box>
