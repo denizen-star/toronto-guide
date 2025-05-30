@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day Trips - Toronto Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-charcoal: #1A1A1A;
+            --color-warm-taupe: #F5F3F0;
+            --color-soft-gray: #E8E6E3;
+            --color-deep-slate: #4A4A4A;
+            --color-white: #FFFFFF;
+            --color-accent-sage: #A8B5A0;
+            --color-accent-mint: #7FB3D3;
+            --font-primary: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --space-2: 16px; --space-3: 24px; --space-4: 32px; --space-6: 48px; --space-8: 64px;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-primary); background-color: var(--color-warm-taupe); color: var(--color-charcoal); line-height: 1.4; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-4); }
+        
+        .nav { background-color: var(--color-white); border-bottom: 1px solid var(--color-soft-gray); padding: var(--space-3) 0; position: sticky; top: 0; z-index: 100; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--color-charcoal); text-transform: uppercase; letter-spacing: 0.1em; }
+        .menu { display: flex; list-style: none; gap: var(--space-4); }
+        .nav-link { font-size: 0.875rem; font-weight: 500; color: var(--color-deep-slate); text-decoration: none; text-transform: uppercase; letter-spacing: 0.05em; transition: color 200ms ease; }
+        .nav-link:hover, .nav-link.active { color: var(--color-accent-sage); }
+        
+        .page-header { padding: var(--space-8) 0 var(--space-6) 0; background: linear-gradient(135deg, var(--color-warm-taupe) 0%, var(--color-soft-gray) 100%); border-bottom: 1px solid var(--color-soft-gray); }
+        .header-content { display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-8); align-items: center; }
+        .page-title { font-size: 3.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: -0.02em; margin-bottom: var(--space-2); }
+        .page-subtitle { font-size: 1.25rem; font-weight: 300; color: var(--color-deep-slate); }
+        .stats-box { background-color: var(--color-white); padding: var(--space-4); border-left: 4px solid var(--color-accent-sage); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); }
+        .stat { margin-bottom: var(--space-2); }
+        .stat-number { font-size: 1.5rem; font-weight: 700; color: var(--color-accent-sage); }
+        .stat-label { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-deep-slate); }
+        
+        .trips-section { padding: var(--space-8) 0; }
+        .section-title { font-size: 2rem; font-weight: 700; text-transform: uppercase; margin-bottom: var(--space-6); color: var(--color-charcoal); text-align: center; }
+        .trips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: var(--space-4); }
+        .trip-card { background-color: var(--color-white); border: 1px solid var(--color-soft-gray); overflow: hidden; transition: all 200ms ease; }
+        .trip-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); border-color: var(--color-accent-sage); }
+        .card-image { height: 200px; background: linear-gradient(135deg, var(--color-accent-sage), var(--color-accent-mint)); display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--color-white); position: relative; }
+        .distance-badge { position: absolute; top: var(--space-2); left: var(--space-2); background-color: var(--color-white); color: var(--color-accent-sage); padding: 4px 8px; font-size: 0.75rem; font-weight: 600; }
+        .card-content { padding: var(--space-4); }
+        .card-title { font-size: 1.25rem; font-weight: 700; margin-bottom: var(--space-2); color: var(--color-charcoal); }
+        .card-description { font-size: 0.9rem; color: var(--color-deep-slate); margin-bottom: var(--space-3); line-height: 1.5; }
+        .card-details { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-2); font-size: 0.875rem; color: var(--color-deep-slate); }
+        .detail-item { display: flex; align-items: center; gap: 4px; }
+        .detail-icon { color: var(--color-accent-sage); }
+        
+        .footer { background-color: var(--color-charcoal); color: var(--color-warm-taupe); padding: var(--space-4) 0; text-align: center; }
+        .footer-text { font-size: 0.875rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        @media (max-width: 768px) { 
+            .container { padding: 0 var(--space-2); }
+            .header-content { grid-template-columns: 1fr; gap: var(--space-4); }
+            .page-title { font-size: 2.5rem; }
+            .menu { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">Toronto</div>
+                <ul class="menu">
+                    <li><a href="#" class="nav-link">Activities</a></li>
+                    <li><a href="#" class="nav-link">Areas</a></li>
+                    <li><a href="#" class="nav-link active">Trips</a></li>
+                    <li><a href="#" class="nav-link">Events</a></li>
+                    <li><a href="#" class="nav-link">Sports</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <div class="container">
+            <div class="header-content">
+                <div>
+                    <h1 class="page-title">Day Trips</h1>
+                    <p class="page-subtitle">Curated escapes within driving distance of Toronto, perfect for sophisticated travelers seeking unique experiences.</p>
+                </div>
+                <div class="stats-box">
+                    <div class="stat"><div class="stat-number">25+</div><div class="stat-label">Destinations</div></div>
+                    <div class="stat"><div class="stat-number">2-4h</div><div class="stat-label">Drive Time</div></div>
+                    <div class="stat"><div class="stat-number">4.7</div><div class="stat-label">Avg Rating</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trips-section">
+        <div class="container">
+            <h2 class="section-title">Featured Destinations</h2>
+            <div class="trips-grid">
+                <div class="trip-card">
+                    <div class="card-image">🍇<div class="distance-badge">2h Drive</div></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Niagara Wine Country</h3>
+                        <p class="card-description">World-class wineries and vineyard tours featuring award-winning icewines and sophisticated tasting experiences.</p>
+                        <div class="card-details">
+                            <div class="detail-item"><span class="detail-icon">🕐</span> 6-8 Hours</div>
+                            <div class="detail-item"><span class="detail-icon">💰</span> $120-200</div>
+                            <div class="detail-item"><span class="detail-icon">🌟</span> Wine Tasting</div>
+                            <div class="detail-item"><span class="detail-icon">📍</span> Niagara Region</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="trip-card">
+                    <div class="card-image">🏰<div class="distance-badge">3h Drive</div></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Stratford Festival</h3>
+                        <p class="card-description">Renowned theatre festival in charming Victorian town, featuring world-class performances and gourmet dining.</p>
+                        <div class="card-details">
+                            <div class="detail-item"><span class="detail-icon">🕐</span> Full Day</div>
+                            <div class="detail-item"><span class="detail-icon">💰</span> $80-150</div>
+                            <div class="detail-item"><span class="detail-icon">🌟</span> Theatre</div>
+                            <div class="detail-item"><span class="detail-icon">📍</span> Stratford, ON</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="trip-card">
+                    <div class="card-image">🏔️<div class="distance-badge">2.5h Drive</div></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Blue Mountain Resort</h3>
+                        <p class="card-description">Four-season luxury resort offering spa treatments, fine dining, and outdoor activities in scenic Collingwood.</p>
+                        <div class="card-details">
+                            <div class="detail-item"><span class="detail-icon">🕐</span> Weekend</div>
+                            <div class="detail-icon">💰</span> $200-400</div>
+                            <div class="detail-item"><span class="detail-icon">🌟</span> Spa & Resort</div>
+                            <div class="detail-item"><span class="detail-icon">📍</span> Collingwood, ON</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">&copy; 2024 Toronto Guide — Sophisticated Lifestyle Curation</p>
+        </div>
+    </footer>
+</body>
+</html> 

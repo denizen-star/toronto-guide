@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toronto Lifestyle Concierge - Homepage Wireframe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Design System CSS Implementation */
+        :root {
+            /* Color Palette */
+            --color-charcoal: #1A1A1A;
+            --color-taupe: #F5F3F0;
+            --color-gray: #E8E6E3;
+            --color-slate: #4A4A4A;
+            --color-coral: #E85A4F;
+            --color-sage: #A8B5A0;
+            --color-gold: #D4AC0D;
+            --color-mint: #7FB3D3;
+            
+            /* Typography */
+            --font-primary: 'Inter', system-ui, sans-serif;
+            --font-secondary: 'Manrope', 'Inter', sans-serif;
+            
+            /* Spacing (8px base) */
+            --space-xs: 4px;
+            --space-s: 8px;
+            --space-m: 16px;
+            --space-l: 24px;
+            --space-xl: 32px;
+            --space-xxl: 48px;
+            --space-xxxl: 64px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--color-taupe);
+            color: var(--color-charcoal);
+            line-height: 1.5;
+            font-size: 16px;
+        }
+        
+        /* Navigation */
+        .navbar {
+            height: 72px;
+            background-color: var(--color-taupe);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 80px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-family: var(--font-secondary);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-charcoal);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: var(--space-xl);
+        }
+        
+        .nav-link {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-slate);
+            text-decoration: none;
+            transition: color 200ms ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--color-coral);
+        }
+        
+        .cta-button {
+            background-color: var(--color-coral);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .cta-button:hover {
+            background-color: #D64A3F;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(232, 90, 79, 0.32);
+        }
+        
+        /* Container & Grid */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 80px;
+        }
+        
+        .hero-section {
+            padding: var(--space-xxxl) 0;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-family: var(--font-secondary);
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--space-l);
+            background: linear-gradient(135deg, var(--color-coral) 0%, var(--color-sage) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--color-slate);
+            margin-bottom: var(--space-xxl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Cards & Components */
+        .section {
+            padding: var(--space-xxxl) 0;
+        }
+        
+        .section-title {
+            font-family: var(--font-secondary);
+            font-size: 2rem;
+            font-weight: 600;
+            line-height: 1.125;
+            text-align: center;
+            margin-bottom: var(--space-xxl);
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-l);
+            margin-bottom: var(--space-xxxl);
+        }
+        
+        .card {
+            background: white;
+            border: 1px solid var(--color-gray);
+            border-radius: 8px;
+            padding: var(--space-l);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+        
+        .feature-card {
+            border-left: 2px solid var(--color-coral);
+        }
+        
+        .card-icon {
+            width: 32px;
+            height: 32px;
+            color: var(--color-coral);
+            margin-bottom: var(--space-m);
+        }
+        
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--space-s);
+        }
+        
+        .card-description {
+            font-size: 0.875rem;
+            color: var(--color-slate);
+            margin-bottom: var(--space-m);
+        }
+        
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-s);
+        }
+        
+        .tag {
+            background-color: var(--color-sage);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 16px;
+        }
+        
+        /* Buttons */
+        .button-primary {
+            background-color: var(--color-coral);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .button-secondary {
+            background: transparent;
+            color: var(--color-slate);
+            border: 1px solid var(--color-slate);
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 200ms ease;
+        }
+        
+        .button-secondary:hover {
+            background-color: var(--color-taupe);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--color-charcoal);
+            color: var(--color-taupe);
+            padding: var(--space-xxl) 0;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 20px;
+            }
+            
+            .container {
+                padding: 0 20px;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">Toronto Guide</div>
+        <ul class="nav-menu">
+            <li><a href="#" class="nav-link">Activities</a></li>
+            <li><a href="#" class="nav-link">Neighborhoods</a></li>
+            <li><a href="#" class="nav-link">Day Trips</a></li>
+            <li><a href="#" class="nav-link">Events</a></li>
+            <li><a href="#" class="nav-link">Sports</a></li>
+        </ul>
+        <button class="cta-button">Get Started</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">Discover Toronto Like Never Before</h1>
+            <p class="hero-subtitle">Your sophisticated guide to Toronto's finest experiences. Curated recommendations for discerning adults seeking quality lifestyle experiences.</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="#" class="button-primary">Explore Experiences</a>
+                <a href="#" class="button-secondary">View Neighborhoods</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Featured Experiences</h2>
+            <div class="card-grid">
+                <div class="card feature-card">
+                    <div class="card-icon">🎨</div>
+                    <h3 class="card-title">Arts & Culture</h3>
+                    <p class="card-description">World-class museums, galleries, and cultural experiences throughout the city.</p>
+                    <div class="tag-list">
+                        <span class="tag">ROM</span>
+                        <span class="tag">AGO</span>
+                        <span class="tag">Live Shows</span>
+                    </div>
+                </div>
+                
+                <div class="card feature-card">
+                    <div class="card-icon">🍽️</div>
+                    <h3 class="card-title">Fine Dining</h3>
+                    <p class="card-description">Sophisticated culinary experiences from renowned chefs and hidden gems.</p>
+                    <div class="tag-list">
+                        <span class="tag">Michelin Guide</span>
+                        <span class="tag">Wine Pairing</span>
+                        <span class="tag">Tasting Menus</span>
+                    </div>
+                </div>
+                
+                <div class="card feature-card">
+                    <div class="card-icon">🏙️</div>
+                    <h3 class="card-title">Premium Neighborhoods</h3>
+                    <p class="card-description">Explore Toronto's most sophisticated districts and their unique offerings.</p>
+                    <div class="tag-list">
+                        <span class="tag">Yorkville</span>
+                        <span class="tag">The Well</span>
+                        <span class="tag">Distillery</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Access Grid -->
+    <section class="section" style="background-color: white;">
+        <div class="container">
+            <h2 class="section-title">Quick Access</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">🚗</div>
+                    <h3 class="card-title">Day Trips</h3>
+                    <p class="card-description">Scenic getaways within driving distance.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">🏒</div>
+                    <h3 class="card-title">Sports & Events</h3>
+                    <p class="card-description">Professional games and recreational activities.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">🎭</div>
+                    <h3 class="card-title">Special Events</h3>
+                    <p class="card-description">Seasonal celebrations and cultural festivals.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">🍸</div>
+                    <h3 class="card-title">Happy Hours</h3>
+                    <p class="card-description">Sophisticated lounges and cocktail experiences.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Toronto Lifestyle Guide. Sophisticated experiences, curated for you.</p>
+        </div>
+    </footer>
+</body>
+</html> 

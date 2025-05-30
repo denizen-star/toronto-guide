@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activities - Toronto Lifestyle Concierge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Same Design System CSS as Homepage */
+        :root {
+            --color-charcoal: #1A1A1A;
+            --color-taupe: #F5F3F0;
+            --color-gray: #E8E6E3;
+            --color-slate: #4A4A4A;
+            --color-coral: #E85A4F;
+            --color-sage: #A8B5A0;
+            --color-gold: #D4AC0D;
+            --color-mint: #7FB3D3;
+            --font-primary: 'Inter', system-ui, sans-serif;
+            --font-secondary: 'Manrope', 'Inter', sans-serif;
+            --space-xs: 4px;
+            --space-s: 8px;
+            --space-m: 16px;
+            --space-l: 24px;
+            --space-xl: 32px;
+            --space-xxl: 48px;
+            --space-xxxl: 64px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--color-taupe);
+            color: var(--color-charcoal);
+            line-height: 1.5;
+            font-size: 16px;
+        }
+        
+        /* Navigation - Identical to Homepage */
+        .navbar {
+            height: 72px;
+            background-color: var(--color-taupe);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 80px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-family: var(--font-secondary);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-charcoal);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: var(--space-xl);
+        }
+        
+        .nav-link {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-slate);
+            text-decoration: none;
+            transition: color 200ms ease;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--color-coral);
+        }
+        
+        .cta-button {
+            background-color: var(--color-coral);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .cta-button:hover {
+            background-color: #D64A3F;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(232, 90, 79, 0.32);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 80px;
+        }
+        
+        /* Breadcrumb Navigation */
+        .breadcrumb {
+            padding: var(--space-l) 0;
+            font-size: 0.75rem;
+        }
+        
+        .breadcrumb a {
+            color: var(--color-slate);
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--color-coral);
+            text-decoration: underline;
+        }
+        
+        .breadcrumb .current {
+            color: var(--color-coral);
+            font-weight: 500;
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: var(--space-xxl) 0;
+            text-align: center;
+            background: white;
+            margin-bottom: var(--space-xxxl);
+        }
+        
+        .page-title {
+            font-family: var(--font-secondary);
+            font-size: 2.5rem;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: var(--space-m);
+        }
+        
+        .page-subtitle {
+            font-size: 1.125rem;
+            color: var(--color-slate);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Filters & Search */
+        .filters-section {
+            background: white;
+            border: 1px solid var(--color-gray);
+            border-radius: 8px;
+            padding: var(--space-l);
+            margin-bottom: var(--space-xxl);
+        }
+        
+        .filter-row {
+            display: flex;
+            gap: var(--space-m);
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-s);
+        }
+        
+        .filter-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--color-slate);
+        }
+        
+        .filter-select {
+            padding: 8px 12px;
+            border: 1px solid var(--color-gray);
+            border-radius: 4px;
+            font-size: 0.875rem;
+            background: white;
+        }
+        
+        .search-input {
+            padding: 12px 16px;
+            border: 1px solid var(--color-gray);
+            border-radius: 4px;
+            font-size: 0.875rem;
+            width: 300px;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-coral);
+            border-width: 2px;
+        }
+        
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-l);
+            margin-bottom: var(--space-xxxl);
+        }
+        
+        .activity-card {
+            background: white;
+            border: 1px solid var(--color-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--color-sage) 0%, var(--color-mint) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .card-content {
+            padding: var(--space-l);
+        }
+        
+        .card-category {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--color-coral);
+            margin-bottom: var(--space-s);
+        }
+        
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--space-s);
+        }
+        
+        .card-description {
+            font-size: 0.875rem;
+            color: var(--color-slate);
+            margin-bottom: var(--space-m);
+            line-height: 1.5;
+        }
+        
+        .card-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-s);
+            margin-bottom: var(--space-m);
+        }
+        
+        .feature-tag {
+            background-color: var(--color-sage);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+        
+        .card-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .learn-more {
+            color: var(--color-coral);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        
+        .learn-more:hover {
+            text-decoration: underline;
+        }
+        
+        .price-indicator {
+            font-size: 0.875rem;
+            color: var(--color-slate);
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-s);
+            padding: var(--space-xxl) 0;
+        }
+        
+        .page-btn {
+            padding: 8px 12px;
+            border: 1px solid var(--color-gray);
+            background: white;
+            color: var(--color-slate);
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            transition: all 200ms ease;
+        }
+        
+        .page-btn:hover,
+        .page-btn.active {
+            background-color: var(--color-coral);
+            color: white;
+            border-color: var(--color-coral);
+        }
+        
+        /* Footer - Identical to Homepage */
+        .footer {
+            background-color: var(--color-charcoal);
+            color: var(--color-taupe);
+            padding: var(--space-xxl) 0;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 20px;
+            }
+            
+            .container {
+                padding: 0 20px;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .filter-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-input {
+                width: 100%;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation - Identical Structure -->
+    <nav class="navbar">
+        <div class="logo">Toronto Guide</div>
+        <ul class="nav-menu">
+            <li><a href="#" class="nav-link active">Activities</a></li>
+            <li><a href="#" class="nav-link">Neighborhoods</a></li>
+            <li><a href="#" class="nav-link">Day Trips</a></li>
+            <li><a href="#" class="nav-link">Events</a></li>
+            <li><a href="#" class="nav-link">Sports</a></li>
+        </ul>
+        <button class="cta-button">Get Started</button>
+    </nav>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="#">Home</a> → <span class="current">Activities</span>
+        </nav>
+    </div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Discover Toronto Activities</h1>
+            <p class="page-subtitle">Curated experiences for sophisticated tastes. From cultural landmarks to hidden gems, explore what makes Toronto extraordinary.</p>
+        </div>
+    </section>
+
+    <!-- Filters & Search -->
+    <div class="container">
+        <div class="filters-section">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label class="filter-label">Category</label>
+                    <select class="filter-select">
+                        <option>All Categories</option>
+                        <option>Arts & Culture</option>
+                        <option>Outdoor Adventures</option>
+                        <option>Food & Dining</option>
+                        <option>Nightlife</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">Duration</label>
+                    <select class="filter-select">
+                        <option>Any Duration</option>
+                        <option>1-2 Hours</option>
+                        <option>Half Day</option>
+                        <option>Full Day</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">Price Range</label>
+                    <select class="filter-select">
+                        <option>All Prices</option>
+                        <option>Free</option>
+                        <option>$ - Budget</option>
+                        <option>$$ - Moderate</option>
+                        <option>$$$ - Premium</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group" style="flex: 1;">
+                    <label class="filter-label">Search</label>
+                    <input type="text" class="search-input" placeholder="Search activities, venues, or keywords...">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Activities Grid -->
+    <div class="container">
+        <div class="content-grid">
+            <div class="activity-card">
+                <div class="card-image">🎨</div>
+                <div class="card-content">
+                    <div class="card-category">Arts & Culture</div>
+                    <h3 class="card-title">Art Gallery of Ontario</h3>
+                    <p class="card-description">Explore one of North America's most distinguished art museums featuring contemporary and classic works.</p>
+                    <div class="card-features">
+                        <span class="feature-tag">Contemporary Art</span>
+                        <span class="feature-tag">Guided Tours</span>
+                        <span class="feature-tag">Special Exhibitions</span>
+                    </div>
+                    <div class="card-action">
+                        <a href="#" class="learn-more">Learn More →</a>
+                        <span class="price-indicator">$$ - Moderate</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activity-card">
+                <div class="card-image">🌳</div>
+                <div class="card-content">
+                    <div class="card-category">Outdoor Adventure</div>
+                    <h3 class="card-title">High Park Cherry Blossoms</h3>
+                    <p class="card-description">Experience Toronto's most beautiful spring display with over 2,000 cherry blossom trees in full bloom.</p>
+                    <div class="card-features">
+                        <span class="feature-tag">Seasonal</span>
+                        <span class="feature-tag">Photography</span>
+                        <span class="feature-tag">Walking Trails</span>
+                    </div>
+                    <div class="card-action">
+                        <a href="#" class="learn-more">Learn More →</a>
+                        <span class="price-indicator">Free</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activity-card">
+                <div class="card-image">🍽️</div>
+                <div class="card-content">
+                    <div class="card-category">Food & Dining</div>
+                    <h3 class="card-title">St. Lawrence Market Food Tour</h3>
+                    <p class="card-description">Discover Toronto's culinary heritage through guided tastings at the historic St. Lawrence Market.</p>
+                    <div class="card-features">
+                        <span class="feature-tag">Local Cuisine</span>
+                        <span class="feature-tag">History</span>
+                        <span class="feature-tag">Tastings</span>
+                    </div>
+                    <div class="card-action">
+                        <a href="#" class="learn-more">Learn More →</a>
+                        <span class="price-indicator">$$$ - Premium</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activity-card">
+                <div class="card-image">🏛️</div>
+                <div class="card-content">
+                    <div class="card-category">Arts & Culture</div>
+                    <h3 class="card-title">Royal Ontario Museum</h3>
+                    <p class="card-description">Canada's largest museum featuring world cultures, natural history, and contemporary exhibitions.</p>
+                    <div class="card-features">
+                        <span class="feature-tag">Natural History</span>
+                        <span class="feature-tag">World Culture</span>
+                        <span class="feature-tag">Interactive</span>
+                    </div>
+                    <div class="card-action">
+                        <a href="#" class="learn-more">Learn More →</a>
+                        <span class="price-indicator">$$ - Moderate</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activity-card">
+                <div class="card-image">🌊</div>
+                <div class="card-content">
+                    <div class="card-category">Outdoor Adventure</div>
+                    <h3 class="card-title">Toronto Islands Ferry & Beach</h3>
+                    <p class="card-description">Escape the city with a short ferry ride to peaceful islands featuring beaches, parks, and skyline views.</p>
+                    <div class="card-features">
+                        <span class="feature-tag">Ferry Ride</span>
+                        <span class="feature-tag">Beach</span>
+                        <span class="feature-tag">City Views</span>
+                    </div>
+                    <div class="card-action">
+                        <a href="#" class="learn-more">Learn More →</a>
+                        <span class="price-indicator">$ - Budget</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activity-card">
+                <div class="card-image">🎭</div>
+                <div class="card-content">
+                    <div class="card-category">Arts & Culture</div>
+                    <h3 class="card-title">Distillery District Walking Tour</h3>
+                    <p class="card-description">Explore Toronto's arts and culture quarter in a beautifully preserved Victorian industrial district.</p>
+                    <div class="card-features">
+                        <span class="feature-tag">Historic District</span>
+                        <span class="feature-tag">Art Galleries</span>
+                        <span class="feature-tag">Boutique Shopping</span>
+                    </div>
+                    <div class="card-action">
+                        <a href="#" class="learn-more">Learn More →</a>
+                        <span class="price-indicator">$ - Budget</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="container">
+        <div class="pagination">
+            <a href="#" class="page-btn">← Previous</a>
+            <a href="#" class="page-btn active">1</a>
+            <a href="#" class="page-btn">2</a>
+            <a href="#" class="page-btn">3</a>
+            <a href="#" class="page-btn">Next →</a>
+        </div>
+    </div>
+
+    <!-- Footer - Identical to Homepage -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Toronto Lifestyle Guide. Sophisticated experiences, curated for you.</p>
+        </div>
+    </footer>
+</body>
+</html> 

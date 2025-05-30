@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neighborhoods - Toronto Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Refined Swiss Design System - Neighborhoods Page */
+        :root {
+            --color-charcoal: #1A1A1A;
+            --color-warm-taupe: #F5F3F0;
+            --color-soft-gray: #E8E6E3;
+            --color-deep-slate: #4A4A4A;
+            --color-white: #FFFFFF;
+            --color-accent-sage: #A8B5A0;
+            --color-accent-mint: #7FB3D3;
+            --color-accent-refined: #8B9A85;
+            --font-primary: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --grid-unit: 8px;
+            --space-1: 8px;
+            --space-2: 16px;
+            --space-3: 24px;
+            --space-4: 32px;
+            --space-6: 48px;
+            --space-8: 64px;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--color-warm-taupe);
+            color: var(--color-charcoal);
+            line-height: 1.4;
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-4); }
+        
+        /* Navigation */
+        .nav {
+            background-color: var(--color-white);
+            border-bottom: 1px solid var(--color-soft-gray);
+            padding: var(--space-3) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-charcoal);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .menu { display: flex; list-style: none; gap: var(--space-4); }
+        
+        .nav-link {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-deep-slate);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 200ms ease;
+        }
+        
+        .nav-link:hover, .nav-link.active { color: var(--color-accent-sage); }
+        
+        /* Page Header */
+        .page-header {
+            padding: var(--space-8) 0 var(--space-6) 0;
+            background: linear-gradient(135deg, var(--color-warm-taupe) 0%, var(--color-soft-gray) 100%);
+            border-bottom: 1px solid var(--color-soft-gray);
+        }
+        
+        .header-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-8);
+            align-items: center;
+        }
+        
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--space-2);
+        }
+        
+        .page-subtitle {
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: var(--color-deep-slate);
+        }
+        
+        .stats-box {
+            background-color: var(--color-white);
+            padding: var(--space-4);
+            border-left: 4px solid var(--color-accent-sage);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat { margin-bottom: var(--space-2); }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-accent-sage);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-deep-slate);
+        }
+        
+        /* Featured Neighborhoods */
+        .featured-section {
+            padding: var(--space-8) 0;
+            background-color: var(--color-white);
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: var(--space-6);
+            color: var(--color-charcoal);
+            text-align: center;
+        }
+        
+        .neighborhoods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--space-6);
+        }
+        
+        .neighborhood-card {
+            background-color: var(--color-warm-taupe);
+            border: 1px solid var(--color-soft-gray);
+            overflow: hidden;
+            transition: all 200ms ease;
+        }
+        
+        .neighborhood-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-color: var(--color-accent-sage);
+        }
+        
+        .card-header {
+            height: 250px;
+            background: linear-gradient(135deg, var(--color-accent-sage), var(--color-accent-mint));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--color-white);
+            position: relative;
+        }
+        
+        .card-badge {
+            position: absolute;
+            top: var(--space-3);
+            right: var(--space-3);
+            background-color: var(--color-white);
+            color: var(--color-accent-sage);
+            padding: var(--space-1) var(--space-2);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .card-content {
+            padding: var(--space-4);
+            background-color: var(--color-white);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            color: var(--color-charcoal);
+        }
+        
+        .card-description {
+            font-size: 1rem;
+            color: var(--color-deep-slate);
+            margin-bottom: var(--space-3);
+            line-height: 1.5;
+        }
+        
+        .card-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-2);
+            margin-bottom: var(--space-3);
+        }
+        
+        .feature-item {
+            font-size: 0.875rem;
+            color: var(--color-deep-slate);
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+        }
+        
+        .feature-icon {
+            color: var(--color-accent-sage);
+            font-weight: 700;
+        }
+        
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--space-2);
+            border-top: 1px solid var(--color-soft-gray);
+        }
+        
+        .meta-item {
+            font-size: 0.875rem;
+            color: var(--color-deep-slate);
+        }
+        
+        .meta-value {
+            font-weight: 600;
+            color: var(--color-accent-sage);
+        }
+        
+        /* Quick Guide Section */
+        .quick-guide {
+            padding: var(--space-8) 0;
+            background-color: var(--color-soft-gray);
+        }
+        
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-4);
+        }
+        
+        .guide-card {
+            background-color: var(--color-white);
+            padding: var(--space-4);
+            text-align: center;
+            border: 1px solid var(--color-soft-gray);
+            transition: all 200ms ease;
+        }
+        
+        .guide-card:hover {
+            background-color: var(--color-warm-taupe);
+            border-color: var(--color-accent-sage);
+        }
+        
+        .guide-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-2);
+        }
+        
+        .guide-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-1);
+        }
+        
+        .guide-description {
+            font-size: 0.875rem;
+            color: var(--color-deep-slate);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--color-charcoal);
+            color: var(--color-warm-taupe);
+            padding: var(--space-4) 0;
+            text-align: center;
+        }
+        
+        .footer-text {
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 0 var(--space-2); }
+            .header-content { grid-template-columns: 1fr; gap: var(--space-4); }
+            .page-title { font-size: 2.5rem; }
+            .menu { display: none; }
+            .neighborhoods-grid { grid-template-columns: 1fr; }
+            .card-features { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">Toronto</div>
+                <ul class="menu">
+                    <li><a href="#" class="nav-link">Activities</a></li>
+                    <li><a href="#" class="nav-link active">Areas</a></li>
+                    <li><a href="#" class="nav-link">Trips</a></li>
+                    <li><a href="#" class="nav-link">Events</a></li>
+                    <li><a href="#" class="nav-link">Sports</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="header-content">
+                <div>
+                    <h1 class="page-title">Neighborhoods</h1>
+                    <p class="page-subtitle">Explore Toronto's distinct districts, each offering unique character, sophisticated amenities, and curated local experiences.</p>
+                </div>
+                <div class="stats-box">
+                    <div class="stat">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Districts</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Venues</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">4.9</div>
+                        <div class="stat-label">Avg Rating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Neighborhoods -->
+    <section class="featured-section">
+        <div class="container">
+            <h2 class="section-title">Featured Districts</h2>
+            <div class="neighborhoods-grid">
+                <!-- Yorkville -->
+                <div class="neighborhood-card">
+                    <div class="card-header">
+                        🏛️
+                        <div class="card-badge">Premium</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Yorkville</h3>
+                        <p class="card-description">Toronto's luxury district featuring high-end shopping, gallery spaces, and Michelin-caliber dining experiences in an elegant urban setting.</p>
+                        <div class="card-features">
+                            <div class="feature-item">
+                                <span class="feature-icon">✓</span>
+                                Luxury Shopping
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">✓</span>
+                                Art Galleries
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">✓</span>
+                                Fine Dining
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">✓</span>
+                                Premium Hotels
+                            </div>
+                        </div>
+                        <div class="card-meta">
+                            <div class="meta-item">Vibe: <span class="meta-value">Sophisticated</span></div>
+                            <div class="meta-item">Price: <span class="meta-value">$$$</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Distillery District -->
+                <div class="neighborhood-card">
+                    <div class="card-header">
+                        🏭
+                        <div class="card-badge">Historic</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Distillery District</h3>
+                        <p class="card-description">Beautifully preserved Victorian industrial architecture housing artisan boutiques, craft galleries, and sophisticated dining venues.</p>
+                        <div class="card-features">
+                            <div class="feature-item">
+                                <span class="feature-icon">✓</span>
+                                Historic Architecture
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">✓</span>
+                                Artisan Shops
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">✓</span>
+                                Craft Galleries
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">✓</span>
+                                Cultural Events
+                            </div>
+                        </div>
+                        <div class="card-meta">
+                            <div class="meta-item">Vibe: <span class="meta-value">Artistic</span></div>
+                            <div class="meta-item">Price: <span class="meta-value">$$</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- King West -->
+                <div class="neighborhood-card">
+                    <div class="card-header">
+                        🏢
+                        <div class="card-badge">Modern</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">King West</h3>
+                        <p class="card-description">Contemporary urban district with sleek condominiums, innovative restaurants, and sophisticated nightlife venues for discerning adults.</p>
+                        <div class="card-features">
+                            <div class="feature-item">
+                                <span class="feature-icon">✓</span>
+                                Modern Architecture
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">✓</span>
+                                Innovative Dining
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">✓</span>
+                                Rooftop Bars
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">✓</span>
+                                Urban Living
+                            </div>
+                        </div>
+                        <div class="card-meta">
+                            <div class="meta-item">Vibe: <span class="meta-value">Contemporary</span></div>
+                            <div class="meta-item">Price: <span class="meta-value">$$</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- The Beaches -->
+                <div class="neighborhood-card">
+                    <div class="card-header">
+                        🏖️
+                        <div class="card-badge">Relaxed</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">The Beaches</h3>
+                        <p class="card-description">Waterfront community offering beach access, boardwalk dining, and a relaxed atmosphere with sophisticated beach culture amenities.</p>
+                        <div class="card-features">
+                            <div class="feature-item">
+                                <span class="feature-icon">✓</span>
+                                Beach Access
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">✓</span>
+                                Boardwalk Dining
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">✓</span>
+                                Water Sports
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">✓</span>
+                                Local Markets
+                            </div>
+                        </div>
+                        <div class="card-meta">
+                            <div class="meta-item">Vibe: <span class="meta-value">Coastal</span></div>
+                            <div class="meta-item">Price: <span class="meta-value">$$</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Guide -->
+    <section class="quick-guide">
+        <div class="container">
+            <h2 class="section-title">Neighborhood Guide</h2>
+            <div class="guide-grid">
+                <div class="guide-card">
+                    <div class="guide-icon">🍽️</div>
+                    <h3 class="guide-title">Dining</h3>
+                    <p class="guide-description">Curated restaurant recommendations by neighborhood</p>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-icon">🛍️</div>
+                    <h3 class="guide-title">Shopping</h3>
+                    <p class="guide-description">Local boutiques and specialty stores</p>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-icon">🎯</div>
+                    <h3 class="guide-title">Attractions</h3>
+                    <p class="guide-description">Must-see venues and hidden gems</p>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-icon">🚇</div>
+                    <h3 class="guide-title">Transit</h3>
+                    <p class="guide-description">Best ways to get around each area</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">&copy; 2024 Toronto Guide — Sophisticated Lifestyle Curation</p>
+        </div>
+    </footer>
+</body>
+</html> 

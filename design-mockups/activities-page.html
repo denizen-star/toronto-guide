@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activities - Toronto Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Refined Swiss Design System - Activities Page */
+        :root {
+            --color-charcoal: #1A1A1A;
+            --color-warm-taupe: #F5F3F0;
+            --color-soft-gray: #E8E6E3;
+            --color-deep-slate: #4A4A4A;
+            --color-white: #FFFFFF;
+            --color-accent-sage: #A8B5A0;
+            --color-accent-mint: #7FB3D3;
+            --color-accent-refined: #8B9A85;
+            --font-primary: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --grid-unit: 8px;
+            --space-1: 8px;
+            --space-2: 16px;
+            --space-3: 24px;
+            --space-4: 32px;
+            --space-6: 48px;
+            --space-8: 64px;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--color-warm-taupe);
+            color: var(--color-charcoal);
+            line-height: 1.4;
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-4); }
+        
+        /* Navigation */
+        .nav {
+            background-color: var(--color-white);
+            border-bottom: 1px solid var(--color-soft-gray);
+            padding: var(--space-3) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-charcoal);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .menu {
+            display: flex;
+            list-style: none;
+            gap: var(--space-4);
+        }
+        
+        .nav-link {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-deep-slate);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 200ms ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--color-accent-sage);
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            background-color: var(--color-soft-gray);
+            padding: var(--space-2) 0;
+            border-bottom: 1px solid var(--color-soft-gray);
+        }
+        
+        .breadcrumb-list {
+            display: flex;
+            list-style: none;
+            gap: var(--space-2);
+            font-size: 0.875rem;
+            color: var(--color-deep-slate);
+        }
+        
+        .breadcrumb-link {
+            color: var(--color-accent-sage);
+            text-decoration: none;
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: var(--space-8) 0 var(--space-6) 0;
+            background: linear-gradient(135deg, var(--color-warm-taupe) 0%, var(--color-soft-gray) 100%);
+            border-bottom: 1px solid var(--color-soft-gray);
+        }
+        
+        .header-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-8);
+            align-items: center;
+        }
+        
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--space-2);
+        }
+        
+        .page-subtitle {
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: var(--color-deep-slate);
+            margin-bottom: var(--space-4);
+        }
+        
+        .stats-box {
+            background-color: var(--color-white);
+            padding: var(--space-4);
+            border-left: 4px solid var(--color-accent-sage);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat {
+            margin-bottom: var(--space-2);
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-accent-sage);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-deep-slate);
+        }
+        
+        /* Filter Section */
+        .filter-section {
+            padding: var(--space-4) 0;
+            background-color: var(--color-white);
+            border-bottom: 1px solid var(--color-soft-gray);
+        }
+        
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-3);
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .filter-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-1);
+            color: var(--color-charcoal);
+        }
+        
+        .filter-select {
+            padding: var(--space-2);
+            border: 1px solid var(--color-soft-gray);
+            background-color: var(--color-warm-taupe);
+            font-family: var(--font-primary);
+            color: var(--color-charcoal);
+        }
+        
+        /* Activities Grid */
+        .activities-section {
+            padding: var(--space-6) 0;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: var(--space-4);
+            color: var(--color-charcoal);
+        }
+        
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-4);
+        }
+        
+        .activity-card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-soft-gray);
+            overflow: hidden;
+            transition: all 200ms ease;
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-color: var(--color-accent-sage);
+        }
+        
+        .card-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--color-accent-sage), var(--color-accent-mint));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--color-white);
+        }
+        
+        .card-content {
+            padding: var(--space-4);
+        }
+        
+        .card-category {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-accent-sage);
+            margin-bottom: var(--space-1);
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            color: var(--color-charcoal);
+        }
+        
+        .card-description {
+            font-size: 0.9rem;
+            color: var(--color-deep-slate);
+            margin-bottom: var(--space-3);
+            line-height: 1.5;
+        }
+        
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--color-deep-slate);
+        }
+        
+        .card-price {
+            font-weight: 600;
+            color: var(--color-accent-sage);
+        }
+        
+        /* Categories Section */
+        .categories-section {
+            padding: var(--space-8) 0;
+            background-color: var(--color-soft-gray);
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-3);
+        }
+        
+        .category-card {
+            background-color: var(--color-white);
+            padding: var(--space-4);
+            text-align: center;
+            border: 1px solid var(--color-soft-gray);
+            transition: all 200ms ease;
+        }
+        
+        .category-card:hover {
+            background-color: var(--color-warm-taupe);
+            border-color: var(--color-accent-sage);
+        }
+        
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-2);
+        }
+        
+        .category-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-1);
+        }
+        
+        .category-count {
+            font-size: 0.875rem;
+            color: var(--color-deep-slate);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--color-charcoal);
+            color: var(--color-warm-taupe);
+            padding: var(--space-4) 0;
+            text-align: center;
+        }
+        
+        .footer-text {
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 0 var(--space-2); }
+            .header-content { grid-template-columns: 1fr; gap: var(--space-4); }
+            .page-title { font-size: 2.5rem; }
+            .menu { display: none; }
+            .filter-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">Toronto</div>
+                <ul class="menu">
+                    <li><a href="#" class="nav-link active">Activities</a></li>
+                    <li><a href="#" class="nav-link">Areas</a></li>
+                    <li><a href="#" class="nav-link">Trips</a></li>
+                    <li><a href="#" class="nav-link">Events</a></li>
+                    <li><a href="#" class="nav-link">Sports</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <ul class="breadcrumb-list">
+                <li><a href="#" class="breadcrumb-link">Home</a></li>
+                <li>→</li>
+                <li>Activities</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="header-content">
+                <div>
+                    <h1 class="page-title">Activities</h1>
+                    <p class="page-subtitle">Curated experiences for sophisticated exploration of Toronto's cultural and entertainment landscape.</p>
+                </div>
+                <div class="stats-box">
+                    <div class="stat">
+                        <div class="stat-number">150+</div>
+                        <div class="stat-label">Activities</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Categories</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">4.8</div>
+                        <div class="stat-label">Avg Rating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label class="filter-label">Category</label>
+                    <select class="filter-select">
+                        <option>All Categories</option>
+                        <option>Arts & Culture</option>
+                        <option>Food & Drink</option>
+                        <option>Entertainment</option>
+                        <option>Wellness</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Price Range</label>
+                    <select class="filter-select">
+                        <option>All Prices</option>
+                        <option>$ (Under $50)</option>
+                        <option>$$ ($50-$100)</option>
+                        <option>$$$ ($100+)</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Duration</label>
+                    <select class="filter-select">
+                        <option>Any Duration</option>
+                        <option>1-2 Hours</option>
+                        <option>Half Day</option>
+                        <option>Full Day</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Rating</label>
+                    <select class="filter-select">
+                        <option>All Ratings</option>
+                        <option>4.5+ Stars</option>
+                        <option>4.0+ Stars</option>
+                        <option>3.5+ Stars</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Activities -->
+    <section class="activities-section">
+        <div class="container">
+            <h2 class="section-title">Featured Activities</h2>
+            <div class="activities-grid">
+                <div class="activity-card">
+                    <div class="card-image">🎨</div>
+                    <div class="card-content">
+                        <div class="card-category">Arts & Culture</div>
+                        <h3 class="card-title">Art Gallery of Ontario</h3>
+                        <p class="card-description">Explore world-class collections and contemporary exhibitions in one of North America's most distinguished art museums.</p>
+                        <div class="card-meta">
+                            <span>2-3 Hours</span>
+                            <span class="card-price">$25</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="card-image">🍷</div>
+                    <div class="card-content">
+                        <div class="card-category">Food & Drink</div>
+                        <h3 class="card-title">Wine Tasting Tour</h3>
+                        <p class="card-description">Sophisticated wine experiences featuring local vineyards and expert sommelier guidance through premium selections.</p>
+                        <div class="card-meta">
+                            <span>3-4 Hours</span>
+                            <span class="card-price">$85</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="card-image">🎭</div>
+                    <div class="card-content">
+                        <div class="card-category">Entertainment</div>
+                        <h3 class="card-title">Theatre District Experience</h3>
+                        <p class="card-description">Premium theatre performances and behind-the-scenes access to Toronto's vibrant performing arts scene.</p>
+                        <div class="card-meta">
+                            <span>2-3 Hours</span>
+                            <span class="card-price">$120</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="card-image">🧘</div>
+                    <div class="card-content">
+                        <div class="card-category">Wellness</div>
+                        <h3 class="card-title">Spa & Wellness Retreat</h3>
+                        <p class="card-description">Luxurious wellness experiences combining traditional treatments with modern therapeutic techniques.</p>
+                        <div class="card-meta">
+                            <span>Half Day</span>
+                            <span class="card-price">$200</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="card-image">🏛️</div>
+                    <div class="card-content">
+                        <div class="card-category">Arts & Culture</div>
+                        <h3 class="card-title">Royal Ontario Museum</h3>
+                        <p class="card-description">Immersive journey through natural history, world cultures, and scientific discoveries in Canada's premier museum.</p>
+                        <div class="card-meta">
+                            <span>2-4 Hours</span>
+                            <span class="card-price">$23</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="card-image">🍾</div>
+                    <div class="card-content">
+                        <div class="card-category">Food & Drink</div>
+                        <h3 class="card-title">Chef's Table Experience</h3>
+                        <p class="card-description">Exclusive dining experiences with renowned chefs, featuring seasonal ingredients and innovative techniques.</p>
+                        <div class="card-meta">
+                            <span>3-4 Hours</span>
+                            <span class="card-price">$250</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Overview -->
+    <section class="categories-section">
+        <div class="container">
+            <h2 class="section-title">Browse by Category</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">🎨</div>
+                    <h3 class="category-title">Arts & Culture</h3>
+                    <p class="category-count">42 Activities</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🍷</div>
+                    <h3 class="category-title">Food & Drink</h3>
+                    <p class="category-count">38 Activities</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🎭</div>
+                    <h3 class="category-title">Entertainment</h3>
+                    <p class="category-count">25 Activities</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🧘</div>
+                    <h3 class="category-title">Wellness</h3>
+                    <p class="category-count">18 Activities</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🏃</div>
+                    <h3 class="category-title">Active</h3>
+                    <p class="category-count">27 Activities</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">&copy; 2024 Toronto Guide — Sophisticated Lifestyle Curation</p>
+        </div>
+    </footer>
+</body>
+</html> 
