@@ -61,11 +61,6 @@ const MultiSelectFilter: React.FC<MultiSelectFilterProps> = React.memo(({
 }) => {
   const theme = useTheme();
   
-  // Memoized selected options for display
-  const selectedOptions = useMemo(() => {
-    return options.filter(option => selectedValues.includes(option.value));
-  }, [options, selectedValues]);
-
   // Optimized change handler
   const handleChange = useCallback((event: SelectChangeEvent<string[]>) => {
     const value = event.target.value;
