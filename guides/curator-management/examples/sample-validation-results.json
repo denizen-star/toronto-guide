@@ -1,0 +1,107 @@
+{
+  "validationSummary": {
+    "totalItems": 739,
+    "validItems": 677,
+    "quarantinedItems": 62,
+    "averageScore": 91.6,
+    "issuesByType": {
+      "location_mismatch": 26,
+      "category_mismatch": 20,
+      "tag_mismatch": 12,
+      "description_mismatch": 8,
+      "missing_data": 4
+    }
+  },
+  "sampleQuarantinedItems": [
+    {
+      "id": "act_montreal_01",
+      "itemType": "activities",
+      "title": "Old Montreal Walking Tour",
+      "score": 35,
+      "issues": [
+        {
+          "type": "location_mismatch",
+          "severity": "high",
+          "message": "This appears to be a Montreal activity in Toronto activities list",
+          "field": "location",
+          "suggestion": "Move to Montreal activities or remove from Toronto guide"
+        }
+      ],
+      "quarantineReason": "Montreal content in Toronto guide",
+      "reviewStatus": "pending"
+    },
+    {
+      "id": "trip_thunder_bay",
+      "itemType": "day-trips",
+      "title": "Thunder Bay Wilderness Adventure",
+      "score": 45,
+      "issues": [
+        {
+          "type": "location_mismatch",
+          "severity": "high",
+          "message": "Travel time exceeds reasonable day trip distance (>8 hours)",
+          "field": "travelTime",
+          "suggestion": "Consider moving to multi-day trips or weekend getaways"
+        }
+      ],
+      "quarantineReason": "Excessive travel time for day trip",
+      "reviewStatus": "pending"
+    },
+    {
+      "id": "act_bar_crawl_01",
+      "itemType": "activities",
+      "title": "Ossington Strip Bar Crawl",
+      "score": 65,
+      "issues": [
+        {
+          "type": "category_mismatch",
+          "severity": "high",
+          "message": "This appears to be a happy hour/nightlife item rather than a general activity",
+          "field": "content",
+          "suggestion": "Consider moving to happy hours section"
+        }
+      ],
+      "quarantineReason": "Happy hour content in activities section",
+      "reviewStatus": "pending",
+      "suggestedCategory": "happy-hours"
+    },
+    {
+      "id": "sport_blue_jays",
+      "itemType": "amateur-sports",
+      "title": "Toronto Blue Jays Home Game",
+      "score": 60,
+      "issues": [
+        {
+          "type": "category_mismatch",
+          "severity": "medium",
+          "message": "This appears to be a professional sport, not amateur",
+          "field": "content",
+          "suggestion": "Move to sporting events section"
+        }
+      ],
+      "quarantineReason": "Professional sport in amateur section",
+      "reviewStatus": "pending",
+      "suggestedCategory": "sporting-events"
+    }
+  ],
+  "recommendations": [
+    {
+      "type": "immediate_action",
+      "severity": "high",
+      "message": "Remove 23 Montreal activities from Toronto files",
+      "affectedItems": 23
+    },
+    {
+      "type": "category_reorganization",
+      "severity": "medium",
+      "message": "Move 5 bar crawls from activities to happy-hours",
+      "affectedItems": 5
+    },
+    {
+      "type": "distance_validation",
+      "severity": "high",
+      "message": "Remove 3 day trips with excessive travel times",
+      "affectedItems": 3
+    }
+  ]
+} 
