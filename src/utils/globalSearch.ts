@@ -4,8 +4,7 @@ import {
   StandardizedAmateurSport, 
   StandardizedSportingEvent, 
   StandardizedSpecialEvent, 
-  HappyHour, 
-  Location 
+  HappyHour
 } from './dataLoader';
 
 // Union type for all searchable content items

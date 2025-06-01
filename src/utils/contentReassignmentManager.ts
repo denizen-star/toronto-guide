@@ -1,4 +1,4 @@
-import { SearchableContent, PAGE_MAPPINGS } from './globalSearch';
+import { SearchableContent } from './globalSearch';
 
 export interface ReassignmentOperation {
   id: string;
