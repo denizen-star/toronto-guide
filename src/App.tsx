@@ -20,6 +20,8 @@ import SpecialEvents from './pages/SpecialEvents';
 import SpecialEventDetails from './pages/SpecialEventDetails';
 import TitleVariations from './pages/TitleVariations';
 import ContentReviewAdmin from './components/ContentReviewAdmin';
+import AdminLogin from './components/AdminLogin';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -42,7 +44,15 @@ function App() {
             <Route path="special-events" element={<SpecialEvents />} />
             <Route path="special-events/:id" element={<SpecialEventDetails />} />
             <Route path="title-variations" element={<TitleVariations />} />
-            <Route path="admin/content-review" element={<ContentReviewAdmin />} />
+            <Route path="admin/login" element={<AdminLogin />} />
+            <Route 
+              path="admin/*" 
+              element={
+                <ProtectedRoute>
+                  <ContentReviewAdmin />
+                </ProtectedRoute>
+              } 
+            />
           </Route>
         </Routes>
       </Router>

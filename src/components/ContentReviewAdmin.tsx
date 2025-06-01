@@ -51,7 +51,8 @@ import {
   Search as SearchIcon,
   Clear as ClearIcon,
   SwapHoriz as SwapIcon,
-  Description as InstructionsIcon
+  Description as InstructionsIcon,
+  Logout as LogoutIcon
 } from '@mui/icons-material';
 import { quarantineManager } from '../utils/quarantineManager';
 import { contentValidator } from '../utils/contentValidator';
@@ -71,6 +72,8 @@ import {
 import type { QuarantinedItem, ValidationIssue } from '../utils/contentValidator';
 import type { CurationReport } from '../agents/conciergeAgent';
 import type { UpdateSummary } from '../utils/csvUpdater';
+import { auth } from '../utils/auth';
+import { useNavigate } from 'react-router-dom';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -140,6 +143,8 @@ const ContentReviewAdmin: React.FC = () => {
   // Add state for pattern selection
   const [selectedCount, setSelectedCount] = useState(0);
   const selectedPatternsRef = useRef<string[]>([]);
+
+  const navigate = useNavigate();
 
   // Initialize the ref
   useEffect(() => {
@@ -463,11 +468,26 @@ const ContentReviewAdmin: React.FC = () => {
   const reassignmentStats = contentReassignmentManager.getStats();
   const searchStats = searchInitialized ? globalSearchEngine.getStats() : null;
 
+  const handleLogout = () => {
+    auth.logout();
+    navigate('/admin/login');
+  };
+
   return (
     <Box p={3}>
-      <Typography variant="h4" gutterBottom>
-        Content Review Administration
-      </Typography>
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
+        <Typography variant="h4">
+          Content Review Administration
+        </Typography>
+        <Button
+          variant="outlined"
+          color="inherit"
+          startIcon={<LogoutIcon />}
+          onClick={handleLogout}
+        >
+          Logout
+        </Button>
+      </Box>
       
       <Typography variant="subtitle1" color="textSecondary" gutterBottom>
         Review quarantined content, search all content, and manage content reassignments
