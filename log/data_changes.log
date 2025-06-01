@@ -1,0 +1,32 @@
+2025-06-01T03:02:33.802Z|locations.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:02:33.841Z|happy_hours.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:02:33.852Z|schedules.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:02:33.854Z|activities.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:02:48.346Z|locations.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:02:48.366Z|happy_hours.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:02:48.374Z|schedules.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:02:48.375Z|activities.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:03:03.461Z|locations.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:03:03.472Z|happy_hours.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:03:03.479Z|schedules.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:03:03.480Z|activities.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:03:39.479Z|locations.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:03:39.556Z|happy_hours.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:03:39.564Z|schedules.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:03:39.571Z|activities.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:04:24.268Z|locations.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:04:24.274Z|happy_hours.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:04:24.279Z|schedules.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:04:24.285Z|activities.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:05:04.764Z|locations.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:05:04.785Z|happy_hours.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:05:04.794Z|schedules.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:05:04.795Z|activities.csv|NO_CHANGE|File copied but no data changes detected
+2025-06-01T03:05:52.184Z|locations.csv|DELETE|Deleted 4 entries (IDs: 3, 4, 5, 6)
+2025-06-01T03:05:52.186Z|happy_hours.csv|DELETE|Source file removed
+2025-06-01T03:05:52.188Z|schedules.csv|DELETE|Source file removed
+2025-06-01T03:05:52.191Z|activities.csv|DELETE|Source file removed
+2025-06-01T03:06:01.290Z|locations.csv|ADD|Added 1 entries (IDs: 3)
+2025-06-01T03:06:01.300Z|happy_hours.csv|NO_CHANGE|File does not exist in source or destination
+2025-06-01T03:06:01.301Z|schedules.csv|NO_CHANGE|File does not exist in source or destination
+2025-06-01T03:06:01.301Z|activities.csv|NO_CHANGE|File does not exist in source or destination
