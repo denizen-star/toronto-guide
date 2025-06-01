@@ -42,11 +42,18 @@ Transform how discerning adults discover and engage with Toronto's cultural land
 - **Create React App 5.0.1** - Build toolchain and development server
 - **Web Vitals 2.1.4** - Performance monitoring
 - **Testing Library** - Component and integration testing
+- **Winston 3.11.0** - Structured logging system
 
 #### Data Management
 - **PapaParse 5.5.3** - CSV parsing for content management
 - **Date-fns 2.30.0** - Date manipulation and formatting
 - **MUI Date Pickers** - Date selection components
+
+#### Logging & Monitoring
+- **Winston Logger** - Structured JSON logging
+- **Log Rotation** - Daily log file rotation
+- **Log Retention** - 30-day standard retention, 90-day critical events
+- **Monitoring Dashboard** - Real-time system monitoring
 
 ### System Architecture
 
@@ -69,6 +76,12 @@ Transform how discerning adults discover and engage with Toronto's cultural land
 │  ├── CSV Files (Static Content)                            │
 │  ├── Data Processing (PapaParse)                           │
 │  └── Setup Scripts (Data Initialization)                   │
+├─────────────────────────────────────────────────────────────┤
+│                  Logging & Monitoring                       │
+│  ├── Winston Logger (JSON Structured Logs)                 │
+│  ├── Log Rotation & Retention                              │
+│  ├── System Monitoring                                     │
+│  └── Performance Metrics                                   │
 ├─────────────────────────────────────────────────────────────┤
 │                  Hosting & Deployment                       │
 │  ├── Netlify Static Hosting                                │
@@ -183,14 +196,59 @@ The system uses a standardized data model across all content types with the foll
 
 ### Data Files Structure
 ```
-public/data/
-├── activities.csv (119 records)
-├── day_trips_standardized.csv (106 records)  
-├── sporting_events_standardized.csv (44 records)
-├── amateur_sports_standardized.csv (55 records)
-├── special_events_standardized.csv (45 records)
+src/data_staging/
+├── tor_lgbt1.txt - Primary LGBTQ+ sports and recreation data (29 records)
+├── tor_lgbt2.txt - Additional LGBTQ+ venue data (9 records)
+├── tor_lgbt3.txt - Extended community resources data (94 records)
 └── [supporting files: locations.csv, categories.csv, etc.]
 ```
+
+### Logging System
+
+#### Log Categories
+1. **System Logs**
+   - Application startup/shutdown events
+   - Configuration changes
+   - System health metrics
+   - Performance data
+
+2. **Data Processing Logs**
+   - File validation results
+   - Processing status updates
+   - Integration confirmations
+   - Error tracking
+
+3. **User Activity Logs**
+   - Admin actions
+   - Data modifications
+   - Access patterns
+   - Error encounters
+
+4. **API Integration Logs**
+   - External service calls
+   - Response times
+   - Error rates
+   - Rate limiting
+
+#### Log Management
+- **Storage Format**: Structured JSON
+- **Retention Policy**: 
+  - Standard logs: 30 days
+  - Critical events: 90 days
+- **Rotation**: Daily with compression
+- **Access**: Admin dashboard with search/filter
+
+#### Monitoring & Alerts
+- Real-time critical event monitoring
+- System issue alerts
+- Performance threshold tracking
+- Error rate monitoring
+
+### Development Environment
+- **Local Server**: http://localhost:3004
+- **Network Access**: http://192.168.1.84:3004
+- **Build Mode**: Development (unoptimized)
+- **Compilation**: Webpack with TypeScript
 
 ### Datarian Agent Responsibilities
 

@@ -25,10 +25,54 @@ A comprehensive automated data maintenance and workflow orchestration system for
 - **Notification Service** - Email and Slack notifications for workflow results
 - **Datarian Service** - Integration with existing data processing logic
 - **Metrics Collector** - Performance tracking and historical data analysis
+- **Logging Service** - Centralized logging with structured data format
 
 #### 4. **Utilities** (`scripts/workflows/utils/`)
-- **Logger** - Centralized logging with Winston
+- **Logger** - Enhanced logging with Winston
+  - Structured JSON logging
+  - Log level management
+  - Rotation policies
+  - Search and filtering
 - **Error Handler** - Comprehensive error handling and recovery
+
+## 📊 Logging System
+
+### Log Categories
+1. **System Logs**
+   - Application startup/shutdown
+   - Configuration changes
+   - System health metrics
+   - Performance data
+
+2. **Data Processing Logs**
+   - File validation results
+   - Processing status
+   - Integration events
+   - Error tracking
+
+3. **User Activity Logs**
+   - Admin actions
+   - Data modifications
+   - Access patterns
+   - Error encounters
+
+4. **API Integration Logs**
+   - External service calls
+   - Response times
+   - Error rates
+   - Rate limiting
+
+### Log Management
+- **Storage**: Logs are stored in structured JSON format
+- **Retention**: 30-day retention for standard logs, 90 days for critical events
+- **Rotation**: Daily log rotation with compression
+- **Access**: Available through admin dashboard with search and filter capabilities
+
+### Monitoring & Alerts
+- Real-time monitoring of critical events
+- Automated alerts for system issues
+- Performance threshold monitoring
+- Error rate tracking
 
 ## 🚀 Getting Started
 
