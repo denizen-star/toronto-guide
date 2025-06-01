@@ -22,6 +22,8 @@ import TitleVariations from './pages/TitleVariations';
 import ContentReviewAdmin from './components/ContentReviewAdmin';
 import AdminLogin from './components/AdminLogin';
 import ProtectedRoute from './components/ProtectedRoute';
+import LgbtEvents from './pages/LgbtEvents';
+import LgbtEventDetails from './pages/LgbtEventDetails';
 
 function App() {
   return (
@@ -44,6 +46,8 @@ function App() {
             <Route path="special-events" element={<SpecialEvents />} />
             <Route path="special-events/:id" element={<SpecialEventDetails />} />
             <Route path="title-variations" element={<TitleVariations />} />
+            <Route path="lgbtq-events" element={<LgbtEvents />} />
+            <Route path="lgbtq-events/:id" element={<LgbtEventDetails />} />
             <Route path="admin/login" element={<AdminLogin />} />
             <Route 
               path="admin/*" 

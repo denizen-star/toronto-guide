@@ -186,6 +186,20 @@ export interface StandardizedDayTrip extends StandardizedItem {
   bestTimeToVisit?: string;
 }
 
+export interface LgbtEvent extends StandardizedItem {
+  eventType: 'performance' | 'social' | 'community' | 'nightlife';
+  subcategory: string;
+  socialMedia: {
+    instagram?: string;
+    facebook?: string;
+    twitter?: string;
+  };
+  recurring: boolean;
+  venueAccessibility?: string;
+  pronouns?: string;
+  ageRestriction?: string;
+}
+
 const DAYS_OF_WEEK = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
 
 export const loadVenues = async (): Promise<Venue[]> => {
@@ -794,6 +808,95 @@ export const loadStandardizedDayTrips = async (): Promise<StandardizedDayTrip[]>
   } catch (error) {
     console.error('Error loading standardized day trips:', error);
     throw error;
+  }
+};
+
+export const loadLgbtEvents = async (): Promise<LgbtEvent[]> => {
+  try {
+    const response = await fetch('/data/lgbt_events_standardized.csv');
+    if (!response.ok) {
+      throw new Error(`Failed to load LGBTQ+ events data: ${response.statusText}`);
+    }
+
+    const csvText = await response.text();
+    const { data, errors } = Papa.parse(csvText, {
+      header: true,
+      skipEmptyLines: true,
+      delimiter: '|',
+      transform: (value, field) => {
+        if (field === 'tags') {
+          return value ? value.split(',').map((tag: string) => tag.trim()) : [];
+        }
+        if (field === 'lgbtqFriendly') {
+          return true; // All events in this category are LGBTQ+ friendly
+        }
+        if (field === 'socialMedia') {
+          try {
+            return value ? JSON.parse(value) : { instagram: '', facebook: '', twitter: '' };
+          } catch {
+            console.warn('Invalid social media JSON format, defaulting to empty object');
+            return { instagram: '', facebook: '', twitter: '' };
+          }
+        }
+        if (field === 'recurring') {
+          return value ? value.toLowerCase() === 'yes' || value.toLowerCase() === 'true' : false;
+        }
+        if (field === 'eventType') {
+          const type = (value || '').toLowerCase();
+          if (!['performance', 'social', 'community', 'nightlife'].includes(type)) {
+            console.warn(`Invalid event type: ${value}, defaulting to 'social'`);
+            return 'social';
+          }
+          return type;
+        }
+        return value || ''; // Convert null/undefined to empty string
+      }
+    });
+
+    // Log parsing errors if any
+    if (errors.length > 0) {
+      console.warn('CSV parsing errors:', errors);
+    }
+
+    // Validate and clean data
+    const validatedData = (data as LgbtEvent[]).filter(event => {
+      const isValid = 
+        event.id &&
+        event.title &&
+        event.description &&
+        event.location &&
+        event.eventType &&
+        ['performance', 'social', 'community', 'nightlife'].includes(event.eventType);
+
+      if (!isValid) {
+        console.warn('Invalid event data:', event);
+      }
+
+      return isValid;
+    }).map(event => ({
+      ...event,
+      // Ensure all required fields have default values
+      image: event.image || `https://source.unsplash.com/random/?${encodeURIComponent(event.eventType)},lgbtq`,
+      tags: event.tags || [],
+      lastUpdated: event.lastUpdated || new Date().toISOString(),
+      socialMedia: event.socialMedia || { instagram: '', facebook: '', twitter: '' },
+      recurring: !!event.recurring,
+      lgbtqFriendly: true,
+      startDate: event.startDate || new Date().toISOString(),
+      endDate: event.endDate || '',
+      registrationDeadline: event.registrationDeadline || '',
+      duration: event.duration || '',
+      activityDetails: event.activityDetails || '',
+      cost: event.cost || '',
+      website: event.website || '',
+      travelTime: event.travelTime || '',
+      googleMapLink: event.googleMapLink || ''
+    }));
+
+    return validatedData;
+  } catch (error) {
+    console.error('Error loading LGBTQ+ events:', error);
+    throw new Error(`Failed to load LGBTQ+ events: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 };
 

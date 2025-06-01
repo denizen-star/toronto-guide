@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import { Menu as MenuIcon, Close as CloseIcon, Search as SearchIcon } from '@mui/icons-material';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: 'var(--color-white, #ffffff)',
   color: 'var(--color-charcoal, #1A1A1A)',
@@ -163,9 +164,10 @@ const Navigation: React.FC<NavigationProps> = ({
   const navigationItems = [
     { path: '/amateur-sports', label: 'Play' },
     { path: '/activities', label: 'Activities' },
+    { path: '/day-trips', label: 'Day Trips' },
     { path: '/happy-hours', label: 'Happy Hours' },
-    { path: '/day-trips', label: 'Trips' },
-    { path: '/special-events', label: 'Culture' },
+    { path: '/lgbtq-events', label: 'LGBTQ+' },
+    { path: '/special-events', label: 'Special Events' },
     { path: '/sporting-events', label: 'Sports' },
   ];
 

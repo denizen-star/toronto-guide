@@ -15,7 +15,7 @@ const Home = () => {
                 With Precision
               </h1>
               <p className="page-subtitle">
-                A systematic approach to Toronto's finest experiences. Curated with Swiss precision for discerning adults who value quality and clarity.
+                A systematic approach to Toronto&apos;s finest experiences. Curated with Swiss precision for discerning adults who value quality and clarity.
               </p>
               <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)' }}>
                 <RouterLink to="/activities" className="btn-primary">Explore Now</RouterLink>
@@ -60,7 +60,7 @@ const Home = () => {
               margin: '0 auto',
               lineHeight: '1.5'
             }}>
-              Systematically organized experiences designed for sophisticated exploration of Toronto's cultural landscape.
+              Systematically organized experiences designed for sophisticated exploration of Toronto&apos;s cultural landscape.
             </p>
           </div>
           
@@ -85,7 +85,7 @@ const Home = () => {
               <ul className="card-features">
                 <li>Tasting Menus</li>
                 <li>Wine Pairings</li>
-                <li>Chef's Tables</li>
+                <li>Chef&apos;s Tables</li>
               </ul>
             </div>
             
@@ -93,7 +93,7 @@ const Home = () => {
               <div className="card-icon">LOC</div>
               <div className="card-category">03</div>
               <h3 className="card-title">Premium Districts</h3>
-              <p className="card-description">Toronto's most distinguished neighborhoods.</p>
+              <p className="card-description">Toronto&apos;s most distinguished neighborhoods.</p>
               <ul className="card-features">
                 <li>Yorkville Luxury</li>
                 <li>The Well Modern</li>

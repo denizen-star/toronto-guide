@@ -4,8 +4,6 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Chip,
-  Box,
   Checkbox,
   ListItemText,
   OutlinedInput,
@@ -14,15 +12,14 @@ import {
 } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 
-interface FilterOption {
+interface Option {
   value: string;
   label: string;
-  disabled?: boolean;
 }
 
 interface MultiSelectFilterProps {
   label: string;
-  options: FilterOption[];
+  options: Option[];
   selectedValues: string[];
   onChange: (values: string[]) => void;
   placeholder?: string;
@@ -57,7 +54,7 @@ const MultiSelectFilter: React.FC<MultiSelectFilterProps> = React.memo(({
   options,
   selectedValues,
   onChange,
-  placeholder = 'All'
+  placeholder = 'Select options...'
 }) => {
   const theme = useTheme();
   
@@ -73,7 +70,6 @@ const MultiSelectFilter: React.FC<MultiSelectFilterProps> = React.memo(({
       <MenuItem
         key={option.value}
         value={option.value}
-        disabled={option.disabled}
         sx={{
           fontSize: '13px',
           fontFamily: 'var(--font-primary)',
@@ -112,7 +108,7 @@ const MultiSelectFilter: React.FC<MultiSelectFilterProps> = React.memo(({
               fontSize: '13px',
               fontFamily: 'var(--font-primary)',
               fontWeight: selectedValues.includes(option.value) ? 'var(--weight-medium)' : 'var(--weight-normal)',
-              color: option.disabled ? 'var(--color-soft-gray)' : 'var(--color-charcoal)'
+              color: 'var(--color-charcoal)'
             }
           }}
         />
@@ -123,50 +119,11 @@ const MultiSelectFilter: React.FC<MultiSelectFilterProps> = React.memo(({
   // Memoized render function for selected chips
   const renderValue = useCallback((selected: string[]) => {
     if (selected.length === 0) {
-      return (
-        <span style={{
-          color: 'var(--color-deep-slate)',
-          fontSize: '13px',
-          fontFamily: 'var(--font-primary)'
-        }}>
-          {placeholder}
-        </span>
-      );
+      return placeholder;
     }
-
-    if (selected.length === 1) {
-      const option = options.find(opt => opt.value === selected[0]);
-      return (
-        <span style={{
-          color: 'var(--color-charcoal)',
-          fontSize: '13px',
-          fontFamily: 'var(--font-primary)',
-          fontWeight: 'var(--weight-medium)'
-        }}>
-          {option?.label || selected[0]}
-        </span>
-      );
-    }
-
-    return (
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-        <Chip
-          label={`${selected.length} selected`}
-          size="small"
-          sx={{
-            height: '20px',
-            fontSize: '11px',
-            fontFamily: 'var(--font-primary)',
-            fontWeight: 'var(--weight-medium)',
-            backgroundColor: 'var(--color-accent-sage)',
-            color: 'white',
-            '& .MuiChip-label': {
-              px: 1
-            }
-          }}
-        />
-      </Box>
-    );
+    return selected
+      .map(value => options.find(option => option.value === value)?.label || value)
+      .join(', ');
   }, [options, placeholder]);
 
   return (

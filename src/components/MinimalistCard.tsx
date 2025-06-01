@@ -28,14 +28,12 @@ export interface EnhancedCardData {
 interface EnhancedMinimalistCardProps {
   data: EnhancedCardData;
   icon: React.ReactNode;
-  variant?: 'default' | 'featured' | 'compact';
   color?: 'primary' | 'secondary' | 'success' | 'warning' | 'info';
 }
 
 const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
   data,
   icon,
-  variant = 'default',
   color = 'primary',
 }) => {
   const theme = useTheme();

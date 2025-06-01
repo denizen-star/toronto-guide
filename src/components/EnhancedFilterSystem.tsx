@@ -213,7 +213,7 @@ const EnhancedFilterSystem: React.FC<EnhancedFilterSystemProps> = ({
               border: '1px solid var(--color-soft-gray)',
               boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
             }}>
-              {filterBubbles.map((bubble, index) => (
+              {filterBubbles.map((bubble, _index) => (
                 <Chip
                   key={`${bubble.filterKey}-${bubble.value}`}
                   label={bubble.label}
@@ -262,7 +262,7 @@ const EnhancedFilterSystem: React.FC<EnhancedFilterSystemProps> = ({
               gap: 1.5,
               mt: 1
             }}>
-              {filters.map((filter, index) => (
+              {filters.map((filter, _index) => (
                 <Box
                   key={filter.key}
                   sx={{

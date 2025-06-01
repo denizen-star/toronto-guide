@@ -409,7 +409,12 @@ const SpecialEvents = () => {
               }}>
                 No special events found
               </div>
-              <p>Try adjusting your search terms or filters</p>
+              <Typography variant="body2">
+                We&apos;re sorry, but no events match your search criteria.
+              </Typography>
+              <Typography variant="body2">
+                Let&apos;s find something else for you!
+              </Typography>
             </div>
           ) : (
             <>

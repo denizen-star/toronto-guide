@@ -1269,7 +1269,7 @@ const ContentReviewAdmin: React.FC = () => {
               <Alert severity="info" sx={{ mt: 2 }}>
                 <Typography variant="body2">
                   <strong>Note:</strong> This will download updated CSV files to your computer. 
-                  You'll need to manually replace the files in your project's public/data/ directory.
+                  You&apos;ll need to manually replace the files in your project&apos;s public/data/ directory.
                 </Typography>
               </Alert>
             </Box>

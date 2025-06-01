@@ -192,7 +192,7 @@ const ContentReassignmentDialog: React.FC<ContentReassignmentDialogProps> = ({
             <Alert severity="info">
               <Typography variant="body2">
                 <strong>Important:</strong> This change will be applied to the current session only. 
-                To make it permanent, you'll need to manually update the corresponding CSV files 
+                To make it permanent, you&apos;ll need to manually update the corresponding CSV files 
                 as instructed after the operation completes.
               </Typography>
             </Alert>

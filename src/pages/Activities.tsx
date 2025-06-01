@@ -123,7 +123,7 @@ const Activities = () => {
     return 'varies';
   }, []);
 
-  const getPriceRange = useCallback((activity: Activity): string => {
+  const getPriceRange = useCallback((_activity: Activity): string => {
     // Simple price categorization based on typical Toronto activity prices
     return 'varies'; // Could be enhanced with actual price data
   }, []);
@@ -417,7 +417,9 @@ const Activities = () => {
               }}>
                 No activities found
               </div>
-              <p>Try adjusting your search terms or filters</p>
+              <Typography variant="body2">
+                We&apos;re sorry, but no activities match your search criteria.
+              </Typography>
             </div>
           ) : (
             <>

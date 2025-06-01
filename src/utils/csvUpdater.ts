@@ -105,7 +105,7 @@ export class CSVUpdater {
       .filter(item => item.suggestedCategory === category && item.itemType !== category);
 
     // Filter out removed and moved items
-    let updatedData = originalData.filter((row: any) => {
+    const updatedData = originalData.filter((row: any) => {
       if (itemsToRemove.includes(row.id)) {
         removedCount++;
         return false;
