@@ -932,61 +932,92 @@ export const loadTags = async (): Promise<Tag[]> => {
 
 export const loadScoopItems = async (): Promise<ScoopItem[]> => {
   try {
+    console.log('Starting to load scoop items...');
     const response = await fetch('/data/scoop_standardized.csv');
+    
     if (!response.ok) {
+      console.error('Failed to fetch scoop items:', response.statusText);
       throw new Error('Failed to load scoop items data');
     }
 
     const data = await response.text();
-    const { data: parsedData } = Papa.parse(data, {
+    const { data: parsedData, errors } = Papa.parse(data, {
       header: true,
       skipEmptyLines: true,
       delimiter: ',',
+      transformHeader: (header) => header.trim(),
+      transform: (value) => value.trim()
     });
 
-    const scoopItems: ScoopItem[] = parsedData
-      .filter((item: any) => 
-        // Filter out malformed entries
-        item.id && 
-        item.title && 
-        item.description
-      )
-      .map((item: any) => ({
-        id: item.id,
-        title: item.title,
-        description: item.description,
-        image: item.image || `https://source.unsplash.com/random/?${encodeURIComponent(item.title)}`,
-        location: item.location,
-        type: item.type,
-        startDate: item.startDate || '',
-        endDate: item.endDate || '',
-        registrationDeadline: item.registrationDeadline || '',
-        duration: item.duration || 'varies',
-        activityDetails: item.activityDetails || item.description,
-        cost: item.cost,
-        website: item.website || '',
-        travelTime: item.travelTime || '',
-        googleMapLink: item.googleMapLink || '',
-        lgbtqFriendly: item.lgbtqFriendly === 'true',
-        tags: Array.isArray(item.tags) ? item.tags : item.tags ? item.tags.split(',').map((t: string) => t.trim()) : [],
-        lastUpdated: item.lastUpdated,
-        category: item.category || item.type,
-        eventType: item.eventType,
-        neighborhood: item.neighborhood || item.location,
-        season: getSeason(item), // Use the helper function
-        priceRange: getPriceRange(item), // Use the helper function
-        source: item.source
-      }));
+    if (errors.length > 0) {
+      console.warn('CSV parsing warnings:', errors);
+    }
 
-    console.log(`Loaded ${scoopItems.length} scoop items`);
-    return scoopItems;
+    if (!Array.isArray(parsedData)) {
+      console.error('Parsed data is not an array');
+      throw new Error('Invalid data format');
+    }
+
+    // Transform and validate the data
+    const transformedData = parsedData
+      .filter(item => item && typeof item === 'object')
+      .map((item: any) => {
+        // Clean and validate each field
+        const cleanedItem = {
+          id: item.id?.toString() || generateUniqueId(),
+          title: item.title?.trim() || 'Untitled Event',
+          description: item.description?.trim() || 'No description available',
+          image: item.image || 'https://source.unsplash.com/random/?event',
+          location: item.location?.trim() || 'Toronto',
+          type: item.type || 'general',
+          startDate: item.startDate || null,
+          endDate: item.endDate || null,
+          registrationDeadline: item.registrationDeadline || null,
+          duration: item.duration?.trim() || 'varies',
+          activityDetails: item.activityDetails?.trim() || item.description?.trim() || 'No details available',
+          cost: item.cost || 'Contact for pricing',
+          website: item.website?.trim() || '#',
+          travelTime: item.travelTime || null,
+          googleMapLink: item.googleMapLink || null,
+          lgbtqFriendly: item.lgbtqFriendly === 'true' || false,
+          tags: processTags(item.tags),
+          lastUpdated: item.lastUpdated || new Date().toISOString(),
+          category: item.category || 'general',
+          eventType: item.eventType || 'activity',
+          neighborhood: item.neighborhood?.trim() || '',
+          season: item.season || 'year-round',
+          priceRange: item.priceRange || 'varies',
+          source: item.source || 'activity'
+        };
+
+        return cleanedItem;
+      });
+
+    console.log(`Successfully transformed ${transformedData.length} items`);
+    return transformedData;
   } catch (error) {
-    console.error('Error loading scoop items:', error);
+    console.error('Error in loadScoopItems:', error);
     throw error;
   }
 };
 
+// Helper function to process tags
+const processTags = (tags: any): string[] => {
+  if (!tags) return [];
+  if (Array.isArray(tags)) return tags.filter(tag => tag && typeof tag === 'string');
+  if (typeof tags === 'string') {
+    return tags.split(',').map(tag => tag.trim()).filter(Boolean);
+  }
+  return [];
+};
+
+// Helper function to generate a unique ID
+const generateUniqueId = (): string => {
+  return 'sc' + Date.now().toString(36) + Math.random().toString(36).substr(2);
+};
+
 // Helper functions for standardization
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getSeason = (event: StandardizedSpecialEvent): string => {
   const description = event.description.toLowerCase();
   const startDate = new Date(event.startDate);
@@ -1005,6 +1036,7 @@ const getSeason = (event: StandardizedSpecialEvent): string => {
   return 'year-round';
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getPriceRange = (event: StandardizedSpecialEvent): string => {
   const cost = event.cost.toLowerCase();
   const priceMatch = cost.match(/\$(\d+)/);

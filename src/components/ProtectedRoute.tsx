@@ -6,7 +6,7 @@ interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   if (!auth.isAuthenticated()) {
     // Redirect to login if not authenticated
     return <Navigate to="/admin/login" replace />;

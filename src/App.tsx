@@ -7,6 +7,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from './theme-new';
 import Home from './pages/Home';
 import Scoop from './pages/Scoop';
+import ScoopDetails from './pages/ScoopDetails';
 import ActivityDetails from './pages/ActivityDetails';
 import HappyHours from './pages/HappyHours';
 import HappyHourDetails from './pages/HappyHourDetails';
@@ -35,6 +36,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="scoop" element={<Scoop />} />
+            <Route path="scoop/:id" element={<ScoopDetails />} />
             <Route path="activity/:id" element={<ActivityDetails />} />
             <Route path="special-events/:id" element={<SpecialEventDetails />} />
             <Route path="happy-hours" element={<HappyHours />} />

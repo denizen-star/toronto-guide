@@ -28,7 +28,7 @@ export interface EnhancedCardData {
 interface EnhancedMinimalistCardProps {
   data: EnhancedCardData;
   icon: React.ReactNode;
-  color?: 'primary' | 'secondary' | 'success' | 'warning' | 'info';
+  color?: 'primary' | 'secondary' | 'success' | 'warning' | 'info' | 'error';
 }
 
 const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
@@ -72,10 +72,20 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
   const directionsUrl = getDirectionsUrl();
   const formattedPrice = formatPriceRange(data.priceRange, data.price);
 
+  // Ensure data has required fields
+  const safeData = {
+    ...data,
+    title: data.title || 'Untitled',
+    description: data.description || 'No description available',
+    tags: Array.isArray(data.tags) ? data.tags.filter(tag => tag && typeof tag === 'string') : [],
+    website: data.website || '#',
+    detailPath: data.detailPath || '#'
+  };
+
   return (
     <Card
       component={RouterLink}
-      to={data.detailPath}
+      to={safeData.detailPath}
       sx={{
         height: '100%',
         cursor: 'pointer',
@@ -102,7 +112,7 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
           
           {/* Action buttons */}
           <Box sx={{ display: 'flex', gap: 1 }}>
-            {data.lgbtqFriendly && (
+            {safeData.lgbtqFriendly && (
               <RainbowFlagIcon sx={{ fontSize: '1.2rem' }} />
             )}
             
@@ -125,11 +135,11 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
         {/* Content */}
         <Box sx={{ flexGrow: 1 }}>
           <Typography variant="h6" gutterBottom>
-            {data.title}
+            {safeData.title}
           </Typography>
           
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            {data.description}
+            {safeData.description}
           </Typography>
 
           {/* Price */}
@@ -138,9 +148,9 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
           </Typography>
 
           {/* Tags */}
-          {data.tags && data.tags.length > 0 && (
+          {safeData.tags && safeData.tags.length > 0 && (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 2 }}>
-              {data.tags.slice(0, 3).map((tag, index) => (
+              {safeData.tags.slice(0, 3).map((tag, index) => (
                 <Chip 
                   key={index} 
                   label={tag} 
@@ -154,13 +164,13 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
 
         {/* Footer */}
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 'auto' }}>
-          {data.website && (
+          {safeData.website && safeData.website !== '#' && (
             <IconButton
               size="small"
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                window.open(data.website, '_blank');
+                window.open(safeData.website, '_blank');
               }}
               sx={{ 
                 display: 'flex', 

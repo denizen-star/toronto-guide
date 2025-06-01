@@ -50,13 +50,39 @@ const Scoop = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
+        setLoading(true);
+        setError(null);
+        console.log('Starting to load scoop items...');
         const items = await loadScoopItems();
-        console.log('Loaded items:', items);
-        setScoopItems(items);
-        setLoading(false);
+        
+        if (!items || items.length === 0) {
+          throw new Error('No activities found');
+        }
+
+        // Filter out invalid items
+        const validItems = items.filter(item => {
+          const isValid = item && 
+            typeof item === 'object' &&
+            item.id && 
+            item.title && 
+            item.description;
+          
+          if (!isValid) {
+            console.warn('Filtered out invalid item:', item);
+          }
+          return isValid;
+        });
+
+        if (validItems.length === 0) {
+          throw new Error('No valid activities found after filtering');
+        }
+
+        console.log(`Successfully loaded ${validItems.length} valid items`);
+        setScoopItems(validItems);
       } catch (err) {
         console.error('Error loading scoop items:', err);
-        setError('Failed to load items. Please try again later.');
+        setError(err instanceof Error ? err.message : 'Failed to load activities. Please try again later.');
+      } finally {
         setLoading(false);
       }
     };
@@ -65,7 +91,8 @@ const Scoop = () => {
   }, []);
 
   const getIconForItem = useCallback((item: ScoopItem): React.ReactNode => {
-    return iconMap[item.category.toLowerCase()] || iconMap['activity'];
+    const category = item.category?.toLowerCase() || 'activity';
+    return iconMap[category] || iconMap['activity'];
   }, []);
 
   // Create filter configurations
@@ -209,30 +236,35 @@ const Scoop = () => {
     if (!scoopItems) return [];
 
     return scoopItems.filter(item => {
-      // Apply search term filter
-      if (searchTerm) {
-        const searchLower = searchTerm.toLowerCase();
-        const matchesSearch = 
-          item.title.toLowerCase().includes(searchLower) ||
-          item.description.toLowerCase().includes(searchLower) ||
-          item.tags.some(tag => tag.toLowerCase().includes(searchLower));
-        
-        if (!matchesSearch) return false;
+      try {
+        // Apply search term filter
+        if (searchTerm) {
+          const searchLower = searchTerm.toLowerCase();
+          const matchesSearch = 
+            (item.title || '').toLowerCase().includes(searchLower) ||
+            (item.description || '').toLowerCase().includes(searchLower) ||
+            (item.tags || []).some(tag => (tag || '').toLowerCase().includes(searchLower));
+          
+          if (!matchesSearch) return false;
+        }
+
+        // Apply other filters
+        for (const [filterId, selectedValues] of Object.entries(selectedFilters)) {
+          if (selectedValues.length === 0) continue;
+
+          const itemValue = (item[filterId as keyof ScoopItem] || '').toString().toLowerCase();
+          if (!itemValue) return false;
+
+          const matches = selectedValues.some(value =>
+            itemValue.includes(value.toLowerCase())
+          );
+          if (!matches) return false;
+        }
+        return true;
+      } catch (err) {
+        console.error('Error filtering item:', item, err);
+        return false;
       }
-
-      // Apply other filters
-      for (const [filterId, selectedValues] of Object.entries(selectedFilters)) {
-        if (selectedValues.length === 0) continue;
-
-        const itemValue = item[filterId as keyof ScoopItem]?.toString().toLowerCase();
-        if (!itemValue) return false;
-
-        const matches = selectedValues.some(value =>
-          itemValue.includes(value.toLowerCase())
-        );
-        if (!matches) return false;
-      }
-      return true;
     });
   }, [scoopItems, selectedFilters, searchTerm]);
 
@@ -253,14 +285,6 @@ const Scoop = () => {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
         <CircularProgress />
-      </Box>
-    );
-  }
-
-  if (error) {
-    return (
-      <Box sx={{ textAlign: 'center', py: 4 }}>
-        <Typography color="error">{error}</Typography>
       </Box>
     );
   }
@@ -315,28 +339,47 @@ const Scoop = () => {
           onResetFilters={handleResetFilters}
         />
 
+        {error && (
+          <Box sx={{ textAlign: 'center', py: 4 }}>
+            <Typography color="error" gutterBottom>{error}</Typography>
+            <Button 
+              variant="contained" 
+              onClick={() => window.location.reload()}
+              sx={{ mt: 2 }}
+            >
+              Try Again
+            </Button>
+          </Box>
+        )}
+
         <Grid container spacing={3} sx={{ mt: 3 }}>
-          {filteredItems.slice(0, displayCount).map(item => (
-            <Grid item xs={12} sm={6} md={4} key={item.id}>
-              <EnhancedMinimalistCard
-                data={{
-                  id: item.id,
-                  title: item.title,
-                  description: item.description,
-                  website: item.website || '',
-                  tags: item.tags || [],
-                  priceRange: item.priceRange || 'See details',
-                  location: item.location || 'Toronto',
-                  address: item.location,
-                  neighborhood: item.neighborhood,
-                  coordinates: undefined,
-                  lgbtqFriendly: item.lgbtqFriendly || false,
-                  detailPath: `/${item.source === 'activity' ? 'activity' : 'special-events'}/${item.id}`
-                }}
-                icon={getIconForItem(item)}
-              />
-            </Grid>
-          ))}
+          {filteredItems.slice(0, displayCount).map(item => {
+            // Transform and validate the data for MinimalistCard
+            const cardData = {
+              id: item.id,
+              title: item.title || 'Untitled Activity',
+              description: item.description || 'No description available',
+              website: item.website || '#',
+              tags: Array.isArray(item.tags) ? item.tags.filter(tag => tag && typeof tag === 'string') : [],
+              priceRange: item.priceRange || item.cost || 'See details',
+              location: item.location || 'Toronto',
+              address: item.location || 'Toronto',
+              neighborhood: item.neighborhood || '',
+              coordinates: undefined,
+              lgbtqFriendly: item.lgbtqFriendly || false,
+              detailPath: `/scoop/${item.id}`
+            };
+
+            return (
+              <Grid item xs={12} sm={6} md={4} key={item.id}>
+                <EnhancedMinimalistCard
+                  data={cardData}
+                  icon={getIconForItem(item)}
+                  color="primary"
+                />
+              </Grid>
+            );
+          })}
         </Grid>
 
         {displayCount < filteredItems.length && (
