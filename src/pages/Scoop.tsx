@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { Box, Grid, Typography, CircularProgress, Container, Button } from '@mui/material';
 import { 
   loadScoopItems,
@@ -265,56 +266,91 @@ const Scoop = () => {
   }
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Toronto Scoop
-      </Typography>
-      <Typography variant="subtitle1" gutterBottom>
-        Discover the best activities and events in Toronto
-      </Typography>
-      
-      <EnhancedFilterSystem
-        filters={filterConfigs}
-        selectedFilters={selectedFilters}
-        onFilterChange={handleFilterChange}
-        onResetFilters={handleResetFilters}
-      />
+    <Box>
+      {/* Breadcrumb */}
+      <section className="breadcrumb">
+        <div className="swiss-container">
+          <ul className="breadcrumb-list">
+            <li><RouterLink to="/" className="breadcrumb-link">Home</RouterLink></li>
+            <li>/</li>
+            <li>The Scoop</li>
+          </ul>
+        </div>
+      </section>
 
-      <Grid container spacing={3} sx={{ mt: 3 }}>
-        {filteredItems.slice(0, displayCount).map(item => (
-          <Grid item xs={12} sm={6} md={4} key={item.id}>
-            <EnhancedMinimalistCard
-              data={{
-                id: item.id,
-                title: item.title,
-                description: item.description,
-                website: item.website || '',
-                tags: item.tags || [],
-                priceRange: item.priceRange || 'See details',
-                location: item.location || 'Toronto',
-                address: item.location,
-                neighborhood: item.neighborhood,
-                coordinates: undefined,
-                lgbtqFriendly: item.lgbtqFriendly || false,
-                detailPath: `/${item.source === 'activity' ? 'activity' : 'special-events'}/${item.id}`
-              }}
-              icon={getIconForItem(item)}
-            />
-          </Grid>
-        ))}
-      </Grid>
+      {/* Page Header */}
+      <section className="page-header">
+        <div className="swiss-container">
+          <div className="header-content">
+            <div>
+              <h1 className="page-title">The Scoop</h1>
+              <p className="page-subtitle">
+                Your comprehensive guide to Toronto's best activities and events. From art exhibitions 
+                to food festivals, discover curated experiences that match your interests.
+              </p>
+            </div>
+            <div className="stats-box">
+              <div className="stat">
+                <div className="stat-number">{filteredItems.length}</div>
+                <div className="stat-label">Activity Options</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">{Object.keys(iconMap).length}</div>
+                <div className="stat-label">Categories</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">7</div>
+                <div className="stat-label">Districts</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      {displayCount < filteredItems.length && (
-        <Box sx={{ textAlign: 'center', mt: 4 }}>
-          <Button
-            variant="outlined"
-            onClick={() => setDisplayCount(prev => prev + 12)}
-          >
-            Load More
-          </Button>
-        </Box>
-      )}
-    </Container>
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        <EnhancedFilterSystem
+          filters={filterConfigs}
+          selectedFilters={selectedFilters}
+          onFilterChange={handleFilterChange}
+          onResetFilters={handleResetFilters}
+        />
+
+        <Grid container spacing={3} sx={{ mt: 3 }}>
+          {filteredItems.slice(0, displayCount).map(item => (
+            <Grid item xs={12} sm={6} md={4} key={item.id}>
+              <EnhancedMinimalistCard
+                data={{
+                  id: item.id,
+                  title: item.title,
+                  description: item.description,
+                  website: item.website || '',
+                  tags: item.tags || [],
+                  priceRange: item.priceRange || 'See details',
+                  location: item.location || 'Toronto',
+                  address: item.location,
+                  neighborhood: item.neighborhood,
+                  coordinates: undefined,
+                  lgbtqFriendly: item.lgbtqFriendly || false,
+                  detailPath: `/${item.source === 'activity' ? 'activity' : 'special-events'}/${item.id}`
+                }}
+                icon={getIconForItem(item)}
+              />
+            </Grid>
+          ))}
+        </Grid>
+
+        {displayCount < filteredItems.length && (
+          <Box sx={{ textAlign: 'center', mt: 4 }}>
+            <Button
+              variant="outlined"
+              onClick={() => setDisplayCount(prev => prev + 12)}
+            >
+              Load More
+            </Button>
+          </Box>
+        )}
+      </Container>
+    </Box>
   );
 };
 

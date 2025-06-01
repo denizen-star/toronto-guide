@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { Box, Grid, Typography, CircularProgress, Button, Container, Alert } from '@mui/material';
 import { 
   loadLgbtEvents, 
@@ -404,63 +405,46 @@ const LgbtEvents = () => {
 
   return (
     <Box>
-      {/* Hero Section */}
-      <Box
-        sx={{
-          background: 'linear-gradient(45deg, #FF1B6B 30%, #45CAFF 90%)',
-          color: 'white',
-          py: 8,
-          mb: 4,
-          position: 'relative',
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(0, 0, 0, 0.3)',
-            zIndex: 1
-          }
-        }}
-      >
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
-          <Typography variant="h2" component="h1" gutterBottom>
-            LGBTQ+ Events in Toronto
-          </Typography>
-          <Typography variant="h5" sx={{ mb: 4, maxWidth: '800px' }}>
-            Discover and celebrate Toronto&apos;s vibrant LGBTQ+ community through diverse events, performances, and gatherings.
-          </Typography>
-          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-            {Object.entries(iconMap).map(([type, icon]) => (
-              <Box
-                key={type}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 1,
-                  bgcolor: 'rgba(255, 255, 255, 0.1)',
-                  p: 1,
-                  borderRadius: 2,
-                  cursor: 'pointer',
-                  '&:hover': {
-                    bgcolor: 'rgba(255, 255, 255, 0.2)'
-                  }
-                }}
-                onClick={() => setSelectedFilters(prev => ({
-                  ...prev,
-                  eventType: [type]
-                }))}
-              >
-                {icon}
-                <Typography sx={{ textTransform: 'capitalize' }}>
-                  {type.replace('-', ' ')}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
-        </Container>
-      </Box>
+      {/* Breadcrumb */}
+      <section className="breadcrumb">
+        <div className="swiss-container">
+          <ul className="breadcrumb-list">
+            <li><RouterLink to="/" className="breadcrumb-link">Home</RouterLink></li>
+            <li>/</li>
+            <li>LGBTQ+ Events</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Page Header */}
+      <section className="page-header">
+        <div className="swiss-container">
+          <div className="header-content">
+            <div>
+              <h1 className="page-title">LGBTQ+ Events</h1>
+              <p className="page-subtitle">
+                Discover and celebrate Toronto's vibrant LGBTQ+ community through diverse events, 
+                performances, and gatherings. From drag shows to community meetups, find inclusive 
+                spaces and experiences.
+              </p>
+            </div>
+            <div className="stats-box">
+              <div className="stat">
+                <div className="stat-number">{sortedAndFilteredEvents.length}</div>
+                <div className="stat-label">Event Options</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">{Object.keys(iconMap).length}</div>
+                <div className="stat-label">Event Types</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">5</div>
+                <div className="stat-label">Areas</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Main Content */}
       <Container maxWidth="lg">
