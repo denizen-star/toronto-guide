@@ -906,6 +906,82 @@ class Datarian {
     }
   }
 
+  private async cleanupStagingFiles(processedFiles: string[]): Promise<void> {
+    try {
+      for (const file of processedFiles) {
+        if (fs.existsSync(file)) {
+          await fs.promises.unlink(file);
+          console.log(`🗑️  Cleaned up staging file: ${path.basename(file)}`);
+        }
+      }
+    } catch (error) {
+      console.error(`⚠️  Warning: Failed to cleanup some staging files: ${error.message}`);
+    }
+  }
+
+  /**
+   * Process files from staging directory
+   */
+  async processStaging(contentType: string = 'activities'): Promise<any> {
+    try {
+      const stagingDir = path.join(process.cwd(), 'src', 'data_staging');
+      const files = await fs.promises.readdir(stagingDir);
+      
+      if (files.length === 0) {
+        console.log('ℹ️  No files found in staging directory');
+        return;
+      }
+
+      console.log(`🔄 Processing ${files.length} files from staging...`);
+      
+      const processedFiles: string[] = [];
+      const results: any[] = [];
+
+      for (const file of files) {
+        const filePath = path.join(stagingDir, file);
+        
+        try {
+          // Process the file
+          const result = await this.invoke('full-process', {
+            filePath,
+            outputPath: path.join(process.cwd(), 'public', 'data'),
+            contentType
+          });
+
+          results.push({
+            file,
+            success: true,
+            ...result
+          });
+
+          processedFiles.push(filePath);
+          
+        } catch (error) {
+          console.error(`❌ Failed to process ${file}: ${error.message}`);
+          results.push({
+            file,
+            success: false,
+            error: error.message
+          });
+        }
+      }
+
+      // Cleanup successfully processed files
+      if (processedFiles.length > 0) {
+        await this.cleanupStagingFiles(processedFiles);
+      }
+
+      return {
+        totalFiles: files.length,
+        processedFiles: processedFiles.length,
+        results
+      };
+
+    } catch (error) {
+      throw new Error(`Failed to process staging directory: ${error.message}`);
+    }
+  }
+
   /**
    * Main invoke method - Entry point for the agent
    */
@@ -971,8 +1047,11 @@ class Datarian {
           qualityReport
         };
 
+      case 'process-staging':
+        return await this.processStaging(options.contentType);
+
       default:
-        throw new Error(`Unknown command: ${command}. Available commands: analyze, convert, quality-report, save, compare-merge, merge-activities, full-process`);
+        throw new Error(`Unknown command: ${command}. Available commands: analyze, convert, quality-report, save, compare-merge, merge-activities, full-process, process-staging`);
     }
   }
 }
