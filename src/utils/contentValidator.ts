@@ -254,9 +254,9 @@ class ContentValidator {
     const title = sport.title?.toLowerCase() || '';
     const description = sport.description?.toLowerCase() || '';
     
-    if (title.includes('maple leafs') || title.includes('raptors') || 
-        title.includes('blue jays') || description.includes('professional') ||
-        description.includes('nhl') || description.includes('nba')) {
+    if ((title.includes('maple leafs') || title.includes('raptors') || 
+        title.includes('blue jays')) || (description.includes('professional') ||
+        description.includes('nhl') || description.includes('nba'))) {
       issues.push({
         type: 'category_mismatch',
         severity: 'high',
