@@ -80,20 +80,24 @@ const NavMenu = styled('ul')(({ theme }) => ({
   },
 }));
 
-const NavLink = styled(RouterLink)<{ active?: boolean }>(({ active }) => ({
-  fontSize: '0.875rem',
+interface StyledLinkProps {
+  active: boolean;
+}
+
+const NavLink = styled(RouterLink, {
+  shouldForwardProp: (prop) => prop !== 'active'
+})<StyledLinkProps>(({ active }) => ({
+  textDecoration: 'none',
+  padding: '8px 16px',
+  fontSize: '16px',
   fontWeight: 500,
   color: active ? 'var(--color-accent-sage, #A8B5A0)' : 'var(--color-deep-slate, #4A4A4A)',
-  textDecoration: 'none',
-  textTransform: 'uppercase',
-  letterSpacing: '0.05em',
-  transition: 'color 150ms ease',
+  transition: 'all 0.2s ease-in-out',
+  position: 'relative',
   borderBottom: active ? '2px solid var(--color-accent-sage, #A8B5A0)' : '2px solid transparent',
-  paddingBottom: '2px',
   '&:hover': {
-    color: 'var(--color-accent-sage, #A8B5A0)',
-    borderBottomColor: 'var(--color-accent-sage, #A8B5A0)',
-  },
+    color: 'var(--color-accent-sage, #A8B5A0)'
+  }
 }));
 
 const MobileDrawer = styled(Drawer)({
@@ -113,15 +117,19 @@ const MobileNavItem = styled(ListItem)({
   borderBottom: '1px solid var(--color-soft-gray, #E8E6E3)',
 });
 
-const MobileNavLink = styled(RouterLink)<{ active?: boolean }>(({ active }) => ({
-  fontSize: '1.125rem',
+const MobileNavLink = styled(RouterLink, {
+  shouldForwardProp: (prop) => prop !== 'active'
+})<StyledLinkProps>(({ active }) => ({
+  textDecoration: 'none',
   fontWeight: active ? 600 : 500,
   color: active ? 'var(--color-accent-sage, #A8B5A0)' : 'var(--color-charcoal, #1A1A1A)',
-  textDecoration: 'none',
-  textTransform: 'uppercase',
-  letterSpacing: '0.05em',
+  padding: '12px 16px',
   width: '100%',
   display: 'block',
+  transition: 'all 0.2s ease-in-out',
+  '&:hover': {
+    backgroundColor: 'var(--color-light-gray, #F5F5F5)'
+  }
 }));
 
 const MobileSearchContainer = styled(Box)({
@@ -163,11 +171,10 @@ const Navigation: React.FC<NavigationProps> = ({
 
   const navigationItems = [
     { path: '/amateur-sports', label: 'Play' },
-    { path: '/activities', label: 'Activities' },
+    { path: '/scoop', label: 'The Scoop' },
     { path: '/day-trips', label: 'Day Trips' },
     { path: '/happy-hours', label: 'Happy Hours' },
     { path: '/lgbtq-events', label: 'LGBTQ+' },
-    { path: '/special-events', label: 'Special Events' },
     { path: '/sporting-events', label: 'Sports' },
   ];
 

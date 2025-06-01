@@ -1,0 +1,40 @@
+Toronto Guide - Page Content Description
+
+Home (/)
+- Landing page with featured content and navigation to all sections
+- Overview of Toronto's attractions and experiences
+
+The Scoop (/scoop)
+- Combined view of activities and special events
+- Comprehensive listing of things to do in Toronto
+- Includes regular activities and special events
+- Features filtering by category, neighborhood, event type, season, duration, and price range
+- Supports search functionality across all listings
+- Content sourced from both activities and special events databases
+
+Day Trips (/day-trips)
+- Curated list of day trip destinations around Toronto
+- Includes travel time, directions, and activity suggestions
+- Seasonal recommendations and trip planning tips
+
+Happy Hours (/happy-hours)
+- Directory of happy hour specials across Toronto
+- Searchable by neighborhood, time, and offerings
+- Updated regularly with current deals and prices
+
+Amateur Sports (/amateur-sports)
+- Listings for recreational sports leagues and pickup games
+- Information about facilities and registration
+- Organized by sport type and skill level
+
+Sporting Events (/sporting-events)
+- Professional and amateur sporting events calendar
+- Game schedules and venue information
+- Ticket purchasing links and pricing details
+
+LGBTQ+ Events (/lgbtq-events)
+- Calendar of LGBTQ+ friendly events and activities
+- Community gatherings and special celebrations
+- Inclusive spaces and venues
+
+Note: The Activities and Special Events sections have been merged into The Scoop section for a more streamlined user experience. All content from both sections is now accessible through the unified interface with enhanced filtering and search capabilities. 

@@ -200,6 +200,16 @@ export interface LgbtEvent extends StandardizedItem {
   ageRestriction?: string;
 }
 
+export interface ScoopItem extends StandardizedItem {
+  category: string;
+  eventType: string;
+  neighborhood: string;
+  season: string;
+  priceRange: string;
+  duration: string;
+  source: 'activity' | 'special_event';
+}
+
 const DAYS_OF_WEEK = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
 
 export const loadVenues = async (): Promise<Venue[]> => {
@@ -468,7 +478,7 @@ export const loadActivities = async (): Promise<Activity[]> => {
     });
 
     return parsedData.map((row: any) => {
-      const tags = row.tags.split(',').map((tag: string) => tag.trim());
+      const tags = row.tags ? row.tags.split(',').map((tag: string) => tag.trim()) : [];
       const city = row.city || (parseInt(row.locationId) >= 200 ? 'montreal' : 'toronto');
 
       return {
@@ -918,4 +928,92 @@ export const loadTags = async (): Promise<Tag[]> => {
     console.error('Error loading tags:', error);
     throw error;
   }
+};
+
+export const loadScoopItems = async (): Promise<ScoopItem[]> => {
+  try {
+    const response = await fetch('/data/scoop_standardized.csv');
+    if (!response.ok) {
+      throw new Error('Failed to load scoop items data');
+    }
+
+    const data = await response.text();
+    const { data: parsedData } = Papa.parse(data, {
+      header: true,
+      skipEmptyLines: true,
+      delimiter: ',',
+    });
+
+    const scoopItems: ScoopItem[] = parsedData
+      .filter((item: any) => 
+        // Filter out malformed entries
+        item.id && 
+        item.title && 
+        item.description
+      )
+      .map((item: any) => ({
+        id: item.id,
+        title: item.title,
+        description: item.description,
+        image: item.image || `https://source.unsplash.com/random/?${encodeURIComponent(item.title)}`,
+        location: item.location,
+        type: item.type,
+        startDate: item.startDate || '',
+        endDate: item.endDate || '',
+        registrationDeadline: item.registrationDeadline || '',
+        duration: item.duration || 'varies',
+        activityDetails: item.activityDetails || item.description,
+        cost: item.cost,
+        website: item.website || '',
+        travelTime: item.travelTime || '',
+        googleMapLink: item.googleMapLink || '',
+        lgbtqFriendly: item.lgbtqFriendly === 'true',
+        tags: Array.isArray(item.tags) ? item.tags : item.tags ? item.tags.split(',').map((t: string) => t.trim()) : [],
+        lastUpdated: item.lastUpdated,
+        category: item.category || item.type,
+        eventType: item.eventType,
+        neighborhood: item.neighborhood || item.location,
+        season: getSeason(item), // Use the helper function
+        priceRange: getPriceRange(item), // Use the helper function
+        source: item.source
+      }));
+
+    console.log(`Loaded ${scoopItems.length} scoop items`);
+    return scoopItems;
+  } catch (error) {
+    console.error('Error loading scoop items:', error);
+    throw error;
+  }
+};
+
+// Helper functions for standardization
+const getSeason = (event: StandardizedSpecialEvent): string => {
+  const description = event.description.toLowerCase();
+  const startDate = new Date(event.startDate);
+  const month = startDate.getMonth();
+
+  if (month >= 2 && month <= 4) return 'spring';
+  if (month >= 5 && month <= 7) return 'summer';
+  if (month >= 8 && month <= 10) return 'fall';
+  if (month >= 11 || month <= 1) return 'winter';
+
+  if (description.includes('winter')) return 'winter';
+  if (description.includes('spring')) return 'spring';
+  if (description.includes('summer')) return 'summer';
+  if (description.includes('fall') || description.includes('autumn')) return 'fall';
+  
+  return 'year-round';
+};
+
+const getPriceRange = (event: StandardizedSpecialEvent): string => {
+  const cost = event.cost.toLowerCase();
+  const priceMatch = cost.match(/\$(\d+)/);
+  
+  if (cost.includes('free')) return 'free';
+  if (priceMatch && parseInt(priceMatch[1]) <= 25) return 'budget';
+  if (priceMatch && parseInt(priceMatch[1]) <= 75) return 'moderate';
+  if (priceMatch && parseInt(priceMatch[1]) <= 150) return 'premium';
+  if (priceMatch && parseInt(priceMatch[1]) > 150) return 'luxury';
+  
+  return 'varies';
 }; 

@@ -1,0 +1,96 @@
+Toronto Guide - Technical Specification
+
+Technology Stack:
+- React 18.2.0
+- TypeScript 4.9.5
+- Material-UI 5.15.11
+- React Router DOM 6.22.0
+- PapaParse 5.5.3 for CSV data processing
+
+Data Management:
+- CSV-based data storage in public/data/
+- Standardized data schemas for all content types
+- PapaParse integration for CSV parsing and processing
+- Data versioning through lastUpdated timestamps
+
+Key Components:
+
+1. Scoop Component (src/pages/Scoop.tsx)
+- Unified view for activities and special events
+- Enhanced filtering system with multiple filter types
+- Real-time search functionality
+- Responsive grid layout
+- Pagination through "Load More" functionality
+- Integration with MinimalistCard component for item display
+
+2. Data Loading (src/utils/dataLoader.ts)
+- Standardized data loading functions
+- Type definitions for all data structures
+- Data transformation and normalization
+- Error handling and logging
+
+3. Navigation (src/components/Navigation.tsx)
+- Responsive navigation menu
+- Dynamic route handling
+- Search integration
+- Mobile-friendly drawer navigation
+
+4. Filter System (src/components/EnhancedFilterSystem.tsx)
+- Multi-select filter controls
+- Category-based filtering
+- Tag-based filtering
+- Price range filtering
+- Season filtering
+- Neighborhood filtering
+
+Data Schema (scoop_standardized.csv):
+- id: Unique identifier
+- title: Item title
+- description: Detailed description
+- image: Image URL
+- location: Location reference
+- type: Content type
+- startDate: Event start date
+- endDate: Event end date
+- registrationDeadline: Registration deadline if applicable
+- duration: Event/activity duration
+- activityDetails: Additional details
+- cost: Price information
+- website: External website URL
+- travelTime: Estimated travel time
+- googleMapLink: Google Maps link
+- lgbtqFriendly: LGBTQ+ friendly indicator
+- tags: Comma-separated tags
+- lastUpdated: Last update timestamp
+- category: Content category
+- eventType: Type of event/activity
+- neighborhood: Toronto neighborhood
+- season: Applicable season
+- priceRange: Standardized price range
+- source: Original content source (activity/special_event)
+
+Routing Structure:
+/ - Home
+/scoop - The Scoop (Activities & Events)
+/activity/:id - Activity Details
+/special-events/:id - Special Event Details
+/happy-hours - Happy Hours
+/day-trips - Day Trips
+/amateur-sports - Amateur Sports
+/sporting-events - Sporting Events
+/lgbtq-events - LGBTQ+ Events
+
+Search Implementation:
+- Real-time search across all fields
+- Debounced search input
+- Case-insensitive matching
+- Tag-based search support
+
+Filtering Implementation:
+- Multiple filter categories
+- Combinatorial filtering logic
+- Filter state management
+- Reset functionality
+- Mobile-responsive filter UI
+
+Note: The Activities and Special Events sections have been merged into The Scoop section. The original CSV files (activities.csv and special_events.csv) have been archived in public/data/archive/ and replaced with the new scoop_standardized.csv file. 

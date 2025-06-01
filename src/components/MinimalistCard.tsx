@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, Box, Typography, Chip, useTheme, alpha, IconButton, Link } from '@mui/material';
+import { Card, CardContent, Box, Typography, Chip, useTheme, alpha, IconButton } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import LaunchIcon from '@mui/icons-material/Launch';
@@ -155,16 +155,28 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
         {/* Footer */}
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 'auto' }}>
           {data.website && (
-            <Link
-              href={data.website}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+            <IconButton
+              size="small"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                window.open(data.website, '_blank');
+              }}
+              sx={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: 0.5,
+                color: theme.palette.primary.main,
+                padding: '4px 8px',
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                  textDecoration: 'underline'
+                }
+              }}
             >
               <LaunchIcon fontSize="small" />
               <Typography variant="caption">Website</Typography>
-            </Link>
+            </IconButton>
           )}
           
           <ArrowForwardIcon color="primary" />
