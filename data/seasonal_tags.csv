@@ -1,0 +1,21 @@
+season,hashtag,event_type,popularity
+Spring,#torontospringtime,general,234567
+Cherry Blossoms,#highparksakura,spring_event,456789
+Summer Patios,#topatios,summer_activity,345678
+Fall Colors,#torontofall,general,234567
+Winter Festivals,#towinter,general,345678
+Ice Skating,#skateTO,winter_activity,234567
+Summer Markets,#tosummermarket,summer_event,167890
+Fall Hiking,#torontohiking,fall_activity,145678
+Winter Light Festival,#tolightfest,winter_event,278901
+Spring Gardens,#togardens,spring_activity,189012
+Summer Beaches,#tobeaches,summer_activity,345678
+Fall Fashion Week,#tfw,fall_event,234567
+Winter Village,#towintervillage,winter_event,456789
+Spring Food Festival,#tofoodfest,spring_event,234567
+Summer Music Series,#tomusicsummer,summer_event,345678
+Fall Beer Festival,#tobeer,fall_event,278901
+Holiday Market,#toholidaymarket,winter_event,389012
+Spring Art Shows,#torontoart,spring_event,234567
+Summer Street Festivals,#tostreetfest,summer_event,456789
+Fall Farm Activities,#tofarms,fall_activity,167890 

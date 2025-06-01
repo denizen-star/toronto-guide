@@ -1,0 +1,21 @@
+location,hashtag,category,popularity
+Downtown Toronto,#downtowntoronto,district,852335
+CN Tower,#cntower,landmark,1408743
+Nathan Phillips Square,#nathanphillipssquare,landmark,124567
+Little Italy,#littleitalytoronto,district,98765
+Queen Street West,#queenstreetwest,district,187654
+Toronto Islands,#torontoislands,district,156789
+Kensington Market,#kensingtonmarket,district,145678
+Distillery District,#distillerydistrict,landmark,167890
+St Lawrence Market,#stlawrencemarket,landmark,134567
+High Park,#highparktoronto,park,123456
+Trinity Bellwoods,#trinitybellwoods,park,145678
+Toronto Harbourfront,#harbourfrontto,district,178901
+Financial District,#torontofinancialdistrict,district,89012
+Yorkville,#yorkvilleto,district,167890
+The Annex,#theannexto,district,98765
+Chinatown,#chinatownto,district,145678
+Greektown,#greektownto,district,134567
+Entertainment District,#torontoentdistrict,district,178901
+PATH System,#torontopath,landmark,89012
+Rogers Centre,#rogerscentre,landmark,198765 
