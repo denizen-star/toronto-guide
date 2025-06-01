@@ -1,7 +1,6 @@
 import Papa from 'papaparse';
 import path from 'path';
-import { contentValidator } from './contentValidator';
-import { StandardizedItem } from './dataLoader';
+import fs from 'fs/promises';
 
 export interface FileScanResult {
   fileName: string;
@@ -286,7 +285,6 @@ class FileScanner {
    * Read file content with encoding detection
    */
   private async readFileContent(filePath: string): Promise<string> {
-    const fs = require('fs').promises;
     const buffer = await fs.readFile(filePath);
     return buffer.toString();
   }

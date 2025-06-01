@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Activities from './pages/Activities';
 import ActivityDetails from './pages/ActivityDetails';
 import HappyHours from './pages/HappyHours';
+import HappyHourDetails from './pages/HappyHourDetails';
 import Layout from './components/Layout';
 import DayTrips from './pages/DayTrips';
 import DayTripDetails from './pages/DayTripDetails';
@@ -37,6 +38,7 @@ function App() {
             <Route path="activities" element={<Activities />} />
             <Route path="activity/:id" element={<ActivityDetails />} />
             <Route path="happy-hours" element={<HappyHours />} />
+            <Route path="happy-hours/:id" element={<HappyHourDetails />} />
             <Route path="day-trips" element={<DayTrips />} />
             <Route path="day-trips/:id" element={<DayTripDetails />} />
             <Route path="amateur-sports" element={<AmateurSports />} />

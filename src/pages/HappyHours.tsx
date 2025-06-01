@@ -53,10 +53,15 @@ const HappyHours = () => {
           loadHappyHours()
         ]);
 
+        console.log('Loaded venues:', venues.length);
+        console.log('Sample venue IDs:', venues.slice(0, 3).map(v => v.id));
+        console.log('Loaded happy hours:', happyHours.length);
+        console.log('Sample happy hour location_ids:', happyHours.slice(0, 3).map(hh => hh.location_id));
+
         // Combine venues with their happy hours
         const venuesWithHappyHours: VenueWithHappyHours[] = venues
           .map(venue => {
-            const venueHappyHours = happyHours.filter(hh => hh.location_id === venue.id);
+            const venueHappyHours = happyHours.filter(hh => hh.location_id.toString() === venue.id.toString());
             if (venueHappyHours.length === 0) return null;
             
             return {
@@ -66,6 +71,9 @@ const HappyHours = () => {
             };
           })
           .filter((venue): venue is VenueWithHappyHours => venue !== null);
+
+        console.log('Combined venues with happy hours:', venuesWithHappyHours.length);
+        console.log('Sample combined venue:', venuesWithHappyHours[0]);
 
         setAllVenues(venuesWithHappyHours);
         setLoading(false);

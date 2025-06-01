@@ -1,6 +1,5 @@
-import { contentValidator, ValidationResult } from '../utils/contentValidator';
-import { globalSearchEngine, SearchableContent } from '../utils/globalSearch';
 import { contentReassignmentManager, type ReassignmentOperation } from '../utils/contentReassignmentManager';
+import type { SearchableContent } from '../utils/globalSearch';
 
 export interface ReassignmentPattern {
   pattern: string;
