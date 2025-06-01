@@ -155,6 +155,184 @@ interface Event {
 - **schedules.csv** - Timing information (261 entries)
 - **prices.csv** - Pricing data (73 entries)
 
+## Data Management System
+
+### Overview
+The Toronto Guide includes a comprehensive data management system powered by the Datarian agent. The system focuses on maintaining data quality, standardization, and validation across all content types.
+
+### Data Model
+The system uses a standardized data model across all content types with the following key fields:
+- **id**: Unique identifier
+- **title**: Content title
+- **description**: Detailed description
+- **location**: Physical location
+- **type**: Content category
+- **website**: External URL
+- **image**: Image URL
+- **startDate**: Event start date (ISO format)
+- **endDate**: Event end date (ISO format)
+- **registrationDeadline**: Registration cutoff date
+- **duration**: Activity duration
+- **activityDetails**: Additional activity information
+- **cost**: Pricing information
+- **travelTime**: Time to reach from Toronto
+- **googleMapLink**: Location mapping link
+- **lgbtqFriendly**: LGBTQ+ inclusivity flag
+- **tags**: Comma-separated category tags
+- **lastUpdated**: ISO timestamp of last modification
+
+### Data Files Structure
+```
+public/data/
+├── activities.csv (119 records)
+├── day_trips_standardized.csv (106 records)  
+├── sporting_events_standardized.csv (44 records)
+├── amateur_sports_standardized.csv (55 records)
+├── special_events_standardized.csv (45 records)
+└── [supporting files: locations.csv, categories.csv, etc.]
+```
+
+### Datarian Agent Responsibilities
+
+#### Data Validation
+- **Format Validation**: Ensures CSV files use proper pipe-delimiter format
+- **Required Fields**: Validates presence of essential data fields
+- **Data Types**: Verifies correct data types and formats
+- **URL Validation**: Checks website and image URL validity
+- **Date Format**: Ensures dates follow ISO standard
+- **Cross-reference**: Validates relationships between content types
+
+#### Data Standardization
+- **Field Mapping**: Converts various input formats to standard schema
+- **Content Type Detection**: Identifies and categorizes content
+- **Default Values**: Applies sensible defaults for missing fields
+- **Data Cleaning**: Removes invalid or incomplete records
+- **Format Consistency**: Maintains consistent data format across files
+
+#### Quality Assurance
+- **Quality Reports**: Generates data quality metrics and recommendations
+- **Missing Data**: Identifies and reports on missing critical fields
+- **Duplicate Detection**: Identifies potential duplicate entries (85%+ similarity)
+- **Data Integrity**: Ensures referential integrity across content types
+- **Validation Rules**: Enforces content-specific validation rules
+
+#### Content Management Tools
+- **Data Analysis**: Analyzes file content and structure
+- **Field Mapping**: Maps source fields to standardized schema
+- **Quality Metrics**: Tracks data quality scores and trends
+- **Error Reporting**: Provides detailed error and warning messages
+- **Data Merging**: Safely merges new content with existing data
+
+### Data Management Workflow
+
+1. **Content Preparation**
+   - Prepare new content in CSV format
+   - Follow standardized field naming
+   - Include all required fields
+
+2. **Data Validation**
+   - Run Datarian validation checks
+   - Review validation reports
+   - Address any critical issues
+
+3. **Content Integration**
+   - Merge new content with existing data
+   - Verify successful integration
+   - Update last modified timestamps
+
+4. **Quality Verification**
+   - Generate quality reports
+   - Review data consistency
+   - Validate web page rendering
+
+### Performance Characteristics
+- **Validation Speed:** 10-60 seconds for 739 items
+- **Memory Usage:** <200MB typical
+- **Storage:** Local CSV file storage
+- **Backup Size:** ~50KB per backup
+
+## Admin System
+
+### Overview
+The Toronto Guide includes a comprehensive admin system for content management, validation, and curation. The system is protected by authentication and provides tools for content review, validation, and quality assurance.
+
+### Authentication
+- **Admin Login** - Secure password-protected access
+- **Protected Routes** - Authentication-gated admin interface
+- **Session Management** - Local storage-based authentication state
+
+### Content Review Interface
+
+#### Dashboard Overview
+- **Statistics Dashboard** - Real-time content metrics
+- **Review Queue** - Pending content review items
+- **Global Search** - Cross-category content search
+- **Category Management** - Content category reassignment
+
+#### Content Validation
+- **Automated Validation** - Content quality and consistency checks
+- **Quarantine System** - Isolation of problematic content
+- **Review Workflow** - Approve/reject interface with notes
+- **Batch Processing** - Bulk content updates
+
+#### Concierge Agent
+- **Content Analysis** - Automated content quality assessment
+- **Category Suggestions** - Smart content categorization
+- **Quality Metrics** - Content alignment and consistency scoring
+- **Improvement Recommendations** - Automated content enhancement suggestions
+
+### Data Management Tools
+
+#### Quarantine Manager
+- **Storage:** Local browser storage
+- **Features:**
+  - Content isolation
+  - Review status tracking
+  - Export/import functionality
+  - Review progress monitoring
+
+#### Content Validator
+- **Validation Rules:** Customizable content standards
+- **Features:**
+  - Cross-category validation
+  - Quality scoring system
+  - Issue detection and reporting
+  - Batch validation processing
+
+#### CSV Update System
+- **Purpose:** Apply approved content changes
+- **Features:**
+  - Automatic backups
+  - Preview changes
+  - Batch updates
+  - Change reconciliation
+
+### Admin Interface Components
+
+#### Layout Components
+- **ContentReviewAdmin** - Main admin interface
+- **AdminLogin** - Authentication screen
+- **ProtectedRoute** - Route protection wrapper
+- **ContentReassignmentDialog** - Category management interface
+
+#### Utility Components
+- **ValidationProgress** - Progress indicators
+- **StatisticsCards** - Metrics display
+- **ReviewDialog** - Content review interface
+- **SearchInterface** - Global content search
+
+### Security Features
+- **Password Protection** - Secure admin access
+- **Route Protection** - Protected admin routes
+- **Session Management** - Secure authentication state
+- **Backup System** - Automatic data backups
+
+### Performance Characteristics
+- **Validation Speed:** 10-60 seconds for 739 items
+- **Memory Usage:** <200MB typical
+- **Storage:** Local browser storage for quarantine data
+- **Backup Size:** ~50KB per backup
+
 ## UI Components & Design System
 
 ### Core Components
