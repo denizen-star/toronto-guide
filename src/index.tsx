@@ -22,16 +22,15 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+// Remove StrictMode in development to prevent double rendering
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <App />
 );
 
 // Log successful render
 console.log('Application rendered successfully');
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals(console.log);
+// Only measure performance in production
+if (process.env.NODE_ENV === 'production') {
+  reportWebVitals(console.log);
+}
