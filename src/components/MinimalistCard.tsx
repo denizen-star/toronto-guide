@@ -90,12 +90,18 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
         height: '100%',
         cursor: 'pointer',
         textDecoration: 'none',
-        transition: 'transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
         transform: 'translateZ(0)',
         backfaceVisibility: 'hidden',
         WebkitFontSmoothing: 'antialiased',
+        border: `1px solid ${alpha(theme.palette[color].main, 0.3)}`,
+        boxShadow: `0 2px 8px ${alpha(theme.palette[color].main, 0.15)},
+                    inset 0 1px 2px ${alpha(theme.palette[color].main, 0.1)}`,
         '&:hover': {
           transform: 'translate3d(0, -4px, 0)',
+          boxShadow: `0 4px 12px ${alpha(theme.palette[color].main, 0.2)},
+                      inset 0 1px 2px ${alpha(theme.palette[color].main, 0.1)}`,
+          border: `1px solid ${alpha(theme.palette[color].main, 0.4)}`,
         },
       }}
     >
@@ -172,6 +178,24 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
             {safeData.description}
           </Typography>
+
+          {/* Address */}
+          {safeData.address && (
+            <Typography 
+              variant="body2" 
+              color="text.secondary" 
+              sx={{ 
+                mb: 2,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 0.5,
+                fontStyle: 'italic'
+              }}
+            >
+              <DirectionsIcon fontSize="small" />
+              {safeData.address}
+            </Typography>
+          )}
 
           {/* Price */}
           <Typography variant="body2" color="primary" sx={{ mb: 2, fontWeight: 'bold' }}>

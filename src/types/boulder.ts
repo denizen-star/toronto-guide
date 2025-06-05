@@ -16,7 +16,7 @@ export interface BoulderLocation {
   id: string;
   title: string;
   description: string;
-  category: string;
+  category: 'downtown' | 'hill' | 'nobo' | 'south' | 'east' | 'gunbarrel';
   tags: string[];
   activities: Activity[];
   happyHours?: HappyHour[];

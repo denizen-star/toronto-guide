@@ -75,6 +75,16 @@ const areaIconMap = {
   'gunbarrel': <LocalDrink />
 };
 
+// Add color mapping for different areas
+const areaColorMap = {
+  'downtown': 'primary',
+  'hill': 'secondary',
+  'nobo': 'success',
+  'south': 'info',
+  'east': 'warning',
+  'gunbarrel': 'error'
+} as const;
+
 const activityIconMap = {
   // Shopping & Entertainment
   'Shopping & Entertainment': <Store />,
@@ -129,42 +139,56 @@ const activityIconMap = {
 };
 
 // Memoized card component
-const LocationCard = memo(({ location, icon }: { location: BoulderLocation; icon: React.ReactNode }) => (
-  <Grid item xs={12} sm={6} md={4}>
-    <Box sx={{ height: '100%' }}>
-      <EnhancedMinimalistCard
-        data={{
-          id: location.id,
-          title: location.title,
-          description: location.description,
-          tags: location.tags,
-          detailPath: `/boulder/${location.id}`
-        }}
-        icon={icon}
-      />
-    </Box>
-  </Grid>
-));
+const LocationCard = memo(({ location, icon }: { location: BoulderLocation; icon: React.ReactNode }) => {
+  // Get the first activity's address as the main location address
+  const mainAddress = location.activities[0]?.address;
+
+  return (
+    <Grid item xs={12} sm={6} md={4}>
+      <Box sx={{ height: '100%' }}>
+        <EnhancedMinimalistCard
+          data={{
+            id: location.id,
+            title: location.title,
+            description: location.description,
+            tags: location.tags,
+            detailPath: `/boulder/${location.id}`,
+            address: mainAddress
+          }}
+          icon={icon}
+          color={areaColorMap[location.category] || 'primary'}
+        />
+      </Box>
+    </Grid>
+  );
+});
 
 // Memoized activity card component
-const ActivityCard = memo(({ activity, locationId }: { activity: Activity; locationId: string }) => (
-  <Grid item xs={12} sm={6} md={4}>
-    <Box sx={{ height: '100%' }}>
-      <EnhancedMinimalistCard
-        data={{
-          id: `${locationId}-${activity.title.toLowerCase().replace(/\s+/g, '-')}`,
-          title: activity.title,
-          description: activity.category,
-          tags: [activity.category],
-          detailPath: activity.website || '#',
-          address: activity.address,
-          website: activity.website
-        }}
-        icon={activityIconMap[activity.category as keyof typeof activityIconMap] || activityIconMap['default']}
-      />
-    </Box>
-  </Grid>
-));
+const ActivityCard = memo(({ activity, locationId }: { activity: Activity; locationId: string }) => {
+  const category = activity.category as keyof typeof activityIconMap;
+  const icon = activityIconMap[category] || activityIconMap['default'];
+  const color = areaColorMap[locationId.split('-')[0] as keyof typeof areaColorMap] || 'primary';
+
+  return (
+    <Grid item xs={12} sm={6} md={4}>
+      <Box sx={{ height: '100%' }}>
+        <EnhancedMinimalistCard
+          data={{
+            id: `${locationId}-${activity.title.toLowerCase().replace(/\s+/g, '-')}`,
+            title: activity.title,
+            description: activity.category,
+            tags: [activity.category],
+            detailPath: activity.website || '#',
+            address: activity.address,
+            website: activity.website
+          }}
+          icon={icon}
+          color={color}
+        />
+      </Box>
+    </Grid>
+  );
+});
 
 const Boulder: React.FC = () => {
   const { searchTerm, setSearchPlaceholder } = useSearch();
