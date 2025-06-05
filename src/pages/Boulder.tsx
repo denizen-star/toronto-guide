@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box, Grid, Typography, CircularProgress, Container } from '@mui/material';
+import { Box, Grid, Typography, Container } from '@mui/material';
 import EnhancedMinimalistCard from '../components/MinimalistCard';
 import EnhancedFilterSystem, { FilterConfig } from '../components/EnhancedFilterSystem';
 import { useSearch } from '../components/Layout';
@@ -123,7 +123,6 @@ const getActivityIcon = (category: string): React.ReactNode => {
 
 const Boulder: React.FC = () => {
   const { searchTerm, setSearchPlaceholder } = useSearch();
-  const [loading, setLoading] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({
     category: [],
     activityType: [],
@@ -137,7 +136,7 @@ const Boulder: React.FC = () => {
   }, [setSearchPlaceholder]);
 
   // Boulder data structured for cards
-  const boulderData: BoulderLocation[] = [
+  const boulderData: BoulderLocation[] = useMemo(() => [
     {
       id: 'downtown',
       title: 'Downtown Boulder / Pearl Street Mall',
@@ -561,7 +560,7 @@ const Boulder: React.FC = () => {
         }
       ]
     }
-  ];
+  ], []);
 
   // Create filter configurations
   const filterConfigs: FilterConfig[] = useMemo(() => [
@@ -921,41 +920,35 @@ const Boulder: React.FC = () => {
 
       {/* Content Grid */}
       <Container maxWidth="lg" sx={{ py: 4 }}>
-        {loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
-            <CircularProgress />
-          </Box>
-        ) : (
-          <Grid container spacing={3}>
-            {/* Render area cards first */}
-            {filteredData.map((area) => (
-              <Grid item xs={12} sm={6} md={4} key={area.id}>
-                <EnhancedMinimalistCard
-                  data={{
-                    id: area.id,
-                    title: area.title,
-                    description: area.description,
-                    tags: area.tags,
-                    detailPath: `/boulder/${area.id}`
-                  }}
-                  icon={areaIconMap[area.category]}
-                  color="primary"
-                />
-              </Grid>
-            ))}
-            
-            {/* Render activity and happy hour cards */}
-            {allActivities.map((item) => (
-              <Grid item xs={12} sm={6} md={4} key={item.id}>
-                <EnhancedMinimalistCard
-                  data={item}
-                  icon={getActivityIcon(item.description)}
-                  color="primary"
-                />
-              </Grid>
-            ))}
-          </Grid>
-        )}
+        <Grid container spacing={3}>
+          {/* Render area cards first */}
+          {filteredData.map((area) => (
+            <Grid item xs={12} sm={6} md={4} key={area.id}>
+              <EnhancedMinimalistCard
+                data={{
+                  id: area.id,
+                  title: area.title,
+                  description: area.description,
+                  tags: area.tags,
+                  detailPath: `/boulder/${area.id}`
+                }}
+                icon={areaIconMap[area.category]}
+                color="primary"
+              />
+            </Grid>
+          ))}
+          
+          {/* Render activity and happy hour cards */}
+          {allActivities.map((item) => (
+            <Grid item xs={12} sm={6} md={4} key={item.id}>
+              <EnhancedMinimalistCard
+                data={item}
+                icon={getActivityIcon(item.description)}
+                color="primary"
+              />
+            </Grid>
+          ))}
+        </Grid>
       </Container>
     </Box>
   );

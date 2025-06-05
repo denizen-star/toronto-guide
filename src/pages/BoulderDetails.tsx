@@ -6,7 +6,6 @@ import {
   Box,
   Paper,
   Chip,
-  Grid,
   Link,
   Divider,
   List,
