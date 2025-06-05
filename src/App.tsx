@@ -25,6 +25,8 @@ import AdminLogin from './components/AdminLogin';
 import ProtectedRoute from './components/ProtectedRoute';
 import LgbtEvents from './pages/LgbtEvents';
 import LgbtEventDetails from './pages/LgbtEventDetails';
+import Boulder from './pages/Boulder';
+import BoulderDetails from './pages/BoulderDetails';
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
+            <Route path="boulder" element={<Boulder />} />
+            <Route path="boulder/:id" element={<BoulderDetails />} />
             <Route path="scoop" element={<Scoop />} />
             <Route path="scoop/:id" element={<ScoopDetails />} />
             <Route path="activity/:id" element={<ActivityDetails />} />
