@@ -179,19 +179,29 @@ const Home = () => {
             textTransform: 'uppercase',
             letterSpacing: '-0.01em',
             marginBottom: 'var(--space-3)'
-          }}>Start Exploring</h2>
+          }}>Start Exploring New Cities</h2>
           <p style={{ 
             fontSize: 'var(--text-md)', 
             fontWeight: 'var(--weight-light)',
             marginBottom: 'var(--space-4)',
             color: 'var(--color-gray-90)',
-            maxWidth: '500px',
+            maxWidth: '600px',
             marginLeft: 'auto',
             marginRight: 'auto'
           }}>
-            Join thousands of discerning Torontonians who trust our systematic recommendations.
+            Discover curated experiences in North America's most vibrant cities. Each guide is crafted with precision for sophisticated travelers and locals alike.
           </p>
-          <RouterLink to="/activities" className="btn-primary">Get Started</RouterLink>
+          <Box sx={{ 
+            display: 'flex', 
+            gap: 3, 
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            marginTop: 4
+          }}>
+            <RouterLink to="/boulder" className="btn-primary">Explore Boulder</RouterLink>
+            <RouterLink to="/activities" className="btn-primary">Explore Toronto</RouterLink>
+            {/* Space for future city buttons */}
+          </Box>
         </div>
       </section>
 
