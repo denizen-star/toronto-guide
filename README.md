@@ -1,5 +1,8 @@
 # Toronto Guide Project
 
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Status](https://img.shields.io/badge/status-stable-green.svg)
+
 ## Overview
 A comprehensive guide to Toronto's LGBTQ+ friendly spaces and activities, with a focus on sports and recreational activities.
 
