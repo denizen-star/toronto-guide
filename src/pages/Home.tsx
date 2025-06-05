@@ -1,38 +1,75 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box } from '@mui/material';
+import { Box, useTheme, useMediaQuery } from '@mui/material';
 
 const Home = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Box>
       {/* Swiss Hero Section */}
-      <section className="page-header" style={{ paddingTop: '96px', paddingBottom: '64px' }}>
+      <section className="page-header" style={{ 
+        paddingTop: isMobile ? '64px' : '96px', 
+        paddingBottom: isMobile ? '40px' : '64px' 
+      }}>
         <div className="swiss-container">
-          <div className="header-content">
+          <div className="header-content" style={{ 
+            flexDirection: isMobile ? 'column' : 'row',
+            gap: isMobile ? '2rem' : 'inherit'
+          }}>
             <div>
-              <h1 className="page-title" style={{ fontSize: '4rem', lineHeight: '0.9' }}>
+              <h1 className="page-title" style={{ 
+                fontSize: isMobile ? '2.5rem' : '4rem', 
+                lineHeight: '0.9',
+                marginBottom: isMobile ? '1rem' : 'inherit'
+              }}>
                 Discover <span style={{ color: 'var(--color-accent-sage)' }}>Toronto</span><br />
                 With Precision
               </h1>
-              <p className="page-subtitle">
+              <p className="page-subtitle" style={{
+                fontSize: isMobile ? '1rem' : 'inherit',
+                marginBottom: isMobile ? '1.5rem' : 'inherit'
+              }}>
                 A systematic approach to Toronto&apos;s finest experiences. Curated with Swiss precision for discerning adults who value quality and clarity.
               </p>
-              <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)' }}>
-                <RouterLink to="/activities" className="btn-primary">Explore Now</RouterLink>
-                <RouterLink to="/day-trips" className="btn-secondary">View Day Trips</RouterLink>
+              <div style={{ 
+                display: 'flex', 
+                gap: 'var(--space-3)', 
+                marginTop: 'var(--space-4)',
+                flexDirection: isMobile ? 'column' : 'row',
+                width: isMobile ? '100%' : 'auto'
+              }}>
+                <RouterLink to="/activities" className="btn-primary" style={{
+                  width: isMobile ? '100%' : 'auto',
+                  textAlign: 'center'
+                }}>Explore Now</RouterLink>
+                <RouterLink to="/day-trips" className="btn-secondary" style={{
+                  width: isMobile ? '100%' : 'auto',
+                  textAlign: 'center'
+                }}>View Day Trips</RouterLink>
               </div>
             </div>
-            <div className="stats-box">
+            <div className="stats-box" style={{
+              gridTemplateColumns: isMobile ? '1fr 1fr' : '1fr 1fr 1fr',
+              gap: isMobile ? '1rem' : 'inherit'
+            }}>
               <div className="stat">
-                <div className="stat-number">200+</div>
+                <div className="stat-number" style={{
+                  fontSize: isMobile ? '2rem' : 'inherit'
+                }}>200+</div>
                 <div className="stat-label">Curated Venues</div>
               </div>
               <div className="stat">
-                <div className="stat-number">15</div>
+                <div className="stat-number" style={{
+                  fontSize: isMobile ? '2rem' : 'inherit'
+                }}>15</div>
                 <div className="stat-label">Districts</div>
               </div>
               <div className="stat">
-                <div className="stat-number">50+</div>
+                <div className="stat-number" style={{
+                  fontSize: isMobile ? '2rem' : 'inherit'
+                }}>50+</div>
                 <div className="stat-label">Day Trips</div>
               </div>
             </div>
@@ -43,7 +80,7 @@ const Home = () => {
       {/* Main Categories Section */}
       <section className="section-large">
         <div className="swiss-container">
-          <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
+          <div style={{ textAlign: 'center', marginBottom: isMobile ? 'var(--space-4)' : 'var(--space-6)' }}>
             <div style={{ 
               fontSize: 'var(--text-sm)', 
               fontWeight: 'var(--weight-bold)', 
@@ -52,19 +89,25 @@ const Home = () => {
               letterSpacing: '0.1em',
               marginBottom: 'var(--space-1)'
             }}>01</div>
-            <h2 className="section-title">Core Categories</h2>
+            <h2 className="section-title" style={{
+              fontSize: isMobile ? '1.75rem' : 'inherit'
+            }}>Core Categories</h2>
             <p style={{ 
-              fontSize: 'var(--text-md)', 
+              fontSize: isMobile ? '0.875rem' : 'var(--text-md)', 
               color: 'var(--color-gray-70)',
               maxWidth: '600px',
               margin: '0 auto',
-              lineHeight: '1.5'
+              lineHeight: '1.5',
+              padding: isMobile ? '0 1rem' : '0'
             }}>
               Systematically organized experiences designed for sophisticated exploration of Toronto&apos;s cultural landscape.
             </p>
           </div>
           
-          <div className="feature-grid">
+          <div className="feature-grid" style={{
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))',
+            gap: isMobile ? '1rem' : '2rem'
+          }}>
             <div className="card-large">
               <div className="card-icon">ART</div>
               <div className="card-category">01</div>
@@ -119,7 +162,7 @@ const Home = () => {
       {/* Quick Access Grid */}
       <section className="section-large">
         <div className="swiss-container">
-          <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
+          <div style={{ textAlign: 'center', marginBottom: isMobile ? 'var(--space-4)' : 'var(--space-6)' }}>
             <div style={{ 
               fontSize: 'var(--text-sm)', 
               fontWeight: 'var(--weight-bold)', 
@@ -128,10 +171,15 @@ const Home = () => {
               letterSpacing: '0.1em',
               marginBottom: 'var(--space-1)'
             }}>02</div>
-            <h2 className="section-title">Quick Access</h2>
+            <h2 className="section-title" style={{
+              fontSize: isMobile ? '1.75rem' : 'inherit'
+            }}>Quick Access</h2>
           </div>
           
-          <div className="quick-grid">
+          <div className="quick-grid" style={{
+            gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(150px, 1fr))',
+            gap: isMobile ? '1rem' : '2rem'
+          }}>
             <RouterLink to="/day-trips" className="quick-card" style={{ textDecoration: 'none' }}>
               <div className="quick-icon">CAR</div>
               <div className="quick-title">Day Trips</div>
@@ -169,38 +217,46 @@ const Home = () => {
       <section style={{ 
         backgroundColor: 'var(--color-black)', 
         color: 'var(--color-white)', 
-        padding: 'var(--space-8) 0',
+        padding: isMobile ? 'var(--space-6) var(--space-4)' : 'var(--space-8) 0',
         textAlign: 'center'
       }}>
         <div className="swiss-container">
           <h2 style={{ 
-            fontSize: 'var(--text-3xl)', 
+            fontSize: isMobile ? '1.75rem' : 'var(--text-3xl)', 
             fontWeight: 'var(--weight-bold)',
             textTransform: 'uppercase',
             letterSpacing: '-0.01em',
             marginBottom: 'var(--space-3)'
           }}>Start Exploring New Cities</h2>
           <p style={{ 
-            fontSize: 'var(--text-md)', 
+            fontSize: isMobile ? '0.875rem' : 'var(--text-md)', 
             fontWeight: 'var(--weight-light)',
             marginBottom: 'var(--space-4)',
             color: 'var(--color-gray-90)',
             maxWidth: '600px',
             marginLeft: 'auto',
-            marginRight: 'auto'
+            marginRight: 'auto',
+            padding: isMobile ? '0 1rem' : '0'
           }}>
             Discover curated experiences in North America's most vibrant cities. Each guide is crafted with precision for sophisticated travelers and locals alike.
           </p>
           <Box sx={{ 
             display: 'flex', 
-            gap: 3, 
+            gap: isMobile ? 2 : 3,
             justifyContent: 'center',
             flexWrap: 'wrap',
-            marginTop: 4
+            marginTop: 4,
+            flexDirection: isMobile ? 'column' : 'row',
+            padding: isMobile ? '0 1rem' : '0'
           }}>
-            <RouterLink to="/boulder" className="btn-primary">Explore Boulder</RouterLink>
-            <RouterLink to="/activities" className="btn-primary">Explore Toronto</RouterLink>
-            {/* Space for future city buttons */}
+            <RouterLink to="/boulder" className="btn-primary" style={{
+              width: isMobile ? '100%' : 'auto',
+              textAlign: 'center'
+            }}>Explore Boulder</RouterLink>
+            <RouterLink to="/activities" className="btn-primary" style={{
+              width: isMobile ? '100%' : 'auto',
+              textAlign: 'center'
+            }}>Explore Toronto</RouterLink>
           </Box>
         </div>
       </section>
@@ -209,12 +265,12 @@ const Home = () => {
       <footer style={{ 
         backgroundColor: 'var(--color-white)', 
         borderTop: '1px solid var(--color-gray-90)',
-        padding: 'var(--space-3) 0',
+        padding: isMobile ? 'var(--space-2) var(--space-4)' : 'var(--space-3) 0',
         textAlign: 'center'
       }}>
         <div className="swiss-container">
           <p style={{ 
-            fontSize: 'var(--text-sm)', 
+            fontSize: isMobile ? '0.75rem' : 'var(--text-sm)', 
             color: 'var(--color-gray-70)',
             fontWeight: 'var(--weight-medium)',
             textTransform: 'uppercase',

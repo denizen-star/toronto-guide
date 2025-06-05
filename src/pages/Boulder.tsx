@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box, Grid, Typography, Container } from '@mui/material';
+import { Box, Grid, Typography, Container, useTheme, useMediaQuery } from '@mui/material';
 import EnhancedMinimalistCard from '../components/MinimalistCard';
 import EnhancedFilterSystem, { FilterConfig } from '../components/EnhancedFilterSystem';
 import { useSearch } from '../components/Layout';
@@ -122,6 +122,8 @@ const getActivityIcon = (category: string): React.ReactNode => {
 };
 
 const Boulder: React.FC = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { searchTerm, setSearchPlaceholder } = useSearch();
   const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({
     category: [],
@@ -806,146 +808,52 @@ const Boulder: React.FC = () => {
   }, [filteredData]);
 
   return (
-    <Box>
-      {/* Breadcrumb */}
-      <section className="breadcrumb">
-        <div className="swiss-container">
-          <ul className="breadcrumb-list">
-            <li><RouterLink to="/" className="breadcrumb-link">Home</RouterLink></li>
-            <li>/</li>
-            <li>Boulder Guide</li>
-          </ul>
-        </div>
-      </section>
-
-      {/* Page Header with Stats */}
-      <section className="page-header" style={{ 
-        background: 'linear-gradient(135deg, var(--color-warm-taupe) 0%, var(--color-soft-gray) 100%)',
-        borderBottom: '1px solid var(--color-soft-gray)',
-        padding: 'var(--space-8) 0 var(--space-6) 0'
+    <Box sx={{ 
+      padding: isMobile ? '1rem' : '2rem',
+      maxWidth: '100%',
+      overflowX: 'hidden'
+    }}>
+      <Container maxWidth="lg" sx={{ 
+        padding: isMobile ? '0' : '2rem',
+        marginTop: isMobile ? '1rem' : '2rem'
       }}>
-        <div className="swiss-container">
-          <div className="header-content" style={{ 
-            display: 'grid',
-            gridTemplateColumns: '2fr 1fr',
-            gap: 'var(--space-8)',
-            alignItems: 'center'
-          }}>
-            <div>
-              <Typography 
-                variant="h1" 
-                className="page-title" 
-                sx={{ 
-                  fontSize: '3.5rem',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '-0.02em',
-                  marginBottom: 'var(--space-2)',
-                  lineHeight: 1.1
-                }}
-              >
-                Boulder Guide
-              </Typography>
-              <Typography 
-                variant="h5" 
-                className="page-subtitle"
-                sx={{ 
-                  fontSize: '1.25rem',
-                  fontWeight: 300,
-                  color: 'var(--color-deep-slate)',
-                  maxWidth: '600px'
-                }}
-              >
-                Your comprehensive guide to Boulder, CO - From downtown delights to mountain adventures. 
-                Discover the best activities, dining spots, and local favorites in each unique neighborhood.
-              </Typography>
-            </div>
-            <div className="stats-box" style={{
-              backgroundColor: 'var(--color-white)',
-              padding: 'var(--space-4)',
-              borderLeft: '4px solid var(--color-accent-sage)',
-              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)'
-            }}>
-              <div className="stat" style={{ marginBottom: 'var(--space-2)' }}>
-                <div className="stat-number" style={{
-                  fontSize: '1.5rem',
-                  fontWeight: 700,
-                  color: 'var(--color-accent-sage)'
-                }}>{boulderData.length}</div>
-                <div className="stat-label" style={{
-                  fontSize: '0.875rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em',
-                  color: 'var(--color-deep-slate)'
-                }}>Areas</div>
-              </div>
-              <div className="stat" style={{ marginBottom: 'var(--space-2)' }}>
-                <div className="stat-number" style={{
-                  fontSize: '1.5rem',
-                  fontWeight: 700,
-                  color: 'var(--color-accent-sage)'
-                }}>{allActivities.length}</div>
-                <div className="stat-label" style={{
-                  fontSize: '0.875rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em',
-                  color: 'var(--color-deep-slate)'
-                }}>Activities & Venues</div>
-              </div>
-              <div className="stat">
-                <div className="stat-number" style={{
-                  fontSize: '1.5rem',
-                  fontWeight: 700,
-                  color: 'var(--color-accent-sage)'
-                }}>{Array.from(new Set(allActivities.flatMap(item => item.tags))).length}</div>
-                <div className="stat-label" style={{
-                  fontSize: '0.875rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em',
-                  color: 'var(--color-deep-slate)'
-                }}>Categories</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        <Typography variant="h4" component="h1" sx={{ 
+          fontSize: isMobile ? '2rem' : '2.5rem',
+          marginBottom: isMobile ? '1rem' : '2rem',
+          textAlign: isMobile ? 'center' : 'left'
+        }}>
+          Explore Boulder
+        </Typography>
 
-      {/* Enhanced Filter Section */}
-      <EnhancedFilterSystem
-        filters={filterConfigs}
-        selectedFilters={selectedFilters}
-        onFilterChange={handleFilterChange}
-        onResetFilters={handleResetFilters}
-      />
+        <Box sx={{ 
+          marginBottom: isMobile ? '2rem' : '3rem',
+          '& .MuiGrid-item': {
+            width: '100%'
+          }
+        }}>
+          <EnhancedFilterSystem
+            filters={filterConfigs}
+            selectedFilters={selectedFilters}
+            onFilterChange={handleFilterChange}
+            onResetFilters={handleResetFilters}
+          />
+        </Box>
 
-      {/* Content Grid */}
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Grid container spacing={3}>
-          {/* Render area cards first */}
-          {filteredData.map((area) => (
-            <Grid item xs={12} sm={6} md={4} key={area.id}>
-              <EnhancedMinimalistCard
-                data={{
-                  id: area.id,
-                  title: area.title,
-                  description: area.description,
-                  tags: area.tags,
-                  detailPath: `/boulder/${area.id}`
-                }}
-                icon={areaIconMap[area.category]}
-                color="primary"
-              />
-            </Grid>
-          ))}
-          
-          {/* Render activity and happy hour cards */}
-          {allActivities.map((item) => (
-            <Grid item xs={12} sm={6} md={4} key={item.id}>
-              <EnhancedMinimalistCard
-                data={item}
-                icon={getActivityIcon(item.description)}
-                color="primary"
-              />
+        <Grid container spacing={isMobile ? 2 : 3}>
+          {filteredData.map((location) => (
+            <Grid item xs={12} sm={6} md={4} key={location.id}>
+              <Box sx={{ height: '100%' }}>
+                <EnhancedMinimalistCard
+                  data={{
+                    id: location.id,
+                    title: location.title,
+                    description: location.description,
+                    tags: location.tags,
+                    detailPath: `/boulder/${location.id}`
+                  }}
+                  icon={areaIconMap[location.category] || activityIconMap['default']}
+                />
+              </Box>
             </Grid>
           ))}
         </Grid>
