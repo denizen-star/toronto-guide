@@ -27,6 +27,7 @@ import LgbtEvents from './pages/LgbtEvents';
 import LgbtEventDetails from './pages/LgbtEventDetails';
 import Boulder from './pages/Boulder';
 import BoulderDetails from './pages/BoulderDetails';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
       <CssBaseline />
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
