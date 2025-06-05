@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useMemo, useCallback, memo } from 'react';
-import { Box, Grid, Typography, Container, useTheme, useMediaQuery, CircularProgress, Button } from '@mui/material';
+import { Box, Grid, Typography, CircularProgress, Button } from '@mui/material';
 import EnhancedMinimalistCard from '../components/MinimalistCard';
 import EnhancedFilterSystem, { FilterConfig } from '../components/EnhancedFilterSystem';
 import { useSearch } from '../components/Layout';
-import ErrorBoundary from '../components/ErrorBoundary';
 import { loadBoulderData } from '../services/boulderService';
 import type { BoulderLocation, Activity } from '../types/boulder';
 import {
@@ -168,8 +167,6 @@ const ActivityCard = memo(({ activity, locationId }: { activity: Activity; locat
 ));
 
 const Boulder: React.FC = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { searchTerm, setSearchPlaceholder } = useSearch();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
