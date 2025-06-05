@@ -1,10 +1,43 @@
+/* Reset default styles */
+html {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+  scroll-behavior: auto; /* Ensure instant scrolling */
+}
+
 body {
   margin: 0;
+  min-height: 100%;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent scroll chaining on iOS */
+  overscroll-behavior-y: none;
+  -webkit-overscroll-behavior-y: none;
+}
+
+/* Ensure proper viewport height on mobile */
+#root {
+  min-height: 100vh;
+  /* Use the real viewport height on mobile */
+  min-height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fix for mobile viewport height */
+@supports (-webkit-touch-callout: none) {
+  #root {
+    min-height: -webkit-fill-available;
+  }
 }
 
 code {

@@ -178,17 +178,28 @@ const theme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         html: {
-          fontSize: '16px',
+          scrollBehavior: 'auto',
+          WebkitOverflowScrolling: 'touch',
         },
         body: {
-          fontSize: '1rem',
-          lineHeight: 1.5,
-          fontFamily: '"Inter", system-ui, sans-serif',
-          scrollBehavior: 'smooth',
+          scrollBehavior: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          margin: 0,
+          padding: 0,
+          minHeight: '100vh',
+          overflowY: 'scroll',
+          overflowX: 'hidden',
+        },
+        '#root': {
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
         },
         '*': {
           boxSizing: 'border-box',
-        },
+          margin: 0,
+          padding: 0,
+        }
       },
     },
     

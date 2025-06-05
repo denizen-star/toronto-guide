@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Card, CardContent, Box, Typography, Chip, useTheme, alpha, IconButton } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -90,28 +90,53 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
         height: '100%',
         cursor: 'pointer',
         textDecoration: 'none',
-        transition: 'transform 0.2s ease-in-out',
+        transition: 'transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+        transform: 'translateZ(0)',
+        backfaceVisibility: 'hidden',
+        WebkitFontSmoothing: 'antialiased',
         '&:hover': {
-          transform: 'translateY(-4px)',
+          transform: 'translate3d(0, -4px, 0)',
         },
       }}
     >
-      <CardContent sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <CardContent 
+        sx={{ 
+          p: 3, 
+          height: '100%', 
+          display: 'flex', 
+          flexDirection: 'column',
+          transform: 'translateZ(0)',
+          backfaceVisibility: 'hidden',
+        }}
+      >
         {/* Header with Icon */}
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'space-between', 
+            mb: 2,
+            transform: 'translateZ(0)',
+          }}
+        >
           <Box
             sx={{
               p: 1.5,
               borderRadius: 2,
               backgroundColor: alpha(theme.palette[color].main, 0.1),
               color: theme.palette[color].main,
+              transform: 'translateZ(0)',
             }}
           >
             {icon}
           </Box>
           
           {/* Action buttons */}
-          <Box sx={{ display: 'flex', gap: 1 }}>
+          <Box sx={{ 
+            display: 'flex', 
+            gap: 1,
+            transform: 'translateZ(0)',
+          }}>
             {safeData.lgbtqFriendly && (
               <RainbowFlagIcon sx={{ fontSize: '1.2rem' }} />
             )}
@@ -124,7 +149,10 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
                   e.stopPropagation();
                   window.open(directionsUrl, '_blank');
                 }}
-                sx={{ color: 'text.secondary' }}
+                sx={{ 
+                  color: 'text.secondary',
+                  transform: 'translateZ(0)',
+                }}
               >
                 <DirectionsIcon fontSize="small" />
               </IconButton>
@@ -133,7 +161,10 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
         </Box>
 
         {/* Content */}
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ 
+          flexGrow: 1,
+          transform: 'translateZ(0)',
+        }}>
           <Typography variant="h6" gutterBottom>
             {safeData.title}
           </Typography>
@@ -163,7 +194,13 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
         </Box>
 
         {/* Footer */}
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 'auto' }}>
+        <Box sx={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'center', 
+          mt: 'auto',
+          transform: 'translateZ(0)',
+        }}>
           {safeData.website && safeData.website !== '#' && (
             <IconButton
               size="small"
@@ -196,4 +233,4 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
   );
 };
 
-export default EnhancedMinimalistCard; 
+export default memo(EnhancedMinimalistCard); 

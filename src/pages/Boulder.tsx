@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import React, { useState, useEffect, useMemo, useCallback, memo } from 'react';
 import { Box, Grid, Typography, Container, useTheme, useMediaQuery } from '@mui/material';
 import EnhancedMinimalistCard from '../components/MinimalistCard';
 import EnhancedFilterSystem, { FilterConfig } from '../components/EnhancedFilterSystem';
@@ -53,8 +52,39 @@ interface BoulderLocation {
   }>;
 }
 
-// Icon map for different areas and activities
-const areaIconMap: { [key: string]: React.ReactNode } = {
+// Memoize the filter config to prevent recreation on each render
+const filterConfigs: FilterConfig[] = [
+  {
+    key: 'category',
+    label: 'Category',
+    placeholder: 'Select categories',
+    options: [
+      { value: 'dining', label: 'Dining' },
+      { value: 'entertainment', label: 'Entertainment' },
+      { value: 'shopping', label: 'Shopping' },
+      { value: 'outdoor', label: 'Outdoor' },
+      { value: 'art', label: 'Art & Culture' },
+      { value: 'education', label: 'Education' },
+      { value: 'brewery', label: 'Breweries & Bars' }
+    ]
+  },
+  {
+    key: 'area',
+    label: 'Area',
+    placeholder: 'Select areas',
+    options: [
+      { value: 'downtown', label: 'Downtown' },
+      { value: 'hill', label: 'The Hill' },
+      { value: 'nobo', label: 'North Boulder' },
+      { value: 'south', label: 'South Boulder' },
+      { value: 'east', label: 'East Boulder' },
+      { value: 'gunbarrel', label: 'Gunbarrel' }
+    ]
+  }
+];
+
+// Memoize icon maps
+const areaIconMap = {
   'downtown': <LocationCity />,
   'hill': <School />,
   'nobo': <Terrain />,
@@ -63,7 +93,7 @@ const areaIconMap: { [key: string]: React.ReactNode } = {
   'gunbarrel': <LocalDrink />
 };
 
-const activityIconMap: { [key: string]: React.ReactNode } = {
+const activityIconMap = {
   // Shopping & Entertainment
   'Shopping & Entertainment': <Store />,
   'Shopping': <ShoppingBag />,
@@ -116,10 +146,23 @@ const activityIconMap: { [key: string]: React.ReactNode } = {
   'default': <Attractions />
 };
 
-// Function to get the appropriate icon for an activity
-const getActivityIcon = (category: string): React.ReactNode => {
-  return activityIconMap[category] || activityIconMap['default'];
-};
+// Memoized card component
+const LocationCard = memo(({ location, icon }: { location: BoulderLocation; icon: React.ReactNode }) => (
+  <Grid item xs={12} sm={6} md={4}>
+    <Box sx={{ height: '100%' }}>
+      <EnhancedMinimalistCard
+        data={{
+          id: location.id,
+          title: location.title,
+          description: location.description,
+          tags: location.tags,
+          detailPath: `/boulder/${location.id}`
+        }}
+        icon={icon}
+      />
+    </Box>
+  </Grid>
+));
 
 const Boulder: React.FC = () => {
   const theme = useTheme();
@@ -564,100 +607,7 @@ const Boulder: React.FC = () => {
     }
   ], []);
 
-  // Create filter configurations
-  const filterConfigs: FilterConfig[] = useMemo(() => [
-    {
-      key: 'category',
-      label: 'Category',
-      placeholder: 'Select categories',
-      options: [
-        { value: 'dining', label: 'Dining & Drinks' },
-        { value: 'entertainment', label: 'Entertainment' },
-        { value: 'shopping', label: 'Shopping' },
-        { value: 'outdoor', label: 'Outdoor Activities' },
-        { value: 'art', label: 'Arts & Culture' },
-        { value: 'education', label: 'Education & Science' },
-        { value: 'brewery', label: 'Breweries & Bars' }
-      ]
-    },
-    {
-      key: 'activityType',
-      label: 'Activity Type',
-      placeholder: 'Select activity types',
-      options: [
-        { value: 'Restaurant', label: 'Restaurants' },
-        { value: 'Bar', label: 'Bars' },
-        { value: 'Brewery', label: 'Breweries' },
-        { value: 'Hiking', label: 'Hiking & Trails' },
-        { value: 'Shopping', label: 'Shopping' },
-        { value: 'Arts & Culture', label: 'Arts & Culture' },
-        { value: 'Museum', label: 'Museums' },
-        { value: 'Park', label: 'Parks & Recreation' },
-        { value: 'Science & Education', label: 'Science & Education' },
-        { value: 'Local Experience', label: 'Local Experiences' }
-      ]
-    },
-    {
-      key: 'tags',
-      label: 'Tags',
-      placeholder: 'Select tags',
-      options: [
-        // Dining & Drinks
-        { value: 'dining', label: 'Dining' },
-        { value: 'happy-hour', label: 'Happy Hour' },
-        { value: 'brewery', label: 'Brewery' },
-        { value: 'coffee', label: 'Coffee & Cafes' },
-        { value: 'wine', label: 'Wine' },
-        
-        // Culture & Entertainment
-        { value: 'art', label: 'Art' },
-        { value: 'music', label: 'Music' },
-        { value: 'culture', label: 'Culture' },
-        { value: 'entertainment', label: 'Entertainment' },
-        { value: 'theater', label: 'Theater' },
-        
-        // Outdoor & Recreation
-        { value: 'hiking', label: 'Hiking' },
-        { value: 'biking', label: 'Biking' },
-        { value: 'outdoor', label: 'Outdoor' },
-        { value: 'parks', label: 'Parks' },
-        { value: 'nature', label: 'Nature' },
-        { value: 'recreation', label: 'Recreation' },
-        
-        // Shopping & Local
-        { value: 'shopping', label: 'Shopping' },
-        { value: 'local', label: 'Local Experience' },
-        { value: 'craft', label: 'Craft & Artisan' },
-        
-        // Education & Science
-        { value: 'education', label: 'Education' },
-        { value: 'science', label: 'Science' },
-        { value: 'research', label: 'Research' },
-        
-        // Atmosphere & Setting
-        { value: 'relaxed', label: 'Relaxed' },
-        { value: 'community', label: 'Community' },
-        { value: 'student-life', label: 'Student Life' },
-        { value: 'suburban', label: 'Suburban' },
-        { value: 'historic', label: 'Historic' }
-      ]
-    },
-    {
-      key: 'area',
-      label: 'Area',
-      placeholder: 'Select areas',
-      options: [
-        { value: 'downtown', label: 'Downtown' },
-        { value: 'hill', label: 'The Hill' },
-        { value: 'nobo', label: 'North Boulder' },
-        { value: 'south', label: 'South Boulder' },
-        { value: 'east', label: 'East Boulder' },
-        { value: 'gunbarrel', label: 'Gunbarrel' }
-      ]
-    }
-  ], []);
-
-  // Handle filter changes
+  // Handle filter changes with useCallback
   const handleFilterChange = useCallback((filterId: string, values: string[]) => {
     setSelectedFilters(prev => ({
       ...prev,
@@ -665,7 +615,7 @@ const Boulder: React.FC = () => {
     }));
   }, []);
 
-  // Handle filter reset
+  // Handle filter reset with useCallback
   const handleResetFilters = useCallback(() => {
     setSelectedFilters({
       category: [],
@@ -676,7 +626,7 @@ const Boulder: React.FC = () => {
     });
   }, []);
 
-  // Filter data based on search term and filters
+  // Memoize the filtered data
   const filteredData = useMemo(() => {
     return boulderData.filter(location => {
       // Search term filter
@@ -775,62 +725,46 @@ const Boulder: React.FC = () => {
     });
   }, [boulderData, searchTerm, selectedFilters]);
 
-  // Create a flattened array of all activities with their area information
-  const allActivities = useMemo(() => {
-    return filteredData.flatMap(area => {
-      // Create cards for each activity
-      const activityCards = area.activities.map(activity => ({
-        id: `${area.id}-${activity.title.toLowerCase().replace(/\s+/g, '-')}`,
-        title: activity.title,
-        description: activity.category,
-        category: area.category,
-        tags: [...area.tags, activity.category],
-        website: activity.website,
-        location: activity.address,
-        detailPath: `/boulder/${area.id}`
-      }));
-
-      // Create cards for each happy hour venue if they exist
-      const happyHourCards = area.happyHours?.map(venue => ({
-        id: `${area.id}-${venue.name.toLowerCase().replace(/\s+/g, '-')}`,
-        title: venue.name,
-        description: venue.details,
-        category: area.category,
-        tags: [...area.tags, 'happy-hour'],
-        website: venue.website,
-        location: venue.address,
-        detailPath: `/boulder/${area.id}`
-      })) || [];
-
-      // Combine activity and happy hour cards
-      return [...activityCards, ...happyHourCards];
-    });
-  }, [filteredData]);
-
   return (
-    <Box sx={{ 
-      padding: isMobile ? '1rem' : '2rem',
-      maxWidth: '100%',
-      overflowX: 'hidden'
-    }}>
-      <Container maxWidth="lg" sx={{ 
-        padding: isMobile ? '0' : '2rem',
-        marginTop: isMobile ? '1rem' : '2rem'
-      }}>
-        <Typography variant="h4" component="h1" sx={{ 
-          fontSize: isMobile ? '2rem' : '2.5rem',
-          marginBottom: isMobile ? '1rem' : '2rem',
-          textAlign: isMobile ? 'center' : 'left'
-        }}>
+    <Box 
+      sx={{ 
+        padding: isMobile ? '1rem' : '2rem',
+        maxWidth: '100%',
+        overflowX: 'hidden',
+        transform: 'translateZ(0)', // Hardware acceleration
+        WebkitFontSmoothing: 'antialiased',
+      }}
+    >
+      <Container 
+        maxWidth="lg" 
+        sx={{ 
+          padding: isMobile ? '0' : '2rem',
+          marginTop: isMobile ? '1rem' : '2rem',
+          transform: 'translateZ(0)', // Hardware acceleration
+        }}
+      >
+        <Typography 
+          variant="h4" 
+          component="h1" 
+          sx={{ 
+            fontSize: isMobile ? '2rem' : '2.5rem',
+            marginBottom: isMobile ? '1rem' : '2rem',
+            textAlign: isMobile ? 'center' : 'left',
+            transform: 'translateZ(0)', // Hardware acceleration
+          }}
+        >
           Explore Boulder
         </Typography>
 
-        <Box sx={{ 
-          marginBottom: isMobile ? '2rem' : '3rem',
-          '& .MuiGrid-item': {
-            width: '100%'
-          }
-        }}>
+        <Box 
+          sx={{ 
+            marginBottom: isMobile ? '2rem' : '3rem',
+            '& .MuiGrid-item': {
+              width: '100%'
+            },
+            transform: 'translateZ(0)', // Hardware acceleration
+          }}
+        >
           <EnhancedFilterSystem
             filters={filterConfigs}
             selectedFilters={selectedFilters}
@@ -839,22 +773,19 @@ const Boulder: React.FC = () => {
           />
         </Box>
 
-        <Grid container spacing={isMobile ? 2 : 3}>
+        <Grid 
+          container 
+          spacing={isMobile ? 2 : 3}
+          sx={{
+            transform: 'translateZ(0)', // Hardware acceleration
+          }}
+        >
           {filteredData.map((location) => (
-            <Grid item xs={12} sm={6} md={4} key={location.id}>
-              <Box sx={{ height: '100%' }}>
-                <EnhancedMinimalistCard
-                  data={{
-                    id: location.id,
-                    title: location.title,
-                    description: location.description,
-                    tags: location.tags,
-                    detailPath: `/boulder/${location.id}`
-                  }}
-                  icon={areaIconMap[location.category] || activityIconMap['default']}
-                />
-              </Box>
-            </Grid>
+            <LocationCard
+              key={location.id}
+              location={location}
+              icon={areaIconMap[location.category] || activityIconMap['default']}
+            />
           ))}
         </Grid>
       </Container>
@@ -862,4 +793,4 @@ const Boulder: React.FC = () => {
   );
 };
 
-export default Boulder; 
+export default memo(Boulder); 

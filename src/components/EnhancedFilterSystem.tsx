@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useState } from 'react';
+import React, { useMemo, useCallback, useState, memo } from 'react';
 import { 
   Box, 
   Chip, 
@@ -6,7 +6,6 @@ import {
   Typography, 
   Collapse,
   IconButton,
-  Divider,
   useTheme,
   alpha
 } from '@mui/material';
@@ -37,6 +36,56 @@ export interface EnhancedFilterSystemProps {
   onResetFilters: () => void;
   className?: string;
 }
+
+// Memoized filter bubble component
+const FilterBubble = memo(({ 
+  filterKey, 
+  value, 
+  label, 
+  onRemove 
+}: { 
+  filterKey: string; 
+  value: string; 
+  label: string;
+  onRemove: (filterKey: string, value: string) => void;
+}) => (
+  <Chip
+    key={`${filterKey}-${value}`}
+    label={label}
+    onDelete={() => onRemove(filterKey, value)}
+    size="small"
+    sx={{
+      m: 0.5,
+      backgroundColor: 'var(--color-warm-taupe)',
+      borderColor: 'var(--color-soft-gray)',
+      transform: 'translateZ(0)', // Hardware acceleration
+      '&:hover': {
+        backgroundColor: 'var(--color-warm-taupe)',
+        transform: 'translateZ(0) translateY(-1px)',
+      }
+    }}
+  />
+));
+
+// Memoized multi-select filter component
+const FilterGroup = memo(({ 
+  filter, 
+  selectedValues, 
+  onChange 
+}: { 
+  filter: FilterConfig; 
+  selectedValues: string[]; 
+  onChange: (filterKey: string, values: string[]) => void;
+}) => (
+  <MultiSelectFilter
+    key={filter.key}
+    label={filter.label}
+    options={filter.options}
+    selectedValues={selectedValues}
+    onChange={(values) => onChange(filter.key, values)}
+    placeholder={filter.placeholder}
+  />
+));
 
 const EnhancedFilterSystem: React.FC<EnhancedFilterSystemProps> = ({
   filters,
@@ -96,19 +145,31 @@ const EnhancedFilterSystem: React.FC<EnhancedFilterSystemProps> = ({
   }, [onFilterChange]);
 
   return (
-    <section className={`filter-section ${className}`} style={{
-      backgroundColor: 'var(--color-warm-taupe)',
-      borderTop: '1px solid var(--color-soft-gray)',
-      borderBottom: '1px solid var(--color-soft-gray)',
-    }}>
-      <div className="swiss-container">
+    <section 
+      className={`filter-section ${className}`} 
+      style={{
+        backgroundColor: 'var(--color-warm-taupe)',
+        borderTop: '1px solid var(--color-soft-gray)',
+        borderBottom: '1px solid var(--color-soft-gray)',
+        transform: 'translateZ(0)', // Hardware acceleration
+        backfaceVisibility: 'hidden',
+        WebkitFontSmoothing: 'antialiased',
+      }}
+    >
+      <div 
+        className="swiss-container"
+        style={{
+          transform: 'translateZ(0)', // Hardware acceleration
+        }}
+      >
         {/* Compact Filter Header */}
         <Box sx={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           py: 1.5,
-          minHeight: '48px'
+          minHeight: '48px',
+          transform: 'translateZ(0)', // Hardware acceleration
         }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <IconButton
@@ -197,169 +258,52 @@ const EnhancedFilterSystem: React.FC<EnhancedFilterSystemProps> = ({
           </Box>
         </Box>
 
-        {/* Compact Filter Bubbles - Always Visible When Active */}
+        {/* Filter Bubbles */}
         {filterBubbles.length > 0 && (
-          <Box sx={{
-            pb: isExpanded ? 1.5 : 2,
-            transition: 'padding-bottom 0.2s ease'
-          }}>
-            <Box sx={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: 0.75,
-              p: 1.5,
-              backgroundColor: 'white',
-              borderRadius: '6px',
-              border: '1px solid var(--color-soft-gray)',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
-            }}>
-              {filterBubbles.map((bubble, _index) => (
-                <Chip
-                  key={`${bubble.filterKey}-${bubble.value}`}
-                  label={bubble.label}
-                  onDelete={() => handleRemoveFilterItem(bubble.filterKey, bubble.value)}
-                  deleteIcon={<Clear fontSize="small" />}
-                  size="small"
-                  sx={{
-                    backgroundColor: 'var(--color-warm-taupe)',
-                    border: '1px solid var(--color-soft-gray)',
-                    fontSize: '11px',
-                    fontFamily: 'var(--font-primary)',
-                    fontWeight: 'var(--weight-medium)',
-                    height: '24px',
-                    '& .MuiChip-label': {
-                      px: 1
-                    },
-                    '& .MuiChip-deleteIcon': {
-                      color: 'var(--color-deep-slate)',
-                      fontSize: '14px',
-                      '&:hover': {
-                        color: 'var(--color-elegant-coral)'
-                      }
-                    },
-                    '&:hover': {
-                      backgroundColor: alpha(theme.palette.primary.main, 0.08)
-                    }
-                  }}
-                />
-              ))}
-            </Box>
+          <Box 
+            sx={{ 
+              display: 'flex', 
+              flexWrap: 'wrap', 
+              gap: 0.5, 
+              py: 1,
+              transform: 'translateZ(0)', // Hardware acceleration
+            }}
+          >
+            {filterBubbles.map(bubble => (
+              <FilterBubble
+                key={`${bubble.filterKey}-${bubble.value}`}
+                {...bubble}
+                onRemove={handleRemoveFilterItem}
+              />
+            ))}
           </Box>
         )}
 
-        {/* Collapsible Filter Controls */}
-        <Collapse in={isExpanded} timeout={200}>
-          <Box sx={{ pb: 2 }}>
-            {/* Compact Swiss Grid Layout */}
-            <Box sx={{
-              display: 'grid',
-              gridTemplateColumns: {
-                xs: '1fr',
-                sm: 'repeat(2, 1fr)',
-                md: 'repeat(3, 1fr)',
-                lg: 'repeat(4, 1fr)'
-              },
-              gap: 1.5,
-              mt: 1
-            }}>
-              {filters.map((filter, _index) => (
-                <Box
-                  key={filter.key}
-                  sx={{
-                    '& .MuiFormControl-root': {
-                      '& .MuiInputLabel-root': {
-                        fontSize: '12px',
-                        fontWeight: 'var(--weight-medium)',
-                        fontFamily: 'var(--font-primary)',
-                        color: 'var(--color-deep-slate)',
-                        '&.Mui-focused': {
-                          color: 'var(--color-charcoal)'
-                        }
-                      },
-                      '& .MuiOutlinedInput-root': {
-                        fontSize: '13px',
-                        fontFamily: 'var(--font-primary)',
-                        backgroundColor: 'white',
-                        minHeight: '36px',
-                        '& .MuiOutlinedInput-notchedOutline': {
-                          borderColor: 'var(--color-soft-gray)',
-                          borderWidth: '1px'
-                        },
-                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                          borderColor: 'var(--color-accent-sage)'
-                        },
-                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                          borderColor: 'var(--color-charcoal)',
-                          borderWidth: '1px'
-                        }
-                      },
-                      '& .MuiChip-root': {
-                        fontSize: '11px',
-                        height: '20px',
-                        fontFamily: 'var(--font-primary)'
-                      }
-                    }
-                  }}
-                >
-                  <MultiSelectFilter
-                    label={filter.label}
-                    options={filter.options}
-                    selectedValues={selectedFilters[filter.key] || []}
-                    onChange={(values) => handleFilterChangeOptimized(filter.key, values)}
-                    placeholder={filter.placeholder}
-                  />
-                </Box>
-              ))}
-            </Box>
-
-            {/* Swiss Typography Divider */}
-            <Divider sx={{
-              mt: 2,
-              borderColor: 'var(--color-soft-gray)',
-              opacity: 0.6
-            }} />
-
-            {/* Compact Action Bar */}
-            <Box sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              mt: 1.5
-            }}>
-              <Typography
-                variant="caption"
-                sx={{
-                  fontSize: '11px',
-                  color: 'var(--color-deep-slate)',
-                  fontFamily: 'var(--font-primary)',
-                  fontWeight: 'var(--weight-medium)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em'
-                }}
-              >
-                {totalSelectedItems > 0 ? `${totalSelectedItems} filter${totalSelectedItems === 1 ? '' : 's'} active` : 'No filters applied'}
-              </Typography>
-
-              <Button
-                onClick={handleToggleExpanded}
-                size="small"
-                sx={{
-                  color: 'var(--color-deep-slate)',
-                  fontSize: '11px',
-                  fontWeight: 'var(--weight-medium)',
-                  textTransform: 'uppercase',
-                  fontFamily: 'var(--font-primary)',
-                  letterSpacing: '0.025em',
-                  minHeight: '24px',
-                  px: 1,
-                  '&:hover': {
-                    backgroundColor: alpha(theme.palette.primary.main, 0.04)
-                  }
-                }}
-              >
-                Collapse
-              </Button>
-            </Box>
+        {/* Filter Groups */}
+        <Collapse 
+          in={isExpanded} 
+          timeout={200}
+          sx={{
+            transform: 'translateZ(0)', // Hardware acceleration
+          }}
+        >
+          <Box 
+            sx={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              gap: 2, 
+              py: 2,
+              transform: 'translateZ(0)', // Hardware acceleration
+            }}
+          >
+            {filters.map(filter => (
+              <FilterGroup
+                key={filter.key}
+                filter={filter}
+                selectedValues={selectedFilters[filter.key] || []}
+                onChange={handleFilterChangeOptimized}
+              />
+            ))}
           </Box>
         </Collapse>
       </div>
@@ -367,4 +311,4 @@ const EnhancedFilterSystem: React.FC<EnhancedFilterSystemProps> = ({
   );
 };
 
-export default React.memo(EnhancedFilterSystem); 
+export default memo(EnhancedFilterSystem); 
