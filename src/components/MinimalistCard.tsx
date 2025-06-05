@@ -1,9 +1,21 @@
 import React, { memo } from 'react';
 import { Card, CardContent, Box, Typography, Chip, useTheme, alpha, IconButton } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import LaunchIcon from '@mui/icons-material/Launch';
-import DirectionsIcon from '@mui/icons-material/Directions';
+import {
+  ArrowForward as ArrowForwardIcon,
+  Launch as LaunchIcon,
+  Directions as DirectionsIcon,
+  LocationCity,
+  Business,
+  LocalBar,
+  Museum,
+  WaterOutlined,
+  TheaterComedy,
+  Waves,
+  Store,
+  Restaurant,
+  Apartment
+} from '@mui/icons-material';
 import RainbowFlagIcon from './RainbowFlagIcon';
 
 export interface EnhancedCardData {
@@ -37,6 +49,48 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
   color = 'primary',
 }) => {
   const theme = useTheme();
+
+  // Define area color map
+  const areaColorMap = {
+    'downtown': 'primary',
+    'yorkville': 'secondary',
+    'distillery': 'success',
+    'king-west': 'info',
+    'beaches': 'warning',
+    'entertainment': 'error',
+    'harbourfront': 'primary',
+    'queen-west': 'secondary',
+    'kensington': 'success',
+    'ossington': 'info',
+    'waterfront': 'warning',
+    'midtown': 'error'
+  } as const;
+
+  // Define area icon map
+  const areaIconMap = {
+    'downtown': <LocationCity />,
+    'yorkville': <Business />,
+    'distillery': <Museum />,
+    'king-west': <Apartment />,
+    'beaches': <WaterOutlined />,
+    'entertainment': <TheaterComedy />,
+    'harbourfront': <Waves />,
+    'queen-west': <Store />,
+    'kensington': <Restaurant />,
+    'ossington': <LocalBar />,
+    'waterfront': <Waves />,
+    'midtown': <Business />
+  } as const;
+
+  // Get color based on neighborhood if it exists
+  const cardColor = data.neighborhood ? 
+    areaColorMap[data.neighborhood.toLowerCase().replace(/\s+/g, '-') as keyof typeof areaColorMap] || color : 
+    color;
+
+  // Get icon based on neighborhood if it exists
+  const cardIcon = data.neighborhood ? 
+    areaIconMap[data.neighborhood.toLowerCase().replace(/\s+/g, '-') as keyof typeof areaIconMap] || icon : 
+    icon;
 
   // Generate Google Maps directions URL
   const getDirectionsUrl = () => {
@@ -94,14 +148,43 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
         transform: 'translateZ(0)',
         backfaceVisibility: 'hidden',
         WebkitFontSmoothing: 'antialiased',
-        border: `1px solid ${alpha(theme.palette[color].main, 0.3)}`,
-        boxShadow: `0 2px 8px ${alpha(theme.palette[color].main, 0.15)},
-                    inset 0 1px 2px ${alpha(theme.palette[color].main, 0.1)}`,
+        border: `1px solid ${alpha(theme.palette[cardColor].main, 0.3)}`,
+        boxShadow: `
+          0 2px 8px ${alpha(theme.palette[cardColor].main, 0.15)},
+          inset 0 1px 2px ${alpha(theme.palette[cardColor].main, 0.1)}
+        `,
+        borderRadius: '8px',
+        position: 'relative',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          borderRadius: '8px',
+          padding: '1px',
+          background: `linear-gradient(135deg, 
+            ${alpha(theme.palette[cardColor].main, 0.4)},
+            ${alpha(theme.palette[cardColor].main, 0.1)}
+          )`,
+          WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+          WebkitMaskComposite: 'xor',
+          maskComposite: 'exclude',
+          pointerEvents: 'none'
+        },
         '&:hover': {
           transform: 'translate3d(0, -4px, 0)',
-          boxShadow: `0 4px 12px ${alpha(theme.palette[color].main, 0.2)},
-                      inset 0 1px 2px ${alpha(theme.palette[color].main, 0.1)}`,
-          border: `1px solid ${alpha(theme.palette[color].main, 0.4)}`,
+          boxShadow: `
+            0 4px 12px ${alpha(theme.palette[cardColor].main, 0.2)},
+            inset 0 1px 2px ${alpha(theme.palette[cardColor].main, 0.1)}
+          `,
+          '&::before': {
+            background: `linear-gradient(135deg, 
+              ${alpha(theme.palette[cardColor].main, 0.6)},
+              ${alpha(theme.palette[cardColor].main, 0.2)}
+            )`
+          }
         },
       }}
     >
@@ -129,12 +212,12 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
             sx={{
               p: 1.5,
               borderRadius: 2,
-              backgroundColor: alpha(theme.palette[color].main, 0.1),
-              color: theme.palette[color].main,
+              backgroundColor: alpha(theme.palette[cardColor].main, 0.1),
+              color: theme.palette[cardColor].main,
               transform: 'translateZ(0)',
             }}
           >
-            {icon}
+            {cardIcon}
           </Box>
           
           {/* Action buttons */}
