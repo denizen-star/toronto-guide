@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useMemo, useCallback, memo } from 'react';
-import { Box, Grid, Typography, Container, useTheme, useMediaQuery } from '@mui/material';
+import { Box, Grid, Typography, Container, useTheme, useMediaQuery, CircularProgress, Button } from '@mui/material';
 import EnhancedMinimalistCard from '../components/MinimalistCard';
 import EnhancedFilterSystem, { FilterConfig } from '../components/EnhancedFilterSystem';
 import { useSearch } from '../components/Layout';
+import ErrorBoundary from '../components/ErrorBoundary';
+import { loadBoulderData } from '../services/boulderService';
+import type { BoulderLocation, Activity } from '../types/boulder';
 import {
   LocationCity,
   School,
@@ -30,27 +33,7 @@ import {
   Attractions,
   NightlifeOutlined
 } from '@mui/icons-material';
-
-// Define the data structure for Boulder locations
-interface BoulderLocation {
-  id: string;
-  title: string;
-  description: string;
-  category: string;
-  tags: string[];
-  activities: Array<{
-    title: string;
-    category: string;
-    address: string;
-    website?: string;
-  }>;
-  happyHours?: Array<{
-    name: string;
-    details: string;
-    address: string;
-    website?: string;
-  }>;
-}
+import { Link as RouterLink } from 'react-router-dom';
 
 // Memoize the filter config to prevent recreation on each render
 const filterConfigs: FilterConfig[] = [
@@ -164,10 +147,33 @@ const LocationCard = memo(({ location, icon }: { location: BoulderLocation; icon
   </Grid>
 ));
 
+// Memoized activity card component
+const ActivityCard = memo(({ activity, locationId }: { activity: Activity; locationId: string }) => (
+  <Grid item xs={12} sm={6} md={4}>
+    <Box sx={{ height: '100%' }}>
+      <EnhancedMinimalistCard
+        data={{
+          id: `${locationId}-${activity.title.toLowerCase().replace(/\s+/g, '-')}`,
+          title: activity.title,
+          description: activity.category,
+          tags: [activity.category],
+          detailPath: activity.website || '#',
+          address: activity.address,
+          website: activity.website
+        }}
+        icon={activityIconMap[activity.category as keyof typeof activityIconMap] || activityIconMap['default']}
+      />
+    </Box>
+  </Grid>
+));
+
 const Boulder: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { searchTerm, setSearchPlaceholder } = useSearch();
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+  const [boulderData, setBoulderData] = useState<BoulderLocation[]>([]);
   const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({
     category: [],
     activityType: [],
@@ -177,435 +183,23 @@ const Boulder: React.FC = () => {
   });
 
   useEffect(() => {
-    setSearchPlaceholder('Search Boulder locations...');
-  }, [setSearchPlaceholder]);
+    const loadData = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const data = await loadBoulderData();
+        setBoulderData(data);
+        setSearchPlaceholder('Search Boulder locations...');
+      } catch (error) {
+        console.error('Error loading data:', error);
+        setError(error instanceof Error ? error : new Error('Failed to load data'));
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  // Boulder data structured for cards
-  const boulderData: BoulderLocation[] = useMemo(() => [
-    {
-      id: 'downtown',
-      title: 'Downtown Boulder / Pearl Street Mall',
-      description: 'The vibrant heart of the city with unique boutiques, art galleries, diverse restaurants, and lively street performers. The architecture is charming, blending historic buildings with modern touches, and it offers stunning views of the Flatirons.',
-      category: 'downtown',
-      tags: ['shopping', 'dining', 'entertainment', 'art', 'culture', 'outdoor', 'historic', 'local'],
-      activities: [
-        {
-          title: 'Pearl Street Mall',
-          category: 'Shopping & Entertainment',
-          address: 'Pearl Street Mall, Boulder, CO',
-          website: 'https://boulderdowntown.com/pearl-street-mall'
-        },
-        {
-          title: 'Flatirons Hiking & Biking',
-          category: 'Outdoor Recreation',
-          address: 'Various trailheads (e.g., Chautauqua Park)',
-        },
-        {
-          title: 'Boulder Museum of Contemporary Art',
-          category: 'Arts & Culture',
-          address: '1750 13th St, Boulder, CO 80302',
-          website: 'https://bmoca.org'
-        },
-        {
-          title: 'Boulder Farmers Market',
-          category: 'Local Experience',
-          address: '13th St between Canyon & Arapahoe, Boulder, CO',
-          website: 'https://boulderfarmers.org'
-        },
-        {
-          title: 'Boulder Theater',
-          category: 'Entertainment',
-          address: '2032 14th St, Boulder, CO 80302',
-          website: 'https://bouldertheater.com'
-        },
-        {
-          title: 'Boulder Creek Path',
-          category: 'Outdoor Recreation',
-          address: 'Runs through downtown Boulder'
-        }
-      ],
-      happyHours: [
-        {
-          name: 'The West End Tavern',
-          details: 'Mon-Fri: 3-6 PM, Thu-Sat: 9 PM-12 AM (late night). Mon: All Day Wings',
-          address: '926 Pearl St, Boulder, CO 80302',
-          website: 'https://thewestendtavern.com'
-        },
-        {
-          name: 'Centro Mexican Kitchen',
-          details: 'Mon: All day, Daily: 2-5 PM. Food/drink specials',
-          address: '950 Pearl St, Boulder, CO 80302',
-          website: 'https://www.centromexican.com'
-        },
-        {
-          name: 'Hapa Sushi Grill & Sake Bar',
-          details: 'Daily: 2:30-5:30 PM (Online: 2:30-4:30 PM). 2 for $12 rolls, half off apps, drink specials',
-          address: '1110 Pearl St, Boulder, CO 80302',
-          website: 'https://hapasushi.com'
-        },
-        {
-          name: 'Pearl Street Pub & Cellar',
-          details: 'Mon-Sun: 4-7 PM. General happy hour pricing',
-          address: '1108 Pearl St, Boulder, CO 80302',
-          website: 'https://boulderdowntown.com/go/pearl-street-pub'
-        },
-        {
-          name: 'The Bitter Bar',
-          details: 'Daily: 5-7 PM. $7 small bites, $9 cocktails, $1 off wine',
-          address: '835 Walnut St, Boulder, CO 80302',
-          website: 'https://www.thebitterbar.com'
-        },
-        {
-          name: 'Postino WineCafe',
-          details: 'Daily: Open - 5 PM. $6 wine/pitchers. Mon-Tue after 8 PM: $25 Board + Bottle',
-          address: '1468 Pearl St, Boulder, CO 80302',
-          website: 'https://www.postinowinecafe.com/locations/postino-boulder'
-        },
-        {
-          name: 'Sforno Trattoria Romana',
-          details: 'Daily: 3-6 PM. Food specials. Drink specials: $1 off beers, $8 wine, $10 cocktails',
-          address: '1308 Pearl St, Boulder, CO 80302',
-          website: 'https://sfornoboulder.com'
-        },
-        {
-          name: 'The Spotted James',
-          details: 'Daily Specials: From open until close. Craft drinks available',
-          address: '1911 11th St, Boulder, CO 80302',
-          website: 'https://thespottedjames.com'
-        }
-      ]
-    },
-    {
-      id: 'hill',
-      title: 'The Hill',
-      description: 'A vibrant district adjacent to the University of Colorado Boulder campus, known for its youthful energy, casual eateries, coffee shops, and lively music scene. It\'s a popular hangout spot for students and locals alike.',
-      category: 'hill',
-      tags: ['music', 'dining', 'student-life', 'entertainment', 'shopping', 'education', 'coffee', 'local'],
-      activities: [
-        {
-          title: 'Fox Theatre',
-          category: 'Entertainment',
-          address: '1135 13th St, Boulder, CO 80302',
-          website: 'https://www.foxtheatre.com'
-        },
-        {
-          title: '13th Street Shopping & Cafes',
-          category: 'Local Exploration',
-          address: '13th Street, Boulder, CO'
-        },
-        {
-          title: 'Nick Ryan Gallery',
-          category: 'Arts & Culture',
-          address: '1163 13th St, Boulder, CO 80302',
-          website: 'https://www.nickryangallery.com'
-        },
-        {
-          title: 'Emi\'s Charm Bar',
-          category: 'Shopping & Craft',
-          address: '1144 13th St, Boulder, CO 80302',
-          website: 'https://emischarmbar.com'
-        },
-        {
-          title: 'SLCT Stock & Meow Meow',
-          category: 'Shopping',
-          address: 'SLCT Stock (1107 13th St), Meow Meow (1118 13th St), Boulder, CO 80302'
-        },
-        {
-          title: 'University of Colorado Boulder Campus',
-          category: 'Education & Sightseeing',
-          address: '1669 Euclid Ave, Boulder, CO 80309',
-          website: 'https://www.colorado.edu'
-        },
-        {
-          title: 'Kitchen on the Hill Food Hall',
-          category: 'Dining',
-          address: '1100 13th St, Boulder, CO 80302'
-        },
-        {
-          title: 'The Sink',
-          category: 'Historic Dining',
-          address: '1165 13th St, Boulder, CO 80302',
-          website: 'https://www.thesink.com'
-        }
-      ],
-      happyHours: [
-        {
-          name: 'Illegal Pete\'s (The Hill)',
-          details: 'Daily: 3-8 PM. $1 off Margs/Draft Beer, $4 off Party Margs, $1 off Chips & Queso/Guac',
-          address: '1124 13th Street, Boulder, CO 80302',
-          website: 'https://www.illegalpetes.com/locations/the-hill'
-        },
-        {
-          name: 'The Corner',
-          details: 'Daily: 3-6 PM. $1 off adult beverages',
-          address: '1100 13th Street, Boulder, CO 80302',
-          website: 'https://www.thecornerboulder.com'
-        },
-        {
-          name: 'The Sink',
-          details: 'Sun-Fri: 3-5 PM. Half off select bar drinks, $2 off appetizers',
-          address: '1165 13th St, Boulder, CO 80302',
-          website: 'https://www.thesink.com'
-        }
-      ]
-    },
-    {
-      id: 'nobo',
-      title: 'North Boulder (NoBo)',
-      description: 'North Boulder, often referred to as NoBo, is a more residential and artsy part of the city. It features a growing art district, local coffee shops, bakeries, and peaceful parks. It\'s a great area for a more relaxed pace.',
-      category: 'nobo',
-      tags: ['art', 'parks', 'coffee', 'relaxed', 'wine', 'outdoor', 'local', 'craft'],
-      activities: [
-        {
-          title: 'NoBo Art District',
-          category: 'Arts & Culture',
-          address: 'Along Broadway between Iris & Highway 36, Boulder, CO',
-          website: 'https://noboartdistrict.org'
-        },
-        {
-          title: 'North Boulder Park',
-          category: 'Outdoor Recreation',
-          address: '2844 Broadway, Boulder, CO 80304'
-        },
-        {
-          title: 'Growing Gardens',
-          category: 'Agriculture & Education',
-          address: '1630 Hawthorn Ave, Boulder, CO',
-          website: 'https://www.growinggardens.org'
-        },
-        {
-          title: 'BookCliff Vineyards',
-          category: 'Winery',
-          address: '1501 Lee Hill Rd #17, Boulder, CO 80304',
-          website: 'https://bookcliffvineyards.com'
-        },
-        {
-          title: 'Wonderland Lake',
-          category: 'Outdoor Recreation',
-          address: '4201 Broadway, Boulder, CO 80304'
-        },
-        {
-          title: 'Boulder Sports Recycler',
-          category: 'Shopping',
-          address: '2707 Spruce St, Boulder, CO 80302',
-          website: 'https://bouldersportsrecycler.com'
-        },
-        {
-          title: 'Lucky\'s Bakehouse & Moxie Bread Co',
-          category: 'Cafe & Bakery',
-          address: 'Lucky\'s Bakehouse (3980 Broadway), Moxie Bread Co (6425 Gunpark Dr, Gunbarrel)'
-        }
-      ],
-      happyHours: [
-        {
-          name: 'The Boulder Cork',
-          details: 'Daily: 4:30-6:00 PM. Drink/food specials',
-          address: '3295 30th St, Boulder, CO 80301',
-          website: 'https://bouldercork.com'
-        },
-        {
-          name: 'Dagabi Tapas Bar',
-          details: 'Daily: 5-6:30 PM; All day Tuesday. Tapas, sangria, margaritas, wine, beer',
-          address: '1200 Yarmouth Ave, Boulder, CO 80304',
-          website: 'http://www.dagabicucina.com'
-        },
-        {
-          name: 'Fringe Pizza',
-          details: 'Tue-Sat: 3-5 PM. 50% off wine/beer, food specials',
-          address: '2020 Ionosphere St, Boulder, CO 80301',
-          website: 'https://fringeboulder.com'
-        },
-        {
-          name: 'The Greenbriar Inn',
-          details: 'Check directly; fine dining focus',
-          address: '8735 N Foothills Hwy, Boulder, CO 80302',
-          website: 'https://www.greenbriarinn.com'
-        }
-      ]
-    },
-    {
-      id: 'south',
-      title: 'South Boulder',
-      description: 'South Boulder is primarily a residential area nestled against the foothills, offering a laid-back lifestyle and easy access to numerous hiking trails. It has a strong community feel with local hangouts and brewpubs.',
-      category: 'south',
-      tags: ['hiking', 'nature', 'community', 'science', 'outdoor', 'education', 'research', 'relaxed'],
-      activities: [
-        {
-          title: 'Shanahan Ridge Trail',
-          category: 'Hiking',
-          address: 'Trailhead at Lehigh St, Boulder, CO 80303'
-        },
-        {
-          title: 'Viele Lake & Harlow Platts Community Park',
-          category: 'Parks & Recreation',
-          address: '1360 Gillaspie Dr, Boulder, CO 80305'
-        },
-        {
-          title: 'National Center for Atmospheric Research (NCAR)',
-          category: 'Science & Education',
-          address: '3090 Center Green Dr, Boulder, CO 80301',
-          website: 'https://ncar.ucar.edu/visit'
-        },
-        {
-          title: 'NOAA',
-          category: 'Science & Education',
-          address: '325 Broadway, Boulder, CO 80305',
-          website: 'https://www.noaa.gov'
-        },
-        {
-          title: 'Neptune Mountaineering',
-          category: 'Outdoor Gear & Museum',
-          address: '633 S Broadway, Boulder, CO 80305',
-          website: 'https://www.neptunemountaineering.com'
-        },
-        {
-          title: 'South Boulder Creek Path',
-          category: 'Outdoor Recreation',
-          address: 'Trail access points along South Boulder Creek'
-        }
-      ],
-      happyHours: [
-        {
-          name: 'Southern Sun Pub & Brewery',
-          details: 'Mon-Fri: 3-6 PM; Late night: 9-11 PM (half off alcohol). Discounts on beers/pub grub',
-          address: '627 S Broadway, Boulder, CO 80305',
-          website: 'https://www.mountainsunpub.com/location/southern-sun-pub-brewery'
-        },
-        {
-          name: 'The Post Chicken & Beer',
-          details: 'Mon-Fri: 2-6 PM. $6-14 apps. Drink specials: $5 wine/cocktails/flights; 2 for 1 pints',
-          address: '2027 13th St, Boulder, CO 80302',
-          website: 'https://www.postchickenandbeer.com'
-        },
-        {
-          name: 'Boulder Social',
-          details: 'Mon-Fri: 2-5 PM; Sun-Thu: 9 PM-close (late night). Raw bar, small bites, drink specials',
-          address: '1600 38th St, Boulder, CO 80301',
-          website: 'https://www.besocialcolorado.com/bouldersocial'
-        }
-      ]
-    },
-    {
-      id: 'east',
-      title: 'East Boulder',
-      description: 'East Boulder is known for its mix of residential areas, tech and bioscience industries, and a growing artsy vibe. It offers a more laid-back atmosphere compared to downtown, with a variety of local eateries and parks.',
-      category: 'east',
-      tags: ['science', 'parks', 'dining', 'biking', 'art', 'brewery', 'recreation', 'local'],
-      activities: [
-        {
-          title: 'East End Shopping & Dining',
-          category: 'Shopping & Dining',
-          address: 'East Pearl Street, Boulder, CO',
-          website: 'https://boulderdowntown.com/visit/the-east-end'
-        },
-        {
-          title: 'Mary Williams Fine Arts',
-          category: 'Art Gallery',
-          address: '2460 Canyon Blvd #C5, Boulder, CO 80302',
-          website: 'https://www.marywilliamsfinearts.com'
-        },
-        {
-          title: 'Valmont Bike Park',
-          category: 'Outdoor Recreation',
-          address: '3160 Airport Rd, Boulder, CO 80301',
-          website: 'https://bouldercolorado.gov/locations/valmont-bike-park'
-        },
-        {
-          title: 'Bobolink Trailhead',
-          category: 'Hiking & Biking',
-          address: '69th St & Baseline Rd, Boulder, CO 80303'
-        },
-        {
-          title: 'Local Brewery Tours',
-          category: 'Brewery Tours',
-          address: 'Various locations (e.g., Sanitas Brewing, Avery Brewing)'
-        }
-      ],
-      happyHours: [
-        {
-          name: 'Jax Fish House & Oyster Bar',
-          details: 'Daily: 4-6 PM. $1.50 oysters, half-priced shrimp, food/drink specials',
-          address: '928 Pearl St, Boulder, CO 80302',
-          website: 'https://www.jaxfishhouse.com'
-        },
-        {
-          name: 'Fate Brewing Company',
-          details: 'Mon-Fri: 3-6 PM. $1 off house beers, discounts on select appetizers',
-          address: '1600 38th St, Boulder, CO 80301',
-          website: 'https://fatebrewing.com'
-        },
-        {
-          name: 'Dry Storage',
-          details: 'Tue-Sat: 5-6 PM. $9 cocktails, $7 wines, beer specials',
-          address: '3600 Pearl St, Unit A, Boulder, CO 80301',
-          website: 'https://drystorageco.com'
-        }
-      ]
-    },
-    {
-      id: 'gunbarrel',
-      title: 'Gunbarrel',
-      description: 'Technically just outside Boulder\'s city limits, Gunbarrel offers a more suburban feel with open spaces, breweries, and a growing tech presence. It\'s a quieter area but still provides great dining and recreational options.',
-      category: 'gunbarrel',
-      tags: ['brewery', 'suburban', 'science', 'recreation', 'outdoor', 'relaxed', 'community', 'local'],
-      activities: [
-        {
-          title: 'Left Hand Brewing Company',
-          category: 'Brewery',
-          address: '1265 Boston Ave, Longmont, CO 80501',
-          website: 'https://www.lefthandbrewing.com'
-        },
-        {
-          title: 'Avery Brewing Company',
-          category: 'Brewery & Taproom',
-          address: '4910 Nautilus Ct N, Boulder, CO 80301',
-          website: 'https://www.averybrewing.com'
-        },
-        {
-          title: 'Boulder Country Club',
-          category: 'Golf & Recreation',
-          address: '7350 Clubhouse Rd, Boulder, CO 80301',
-          website: 'https://www.bouldercountryclub.com'
-        },
-        {
-          title: 'Gunbarrel Farm Stand',
-          category: 'Local Produce',
-          address: '6565 Gunpark Dr, Boulder, CO 80301'
-        },
-        {
-          title: 'LoBo Trail',
-          category: 'Outdoor Recreation',
-          address: 'Various access points (e.g., near 63rd St & Spine Rd)'
-        },
-        {
-          title: 'Celestial Seasonings Tea Factory',
-          category: 'Factory Tour',
-          address: '4600 Sleepytime Dr, Boulder, CO 80301',
-          website: 'https://www.celestialseasonings.com/visit-us'
-        }
-      ],
-      happyHours: [
-        {
-          name: 'The Rib House',
-          details: 'Mon-Fri: 3-6 PM. Discounts on draft beers, well drinks, select appetizers',
-          address: '1776 N 63rd St, Boulder, CO 80301',
-          website: 'https://theribhouse.com'
-        },
-        {
-          name: 'Avery Brewing Company',
-          details: 'Check website for specials. Craft beer flights, discounted pints, food specials',
-          address: '4910 Nautilus Ct N, Boulder, CO 80301',
-          website: 'https://www.averybrewing.com'
-        },
-        {
-          name: 'Bootstrap Brewing Company',
-          details: 'Check directly; specials vary. Discounts on pints, growler fills',
-          address: '6778 N 79th St, Niwot, CO 80504',
-          website: 'https://bootstrapbrewing.com'
-        }
-      ]
-    }
-  ], []);
+    loadData();
+  }, [setSearchPlaceholder]);
 
   // Handle filter changes with useCallback
   const handleFilterChange = useCallback((filterId: string, values: string[]) => {
@@ -632,163 +226,165 @@ const Boulder: React.FC = () => {
       // Search term filter
       if (searchTerm) {
         const searchLower = searchTerm.toLowerCase();
-        const matchesSearch = 
+        return (
           location.title.toLowerCase().includes(searchLower) ||
           location.description.toLowerCase().includes(searchLower) ||
-          location.tags.some(tag => tag.toLowerCase().includes(searchLower)) ||
           location.activities.some(activity => 
             activity.title.toLowerCase().includes(searchLower) ||
             activity.category.toLowerCase().includes(searchLower)
-          );
-        
-        if (!matchesSearch) return false;
-      }
-
-      // Category filter
-      if (selectedFilters.category.length > 0) {
-        const matchesCategory = selectedFilters.category.some(category => {
-          switch (category) {
-            case 'dining':
-              return location.activities.some(activity => 
-                ['Restaurant', 'Dining', 'Cafe & Bakery'].some(type => 
-                  activity.category.includes(type)
-                )
-              );
-            case 'entertainment':
-              return location.activities.some(activity => 
-                ['Entertainment', 'Theater', 'Music'].some(type => 
-                  activity.category.includes(type)
-                )
-              );
-            case 'shopping':
-              return location.activities.some(activity => 
-                activity.category.includes('Shopping')
-              );
-            case 'outdoor':
-              return location.activities.some(activity => 
-                ['Hiking', 'Outdoor Recreation', 'Park', 'Trail'].some(type => 
-                  activity.category.includes(type)
-                )
-              );
-            case 'art':
-              return location.activities.some(activity => 
-                ['Arts & Culture', 'Art Gallery', 'Museum'].some(type => 
-                  activity.category.includes(type)
-                )
-              );
-            case 'education':
-              return location.activities.some(activity => 
-                ['Science & Education', 'Education'].some(type => 
-                  activity.category.includes(type)
-                )
-              );
-            case 'brewery':
-              return location.activities.some(activity => 
-                ['Brewery', 'Bar', 'Winery'].some(type => 
-                  activity.category.includes(type)
-                )
-              );
-            default:
-              return false;
-          }
-        });
-        if (!matchesCategory) return false;
-      }
-
-      // Activity Type filter
-      if (selectedFilters.activityType.length > 0) {
-        const matchesActivityType = selectedFilters.activityType.some(type =>
-          location.activities.some(activity => 
-            activity.category.includes(type)
           )
         );
-        if (!matchesActivityType) return false;
-      }
-
-      // Tags filter
-      if (selectedFilters.tags.length > 0) {
-        const matchesTags = selectedFilters.tags.every(tag =>
-          location.tags.some(locationTag => 
-            locationTag.toLowerCase() === tag.toLowerCase()
-          )
-        );
-        if (!matchesTags) return false;
-      }
-
-      // Area filter
-      if (selectedFilters.area.length > 0) {
-        const matchesArea = selectedFilters.area.includes(location.category);
-        if (!matchesArea) return false;
       }
 
       return true;
     });
-  }, [boulderData, searchTerm, selectedFilters]);
+  }, [boulderData, searchTerm]);
+
+  // Filter activities based on category and area filters
+  const filteredActivities = useMemo(() => {
+    const activities: { activity: Activity; locationId: string }[] = [];
+    
+    filteredData.forEach(location => {
+      // Apply category filter
+      if (selectedFilters.category.length > 0 &&
+          !selectedFilters.category.some(cat => location.tags.includes(cat))) {
+        return;
+      }
+
+      // Apply area filter
+      if (selectedFilters.area.length > 0 &&
+          !selectedFilters.area.includes(location.category)) {
+        return;
+      }
+
+      location.activities.forEach(activity => {
+        activities.push({ activity, locationId: location.id });
+      });
+    });
+
+    return activities;
+  }, [filteredData, selectedFilters]);
+
+  // Calculate stats
+  const stats = useMemo(() => ({
+    totalLocations: filteredData.length,
+    totalActivities: filteredData.reduce((acc, location) => acc + location.activities.length, 0),
+    totalHappyHours: filteredData.reduce((acc, location) => acc + (location.happyHours?.length || 0), 0)
+  }), [filteredData]);
+
+  if (isLoading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box sx={{ textAlign: 'center', py: 4 }}>
+        <Typography color="error" gutterBottom>
+          {error.message}
+        </Typography>
+        <Button variant="contained" onClick={() => window.location.reload()}>
+          Retry
+        </Button>
+      </Box>
+    );
+  }
 
   return (
-    <Box 
-      sx={{ 
-        padding: isMobile ? '1rem' : '2rem',
-        maxWidth: '100%',
-        overflowX: 'hidden',
-        transform: 'translateZ(0)', // Hardware acceleration
-        WebkitFontSmoothing: 'antialiased',
-      }}
-    >
-      <Container 
-        maxWidth="lg" 
-        sx={{ 
-          padding: isMobile ? '0' : '2rem',
-          marginTop: isMobile ? '1rem' : '2rem',
-          transform: 'translateZ(0)', // Hardware acceleration
-        }}
-      >
-        <Typography 
-          variant="h4" 
-          component="h1" 
-          sx={{ 
-            fontSize: isMobile ? '2rem' : '2.5rem',
-            marginBottom: isMobile ? '1rem' : '2rem',
-            textAlign: isMobile ? 'center' : 'left',
-            transform: 'translateZ(0)', // Hardware acceleration
-          }}
-        >
-          Explore Boulder
-        </Typography>
+    <Box>
+      {/* Breadcrumb */}
+      <section className="breadcrumb">
+        <div className="swiss-container">
+          <ul className="breadcrumb-list">
+            <li><RouterLink to="/" className="breadcrumb-link">Home</RouterLink></li>
+            <li>/</li>
+            <li>Boulder</li>
+          </ul>
+        </div>
+      </section>
 
-        <Box 
-          sx={{ 
-            marginBottom: isMobile ? '2rem' : '3rem',
-            '& .MuiGrid-item': {
-              width: '100%'
-            },
-            transform: 'translateZ(0)', // Hardware acceleration
-          }}
-        >
-          <EnhancedFilterSystem
-            filters={filterConfigs}
-            selectedFilters={selectedFilters}
-            onFilterChange={handleFilterChange}
-            onResetFilters={handleResetFilters}
-          />
-        </Box>
+      {/* Page Header */}
+      <section className="page-header">
+        <div className="swiss-container">
+          <div className="header-content">
+            <div>
+              <h1 className="page-title">Boulder Guide</h1>
+              <p className="page-subtitle">
+                Discover Boulder's vibrant culture, outdoor activities, and local hotspots. 
+                From Pearl Street's charm to the Flatirons' majesty, explore the best of Boulder.
+              </p>
+            </div>
+            <div className="stats-box">
+              <div className="stat">
+                <div className="stat-number">{stats.totalLocations}</div>
+                <div className="stat-label">Locations</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">{stats.totalActivities}</div>
+                <div className="stat-label">Activities</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">{stats.totalHappyHours}</div>
+                <div className="stat-label">Happy Hours</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <Grid 
-          container 
-          spacing={isMobile ? 2 : 3}
-          sx={{
-            transform: 'translateZ(0)', // Hardware acceleration
-          }}
-        >
-          {filteredData.map((location) => (
-            <LocationCard
-              key={location.id}
-              location={location}
-              icon={areaIconMap[location.category] || activityIconMap['default']}
-            />
-          ))}
-        </Grid>
-      </Container>
+      {/* Enhanced Filter Section */}
+      <EnhancedFilterSystem
+        filters={filterConfigs}
+        selectedFilters={selectedFilters}
+        onFilterChange={handleFilterChange}
+        onResetFilters={handleResetFilters}
+      />
+
+      {/* Locations Grid */}
+      <section className="section-large">
+        <div className="swiss-container">
+          <Typography variant="h5" sx={{ mb: 3 }}>
+            Neighborhoods
+          </Typography>
+          <Grid container spacing={3}>
+            {filteredData.map((location) => (
+              <LocationCard
+                key={location.id}
+                location={location}
+                icon={areaIconMap[location.category as keyof typeof areaIconMap] || <LocationCity />}
+              />
+            ))}
+          </Grid>
+        </div>
+      </section>
+
+      {/* Activities Grid */}
+      <section className="section-large">
+        <div className="swiss-container">
+          <Typography variant="h5" sx={{ mb: 3 }}>
+            Activities & Attractions ({filteredActivities.length})
+          </Typography>
+          <Grid container spacing={3}>
+            {filteredActivities.map(({ activity, locationId }) => (
+              <ActivityCard
+                key={`${locationId}-${activity.title}`}
+                activity={activity}
+                locationId={locationId}
+              />
+            ))}
+          </Grid>
+          {filteredActivities.length === 0 && (
+            <Box sx={{ textAlign: 'center', py: 4 }}>
+              <Typography variant="h6" color="text.secondary">
+                No activities found matching your criteria
+              </Typography>
+            </Box>
+          )}
+        </div>
+      </section>
     </Box>
   );
 };

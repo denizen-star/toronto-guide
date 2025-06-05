@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { ThemeProvider } from '@mui/material/styles';
@@ -13,10 +13,10 @@ function BoulderRouter() {
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <CssBaseline />
-        <Router basename="/boulder">
+        <Router>
           <Routes>
-            <Route path="/" element={<Boulder />} />
-            <Route path="/:id" element={<BoulderDetails />} />
+            <Route path="/boulder" element={<Boulder />} />
+            <Route path="/boulder/:id" element={<BoulderDetails />} />
           </Routes>
         </Router>
       </LocalizationProvider>
