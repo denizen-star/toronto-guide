@@ -173,7 +173,18 @@ export interface StandardizedSportingEvent extends StandardizedItem {
 }
 
 export interface StandardizedAmateurSport extends StandardizedItem {
+  eventType: string;
   skillLevel: string;
+  subcategory?: string;
+  socialMedia?: {
+    instagram?: string;
+    facebook?: string;
+    twitter?: string;
+  };
+  recurring?: boolean;
+  venueAccessibility?: string;
+  pronouns?: string;
+  ageRestriction?: string;
   equipmentNeeded?: string;
   minPlayers?: number;
   maxPlayers?: number;
@@ -773,17 +784,28 @@ export const loadStandardizedAmateurSports = async (): Promise<StandardizedAmate
     const { data } = Papa.parse(csvText, {
       header: true,
       skipEmptyLines: true,
+      delimiter: '|',
       transform: (value, field) => {
         if (field === 'tags') {
-          return value.split(',').map((tag: string) => tag.trim());
+          return value ? value.split(',').map((tag: string) => tag.trim()) : [];
         }
         if (field === 'lgbtqFriendly') {
-          return value.toLowerCase() === 'yes';
+          return value.toLowerCase() === 'yes' || value.toLowerCase() === 'true';
         }
         if (field === 'minPlayers' || field === 'maxPlayers') {
           return value ? parseInt(value) : undefined;
         }
-        return value;
+        if (field === 'socialMedia') {
+          try {
+            return value ? JSON.parse(value) : {};
+          } catch {
+            return {};
+          }
+        }
+        if (field === 'recurring') {
+          return value ? value.toLowerCase() === 'yes' || value.toLowerCase() === 'true' : false;
+        }
+        return value || '';
       }
     });
     

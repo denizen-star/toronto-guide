@@ -8,11 +8,13 @@ The Toronto Guide is a sophisticated web application providing curated recommend
 ### Primary Navigation
 1. **Home** (`/`) - Landing page with overview and quick access
 2. **Play** (`/amateur-sports`) - Local sports and recreational activities
-3. **Activities** (`/activities`) - Cultural activities and attractions
-4. **Happy Hours** (`/happy-hours`) - Nightlife and entertainment venues
-5. **Trips** (`/day-trips`) - Day trip destinations and itineraries
-6. **Culture** (`/special-events`) - Cultural events and exhibitions
+3. **The Scoop** (`/scoop`) - Comprehensive activities and events
+4. **Day Trips** (`/day-trips`) - Day trip destinations and itineraries
+5. **Happy Hours** (`/happy-hours`) - Nightlife and entertainment venues
+6. **LGBTQ+** (`/lgbtq-events`) - LGBTQ+ community events and activities
 7. **Sports** (`/sporting-events`) - Professional sporting events
+8. **Today** (`/todayintoronto`) - Today's events and activities
+9. **Tomorrow** (`/tomorrowintoronto`) - Tomorrow's events and activities
 
 ### Secondary Navigation
 - **Detail Pages** - Individual item pages for each category
@@ -38,11 +40,37 @@ The Toronto Guide is a sophisticated web application providing curated recommend
 - **Quick Access Grid:** Six icon-based navigation shortcuts for Day Trips, Sports, Events, Nightlife, Wellness, Shopping
 - **Footer:** Contact information and additional navigation
 
+### **The Scoop Page (`/scoop`)**
+**Purpose:** Comprehensive listing of all activities and events in Toronto
+
+**Content:**
+- **Activity Cards:** 200+ curated activities and events including museums, galleries, tours, workshops, classes, performances, festivals
+- **Advanced Filtering:** Filter by category, neighborhood, event type, season, tags, duration, price range
+- **Search Functionality:** Real-time search through activity titles and descriptions
+- **Load More:** Pagination showing 12 items initially with option to load more
+- **Examples Include:** 
+  - Toronto Island Park Exploration
+  - High Park Cherry Blossoms
+  - Art Gallery of Ontario
+  - St. Lawrence Market Food Tour
+  - CN Tower EdgeWalk
+  - Royal Ontario Museum
+  - Distillery District Art Galleries
+  - Kensington Market Walking Tour
+
+**Filter Options:**
+- **Category:** Museums, Food & Dining, Outdoor Activities, Entertainment, Arts & Culture, Sports & Recreation
+- **Neighborhood:** Downtown, Midtown, Uptown, East End, West End, Waterfront, Distillery District
+- **Event Type:** Tours & Sightseeing, Workshops, Exhibitions, Performances, Classes, Experiences, Festivals
+- **Season:** Spring, Summer, Fall, Winter, Year Round
+- **Duration:** Short (1-2 hours), Medium (2-4 hours), Half Day (4-6 hours), Full Day (6+ hours)
+- **Price Range:** Free, Budget ($0-25), Moderate ($25-75), Premium ($75-150), Luxury ($150+)
+
 ### **Activities Page (`/activities`)**
 **Purpose:** Comprehensive listing of cultural activities and attractions in Toronto
 
 **Content:**
-- **Activity Cards:** 60+ curated activities including museums, galleries, tours, workshops, classes
+- **Activity Cards:** 119+ curated activities including museums, galleries, tours, workshops, classes
 - **Advanced Filtering:** Filter by category (Museums, Food, Outdoor, Entertainment), neighborhood, event type, season, tags, duration, price range
 - **Search Functionality:** Real-time search through activity titles and descriptions
 - **Load More:** Pagination showing 12 items initially with option to load more
@@ -91,7 +119,7 @@ The Toronto Guide is a sophisticated web application providing curated recommend
 **Purpose:** Curated destinations for day-long excursions from Toronto
 
 **Content:**
-- **Trip Cards:** 37+ day trip destinations within driving distance of Toronto
+- **Trip Cards:** 106+ day trip destinations within driving distance of Toronto
 - **Trip Details:** Distance from Toronto, duration, best season to visit, highlights, cost information
 - **Examples Include:** Niagara wine tours, Muskoka lakes, historic Kingston, Blue Mountain adventures
 
@@ -107,7 +135,7 @@ The Toronto Guide is a sophisticated web application providing curated recommend
 **Purpose:** Local recreational sports activities and clubs for participation
 
 **Content:**
-- **Activity Cards:** 37+ amateur sports opportunities
+- **Activity Cards:** 55+ amateur sports opportunities
 - **Sports Types:** Golf, tennis, fitness, swimming, baseball, basketball, football, general sports
 - **Activity Information:** Location, skill level required, type of sport, equipment needs, group size
 - **Community Focus:** Local clubs, recreational leagues, drop-in activities, beginner-friendly options
@@ -124,7 +152,7 @@ The Toronto Guide is a sophisticated web application providing curated recommend
 **Purpose:** Professional sports games and major sporting events
 
 **Content:**
-- **Event Cards:** 45+ major sporting events and professional games
+- **Event Cards:** 44+ major sporting events and professional games
 - **Sports Coverage:** Hockey (Maple Leafs), Basketball (Raptors), Baseball (Blue Jays), Soccer (TFC), Tennis tournaments
 - **Event Details:** Venues (Scotiabank Arena, Rogers Centre), dates, ticket price ranges, team information
 - **Special Events:** Playoffs, championships, special tournaments, international matches
@@ -140,7 +168,7 @@ The Toronto Guide is a sophisticated web application providing curated recommend
 **Purpose:** Cultural events, festivals, exhibitions, and special happenings
 
 **Content:**
-- **Event Cards:** 46+ cultural and special events
+- **Event Cards:** 45+ cultural and special events
 - **Event Types:** Art exhibitions, music festivals, theater performances, food festivals, cultural celebrations
 - **Event Information:** Venues, dates, descriptions, ticket information, cultural significance
 - **Examples Include:** 
@@ -157,6 +185,22 @@ The Toronto Guide is a sophisticated web application providing curated recommend
 - **Skill Level:** All levels, Family-friendly, Adult-oriented
 - **Season:** Spring, Summer, Fall, Winter, Year Round
 - **Neighborhood:** Various Toronto districts
+- **Duration:** Single day, Multi-day, Weekend events
+- **Price Range:** Free, Budget, Moderate, Premium
+
+### **LGBTQ+ Events Page (`/lgbtq-events`)**
+**Purpose:** LGBTQ+ community events, performances, and social activities
+
+**Content:**
+- **Event Cards:** LGBTQ+ community events and activities
+- **Event Types:** Drag shows, community meetups, pride events, cultural performances, social gatherings
+- **Event Information:** Venues, dates, descriptions, inclusivity information
+- **Community Focus:** Inclusive spaces, community building, cultural celebration
+
+**Filter Options:**
+- **Event Type:** Performance, Social, Community, Nightlife
+- **Neighborhood:** Various Toronto neighborhoods
+- **Season:** Spring, Summer, Fall, Winter, Year Round
 - **Duration:** Single day, Multi-day, Weekend events
 - **Price Range:** Free, Budget, Moderate, Premium
 
@@ -198,47 +242,34 @@ Each category has dedicated detail pages for individual items (activities, event
 **Consistent Across All Listing Pages:**
 - **Multi-select Filters:** Checkbox-based selection for multiple criteria
 - **Real-time Filtering:** Results update without page reloads
-- **Filter Counts:** Shows number of matching results for each filter option
-- **Reset Functionality:** Clear all filters button
-- **Category-specific Filters:** Tailored to each content type
-- **Mobile Responsive:** Optimized for mobile device interaction
+- **Filter Categories:**
+  - Category/Type filters
+  - Neighborhood/Area filters
+  - Season filters
+  - Duration filters
+  - Price range filters
+  - Tag-based filters
+- **Reset Functionality:** Clear all filters option
+- **Filter Counts:** Show number of results for each filter option
 
-### **Design & UX Features**
-- **Swiss Design Aesthetic:** Clean, minimal, professional layout
-- **Consistent Typography:** Inter font family with systematic sizing
-- **Material Design Components:** Using Material-UI component library
-- **Responsive Design:** Mobile-first approach with tablet and desktop optimization
-- **Loading States:** Progress indicators for data loading
-- **Error Handling:** Graceful error messages and fallbacks
-- **Accessibility:** Proper ARIA labels and keyboard navigation
+### **Responsive Design**
+- **Mobile-First:** Optimized for mobile devices
+- **Tablet Support:** Responsive layouts for tablet screens
+- **Desktop Enhancement:** Enhanced features for larger screens
+- **Touch-Friendly:** Optimized touch targets and interactions
 
-### **Navigation Features**
-- **Sticky Header:** Navigation remains visible during scrolling
-- **Active States:** Current page highlighted in navigation
-- **Mobile Menu:** Hamburger menu for smaller screens
-- **Breadcrumbs:** Context navigation on detail pages
-- **Quick Access:** Icon-based shortcuts on home page
+### **Performance Features**
+- **Lazy Loading:** Images and content load as needed
+- **Pagination:** Load more functionality for large datasets
+- **Optimized Images:** WebP format with fallbacks
+- **Fast Navigation:** Instant page transitions
+- **Caching:** Aggressive caching for static content
 
 ---
 
-## Data Management
+## Technical Implementation
 
-### **Content Sources**
-The application uses CSV-based data management with the following sources:
-
-- **activities.csv** - 120 core activity listings
-- **happy_hours.csv** - 371 nightlife venue entries
-- **day_trips_standardized.csv** - 107 day trip destinations
-- **amateur_sports_standardized.csv** - 56 sports activities
-- **sporting_events_standardized.csv** - 45 professional sports events
-- **special_events_standardized.csv** - 46 cultural events
-- **locations.csv** - 148 venue locations with coordinates
-- **categories.csv** - Content categorization system
-- **tags.csv** - Comprehensive tagging system
-- **schedules.csv** - 261 timing and schedule entries
-- **prices.csv** - 73 pricing data points
-
-### **Technical Implementation**
+### **React Components**
 - **React 18.2.0** with TypeScript for frontend development
 - **Material-UI 5.15.11** for component library
 - **Papa Parse 5.5.3** for CSV data processing

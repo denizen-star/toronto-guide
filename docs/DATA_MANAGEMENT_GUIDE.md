@@ -151,6 +151,63 @@
 - Eventbrite Toronto listings
 - Social media event pages
 
+### 6. The Scoop (`scoop_standardized.csv`)
+**Page Type**: Comprehensive activities and events  
+**Target Audience**: General audience seeking diverse experiences
+
+**Required Fields**:
+- `id`: Unique identifier (format: `sc######_###`)
+- `title`: Activity or event name
+- `description`: Detailed description
+- `location`: Location information
+- `type`: Content category
+- `lastUpdated`: ISO8601 timestamp
+
+**Optional Fields**:
+- `website`: External website URL
+- `startDate`: Event start date (if applicable)
+- `endDate`: Event end date (if applicable)
+- `duration`: Activity duration
+- `cost`: Pricing information
+- `lgbtqFriendly`: LGBTQ+ inclusivity flag
+- `tags`: Comma-separated category tags
+
+**Data Sources to Target**:
+- Comprehensive event listings
+- Activity aggregators
+- Local business directories
+- Cultural institution calendars
+- Tourism websites
+- Community event boards
+
+### 7. LGBTQ+ Events (`lgbt_events_standardized.csv`)
+**Page Type**: LGBTQ+ community events and activities  
+**Target Audience**: LGBTQ+ community and allies
+
+**Required Fields**:
+- `id`: Unique identifier (format: `lg######_###`)
+- `title`: Event name
+- `description`: Event details
+- `location`: Event venue or area
+- `type`: Event category
+- `lastUpdated`: ISO8601 timestamp
+
+**Optional Fields**:
+- `startDate`: Event start date
+- `endDate`: Event end date
+- `lgbtqFriendly`: Always "true" for this category
+- `website`: Event website
+- `organizer`: Event organizer
+- `tags`: Event tags
+
+**Data Sources to Target**:
+- Pride Toronto events
+- LGBTQ+ community centers
+- Gay bars and clubs
+- LGBTQ+ cultural organizations
+- Community event listings
+- Social media LGBTQ+ groups
+
 ## Data Sourcing Strategies
 
 ### Primary Sources (High Priority)

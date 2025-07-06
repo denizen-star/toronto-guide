@@ -21,13 +21,36 @@ import {
 
 // Memoized icon map for sports
 const iconMap: { [key: string]: React.ReactNode } = {
-  'golf': <SportsGolf />,
-  'tennis': <SportsTennis />,
-  'fitness': <FitnessCenter />,
-  'swimming': <Pool />,
-  'baseball': <SportsBaseball />,
   'basketball': <SportsBasketball />,
-  'football': <SportsFootball />,
+  'soccer': <SportsFootball />,
+  'volleyball': <Sports />,
+  'swimming': <Pool />,
+  'fitness': <FitnessCenter />,
+  'yoga': <FitnessCenter />,
+  'tennis': <SportsTennis />,
+  'golf': <SportsGolf />,
+  'boxing': <Sports />,
+  'martial arts': <Sports />,
+  'climbing': <Sports />,
+  'badminton': <Sports />,
+  'squash': <Sports />,
+  'running': <Sports />,
+  'dragon boat': <Sports />,
+  'sailing': <Sports />,
+  'winter sports': <Sports />,
+  'hockey': <Sports />,
+  'rugby': <Sports />,
+  'water polo': <Sports />,
+  'softball': <SportsBaseball />,
+  'kickball': <Sports />,
+  'curling': <Sports />,
+  'dodgeball': <Sports />,
+  'cycling': <Sports />,
+  'outdoor sports': <Sports />,
+  'multi-sport': <Sports />,
+  'youth sports': <Sports />,
+  'senior sports': <Sports />,
+  'adaptive sports': <Sports />,
   'general': <Sports />
 };
 
@@ -71,6 +94,42 @@ const AmateurSports = () => {
 
   // Helper functions for categorization
   const getSportType = useCallback((sport: StandardizedAmateurSport): string => {
+    // Use the subcategory field if available
+    if (sport.subcategory) {
+      const subcategory = sport.subcategory.toLowerCase();
+      if (subcategory.includes('basketball')) return 'basketball';
+      if (subcategory.includes('soccer')) return 'soccer';
+      if (subcategory.includes('volleyball')) return 'volleyball';
+      if (subcategory.includes('swimming')) return 'swimming';
+      if (subcategory.includes('fitness')) return 'fitness';
+      if (subcategory.includes('yoga')) return 'yoga';
+      if (subcategory.includes('tennis')) return 'tennis';
+      if (subcategory.includes('golf')) return 'golf';
+      if (subcategory.includes('boxing')) return 'boxing';
+      if (subcategory.includes('martial arts')) return 'martial arts';
+      if (subcategory.includes('climbing')) return 'climbing';
+      if (subcategory.includes('badminton')) return 'badminton';
+      if (subcategory.includes('squash')) return 'squash';
+      if (subcategory.includes('running')) return 'running';
+      if (subcategory.includes('dragon boat')) return 'dragon boat';
+      if (subcategory.includes('sailing')) return 'sailing';
+      if (subcategory.includes('winter sports')) return 'winter sports';
+      if (subcategory.includes('hockey')) return 'hockey';
+      if (subcategory.includes('rugby')) return 'rugby';
+      if (subcategory.includes('water polo')) return 'water polo';
+      if (subcategory.includes('softball')) return 'softball';
+      if (subcategory.includes('kickball')) return 'kickball';
+      if (subcategory.includes('curling')) return 'curling';
+      if (subcategory.includes('dodgeball')) return 'dodgeball';
+      if (subcategory.includes('cycling')) return 'cycling';
+      if (subcategory.includes('outdoor sports')) return 'outdoor sports';
+      if (subcategory.includes('multi-sport')) return 'multi-sport';
+      if (subcategory.includes('youth sports')) return 'youth sports';
+      if (subcategory.includes('senior sports')) return 'senior sports';
+      if (subcategory.includes('adaptive sports')) return 'adaptive sports';
+    }
+    
+    // Fallback to inferring from title and description
     const title = sport.title.toLowerCase();
     const description = sport.description.toLowerCase();
     
@@ -85,6 +144,16 @@ const AmateurSports = () => {
   }, []);
 
   const getSkillLevel = useCallback((sport: StandardizedAmateurSport): string => {
+    // Use the skillLevel field from the data if available
+    if (sport.skillLevel) {
+      const level = sport.skillLevel.toLowerCase();
+      if (level.includes('beginner')) return 'beginner';
+      if (level.includes('intermediate')) return 'intermediate';
+      if (level.includes('advanced')) return 'advanced';
+      if (level.includes('all levels') || level.includes('all-levels')) return 'all-levels';
+    }
+    
+    // Fallback to inferring from description and tags
     const description = sport.description.toLowerCase();
     const tags = sport.tags.join(' ').toLowerCase();
     
@@ -145,13 +214,36 @@ const AmateurSports = () => {
   // Create filter configurations
   const filterConfigs: FilterConfig[] = useMemo(() => {
     const sportTypeOptions = [
-      { value: 'golf', label: 'Golf' },
-      { value: 'tennis', label: 'Tennis' },
-      { value: 'fitness', label: 'Fitness & Gym' },
-      { value: 'swimming', label: 'Swimming' },
-      { value: 'baseball', label: 'Baseball' },
       { value: 'basketball', label: 'Basketball' },
-      { value: 'football', label: 'Football' },
+      { value: 'soccer', label: 'Soccer' },
+      { value: 'volleyball', label: 'Volleyball' },
+      { value: 'swimming', label: 'Swimming' },
+      { value: 'fitness', label: 'Fitness & Gym' },
+      { value: 'yoga', label: 'Yoga' },
+      { value: 'tennis', label: 'Tennis' },
+      { value: 'golf', label: 'Golf' },
+      { value: 'boxing', label: 'Boxing' },
+      { value: 'martial arts', label: 'Martial Arts' },
+      { value: 'climbing', label: 'Rock Climbing' },
+      { value: 'badminton', label: 'Badminton' },
+      { value: 'squash', label: 'Squash' },
+      { value: 'running', label: 'Running' },
+      { value: 'dragon boat', label: 'Dragon Boat' },
+      { value: 'sailing', label: 'Sailing' },
+      { value: 'winter sports', label: 'Winter Sports' },
+      { value: 'hockey', label: 'Hockey' },
+      { value: 'rugby', label: 'Rugby' },
+      { value: 'water polo', label: 'Water Polo' },
+      { value: 'softball', label: 'Softball' },
+      { value: 'kickball', label: 'Kickball' },
+      { value: 'curling', label: 'Curling' },
+      { value: 'dodgeball', label: 'Dodgeball' },
+      { value: 'cycling', label: 'Cycling' },
+      { value: 'outdoor sports', label: 'Outdoor Sports' },
+      { value: 'multi-sport', label: 'Multi-Sport' },
+      { value: 'youth sports', label: 'Youth Sports' },
+      { value: 'senior sports', label: 'Senior Sports' },
+      { value: 'adaptive sports', label: 'Adaptive Sports' },
       { value: 'general', label: 'Other Sports' }
     ];
 

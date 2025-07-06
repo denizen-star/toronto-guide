@@ -23,10 +23,10 @@ import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import SportsVolleyballIcon from '@mui/icons-material/SportsVolleyball';
 import SportsTennisIcon from '@mui/icons-material/SportsTennis';
-import { AmateurSport, loadAmateurSports } from '../utils/dataLoader';
+import { StandardizedAmateurSport, loadStandardizedAmateurSports } from '../utils/dataLoader';
 
-const getSportIcon = (type: string, title: string) => {
-  const sportType = type.toLowerCase();
+const getSportIcon = (eventType: string, title: string) => {
+  const sportType = eventType.toLowerCase();
   const titleLower = title.toLowerCase();
   
   if (sportType.includes('basketball') || titleLower.includes('basketball')) {
@@ -47,7 +47,7 @@ const getSportIcon = (type: string, title: string) => {
 const AmateurSportDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [sport, setSport] = useState<AmateurSport | null>(null);
+  const [sport, setSport] = useState<StandardizedAmateurSport | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -55,7 +55,7 @@ const AmateurSportDetails = () => {
     const loadSportData = async () => {
       try {
         setLoading(true);
-        const sportsData = await loadAmateurSports();
+        const sportsData = await loadStandardizedAmateurSports();
         
         const currentSport = sportsData.find(s => s.id === id);
         if (!currentSport) {
@@ -170,7 +170,7 @@ const AmateurSportDetails = () => {
                       Sport Type
                     </Typography>
                     <Typography variant="body1" fontWeight="bold">
-                      {sport.type}
+                      {sport.eventType}
                     </Typography>
                   </Box>
                 </Box>
@@ -225,7 +225,7 @@ const AmateurSportDetails = () => {
                 mb: 3,
               }}
             >
-              {getSportIcon(sport.type, sport.title)}
+              {getSportIcon(sport.eventType, sport.title)}
             </Box>
             
             {/* Action Buttons */}
@@ -260,7 +260,7 @@ const AmateurSportDetails = () => {
                 What to Expect
               </Typography>
               <Typography variant="body2" color="text.secondary" paragraph>
-                Join fellow enthusiasts for {sport.type.toLowerCase()} activities. This is perfect for {sport.skillLevel.toLowerCase()} players looking to stay active and meet new people.
+                Join fellow enthusiasts for {sport.eventType.toLowerCase()} activities. This is perfect for {sport.skillLevel.toLowerCase()} players looking to stay active and meet new people.
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 Location: {sport.location}
@@ -279,7 +279,7 @@ const AmateurSportDetails = () => {
                 • Skill level required: {sport.skillLevel}
               </Typography>
               <Typography variant="body2" color="text.secondary" paragraph>
-                • Sport type: {sport.type}
+                • Sport type: {sport.eventType}
               </Typography>
               <Typography variant="body2" color="text.secondary" paragraph>
                 • Check the location details and bring appropriate gear
