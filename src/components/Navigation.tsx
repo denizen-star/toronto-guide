@@ -176,6 +176,8 @@ const Navigation: React.FC<NavigationProps> = ({
     { path: '/happy-hours', label: 'Happy Hours' },
     { path: '/lgbtq-events', label: 'LGBTQ+' },
     { path: '/sporting-events', label: 'Sports' },
+    { path: '/todayintoronto', label: 'Today' },
+    { path: '/tomorrowintoronto', label: 'Tomorrow' },
   ];
 
   const handleMobileMenuToggle = () => {

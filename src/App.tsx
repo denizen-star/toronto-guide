@@ -27,6 +27,8 @@ import LgbtEvents from './pages/LgbtEvents';
 import LgbtEventDetails from './pages/LgbtEventDetails';
 import Boulder from './pages/Boulder';
 import BoulderDetails from './pages/BoulderDetails';
+import TodayInToronto from './pages/TodayInToronto';
+import TomorrowInToronto from './pages/TomorrowInToronto';
 import ScrollToTop from './components/ScrollToTop';
 import ErrorBoundary from './components/ErrorBoundary';
 
@@ -58,6 +60,8 @@ function App() {
                 <Route path="title-variations" element={<TitleVariations />} />
                 <Route path="lgbtq-events" element={<LgbtEvents />} />
                 <Route path="lgbtq-events/:id" element={<LgbtEventDetails />} />
+                <Route path="todayintoronto" element={<TodayInToronto />} />
+                <Route path="tomorrowintoronto" element={<TomorrowInToronto />} />
                 <Route path="admin/login" element={<AdminLogin />} />
                 <Route 
                   path="admin/*" 
