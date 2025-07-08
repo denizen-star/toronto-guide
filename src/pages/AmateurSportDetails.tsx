@@ -15,7 +15,6 @@ import {
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import PeopleIcon from '@mui/icons-material/People';
 import FitnessCenter from '@mui/icons-material/FitnessCenter';
 import ShareIcon from '@mui/icons-material/Share';
 import DirectionsIcon from '@mui/icons-material/Directions';
@@ -23,25 +22,62 @@ import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import SportsVolleyballIcon from '@mui/icons-material/SportsVolleyball';
 import SportsTennisIcon from '@mui/icons-material/SportsTennis';
+import EventIcon from '@mui/icons-material/Event';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 import { StandardizedAmateurSport, loadStandardizedAmateurSports } from '../utils/dataLoader';
 
-const getSportIcon = (eventType: string, title: string) => {
+const getSportIcon = (eventType: string, title: string, size = 80) => {
   const sportType = eventType.toLowerCase();
   const titleLower = title.toLowerCase();
   
   if (sportType.includes('basketball') || titleLower.includes('basketball')) {
-    return <SportsBasketballIcon sx={{ fontSize: 80 }} />;
+    return <SportsBasketballIcon sx={{ fontSize: size }} />;
   }
   if (sportType.includes('soccer') || titleLower.includes('soccer') || titleLower.includes('football')) {
-    return <SportsSoccerIcon sx={{ fontSize: 80 }} />;
+    return <SportsSoccerIcon sx={{ fontSize: size }} />;
   }
   if (sportType.includes('volleyball') || titleLower.includes('volleyball')) {
-    return <SportsVolleyballIcon sx={{ fontSize: 80 }} />;
+    return <SportsVolleyballIcon sx={{ fontSize: size }} />;
   }
   if (sportType.includes('tennis') || titleLower.includes('tennis')) {
-    return <SportsTennisIcon sx={{ fontSize: 80 }} />;
+    return <SportsTennisIcon sx={{ fontSize: size }} />;
   }
-  return <FitnessCenter sx={{ fontSize: 80 }} />;
+  return <FitnessCenter sx={{ fontSize: size }} />;
+};
+
+const getRecurrenceString = (sport: StandardizedAmateurSport): string => {
+  if (!sport) return '';
+  const { recurrenceType, recurrencePattern, daysOfWeek, weekOfMonth, time, specificDates } = sport;
+
+  if (recurrenceType === 'recurring') {
+    if (recurrencePattern?.toLowerCase().includes('weekly')) {
+      if (daysOfWeek && time) return `Weekly on ${daysOfWeek} at ${time}`;
+      if (daysOfWeek) return `Weekly on ${daysOfWeek}`;
+      if (time) return `Weekly at ${time}`;
+      return 'Weekly';
+    }
+    if (recurrencePattern?.toLowerCase().includes('monthly')) {
+      if (weekOfMonth && daysOfWeek && time) return `Monthly on the ${weekOfMonth} ${daysOfWeek} at ${time}`;
+      if (weekOfMonth && daysOfWeek) return `Monthly on the ${weekOfMonth} ${daysOfWeek}`;
+      if (daysOfWeek && time) return `Monthly on ${daysOfWeek} at ${time}`;
+      if (daysOfWeek) return `Monthly on ${daysOfWeek}`;
+      if (time) return `Monthly at ${time}`;
+      return 'Monthly';
+    }
+    if (daysOfWeek && time) return `Every ${daysOfWeek} at ${time}`;
+    if (daysOfWeek) return `Every ${daysOfWeek}`;
+    if (time) return `Recurring at ${time}`;
+    return 'Recurring';
+  }
+  if (recurrenceType === 'specific-dates' && specificDates) {
+    return `Specific Dates: ${specificDates}${time ? ' at ' + time : ''}`;
+  }
+  if (recurrenceType === 'one-time') {
+    if (sport.startDate && time) return `One-time on ${sport.startDate} at ${time}`;
+    if (sport.startDate) return `One-time on ${sport.startDate}`;
+    return 'One-time event';
+  }
+  return '';
 };
 
 const AmateurSportDetails = () => {
@@ -116,179 +152,175 @@ const AmateurSportDetails = () => {
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      {/* Back Button */}
-      <Box sx={{ mb: 3 }}>
-        <Button
-          onClick={() => navigate('/amateur-sports')}
-          startIcon={<ArrowBackIcon />}
-          sx={{
-            color: 'text.secondary',
-            '&:hover': {
-              bgcolor: 'action.hover',
-            },
-            borderRadius: '8px',
-            py: 1,
-          }}
-        >
-          Back to Amateur Sports
-        </Button>
-      </Box>
+      {/* Actions: Back Link */}
+      <Button
+        startIcon={<ArrowBackIcon />}
+        onClick={() => navigate('/amateur-sports')}
+        sx={{ mb: 3 }}
+      >
+        Back to Amateur Sports
+      </Button>
 
-      {/* Sport Header */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={8}>
-            <Typography variant="h3" gutterBottom>
-              {sport.title}
-            </Typography>
-            
-            <Typography variant="body1" sx={{ mb: 3, fontSize: '1.1rem', lineHeight: 1.6 }}>
+      <Grid container spacing={4}>
+        {/* Main Content */}
+        <Grid item xs={12} md={9}>
+          <Paper sx={{ p: 3, mb: 3 }}>
+            {/* 1. Event Overview */}
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+              <Typography variant="h4" gutterBottom sx={{ flex: 1 }}>
+                {sport.title}
+              </Typography>
+              {getSportIcon(sport.eventType, sport.title, 40)}
+            </Box>
+            <Typography variant="body1" paragraph>
               {sport.description}
             </Typography>
 
-            {/* Sport Info */}
-            <Grid container spacing={3} sx={{ mb: 3 }}>
-              <Grid item xs={12} sm={6}>
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                  <LocationOnIcon sx={{ mr: 1, color: 'primary.main' }} />
-                  <Box>
-                    <Typography variant="subtitle2" color="text.secondary">
-                      Location
-                    </Typography>
-                    <Typography variant="body1" fontWeight="bold">
-                      {sport.location}
-                    </Typography>
-                  </Box>
-                </Box>
+            {/* 2. Event Details */}
+            <Box sx={{ mt: 3, mb: 3 }}>
+              <Typography variant="h6" gutterBottom>
+                Event Details
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Card>
+                    <CardContent sx={{ minHeight: 100, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                        <EventIcon sx={{ fontSize: '1.2rem', mr: 1 }} />
+                        <Typography variant="subtitle1">Date & Time</Typography>
+                      </Box>
+                      <Typography variant="body2">{getRecurrenceString(sport)}</Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                {sport.cost && (
+                  <Grid item xs={12} sm={6} md={4}>
+                    <Card>
+                      <CardContent sx={{ minHeight: 100, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                          <FitnessCenter sx={{ fontSize: '1.2rem', mr: 1 }} />
+                          <Typography variant="subtitle1">Cost</Typography>
+                        </Box>
+                        <Typography variant="body2">{sport.cost}</Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                )}
+                {sport.recurrencePattern && (
+                  <Grid item xs={12} sm={6} md={4}>
+                    <Card>
+                      <CardContent sx={{ minHeight: 100, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                          <ScheduleIcon sx={{ fontSize: '1.2rem', mr: 1 }} />
+                          <Typography variant="subtitle1">Schedule</Typography>
+                        </Box>
+                        <Typography variant="body2">{sport.recurrencePattern}</Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                )}
               </Grid>
-              
-              <Grid item xs={12} sm={6}>
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                  <FitnessCenter sx={{ mr: 1, color: 'primary.main' }} />
-                  <Box>
-                    <Typography variant="subtitle2" color="text.secondary">
-                      Sport Type
+            </Box>
+
+            {/* 3 & 4. What to Expect & Getting Started side by side */}
+            <Grid container spacing={2} sx={{ mt: 3 }}>
+              <Grid item xs={12} md={6}>
+                <Card sx={{ height: '100%' }}>
+                  <CardContent>
+                    <Typography variant="h6" gutterBottom>
+                      What to Expect
                     </Typography>
-                    <Typography variant="body1" fontWeight="bold">
-                      {sport.eventType}
+                    <Typography variant="body2" color="text.secondary" paragraph>
+                      Join fellow enthusiasts for {sport.eventType.toLowerCase()} activities. This is perfect for {sport.skillLevel?.toLowerCase() || 'all'} players looking to stay active and meet new people.
                     </Typography>
-                  </Box>
-                </Box>
+                    {/* Accessibility Features (if any) */}
+                    {sport.venueAccessibility && (
+                      <Box sx={{ mt: 2 }}>
+                        <Typography variant="subtitle2" gutterBottom>
+                          Accessibility Features
+                        </Typography>
+                        {sport.venueAccessibility.split(',').map((feature, idx) => (
+                          <Chip key={idx} label={feature.trim()} variant="outlined" size="small" color="primary" sx={{ mr: 1, mb: 1 }} />
+                        ))}
+                      </Box>
+                    )}
+                  </CardContent>
+                </Card>
               </Grid>
-              
-              <Grid item xs={12} sm={6}>
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                  <PeopleIcon sx={{ mr: 1, color: 'primary.main' }} />
-                  <Box>
-                    <Typography variant="subtitle2" color="text.secondary">
-                      Skill Level
+              <Grid item xs={12} md={6}>
+                <Card sx={{ height: '100%' }}>
+                  <CardContent>
+                    <Typography variant="h6" gutterBottom>
+                      Getting Started
                     </Typography>
-                    <Typography variant="body1" fontWeight="bold">
-                      {sport.skillLevel}
+                    <Typography variant="body2" color="text.secondary" paragraph>
+                      • Skill level required: {sport.skillLevel}
                     </Typography>
-                  </Box>
-                </Box>
+                    <Typography variant="body2" color="text.secondary" paragraph>
+                      • Sport type: {sport.eventType}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" paragraph>
+                      • Check the location details and bring appropriate gear
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      • Contact organizers for specific schedules and requirements
+                    </Typography>
+                  </CardContent>
+                </Card>
               </Grid>
             </Grid>
+          </Paper>
+        </Grid>
 
-            {/* Tags */}
-            <Box sx={{ mb: 3 }}>
-              <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
-                Categories
-              </Typography>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                {sport.tags.map((tag, index) => (
-                  <Chip
-                    key={index}
-                    label={tag}
-                    size="medium"
-                    color="primary"
-                    variant="outlined"
-                    sx={{ borderRadius: 2 }}
-                  />
-                ))}
-              </Box>
-            </Box>
-          </Grid>
-          
-          <Grid item xs={12} md={4}>
-            {/* Sport Icon */}
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: 200,
-                backgroundColor: 'primary.main',
-                color: 'white',
-                borderRadius: 2,
-                mb: 3,
-              }}
-            >
-              {getSportIcon(sport.eventType, sport.title)}
-            </Box>
-            
-            {/* Action Buttons */}
+        {/* Sidebar: Actions & Icon, now half the width (md=3) */}
+        <Grid item xs={12} md={3}>
+          <Paper sx={{ p: 3, mb: 3 }}>
+            {/* 5. Actions */}
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {sport.website && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  href={sport.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{ fontSize: '0.7rem', justifyContent: 'flex-start', pl: 2 }}
+                  startIcon={<LocationOnIcon sx={{ fontSize: '1.2rem' }} />}
+                >
+                  Visit Website
+                </Button>
+              )}
               <Button
-                variant="contained"
-                startIcon={<DirectionsIcon />}
+                variant="outlined"
+                color="primary"
+                fullWidth
+                startIcon={<DirectionsIcon sx={{ fontSize: '1.2rem' }} />}
                 onClick={handleDirections}
-                size="large"
+                sx={{ fontSize: '0.7rem', justifyContent: 'flex-start', pl: 2 }}
               >
                 Get Directions
               </Button>
               <Button
                 variant="outlined"
-                startIcon={<ShareIcon />}
+                color="primary"
+                fullWidth
+                startIcon={<ShareIcon sx={{ fontSize: '1.2rem' }} />}
                 onClick={handleShare}
-                size="large"
+                sx={{ fontSize: '0.7rem', justifyContent: 'flex-start', pl: 2 }}
               >
                 Share Sport
               </Button>
+              {/* Tags moved here */}
+              {sport.tags && sport.tags.length > 0 && (
+                <Box sx={{ mt: 3, display: 'flex', flexWrap: 'wrap', gap: 1, justifyContent: 'center', textAlign: 'center' }}>
+                  {sport.tags.map((tag, idx) => (
+                    <Chip key={idx} label={tag} variant="outlined" />
+                  ))}
+                </Box>
+              )}
             </Box>
-          </Grid>
-        </Grid>
-      </Paper>
-
-      {/* Additional Information */}
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <Card sx={{ height: '100%' }}>
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                What to Expect
-              </Typography>
-              <Typography variant="body2" color="text.secondary" paragraph>
-                Join fellow enthusiasts for {sport.eventType.toLowerCase()} activities. This is perfect for {sport.skillLevel.toLowerCase()} players looking to stay active and meet new people.
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Location: {sport.location}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        
-        <Grid item xs={12} md={6}>
-          <Card sx={{ height: '100%' }}>
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Getting Started
-              </Typography>
-              <Typography variant="body2" color="text.secondary" paragraph>
-                • Skill level required: {sport.skillLevel}
-              </Typography>
-              <Typography variant="body2" color="text.secondary" paragraph>
-                • Sport type: {sport.eventType}
-              </Typography>
-              <Typography variant="body2" color="text.secondary" paragraph>
-                • Check the location details and bring appropriate gear
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                • Contact organizers for specific schedules and requirements
-              </Typography>
-            </CardContent>
-          </Card>
+          </Paper>
         </Grid>
       </Grid>
     </Container>

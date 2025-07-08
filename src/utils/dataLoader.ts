@@ -182,6 +182,12 @@ export interface StandardizedAmateurSport extends StandardizedItem {
     twitter?: string;
   };
   recurring?: boolean;
+  recurrenceType?: 'one-time' | 'recurring' | 'specific-dates';
+  recurrencePattern?: string;
+  specificDates?: string;
+  daysOfWeek?: string;
+  time?: string;
+  weekOfMonth?: string;
   venueAccessibility?: string;
   pronouns?: string;
   ageRestriction?: string;
@@ -206,6 +212,12 @@ export interface LgbtEvent extends StandardizedItem {
     twitter?: string;
   };
   recurring: boolean;
+  recurrenceType?: 'one-time' | 'recurring' | 'specific-dates';
+  recurrencePattern?: string;
+  specificDates?: string;
+  daysOfWeek?: string;
+  time?: string;
+  weekOfMonth?: string;
   venueAccessibility?: string;
   pronouns?: string;
   ageRestriction?: string;
@@ -790,7 +802,7 @@ export const loadStandardizedAmateurSports = async (): Promise<StandardizedAmate
           return value ? value.split(',').map((tag: string) => tag.trim()) : [];
         }
         if (field === 'lgbtqFriendly') {
-          return value.toLowerCase() === 'yes' || value.toLowerCase() === 'true';
+          return value.toLowerCase() === 'true';
         }
         if (field === 'minPlayers' || field === 'maxPlayers') {
           return value ? parseInt(value) : undefined;
@@ -803,7 +815,25 @@ export const loadStandardizedAmateurSports = async (): Promise<StandardizedAmate
           }
         }
         if (field === 'recurring') {
-          return value ? value.toLowerCase() === 'yes' || value.toLowerCase() === 'true' : false;
+          return value ? value.toLowerCase() === 'true' : false;
+        }
+        if (field === 'recurrenceType') {
+          return value || 'one-time';
+        }
+        if (field === 'recurrencePattern') {
+          return value || '';
+        }
+        if (field === 'specificDates') {
+          return value || '';
+        }
+        if (field === 'daysOfWeek') {
+          return value || '';
+        }
+        if (field === 'time') {
+          return value || '';
+        }
+        if (field === 'weekOfMonth') {
+          return value || '';
         }
         return value || '';
       }
@@ -830,7 +860,7 @@ export const loadStandardizedDayTrips = async (): Promise<StandardizedDayTrip[]>
           return value.split(',').map((tag: string) => tag.trim());
         }
         if (field === 'lgbtqFriendly') {
-          return value.toLowerCase() === 'yes';
+          return value.toLowerCase() === 'true';
         }
         return value;
       }
@@ -871,7 +901,25 @@ export const loadLgbtEvents = async (): Promise<LgbtEvent[]> => {
           }
         }
         if (field === 'recurring') {
-          return value ? value.toLowerCase() === 'yes' || value.toLowerCase() === 'true' : false;
+          return value ? value.toLowerCase() === 'true' : false;
+        }
+        if (field === 'recurrenceType') {
+          return value || 'one-time';
+        }
+        if (field === 'recurrencePattern') {
+          return value || '';
+        }
+        if (field === 'specificDates') {
+          return value || '';
+        }
+        if (field === 'daysOfWeek') {
+          return value || '';
+        }
+        if (field === 'time') {
+          return value || '';
+        }
+        if (field === 'weekOfMonth') {
+          return value || '';
         }
         if (field === 'eventType') {
           const type = (value || '').toLowerCase();
@@ -913,6 +961,9 @@ export const loadLgbtEvents = async (): Promise<LgbtEvent[]> => {
       lastUpdated: event.lastUpdated || new Date().toISOString(),
       socialMedia: event.socialMedia || { instagram: '', facebook: '', twitter: '' },
       recurring: !!event.recurring,
+      recurrenceType: event.recurrenceType || 'one-time',
+      recurrencePattern: event.recurrencePattern || '',
+      specificDates: event.specificDates || '',
       lgbtqFriendly: true,
       startDate: event.startDate || new Date().toISOString(),
       endDate: event.endDate || '',
@@ -922,7 +973,10 @@ export const loadLgbtEvents = async (): Promise<LgbtEvent[]> => {
       cost: event.cost || '',
       website: event.website || '',
       travelTime: event.travelTime || '',
-      googleMapLink: event.googleMapLink || ''
+      googleMapLink: event.googleMapLink || '',
+      daysOfWeek: event.daysOfWeek || '',
+      time: event.time || '',
+      weekOfMonth: event.weekOfMonth || ''
     }));
 
     return validatedData;
@@ -1009,7 +1063,10 @@ export const loadScoopItems = async (): Promise<ScoopItem[]> => {
           neighborhood: item.neighborhood?.trim() || '',
           season: item.season || 'year-round',
           priceRange: item.priceRange || 'varies',
-          source: item.source || 'activity'
+          source: item.source || 'activity',
+          daysOfWeek: item.daysOfWeek || '',
+          time: item.time || '',
+          weekOfMonth: item.weekOfMonth || ''
         };
 
         return cleanedItem;

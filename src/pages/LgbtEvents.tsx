@@ -299,19 +299,31 @@ const LgbtEvents = () => {
 
   // Memoized card data conversion
   const cardDataArray = useMemo(() => {
-    return displayedEvents.map((event): EnhancedCardData => ({
-      id: event.id,
-      title: event.title,
-      description: event.description,
-      website: event.website,
-      tags: event.tags.slice(0, 3),
-      priceRange: event.cost || 'See details',
-      location: event.location,
-      address: event.location,
-      lgbtqFriendly: true,
-      neighborhood: getNeighborhood(event.location),
-      detailPath: `/lgbtq-events/${event.id}`
-    }));
+    return displayedEvents.map((event): EnhancedCardData => {
+      // Create recurrence info for display
+      let recurrenceInfo = '';
+      if (event.recurrenceType === 'recurring' && event.recurrencePattern) {
+        recurrenceInfo = event.recurrencePattern;
+      } else if (event.recurrenceType === 'specific-dates' && event.specificDates) {
+        recurrenceInfo = `Dates: ${event.specificDates}`;
+      } else if (event.recurrenceType === 'one-time') {
+        recurrenceInfo = 'One-time event';
+      }
+      
+      return {
+        id: event.id,
+        title: event.title,
+        description: recurrenceInfo ? `${event.description} (${recurrenceInfo})` : event.description,
+        website: event.website,
+        tags: event.tags.slice(0, 3),
+        priceRange: event.cost || 'See details',
+        location: event.location,
+        address: event.location,
+        lgbtqFriendly: true,
+        neighborhood: getNeighborhood(event.location),
+        detailPath: `/lgbtq-events/${event.id}`
+      };
+    });
   }, [displayedEvents, getNeighborhood]);
 
   const handleLoadMore = useCallback(() => {

@@ -364,18 +364,30 @@ const AmateurSports = () => {
 
   // Memoized card data conversion
   const cardDataArray = useMemo(() => {
-    return displayedSports.map((sport): EnhancedCardData => ({
-      id: sport.id,
-      title: sport.title,
-      description: sport.description,
-      website: sport.website,
-      tags: sport.tags.slice(0, 3),
-      priceRange: 'See details',
-      location: sport.location || 'Toronto',
-      address: sport.location,
-      neighborhood: sport.location,
-      detailPath: `/amateur-sports/${sport.id}`,
-    }));
+    return displayedSports.map((sport): EnhancedCardData => {
+      // Create recurrence info for display
+      let recurrenceInfo = '';
+      if (sport.recurrenceType === 'recurring' && sport.recurrencePattern) {
+        recurrenceInfo = sport.recurrencePattern;
+      } else if (sport.recurrenceType === 'specific-dates' && sport.specificDates) {
+        recurrenceInfo = `Dates: ${sport.specificDates}`;
+      } else if (sport.recurrenceType === 'one-time') {
+        recurrenceInfo = 'One-time event';
+      }
+      
+      return {
+        id: sport.id,
+        title: sport.title,
+        description: recurrenceInfo ? `${sport.description} (${recurrenceInfo})` : sport.description,
+        website: sport.website,
+        tags: sport.tags.slice(0, 3),
+        priceRange: 'See details',
+        location: sport.location || 'Toronto',
+        address: sport.location,
+        neighborhood: sport.location,
+        detailPath: `/amateur-sports/${sport.id}`,
+      };
+    });
   }, [displayedSports]);
 
   const handleLoadMore = useCallback(() => {
