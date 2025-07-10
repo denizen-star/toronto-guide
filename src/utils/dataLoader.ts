@@ -1184,10 +1184,33 @@ export interface DayTripReviewsSentiment {
 }
 
 export interface DayTripDayIn {
-  general: string;
-  gayDayIn: string;
-  outdoorsDay: string;
-  barRestaurantDay: string;
+  general: string | {
+    morning?: any;
+    mid_morning?: any;
+    lunch?: any;
+    afternoon?: any;
+    evening?: any;
+  };
+  gayDayIn: string | {
+    morning?: any;
+    mid_morning?: any;
+    lunch?: any;
+    afternoon?: any;
+    evening?: any;
+  };
+  outdoorsDay: string | {
+    morning?: any;
+    mid_morning?: any;
+    lunch?: any;
+    afternoon?: any;
+    evening?: any;
+  };
+  barRestaurantDay: string | {
+    breakfast?: any;
+    lunch?: any;
+    afternoon?: any;
+    dinner?: any;
+  };
 }
 
 export interface DayTripNearby {
@@ -1237,23 +1260,23 @@ export interface DetailedDayTrip {
 // Function to load detailed day trip data by matching CSV with JSON using matching IDs
 export const loadDetailedDayTrip = async (csvId: string): Promise<DetailedDayTrip | null> => {
   try {
-    // Load the JSON data with matching IDs
-    const response = await fetch('/daytrips_data_with_matching_ids.json');
+    // Load the JSON data from the main file
+    const response = await fetch('/daytrips_data.json');
     if (!response.ok) {
       throw new Error('Failed to load detailed day trip data');
     }
     
     const jsonData = await response.json();
     
-    // First try to find by matching ID (preferred method)
-    const detailedTrip = jsonData.daytrips.find((trip: any) => trip.matchingId && trip.matchingId.includes(csvId));
+    // Find by direct ID match (primary method)
+    const detailedTrip = jsonData.daytrips.find((trip: any) => trip.id === csvId);
     
     if (!detailedTrip) {
-      // Fallback: try to find by direct ID match
-      const fallbackTrip = jsonData.daytrips.find((trip: any) => trip.id === csvId);
+      // Fallback: try to find by matching ID
+      const fallbackTrip = jsonData.daytrips.find((trip: any) => trip.matchingId && trip.matchingId.includes(csvId));
       
       if (!fallbackTrip) {
-        console.warn(`No detailed data found for CSV ID: ${csvId}`);
+        console.warn(`No detailed data found for ID: ${csvId}`);
         return null;
       }
       
@@ -1270,7 +1293,7 @@ export const loadDetailedDayTrip = async (csvId: string): Promise<DetailedDayTri
 // Function to get all available detailed day trip IDs
 export const getAvailableDetailedDayTripIds = async (): Promise<string[]> => {
   try {
-    const response = await fetch('/daytrips_data_with_matching_ids.json');
+    const response = await fetch('/daytrips_data.json');
     if (!response.ok) {
       throw new Error('Failed to load detailed day trip data');
     }
@@ -1285,6 +1308,18 @@ export const getAvailableDetailedDayTripIds = async (): Promise<string[]> => {
 
 // Function to check if a CSV day trip has detailed data available
 export const hasDetailedData = async (csvId: string): Promise<boolean> => {
-  const availableIds = await getAvailableDetailedDayTripIds();
-  return availableIds.includes(csvId);
+  try {
+    const response = await fetch('/daytrips_data.json');
+    if (!response.ok) {
+      throw new Error('Failed to load detailed day trip data');
+    }
+    
+    const jsonData = await response.json();
+    // Check if the trip exists by simple ID
+    const tripExists = jsonData.daytrips.some((trip: any) => trip.id === csvId);
+    return tripExists;
+  } catch (error) {
+    console.error('Error checking detailed data availability:', error);
+    return false;
+  }
 }; 

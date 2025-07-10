@@ -176,7 +176,217 @@ const DayTripDetails = () => {
     );
   }
 
-  // Create day plans from detailed data
+  // Helper function to render day plan as JSX with clickable links
+  const renderDayPlan = (dayPlan: any): JSX.Element => {
+    if (typeof dayPlan === 'string') {
+      return <span>{dayPlan}</span>;
+    }
+    
+    if (typeof dayPlan === 'object') {
+      const parts: JSX.Element[] = [];
+      
+      if (dayPlan.morning) {
+        const morning = typeof dayPlan.morning === 'string' 
+          ? <span>{dayPlan.morning}</span>
+          : (
+              <span>
+                {dayPlan.morning.activity}
+                {dayPlan.morning.venue && ` at ${dayPlan.morning.venue}`}
+                {dayPlan.morning.website && (
+                  <a 
+                    href={dayPlan.morning.website} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ color: '#007bff', textDecoration: 'underline' }}
+                  >
+                    {dayPlan.morning.venue || 'Visit website'}
+                  </a>
+                )}
+              </span>
+            );
+        parts.push(<span key="morning">Morning: {morning}</span>);
+      }
+      
+      if (dayPlan.mid_morning) {
+        const midMorning = typeof dayPlan.mid_morning === 'string' 
+          ? <span>{dayPlan.mid_morning}</span>
+          : (
+              <span>
+                {dayPlan.mid_morning.activity}
+                {dayPlan.mid_morning.venue && ` at ${dayPlan.mid_morning.venue}`}
+                {dayPlan.mid_morning.website && (
+                  <a 
+                    href={dayPlan.mid_morning.website} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ color: '#007bff', textDecoration: 'underline' }}
+                  >
+                    {dayPlan.mid_morning.venue || 'Visit website'}
+                  </a>
+                )}
+              </span>
+            );
+        parts.push(<span key="mid_morning">Mid-morning: {midMorning}</span>);
+      }
+      
+      if (dayPlan.lunch) {
+        const lunch = typeof dayPlan.lunch === 'string' 
+          ? <span>{dayPlan.lunch}</span>
+          : (
+              <span>
+                {dayPlan.lunch.activity}
+                {dayPlan.lunch.venue && ` at ${dayPlan.lunch.venue}`}
+                {dayPlan.lunch.website && (
+                  <a 
+                    href={dayPlan.lunch.website} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ color: '#007bff', textDecoration: 'underline' }}
+                  >
+                    {dayPlan.lunch.venue || 'Visit website'}
+                  </a>
+                )}
+              </span>
+            );
+        parts.push(<span key="lunch">Lunch: {lunch}</span>);
+      }
+      
+      if (dayPlan.afternoon) {
+        const afternoon = typeof dayPlan.afternoon === 'string' 
+          ? <span>{dayPlan.afternoon}</span>
+          : (
+              <span>
+                {dayPlan.afternoon.activity}
+                {dayPlan.afternoon.venue && ` at ${dayPlan.afternoon.venue}`}
+                {dayPlan.afternoon.website && (
+                  <a 
+                    href={dayPlan.afternoon.website} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ color: '#007bff', textDecoration: 'underline' }}
+                  >
+                    {dayPlan.afternoon.venue || 'Visit website'}
+                  </a>
+                )}
+              </span>
+            );
+        parts.push(<span key="afternoon">Afternoon: {afternoon}</span>);
+      }
+      
+      if (dayPlan.evening) {
+        const evening = typeof dayPlan.evening === 'string' 
+          ? <span>{dayPlan.evening}</span>
+          : (
+              <span>
+                {dayPlan.evening.activity}
+                {dayPlan.evening.venue && ` at ${dayPlan.evening.venue}`}
+                {dayPlan.evening.website && (
+                  <a 
+                    href={dayPlan.evening.website} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ color: '#007bff', textDecoration: 'underline' }}
+                  >
+                    {dayPlan.evening.venue || 'Visit website'}
+                  </a>
+                )}
+              </span>
+            );
+        parts.push(<span key="evening">Evening: {evening}</span>);
+      }
+      
+      if (dayPlan.breakfast) {
+        const breakfast = typeof dayPlan.breakfast === 'string' 
+          ? <span>{dayPlan.breakfast}</span>
+          : (
+              <span>
+                {dayPlan.breakfast.activity}
+                {dayPlan.breakfast.venue && ` at ${dayPlan.breakfast.venue}`}
+                {dayPlan.breakfast.website && (
+                  <a 
+                    href={dayPlan.breakfast.website} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ color: '#007bff', textDecoration: 'underline' }}
+                  >
+                    {dayPlan.breakfast.venue || 'Visit website'}
+                  </a>
+                )}
+              </span>
+            );
+        parts.push(<span key="breakfast">Breakfast: {breakfast}</span>);
+      }
+      
+      if (dayPlan.dinner) {
+        const dinner = typeof dayPlan.dinner === 'string' 
+          ? <span>{dayPlan.dinner}</span>
+          : (
+              <span>
+                {dayPlan.dinner.activity}
+                {dayPlan.dinner.venue && ` at ${dayPlan.dinner.venue}`}
+                {dayPlan.dinner.website && (
+                  <a 
+                    href={dayPlan.dinner.website} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ color: '#007bff', textDecoration: 'underline' }}
+                  >
+                    {dayPlan.dinner.venue || 'Visit website'}
+                  </a>
+                )}
+              </span>
+            );
+        parts.push(<span key="dinner">Dinner: {dinner}</span>);
+      }
+      
+      return <div>{parts.map((part, index) => <span key={index}>{part}{index < parts.length - 1 ? '. ' : ''}</span>)}</div>;
+    }
+    
+    return <span>Day plan details available</span>;
+  };
+
+  // Helper function to create timeline-aligned recommendations
+  const createTimelineAlignedRecommendations = (planType: string, baseData: any) => {
+    const recommendations: any = {};
+    
+    switch (planType) {
+      case 'general':
+        recommendations.morning = baseData.morning || { activity: "Depart from Toronto and arrive at destination", venue: "Travel Route" };
+        recommendations.mid_morning = baseData.mid_morning || { activity: "Begin exploration of main attractions", venue: "Local Attractions" };
+        recommendations.lunch = baseData.lunch || { activity: "Enjoy local cuisine", venue: "Local Restaurants" };
+        recommendations.afternoon = baseData.afternoon || { activity: "Continue exploring main attractions", venue: "Scenic Spots" };
+        recommendations.evening = baseData.evening || { activity: "Capture sunset views", venue: "Sunset Viewpoints" };
+        break;
+        
+      case 'lgbtq':
+        recommendations.morning = baseData.morning || { activity: "Start with LGBTQ+ friendly activities", venue: "Inclusive Venues" };
+        recommendations.mid_morning = baseData.mid_morning || { activity: "Visit LGBTQ+ friendly cultural venues", venue: "Cultural Spaces" };
+        recommendations.lunch = baseData.lunch || { activity: "Dine at welcoming establishments", venue: "LGBTQ+ Friendly Restaurants" };
+        recommendations.afternoon = baseData.afternoon || { activity: "Connect with local LGBTQ+ community", venue: "Community Spaces" };
+        recommendations.evening = baseData.evening || { activity: "Enjoy inclusive evening activities", venue: "LGBTQ+ Friendly Venues" };
+        break;
+        
+      case 'outdoor':
+        recommendations.morning = baseData.morning || { activity: "Begin with sunrise activities", venue: "Trailheads" };
+        recommendations.mid_morning = baseData.mid_morning || { activity: "Explore natural trails and landscapes", venue: "Hiking Trails" };
+        recommendations.lunch = baseData.lunch || { activity: "Picnic in scenic locations", venue: "Scenic Picnic Spots" };
+        recommendations.afternoon = baseData.afternoon || { activity: "Continue outdoor exploration", venue: "Adventure Sites" };
+        recommendations.evening = baseData.evening || { activity: "Capture outdoor sunset views", venue: "Sunset Viewpoints" };
+        break;
+        
+      case 'culinary':
+        recommendations.morning = baseData.morning || { activity: "Start with leisurely brunch", venue: "Local Cafes" };
+        recommendations.mid_morning = baseData.mid_morning || { activity: "Visit local wineries and tasting rooms", venue: "Wineries" };
+        recommendations.lunch = baseData.lunch || { activity: "Enjoy local cuisine", venue: "Local Restaurants" };
+        recommendations.afternoon = baseData.afternoon || { activity: "Explore local breweries", venue: "Craft Breweries" };
+        recommendations.evening = baseData.evening || { activity: "Experience fine dining", venue: "Fine Dining Restaurants" };
+        break;
+    }
+    
+    return recommendations;
+  };
+
+  // Create day plans from detailed data with timeline-aligned recommendations
   const dayPlans = detailedTrip ? [
     {
       title: "General Day Plan",
@@ -189,7 +399,7 @@ const DayTripDetails = () => {
         { time: "7:00 PM", name: "Return Journey", description: "Head back to Toronto" }
       ],
       summaryTitle: "Perfect for Everyone",
-      summaryContent: detailedTrip.dayIn.general
+      summaryContent: renderDayPlan(createTimelineAlignedRecommendations('general', detailedTrip.dayIn.general))
     },
     {
       title: "LGBTQ+ Friendly Day Plan",
@@ -201,7 +411,7 @@ const DayTripDetails = () => {
         { time: "6:00 PM", name: "Evening Social", description: "Enjoy inclusive evening activities" }
       ],
       summaryTitle: "LGBTQ+ Inclusive Experience",
-      summaryContent: detailedTrip.dayIn.gayDayIn
+      summaryContent: renderDayPlan(createTimelineAlignedRecommendations('lgbtq', detailedTrip.dayIn.gayDayIn))
     },
     {
       title: "Outdoor Adventure Day Plan",
@@ -213,7 +423,7 @@ const DayTripDetails = () => {
         { time: "5:00 PM", name: "Sunset Adventure", description: "Capture outdoor sunset views" }
       ],
       summaryTitle: "Outdoor Adventure Experience",
-      summaryContent: detailedTrip.dayIn.outdoorsDay
+      summaryContent: renderDayPlan(createTimelineAlignedRecommendations('outdoor', detailedTrip.dayIn.outdoorsDay))
     },
     {
       title: "Bar & Restaurant Day Plan",
@@ -225,7 +435,7 @@ const DayTripDetails = () => {
         { time: "7:00 PM", name: "Fine Dining", description: "Experience local culinary scene" }
       ],
       summaryTitle: "Culinary & Beverage Experience",
-      summaryContent: detailedTrip.dayIn.barRestaurantDay
+      summaryContent: renderDayPlan(createTimelineAlignedRecommendations('culinary', detailedTrip.dayIn.barRestaurantDay))
     }
   ] : [];
 
@@ -474,9 +684,13 @@ const DayTripDetails = () => {
                     <Typography variant="h6" sx={{ fontWeight: 600, color: '#202124', mb: 1 }}>
                       {plan.summaryTitle}
                     </Typography>
-                    <Typography variant="body1" sx={{ color: '#4A4A4A', lineHeight: 1.6 }}>
-                      {plan.summaryContent}
-                    </Typography>
+                    <Box sx={{ color: '#4A4A4A', lineHeight: 1.6 }}>
+                      {typeof plan.summaryContent === 'string' ? (
+                        <Typography variant="body1">{plan.summaryContent}</Typography>
+                      ) : (
+                        plan.summaryContent
+                      )}
+                    </Box>
                   </Box>
                 </AccordionDetails>
               </Accordion>

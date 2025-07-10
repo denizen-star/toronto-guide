@@ -114,10 +114,159 @@
         ]
       },
       "dayIn": {
-        "general": "Start early with a sunrise paddle on Canoe Lake, hike the Lookout Trail for panoramic views, enjoy lunch at the Visitor Centre, explore the Logging Museum, and end with a sunset wildlife viewing session at the Highway 60 corridor.",
-        "gayDayIn": "Begin with a peaceful morning paddle on Smoke Lake, visit the Algonquin Art Centre for cultural experiences, enjoy a picnic lunch at Lake of Two Rivers, hike the Centennial Ridges Trail for spectacular views, and end with a romantic sunset at Opeongo Lake.",
-        "outdoorsDay": "Early morning wildlife viewing at Highway 60, challenging hike on the Highland Trail, lunch break at the Visitor Centre, afternoon canoe trip on Canoe Lake, and evening stargazing at the Dark Sky Preserve.",
-        "barRestaurantDay": "Breakfast at the Algonquin Visitor Centre café, lunch at the Lake of Two Rivers store, afternoon coffee at the Art Centre, and dinner at a nearby restaurant in Huntsville or Dwight."
+        "general": {
+          "morning": {
+            "activity": "Sunrise paddle on Canoe Lake",
+            "venue": "Canoe Lake, Algonquin Park",
+            "website": "https://www.algonquinpark.on.ca/visit/activities/canoeing",
+            "description": "Start your day with a peaceful paddle on the iconic Canoe Lake, watching the sunrise over the pristine waters",
+            "booking_required": true,
+            "best_time": "6:00-8:00 AM"
+          },
+          "mid_morning": {
+            "activity": "Hike the Lookout Trail",
+            "venue": "Highway 60, Algonquin Park",
+            "website": "https://www.algonquinpark.on.ca/visit/activities/hiking",
+            "description": "2.1km trail with panoramic views of the park's iconic landscape",
+            "difficulty": "Moderate",
+            "duration": "1-2 hours"
+          },
+          "lunch": {
+            "activity": "Lunch at Visitor Centre",
+            "venue": "Algonquin Visitor Centre",
+            "website": "https://www.algonquinpark.on.ca/visit/visitor-centre",
+            "phone": "+1-705-633-5572",
+            "cuisine": "Canadian café fare",
+            "price_range": "$10-20"
+          },
+          "afternoon": {
+            "activity": "Explore Logging Museum",
+            "venue": "Algonquin Logging Museum",
+            "website": "https://www.algonquinpark.on.ca/visit/activities/logging-museum",
+            "description": "Learn about the park's rich logging history and Indigenous heritage",
+            "admission": "Free with park entry"
+          },
+          "evening": {
+            "activity": "Sunset wildlife viewing",
+            "venue": "Highway 60 corridor",
+            "description": "Watch for moose, deer, and other wildlife during golden hour",
+            "best_time": "6:00-8:00 PM",
+            "tips": "Bring binoculars and stay in your vehicle"
+          }
+        },
+        "gayDayIn": {
+          "morning": {
+            "activity": "Peaceful paddle on Smoke Lake",
+            "venue": "Smoke Lake, Algonquin Park",
+            "website": "https://www.algonquinpark.on.ca/visit/activities/canoeing",
+            "description": "Begin with a serene morning paddle on the quieter Smoke Lake, perfect for couples",
+            "lgbt_friendly": "Inclusive outdoor experience",
+            "best_time": "6:00-8:00 AM"
+          },
+          "mid_morning": {
+            "activity": "Visit Algonquin Art Centre",
+            "venue": "Algonquin Art Centre",
+            "website": "https://www.algonquinartcentre.com",
+            "phone": "+1-705-633-5555",
+            "description": "Cultural experiences with rotating exhibitions inspired by the park",
+            "lgbt_programming": "Inclusive cultural programming"
+          },
+          "lunch": {
+            "activity": "Picnic lunch at Lake of Two Rivers",
+            "venue": "Lake of Two Rivers Beach",
+            "description": "Romantic picnic spot with beautiful lake views",
+            "facilities": "Picnic tables, washrooms, parking",
+            "lgbt_friendly": "Welcoming atmosphere"
+          },
+          "afternoon": {
+            "activity": "Hike Centennial Ridges Trail",
+            "venue": "Centennial Ridges Trail",
+            "website": "https://www.algonquinpark.on.ca/visit/activities/hiking",
+            "description": "Spectacular 10.4km trail with breathtaking views",
+            "difficulty": "Challenging",
+            "duration": "4-5 hours",
+            "lgbt_friendly": "Inclusive outdoor experience"
+          },
+          "evening": {
+            "activity": "Romantic sunset at Opeongo Lake",
+            "venue": "Opeongo Lake",
+            "description": "End your day with a romantic sunset at the largest lake in the park",
+            "best_time": "7:00-9:00 PM",
+            "lgbt_friendly": "Perfect for couples"
+          }
+        },
+        "outdoorsDay": {
+          "morning": {
+            "activity": "Early morning wildlife photography",
+            "venue": "Highway 60 corridor",
+            "description": "Capture wildlife in the golden morning light",
+            "best_time": "5:00-7:00 AM",
+            "tips": "Bring telephoto lens and tripod"
+          },
+          "mid_morning": {
+            "activity": "Hike the Centennial Ridges Trail",
+            "venue": "Centennial Ridges Trail",
+            "website": "https://www.algonquinpark.on.ca/visit/activities/hiking",
+            "description": "Challenging 10.4km trail with spectacular views",
+            "difficulty": "Difficult",
+            "duration": "4-5 hours"
+          },
+          "lunch": {
+            "activity": "Backcountry picnic",
+            "venue": "Scenic viewpoint along trail",
+            "description": "Enjoy lunch with panoramic views of the park",
+            "tips": "Pack light, leave no trace"
+          },
+          "afternoon": {
+            "activity": "Canoe on Opeongo Lake",
+            "venue": "Opeongo Lake",
+            "website": "https://www.algonquinpark.on.ca/visit/activities/canoeing",
+            "description": "Paddle on the largest lake in the park",
+            "duration": "2-3 hours",
+            "difficulty": "Moderate"
+          },
+          "evening": {
+            "activity": "Sunset at Lookout Trail",
+            "venue": "Lookout Trail",
+            "description": "End the day with spectacular sunset views",
+            "best_time": "7:00-9:00 PM"
+          }
+        },
+        "barRestaurantDay": {
+          "morning": {
+            "activity": "Breakfast at Visitor Centre Café",
+            "venue": "Algonquin Visitor Centre",
+            "website": "https://www.algonquinpark.on.ca/visit/visitor-centre",
+            "cuisine": "Canadian breakfast fare",
+            "price_range": "$8-15"
+          },
+          "mid_morning": {
+            "activity": "Coffee and snacks at Logging Museum",
+            "venue": "Algonquin Logging Museum",
+            "description": "Light refreshments while learning about park history",
+            "admission": "Free with park entry"
+          },
+          "lunch": {
+            "activity": "Lunch at Visitor Centre Restaurant",
+            "venue": "Algonquin Visitor Centre",
+            "website": "https://www.algonquinpark.on.ca/visit/visitor-centre",
+            "cuisine": "Canadian comfort food",
+            "price_range": "$12-25"
+          },
+          "afternoon": {
+            "activity": "Afternoon tea at Art Centre",
+            "venue": "Algonquin Art Centre",
+            "website": "https://www.algonquinartcentre.com",
+            "description": "Cultural refreshments with art viewing",
+            "price_range": "$5-12"
+          },
+          "evening": {
+            "activity": "Dinner at nearby town restaurants",
+            "venue": "Huntsville or Dwight",
+            "description": "Local dining options near the park",
+            "price_range": "$20-40"
+          }
+        }
       },
       "nearby": [
         {
@@ -303,10 +452,170 @@
         ]
       },
       "dayIn": {
-        "general": "Start with Inniskillin Winery for icewine tasting, lunch at Trius Restaurant, afternoon at Peller Estates, explore Niagara-on-the-Lake historic district, and end with dinner at a fine dining establishment.",
-        "gayDayIn": "Visit Two Sisters Vineyards (LGBTQ+ owned), lunch at The Olde Angel Inn (LGBTQ+ friendly), afternoon wine tasting at inclusive establishments, and dinner at a welcoming restaurant.",
-        "outdoorsDay": "Morning hike at Niagara Glen Nature Reserve, Whirlpool Aero Car experience, afternoon cycling through vineyards with wine stops, and sunset views over Lake Ontario.",
-        "barRestaurantDay": "Breakfast at a local café, wine tasting at premium wineries with food pairings, lunch at Trius Restaurant, afternoon tea in Niagara-on-the-Lake, and dinner at Peller Estates."
+        "general": {
+          "morning": {
+            "activity": "Icewine tasting at Inniskillin Winery",
+            "venue": "Inniskillin Winery",
+            "website": "https://www.inniskillin.com",
+            "address": "1499 Line 3, Niagara-on-the-Lake, ON",
+            "phone": "+1-905-468-2187",
+            "description": "Start your day with a world-renowned icewine tasting experience",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Vineyard tour at Peller Estates",
+            "venue": "Peller Estates Winery",
+            "website": "https://www.peller.com",
+            "address": "290 John St E, Niagara-on-the-Lake, ON",
+            "phone": "+1-888-673-5537",
+            "description": "Guided tour of the vineyards and cellars",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at Trius Winery Restaurant",
+            "venue": "Trius Winery Restaurant",
+            "website": "https://www.triuswines.com/restaurant",
+            "address": "1249 Niagara Stone Rd, Niagara-on-the-Lake, ON",
+            "phone": "+1-905-468-7123",
+            "cuisine": "Farm-to-table Canadian cuisine",
+            "price_range": "$25-50",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Explore Niagara-on-the-Lake historic district",
+            "venue": "Queen Street, Niagara-on-the-Lake",
+            "website": "https://www.niagaraonthelake.com",
+            "description": "Stroll through boutique shops and heritage buildings",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Dinner at Treadwell Cuisine",
+            "venue": "Treadwell Cuisine",
+            "website": "https://www.treadwellcuisine.com",
+            "address": "114 Queen St, Niagara-on-the-Lake, ON",
+            "phone": "+1-905-934-9797",
+            "cuisine": "Local seasonal cuisine",
+            "price_range": "$40-80",
+            "lgbt_friendly": true
+          }
+        },
+        "gayDayIn": {
+          "morning": {
+            "activity": "Tour and tasting at Two Sisters Vineyards",
+            "venue": "Two Sisters Vineyards",
+            "website": "https://www.twosistersvineyards.com",
+            "address": "240 John St E, Niagara-on-the-Lake, ON",
+            "phone": "+1-905-468-0592",
+            "description": "LGBTQ+ owned, award-winning winery",
+            "lgbtq_owned": true
+          },
+          "mid_morning": {
+            "activity": "Coffee at Balzac's Niagara-on-the-Lake",
+            "venue": "Balzac's Coffee Roasters",
+            "website": "https://www.balzacs.com/locations/niagara-on-the-lake",
+            "address": "223 King St, Niagara-on-the-Lake, ON",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at The Olde Angel Inn",
+            "venue": "The Olde Angel Inn",
+            "website": "https://www.angel-inn.com",
+            "address": "224 Regent St, Niagara-on-the-Lake, ON",
+            "phone": "+1-905-468-3411",
+            "cuisine": "British pub fare",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Wine tasting at Stratus Vineyards",
+            "venue": "Stratus Vineyards",
+            "website": "https://www.stratuswines.com",
+            "address": "2059 Niagara Stone Rd, Niagara-on-the-Lake, ON",
+            "phone": "+1-905-468-1806",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Dinner at Ruffino's Pasta Bar & Grill",
+            "venue": "Ruffino's Pasta Bar & Grill",
+            "website": "https://www.ruffinos.ca",
+            "address": "4680 Queen St, Niagara Falls, ON",
+            "phone": "+1-905-356-5555",
+            "cuisine": "Italian cuisine",
+            "lgbt_friendly": true
+          }
+        },
+        "outdoorsDay": {
+          "morning": {
+            "activity": "Morning hike at Niagara Glen",
+            "venue": "Niagara Glen Nature Reserve",
+            "website": "https://www.niagaraparks.com/visit/niagara-glen",
+            "description": "Scenic hiking trails along the Niagara River",
+            "difficulty": "Moderate",
+            "duration": "2-3 hours"
+          },
+          "mid_morning": {
+            "activity": "Cycling the Niagara Parkway",
+            "venue": "Niagara Parkway",
+            "description": "Scenic cycling route with vineyard views",
+            "duration": "1-2 hours",
+            "difficulty": "Easy"
+          },
+          "lunch": {
+            "activity": "Picnic at Queenston Heights Park",
+            "venue": "Queenston Heights Park",
+            "description": "Scenic picnic spot with river views",
+            "facilities": "Picnic tables, washrooms"
+          },
+          "afternoon": {
+            "activity": "Explore Niagara-on-the-Lake waterfront",
+            "venue": "Niagara-on-the-Lake waterfront",
+            "description": "Scenic walking along Lake Ontario",
+            "duration": "1-2 hours"
+          },
+          "evening": {
+            "activity": "Sunset at Fort George",
+            "venue": "Fort George National Historic Site",
+            "website": "https://www.pc.gc.ca/en/lhn-nhs/on/fortgeorge",
+            "description": "Historic site with sunset views",
+            "admission": "$7.90 per adult"
+          }
+        },
+        "barRestaurantDay": {
+          "morning": {
+            "activity": "Breakfast at The Olde Angel Inn",
+            "venue": "The Olde Angel Inn",
+            "website": "https://www.angel-inn.com",
+            "cuisine": "Traditional English breakfast",
+            "price_range": "$15-25"
+          },
+          "mid_morning": {
+            "activity": "Wine tasting at Jackson-Triggs",
+            "venue": "Jackson-Triggs Niagara Estate",
+            "website": "https://www.jacksontriggswinery.com",
+            "address": "2145 Niagara Stone Rd, Niagara-on-the-Lake, ON",
+            "phone": "+1-905-468-4637"
+          },
+          "lunch": {
+            "activity": "Lunch at Peller Estates Restaurant",
+            "venue": "Peller Estates Restaurant",
+            "website": "https://www.peller.com/dining",
+            "cuisine": "Fine dining with wine pairings",
+            "price_range": "$30-60"
+          },
+          "afternoon": {
+            "activity": "Afternoon tea at Prince of Wales Hotel",
+            "venue": "Prince of Wales Hotel",
+            "website": "https://www.vintage-hotels.com/princeofwales",
+            "address": "6 Picton St, Niagara-on-the-Lake, ON",
+            "phone": "+1-905-468-3246"
+          },
+          "evening": {
+            "activity": "Dinner at Trius Restaurant",
+            "venue": "Trius Restaurant",
+            "website": "https://www.triuswines.com/restaurant",
+            "cuisine": "Farm-to-table with wine pairings",
+            "price_range": "$40-80"
+          }
+        }
       },
       "nearby": [
         {
@@ -452,10 +761,153 @@
         ]
       },
       "dayIn": {
-        "general": "Start with morning coffee at a nearby café, explore art installations, attend a free fitness class, enjoy lunch at a local restaurant, participate in afternoon programming, and end with evening music or cultural event.",
-        "gayDayIn": "Join LGBTQ+ community events, participate in inclusive fitness classes, attend Pride programming, enjoy lunch at LGBTQ+ friendly restaurants nearby, and participate in evening cultural events.",
-        "outdoorsDay": "Morning fitness class, skate trail session (winter), outdoor yoga, cycling through the connected trails, and evening outdoor activities or sports.",
-        "barRestaurantDay": "Breakfast at nearby cafés, lunch at local restaurants, afternoon coffee breaks, and dinner at downtown restaurants with easy access to The Bentway."
+        "general": {
+          "morning": {
+            "activity": "Morning coffee at Balzac's Coffee",
+            "venue": "Balzac's Coffee Roasters",
+            "website": "https://www.balzacs.com",
+            "address": "55 Fort York Blvd, Toronto, ON",
+            "phone": "+1-416-214-2864",
+            "description": "Start your day with artisanal coffee near The Bentway",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Explore art installations",
+            "venue": "The Bentway Art Gallery",
+            "website": "https://www.thebentway.ca/art",
+            "description": "View rotating contemporary art installations",
+            "admission": "Free",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at Liberty Village restaurants",
+            "venue": "Liberty Village",
+            "website": "https://www.libertyvillage.ca",
+            "description": "Diverse dining options in the trendy neighborhood",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Participate in community fitness class",
+            "venue": "The Bentway Fitness Area",
+            "website": "https://www.thebentway.ca/events",
+            "description": "Join free community fitness programming",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Attend summer music series",
+            "venue": "The Bentway Skate Trail",
+            "website": "https://www.thebentway.ca/events/summer-music",
+            "description": "Free outdoor concerts featuring local artists",
+            "lgbt_friendly": true
+          }
+        },
+        "gayDayIn": {
+          "morning": {
+            "activity": "LGBTQ+ community coffee meetup",
+            "venue": "The Bentway Community Space",
+            "website": "https://www.thebentway.ca/events",
+            "description": "Start your day with inclusive community programming",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Visit LGBTQ+ art exhibitions",
+            "venue": "The Bentway Art Gallery",
+            "website": "https://www.thebentway.ca/art",
+            "description": "View LGBTQ+ themed art installations",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at LGBTQ+ friendly Liberty Village",
+            "venue": "Liberty Village restaurants",
+            "website": "https://www.libertyvillage.ca",
+            "description": "Dine at welcoming establishments in the neighborhood",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Participate in Pride programming",
+            "venue": "The Bentway",
+            "website": "https://www.thebentway.ca/events/pride",
+            "description": "Join LGBTQ+ community events and activities",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Attend LGBTQ+ cultural events",
+            "venue": "The Bentway Performance Space",
+            "website": "https://www.thebentway.ca/events",
+            "description": "Evening cultural programming and performances",
+            "lgbt_friendly": true
+          }
+        },
+        "outdoorsDay": {
+          "morning": {
+            "activity": "Morning fitness class",
+            "venue": "The Bentway Fitness Area",
+            "website": "https://www.thebentway.ca/events",
+            "description": "Start with community fitness programming",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Skate trail session (winter)",
+            "venue": "The Bentway Skate Trail",
+            "website": "https://www.thebentway.ca/skate",
+            "description": "Unique skating experience under the expressway",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Outdoor picnic at The Bentway",
+            "venue": "The Bentway Park",
+            "description": "Enjoy lunch in the urban park setting",
+            "facilities": "Picnic areas available"
+          },
+          "afternoon": {
+            "activity": "Cycling through connected trails",
+            "venue": "The Bentway Trail Network",
+            "website": "https://www.thebentway.ca/trails",
+            "description": "Explore the connected trail system",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Evening outdoor activities",
+            "venue": "The Bentway",
+            "website": "https://www.thebentway.ca/events",
+            "description": "Participate in evening outdoor programming",
+            "lgbt_friendly": true
+          }
+        },
+        "barRestaurantDay": {
+          "morning": {
+            "activity": "Breakfast at nearby cafés",
+            "venue": "Liberty Village cafés",
+            "website": "https://www.libertyvillage.ca",
+            "description": "Start with breakfast at local establishments",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Coffee break at The Bentway",
+            "venue": "The Bentway Café",
+            "description": "Refreshments while exploring the space",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at Liberty Village restaurants",
+            "venue": "Liberty Village",
+            "website": "https://www.libertyvillage.ca",
+            "description": "Diverse dining options in the neighborhood",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Afternoon coffee at local spots",
+            "venue": "Downtown Toronto cafés",
+            "description": "Explore coffee shops in the area",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Dinner at downtown restaurants",
+            "venue": "Downtown Toronto",
+            "description": "Fine dining with easy access to The Bentway",
+            "lgbt_friendly": true
+          }
+        }
       },
       "nearby": [
         {
@@ -557,10 +1009,168 @@
         ]
       },
       "dayIn": {
-        "general": "Start with breakfast at a local café, visit wineries for tastings, lunch at a farm-to-table restaurant, explore art galleries, visit Sandbanks Beach, and end with dinner at a fine dining establishment.",
-        "gayDayIn": "Visit LGBTQ+ friendly wineries and restaurants, explore inclusive art galleries, enjoy lunch at welcoming establishments, visit Sandbanks Beach, and dinner at LGBTQ+ friendly restaurants.",
-        "outdoorsDay": "Morning hike at Sandbanks Provincial Park, cycling through wine country, afternoon beach time, kayaking on Lake Ontario, and sunset views over the lake.",
-        "barRestaurantDay": "Breakfast at local cafés, wine tasting at multiple wineries, lunch at farm-to-table restaurants, afternoon brewery visits, and dinner at fine dining establishments."
+        "general": {
+          "morning": {
+            "activity": "Breakfast at The Vic Café",
+            "venue": "The Vic Café",
+            "website": "https://www.theviccafe.com",
+            "address": "178 Main St, Picton, ON",
+            "phone": "+1-613-476-0471",
+            "cuisine": "Local café fare",
+            "price_range": "$8-15",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Wine tasting at Norman Hardie Winery",
+            "venue": "Norman Hardie Winery",
+            "website": "https://www.normanhardie.com",
+            "address": "1152 Greer Rd, Wellington, ON",
+            "phone": "+1-613-399-5297",
+            "description": "Award-winning wines with beautiful vineyard views",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at The County Canteen",
+            "venue": "The County Canteen",
+            "website": "https://www.countycanteen.ca",
+            "address": "279 Main St, Picton, ON",
+            "phone": "+1-613-476-1818",
+            "cuisine": "Farm-to-table Canadian cuisine",
+            "price_range": "$15-30",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Visit Sandbanks Provincial Park",
+            "venue": "Sandbanks Provincial Park",
+            "website": "https://www.ontarioparks.com/park/sandbanks",
+            "address": "3004 County Rd 12, Picton, ON",
+            "phone": "+1-613-393-3319",
+            "description": "Famous sand dunes and beautiful beaches",
+            "admission": "$12.25 per vehicle"
+          },
+          "evening": {
+            "activity": "Dinner at Drake Devonshire",
+            "venue": "Drake Devonshire",
+            "website": "https://www.drakedevonshire.ca",
+            "address": "24 Wharf St, Wellington, ON",
+            "phone": "+1-613-399-6333",
+            "cuisine": "Fine dining with lake views",
+            "price_range": "$40-80",
+            "lgbt_friendly": true
+          }
+        },
+        "gayDayIn": {
+          "morning": {
+            "activity": "Breakfast at The Vic Café (LGBTQ+ friendly)",
+            "venue": "The Vic Café",
+            "website": "https://www.theviccafe.com",
+            "address": "178 Main St, Picton, ON",
+            "phone": "+1-613-476-0471",
+            "description": "Welcoming atmosphere for LGBTQ+ visitors",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Visit LGBTQ+ friendly wineries",
+            "venue": "Various County Wineries",
+            "description": "Tour welcoming wineries in the region",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at The County Canteen (LGBTQ+ friendly)",
+            "venue": "The County Canteen",
+            "website": "https://www.countycanteen.ca",
+            "address": "279 Main St, Picton, ON",
+            "phone": "+1-613-476-1818",
+            "description": "Inclusive dining experience",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Explore inclusive art galleries",
+            "venue": "County Art Galleries",
+            "description": "Visit welcoming art spaces in the county",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Dinner at Drake Devonshire (LGBTQ+ friendly)",
+            "venue": "Drake Devonshire",
+            "website": "https://www.drakedevonshire.ca",
+            "address": "24 Wharf St, Wellington, ON",
+            "phone": "+1-613-399-6333",
+            "description": "Stylish boutique hotel with inclusive atmosphere",
+            "lgbt_friendly": true
+          }
+        },
+        "outdoorsDay": {
+          "morning": {
+            "activity": "Morning hike at Sandbanks Provincial Park",
+            "venue": "Sandbanks Provincial Park",
+            "website": "https://www.ontarioparks.com/park/sandbanks",
+            "address": "3004 County Rd 12, Picton, ON",
+            "phone": "+1-613-393-3319",
+            "description": "Explore the famous sand dunes and trails",
+            "difficulty": "Easy to Moderate",
+            "duration": "2-3 hours"
+          },
+          "mid_morning": {
+            "activity": "Cycling through wine country",
+            "venue": "County Wine Country",
+            "description": "Scenic cycling routes through vineyards",
+            "duration": "1-2 hours",
+            "difficulty": "Easy"
+          },
+          "lunch": {
+            "activity": "Picnic at Sandbanks Beach",
+            "venue": "Sandbanks Beach",
+            "description": "Beachside picnic with lake views",
+            "facilities": "Picnic tables, washrooms, parking"
+          },
+          "afternoon": {
+            "activity": "Kayaking on Lake Ontario",
+            "venue": "Lake Ontario",
+            "description": "Water activities on the lake",
+            "duration": "2-3 hours",
+            "difficulty": "Moderate"
+          },
+          "evening": {
+            "activity": "Sunset at Wellington Beach",
+            "venue": "Wellington Beach",
+            "description": "Beautiful sunset views over Lake Ontario",
+            "best_time": "7:00-9:00 PM"
+          }
+        },
+        "barRestaurantDay": {
+          "morning": {
+            "activity": "Breakfast at The Vic Café",
+            "venue": "The Vic Café",
+            "website": "https://www.theviccafe.com",
+            "cuisine": "Local breakfast fare",
+            "price_range": "$8-15"
+          },
+          "mid_morning": {
+            "activity": "Wine tasting at multiple wineries",
+            "venue": "County Wineries",
+            "description": "Tour and taste at various county wineries",
+            "price_range": "$10-25 per tasting"
+          },
+          "lunch": {
+            "activity": "Lunch at farm-to-table restaurants",
+            "venue": "County Restaurants",
+            "description": "Fresh local cuisine at county establishments",
+            "price_range": "$15-35"
+          },
+          "afternoon": {
+            "activity": "Brewery visits",
+            "venue": "County Breweries",
+            "description": "Tour local craft breweries",
+            "price_range": "$8-15 per tasting"
+          },
+          "evening": {
+            "activity": "Dinner at fine dining establishments",
+            "venue": "County Fine Dining",
+            "description": "Upscale dining experiences in the county",
+            "price_range": "$40-80"
+          }
+        }
       },
       "nearby": [
         {
@@ -668,10 +1278,158 @@
         ]
       },
       "dayIn": {
-        "general": "Start with breakfast at the village, take the gondola for mountain views, hike or bike trails, lunch at a village restaurant, afternoon spa treatment, and end with dinner and evening entertainment.",
-        "gayDayIn": "Enjoy LGBTQ+ friendly village atmosphere, participate in inclusive outdoor activities, lunch at welcoming restaurants, spa experience, and evening dining at inclusive establishments.",
-        "outdoorsDay": "Morning mountain biking or hiking, gondola ride for views, afternoon water activities on Georgian Bay, cycling through the area, and evening outdoor dining.",
-        "barRestaurantDay": "Breakfast at village cafés, lunch at mountain restaurants, afternoon coffee breaks, and dinner at fine dining establishments in the village."
+        "general": {
+          "morning": {
+            "activity": "Breakfast at Blue Mountain Village",
+            "venue": "Blue Mountain Village",
+            "website": "https://www.bluemountainvillage.ca",
+            "address": "156 Jozo Weider Blvd, Blue Mountains, ON",
+            "phone": "+1-705-445-0231",
+            "description": "Start your day with village dining options",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Gondola ride for mountain views",
+            "venue": "Blue Mountain Gondola",
+            "website": "https://www.bluemountain.ca/activities/gondola",
+            "address": "156 Jozo Weider Blvd, Blue Mountains, ON",
+            "phone": "+1-705-445-0231",
+            "description": "Scenic gondola ride with panoramic views",
+            "admission": "$25 per adult"
+          },
+          "lunch": {
+            "activity": "Lunch at village restaurants",
+            "venue": "Blue Mountain Village Restaurants",
+            "website": "https://www.bluemountainvillage.ca/dining",
+            "description": "Diverse dining options in the village",
+            "price_range": "$15-35",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Spa treatment at Scandinave Spa",
+            "venue": "Scandinave Spa Blue Mountain",
+            "website": "https://www.scandinave.com/en/blue-mountain",
+            "address": "152 Grey Rd 21, Blue Mountains, ON",
+            "phone": "+1-705-444-2964",
+            "description": "Relaxing spa experience with mountain views",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Dinner and evening entertainment",
+            "venue": "Blue Mountain Village",
+            "website": "https://www.bluemountainvillage.ca",
+            "description": "Evening dining and entertainment options",
+            "lgbt_friendly": true
+          }
+        },
+        "gayDayIn": {
+          "morning": {
+            "activity": "LGBTQ+ friendly village exploration",
+            "venue": "Blue Mountain Village",
+            "website": "https://www.bluemountainvillage.ca",
+            "description": "Enjoy the inclusive village atmosphere",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Inclusive outdoor activities",
+            "venue": "Blue Mountain Resort",
+            "website": "https://www.bluemountain.ca",
+            "description": "Participate in welcoming outdoor programming",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at welcoming village restaurants",
+            "venue": "Blue Mountain Village Restaurants",
+            "website": "https://www.bluemountainvillage.ca/dining",
+            "description": "Dine at inclusive establishments",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Spa experience at Scandinave Spa",
+            "venue": "Scandinave Spa Blue Mountain",
+            "website": "https://www.scandinave.com/en/blue-mountain",
+            "description": "Relaxing spa treatment in inclusive environment",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Evening dining at inclusive establishments",
+            "venue": "Blue Mountain Village",
+            "website": "https://www.bluemountainvillage.ca",
+            "description": "Dinner at welcoming village restaurants",
+            "lgbt_friendly": true
+          }
+        },
+        "outdoorsDay": {
+          "morning": {
+            "activity": "Mountain biking or hiking",
+            "venue": "Blue Mountain Trails",
+            "website": "https://www.bluemountain.ca/activities",
+            "description": "Explore mountain trails and paths",
+            "difficulty": "Easy to Difficult",
+            "duration": "2-4 hours"
+          },
+          "mid_morning": {
+            "activity": "Gondola ride for scenic views",
+            "venue": "Blue Mountain Gondola",
+            "website": "https://www.bluemountain.ca/activities/gondola",
+            "description": "Panoramic views of Georgian Bay",
+            "duration": "30 minutes"
+          },
+          "lunch": {
+            "activity": "Outdoor dining at mountain restaurants",
+            "venue": "Blue Mountain Restaurants",
+            "description": "Al fresco dining with mountain views",
+            "price_range": "$15-35"
+          },
+          "afternoon": {
+            "activity": "Water activities on Georgian Bay",
+            "venue": "Georgian Bay",
+            "description": "Swimming, kayaking, or beach activities",
+            "duration": "2-3 hours"
+          },
+          "evening": {
+            "activity": "Cycling through the area",
+            "venue": "Blue Mountain Area",
+            "description": "Scenic cycling routes",
+            "duration": "1-2 hours",
+            "difficulty": "Easy to Moderate"
+          }
+        },
+        "barRestaurantDay": {
+          "morning": {
+            "activity": "Breakfast at village cafés",
+            "venue": "Blue Mountain Village Cafés",
+            "website": "https://www.bluemountainvillage.ca/dining",
+            "cuisine": "Mountain breakfast fare",
+            "price_range": "$10-20"
+          },
+          "mid_morning": {
+            "activity": "Coffee at mountain coffee shops",
+            "venue": "Blue Mountain Coffee Shops",
+            "description": "Artisanal coffee in mountain setting",
+            "price_range": "$4-8"
+          },
+          "lunch": {
+            "activity": "Lunch at mountain restaurants",
+            "venue": "Blue Mountain Restaurants",
+            "website": "https://www.bluemountainvillage.ca/dining",
+            "cuisine": "Mountain cuisine",
+            "price_range": "$15-35"
+          },
+          "afternoon": {
+            "activity": "Afternoon coffee breaks",
+            "venue": "Blue Mountain Cafés",
+            "description": "Refreshments throughout the day",
+            "price_range": "$4-8"
+          },
+          "evening": {
+            "activity": "Dinner at fine dining establishments",
+            "venue": "Blue Mountain Fine Dining",
+            "website": "https://www.bluemountainvillage.ca/dining",
+            "cuisine": "Upscale mountain dining",
+            "price_range": "$40-80"
+          }
+        }
       },
       "nearby": [
         {
@@ -779,10 +1537,142 @@
         ]
       },
       "dayIn": {
-        "general": "Start with cave exploration and geological tour, walk the suspension bridge, lunch at nearby restaurant, afternoon Blue Mountain activities, and end with dinner in the village.",
-        "gayDayIn": "Enjoy inclusive outdoor adventure activities, participate in guided tours, lunch at LGBTQ+ friendly restaurants, combine with Blue Mountain activities, and dinner at welcoming establishments.",
-        "outdoorsDay": "Morning cave exploration and hiking, suspension bridge walk, afternoon mountain biking or hiking at Blue Mountain, and evening outdoor activities.",
-        "barRestaurantDay": "Breakfast at nearby cafés, lunch at local restaurants, afternoon coffee breaks, and dinner at Blue Mountain Village restaurants."
+        "general": {
+          "morning": {
+            "activity": "Early morning beach walk",
+            "venue": "Sandbanks Provincial Park",
+            "website": "https://www.ontarioparks.com/park/sandbanks",
+            "address": "3004 County Rd 12, Picton, ON",
+            "phone": "+1-613-393-3319",
+            "description": "Start your day with a peaceful beach walk",
+            "best_time": "6:00-8:00 AM"
+          },
+          "mid_morning": {
+            "activity": "Explore the sand dunes",
+            "venue": "Sandbanks Dunes",
+            "website": "https://www.ontarioparks.com/park/sandbanks",
+            "description": "Hike through the famous sand dunes",
+            "difficulty": "Easy",
+            "duration": "1-2 hours"
+          },
+          "lunch": {
+            "activity": "Beachside picnic",
+            "venue": "Sandbanks Beach",
+            "description": "Picnic with beautiful lake views",
+            "facilities": "Picnic tables, washrooms, parking"
+          },
+          "afternoon": {
+            "activity": "Swimming and beach activities",
+            "venue": "Sandbanks Beach",
+            "description": "Enjoy the pristine beaches and clear water",
+            "duration": "2-3 hours"
+          },
+          "evening": {
+            "activity": "Sunset at the beach",
+            "venue": "Sandbanks Beach",
+            "description": "Spectacular sunset views over Lake Ontario",
+            "best_time": "7:00-9:00 PM"
+          }
+        },
+        "gayDayIn": {
+          "morning": {
+            "activity": "LGBTQ+ friendly beach morning",
+            "venue": "Sandbanks Provincial Park",
+            "website": "https://www.ontarioparks.com/park/sandbanks",
+            "description": "Welcoming beach environment for all visitors",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Inclusive hiking on dunes",
+            "venue": "Sandbanks Dunes",
+            "description": "Explore the dunes in an inclusive environment",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Beach picnic in welcoming atmosphere",
+            "venue": "Sandbanks Beach",
+            "description": "Enjoy lunch in an inclusive setting",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Swimming and beach activities",
+            "venue": "Sandbanks Beach",
+            "description": "Beach activities in welcoming environment",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Romantic sunset at the beach",
+            "venue": "Sandbanks Beach",
+            "description": "Perfect sunset spot for couples",
+            "lgbt_friendly": true
+          }
+        },
+        "outdoorsDay": {
+          "morning": {
+            "activity": "Sunrise beach walk",
+            "venue": "Sandbanks Beach",
+            "description": "Early morning beach exploration",
+            "best_time": "5:00-7:00 AM"
+          },
+          "mid_morning": {
+            "activity": "Hiking the dune trails",
+            "venue": "Sandbanks Dunes",
+            "website": "https://www.ontarioparks.com/park/sandbanks",
+            "description": "Explore the extensive dune system",
+            "difficulty": "Easy to Moderate",
+            "duration": "2-3 hours"
+          },
+          "lunch": {
+            "activity": "Outdoor picnic in scenic location",
+            "venue": "Sandbanks Picnic Areas",
+            "description": "Picnic with panoramic lake views",
+            "facilities": "Picnic tables, washrooms"
+          },
+          "afternoon": {
+            "activity": "Water activities on Lake Ontario",
+            "venue": "Lake Ontario",
+            "description": "Swimming, kayaking, or beach activities",
+            "duration": "2-3 hours"
+          },
+          "evening": {
+            "activity": "Evening beach activities",
+            "venue": "Sandbanks Beach",
+            "description": "Sunset activities and beach relaxation",
+            "best_time": "6:00-8:00 PM"
+          }
+        },
+        "barRestaurantDay": {
+          "morning": {
+            "activity": "Breakfast at nearby cafés",
+            "venue": "Picton Cafés",
+            "description": "Local breakfast options near the park",
+            "price_range": "$8-15"
+          },
+          "mid_morning": {
+            "activity": "Coffee at local spots",
+            "venue": "County Coffee Shops",
+            "description": "Refreshments before beach activities",
+            "price_range": "$4-8"
+          },
+          "lunch": {
+            "activity": "Lunch at county restaurants",
+            "venue": "Prince Edward County Restaurants",
+            "description": "Local dining options near the park",
+            "price_range": "$12-25"
+          },
+          "afternoon": {
+            "activity": "Afternoon refreshments",
+            "venue": "County Cafés",
+            "description": "Afternoon coffee and snacks",
+            "price_range": "$4-8"
+          },
+          "evening": {
+            "activity": "Dinner at county establishments",
+            "venue": "Prince Edward County Dining",
+            "description": "Evening dining in the county",
+            "price_range": "$20-50"
+          }
+        }
       },
       "nearby": [
         {
@@ -890,10 +1780,158 @@
         ]
       },
       "dayIn": {
-        "general": "Start with breakfast at a local café, explore historic downtown and galleries, lunch at waterfront restaurant, afternoon outdoor activities, and end with dinner and evening entertainment.",
-        "gayDayIn": "Explore LGBTQ+ friendly downtown establishments, visit inclusive galleries and shops, lunch at welcoming restaurants, enjoy waterfront activities, and dinner at LGBTQ+ friendly establishments.",
-        "outdoorsDay": "Morning waterfront activities, cycling through town, hiking nearby trails, afternoon water sports on Georgian Bay, and evening outdoor dining.",
-        "barRestaurantDay": "Breakfast at local cafés, lunch at waterfront restaurants, afternoon coffee breaks, and dinner at fine dining establishments."
+        "general": {
+          "morning": {
+            "activity": "Breakfast at The Mad Dog Café",
+            "venue": "The Mad Dog Café",
+            "website": "https://www.maddogcafe.ca",
+            "address": "24 Hurontario St, Collingwood, ON",
+            "phone": "+1-705-444-2233",
+            "cuisine": "Local café fare",
+            "price_range": "$8-15",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Visit Collingwood Museum",
+            "venue": "Collingwood Museum",
+            "website": "https://www.collingwood.ca/museum",
+            "address": "45 St Paul St, Collingwood, ON",
+            "phone": "+1-705-445-4811",
+            "description": "Learn about the town's rich history",
+            "admission": "Free"
+          },
+          "lunch": {
+            "activity": "Lunch at The Huron Club",
+            "venue": "The Huron Club",
+            "website": "https://www.huronclub.ca",
+            "address": "94 Hurontario St, Collingwood, ON",
+            "phone": "+1-705-444-2233",
+            "cuisine": "Canadian pub fare",
+            "price_range": "$15-30",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Explore downtown Collingwood",
+            "venue": "Downtown Collingwood",
+            "website": "https://www.collingwood.ca",
+            "description": "Stroll through boutique shops and galleries",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Dinner at The Georgian Bay Hotel",
+            "venue": "The Georgian Bay Hotel",
+            "website": "https://www.georgianbayhotel.com",
+            "address": "30 Pine St, Collingwood, ON",
+            "phone": "+1-705-445-5401",
+            "cuisine": "Fine dining with lake views",
+            "price_range": "$30-60",
+            "lgbt_friendly": true
+          }
+        },
+        "gayDayIn": {
+          "morning": {
+            "activity": "LGBTQ+ friendly café breakfast",
+            "venue": "The Mad Dog Café",
+            "website": "https://www.maddogcafe.ca",
+            "description": "Welcoming atmosphere for LGBTQ+ visitors",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Visit inclusive local attractions",
+            "venue": "Collingwood Attractions",
+            "description": "Explore welcoming local sites",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at LGBTQ+ friendly establishments",
+            "venue": "Collingwood Restaurants",
+            "description": "Dine at inclusive local restaurants",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Explore inclusive downtown area",
+            "venue": "Downtown Collingwood",
+            "description": "Visit welcoming shops and galleries",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Dinner at inclusive establishments",
+            "venue": "Collingwood Fine Dining",
+            "description": "Evening dining at welcoming restaurants",
+            "lgbt_friendly": true
+          }
+        },
+        "outdoorsDay": {
+          "morning": {
+            "activity": "Morning hike at Pretty River Valley",
+            "venue": "Pretty River Valley Provincial Park",
+            "website": "https://www.ontarioparks.com/park/prettyriver",
+            "address": "Pretty River Valley Rd, Collingwood, ON",
+            "description": "Scenic hiking trails with valley views",
+            "difficulty": "Easy to Moderate",
+            "duration": "2-3 hours"
+          },
+          "mid_morning": {
+            "activity": "Cycling the Georgian Trail",
+            "venue": "Georgian Trail",
+            "website": "https://www.georgiantrail.ca",
+            "description": "Scenic cycling route along Georgian Bay",
+            "duration": "1-2 hours",
+            "difficulty": "Easy"
+          },
+          "lunch": {
+            "activity": "Picnic at Sunset Point Park",
+            "venue": "Sunset Point Park",
+            "address": "1 St Lawrence St, Collingwood, ON",
+            "description": "Scenic picnic spot with lake views",
+            "facilities": "Picnic tables, washrooms, parking"
+          },
+          "afternoon": {
+            "activity": "Water activities on Georgian Bay",
+            "venue": "Georgian Bay",
+            "description": "Swimming, kayaking, or beach activities",
+            "duration": "2-3 hours"
+          },
+          "evening": {
+            "activity": "Sunset at Sunset Point",
+            "venue": "Sunset Point",
+            "description": "Beautiful sunset views over Georgian Bay",
+            "best_time": "7:00-9:00 PM"
+          }
+        },
+        "barRestaurantDay": {
+          "morning": {
+            "activity": "Breakfast at local cafés",
+            "venue": "Collingwood Cafés",
+            "description": "Local breakfast options in town",
+            "price_range": "$8-15"
+          },
+          "mid_morning": {
+            "activity": "Coffee at artisanal coffee shops",
+            "venue": "Collingwood Coffee Shops",
+            "description": "Quality coffee in mountain town setting",
+            "price_range": "$4-8"
+          },
+          "lunch": {
+            "activity": "Lunch at local restaurants",
+            "venue": "Collingwood Restaurants",
+            "website": "https://www.collingwood.ca",
+            "cuisine": "Local cuisine",
+            "price_range": "$12-25"
+          },
+          "afternoon": {
+            "activity": "Afternoon coffee and snacks",
+            "venue": "Collingwood Cafés",
+            "description": "Refreshments throughout the day",
+            "price_range": "$4-8"
+          },
+          "evening": {
+            "activity": "Dinner at fine dining establishments",
+            "venue": "Collingwood Fine Dining",
+            "description": "Upscale dining in mountain town",
+            "price_range": "$25-60"
+          }
+        }
       },
       "nearby": [
         {
@@ -1001,10 +2039,147 @@
         ]
       },
       "dayIn": {
-        "general": "Start with breakfast in the village, hike the gorge trails, lunch at a local restaurant, explore art galleries, afternoon tubing or water activities, and end with dinner and evening entertainment.",
-        "gayDayIn": "Explore LGBTQ+ friendly village establishments, participate in inclusive outdoor activities, visit welcoming galleries, lunch at inclusive restaurants, and dinner at LGBTQ+ friendly establishments.",
-        "outdoorsDay": "Morning gorge hiking, afternoon tubing on the Grand River, cycling through the area, water activities, and evening outdoor dining.",
-        "barRestaurantDay": "Breakfast at village cafés, lunch at local restaurants, afternoon coffee breaks, and dinner at fine dining establishments."
+        "general": {
+          "morning": {
+            "activity": "Breakfast at Beach House Restaurant",
+            "venue": "Beach House Restaurant",
+            "website": "https://www.beachhouserestaurant.ca",
+            "address": "11 Main St, Wasaga Beach, ON",
+            "phone": "+1-705-429-2244",
+            "cuisine": "Beach breakfast fare",
+            "price_range": "$10-20",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Morning beach walk",
+            "venue": "Wasaga Beach",
+            "website": "https://www.wasagabeach.com",
+            "address": "Wasaga Beach Provincial Park",
+            "description": "Stroll along the world's longest freshwater beach",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at beachside restaurants",
+            "venue": "Wasaga Beach Restaurants",
+            "website": "https://www.wasagabeach.com/dining",
+            "description": "Dine with beach views",
+            "price_range": "$12-25",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Beach activities and swimming",
+            "venue": "Wasaga Beach",
+            "description": "Enjoy the pristine beaches and clear water",
+            "duration": "2-3 hours"
+          },
+          "evening": {
+            "activity": "Dinner at local establishments",
+            "venue": "Wasaga Beach Dining",
+            "website": "https://www.wasagabeach.com",
+            "description": "Evening dining options in beach town",
+            "lgbt_friendly": true
+          }
+        },
+        "gayDayIn": {
+          "morning": {
+            "activity": "LGBTQ+ friendly beach morning",
+            "venue": "Wasaga Beach",
+            "website": "https://www.wasagabeach.com",
+            "description": "Welcoming beach environment for all visitors",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Inclusive beach activities",
+            "venue": "Wasaga Beach",
+            "description": "Beach activities in welcoming atmosphere",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at LGBTQ+ friendly restaurants",
+            "venue": "Wasaga Beach Restaurants",
+            "description": "Dine at inclusive beach establishments",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Beach activities in inclusive setting",
+            "venue": "Wasaga Beach",
+            "description": "Swimming and beach fun in welcoming environment",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Evening dining at welcoming establishments",
+            "venue": "Wasaga Beach Dining",
+            "description": "Dinner at inclusive beach restaurants",
+            "lgbt_friendly": true
+          }
+        },
+        "outdoorsDay": {
+          "morning": {
+            "activity": "Sunrise beach walk",
+            "venue": "Wasaga Beach",
+            "description": "Early morning beach exploration",
+            "best_time": "5:00-7:00 AM"
+          },
+          "mid_morning": {
+            "activity": "Hiking at Wasaga Beach Provincial Park",
+            "venue": "Wasaga Beach Provincial Park",
+            "website": "https://www.ontarioparks.com/park/wasagabeach",
+            "description": "Explore the park's trails and natural areas",
+            "difficulty": "Easy",
+            "duration": "1-2 hours"
+          },
+          "lunch": {
+            "activity": "Beachside picnic",
+            "venue": "Wasaga Beach",
+            "description": "Picnic with beautiful beach views",
+            "facilities": "Picnic tables, washrooms, parking"
+          },
+          "afternoon": {
+            "activity": "Water activities on Georgian Bay",
+            "venue": "Georgian Bay",
+            "description": "Swimming, kayaking, or beach activities",
+            "duration": "2-3 hours"
+          },
+          "evening": {
+            "activity": "Sunset at the beach",
+            "venue": "Wasaga Beach",
+            "description": "Spectacular sunset views over Georgian Bay",
+            "best_time": "7:00-9:00 PM"
+          }
+        },
+        "barRestaurantDay": {
+          "morning": {
+            "activity": "Breakfast at beach cafés",
+            "venue": "Wasaga Beach Cafés",
+            "description": "Beach breakfast options",
+            "price_range": "$8-15"
+          },
+          "mid_morning": {
+            "activity": "Coffee at beach coffee shops",
+            "venue": "Wasaga Beach Coffee Shops",
+            "description": "Refreshments with beach views",
+            "price_range": "$4-8"
+          },
+          "lunch": {
+            "activity": "Lunch at beachside restaurants",
+            "venue": "Wasaga Beach Restaurants",
+            "website": "https://www.wasagabeach.com/dining",
+            "cuisine": "Beach cuisine",
+            "price_range": "$12-25"
+          },
+          "afternoon": {
+            "activity": "Afternoon beach refreshments",
+            "venue": "Wasaga Beach Cafés",
+            "description": "Afternoon coffee and snacks",
+            "price_range": "$4-8"
+          },
+          "evening": {
+            "activity": "Dinner at beach establishments",
+            "venue": "Wasaga Beach Dining",
+            "description": "Evening dining in beach town",
+            "price_range": "$15-40"
+          }
+        }
       },
       "nearby": [
         {
@@ -1112,10 +2287,148 @@
         ]
       },
       "dayIn": {
-        "general": "Start with Indigenous cultural program, hike the lake trails, lunch at nearby restaurant, explore the reconstructed village, afternoon nature programs, and end with educational activities.",
-        "gayDayIn": "Participate in LGBTQ+ inclusive cultural programs, enjoy inclusive outdoor activities, lunch at welcoming nearby restaurants, and participate in educational experiences.",
-        "outdoorsDay": "Morning hiking around the lake, afternoon nature walks, cycling through the area, educational programs, and evening outdoor activities.",
-        "barRestaurantDay": "Breakfast at nearby cafés, lunch at local restaurants, afternoon coffee breaks, and dinner at nearby dining establishments."
+        "general": {
+          "morning": {
+            "activity": "Breakfast at nearby cafés",
+            "venue": "Collingwood Area Cafés",
+            "description": "Local breakfast options near the caves",
+            "price_range": "$8-15",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Explore the scenic caves",
+            "venue": "Scenic Caves Nature Adventures",
+            "website": "https://www.sceniccaves.com",
+            "address": "260 Scenic Caves Rd, The Blue Mountains, ON",
+            "phone": "+1-705-446-0256",
+            "description": "Guided tours through natural caves",
+            "admission": "$25 per adult",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at Scenic Caves Café",
+            "venue": "Scenic Caves Café",
+            "website": "https://www.sceniccaves.com/dining",
+            "description": "Dine with mountain views",
+            "price_range": "$12-25",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Walk the suspension bridge",
+            "venue": "Scenic Caves Suspension Bridge",
+            "website": "https://www.sceniccaves.com/activities",
+            "description": "Cross the longest suspension bridge in Southern Ontario",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Dinner at nearby restaurants",
+            "venue": "Blue Mountains Area Restaurants",
+            "description": "Evening dining in the mountain area",
+            "lgbt_friendly": true
+          }
+        },
+        "gayDayIn": {
+          "morning": {
+            "activity": "LGBTQ+ friendly morning activities",
+            "venue": "Scenic Caves Nature Adventures",
+            "website": "https://www.sceniccaves.com",
+            "description": "Welcoming outdoor adventure experience",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Inclusive cave exploration",
+            "venue": "Scenic Caves",
+            "description": "Explore caves in welcoming environment",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at inclusive café",
+            "venue": "Scenic Caves Café",
+            "description": "Dine in welcoming atmosphere",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Suspension bridge walk",
+            "venue": "Scenic Caves Suspension Bridge",
+            "description": "Cross bridge in inclusive setting",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Dinner at LGBTQ+ friendly restaurants",
+            "venue": "Blue Mountains Area Restaurants",
+            "description": "Evening dining at welcoming establishments",
+            "lgbt_friendly": true
+          }
+        },
+        "outdoorsDay": {
+          "morning": {
+            "activity": "Early morning cave exploration",
+            "venue": "Scenic Caves",
+            "website": "https://www.sceniccaves.com",
+            "description": "Explore caves in the cool morning air",
+            "difficulty": "Moderate",
+            "duration": "1-2 hours"
+          },
+          "mid_morning": {
+            "activity": "Hiking the nature trails",
+            "venue": "Scenic Caves Trails",
+            "website": "https://www.sceniccaves.com/activities",
+            "description": "Hike through beautiful natural landscapes",
+            "difficulty": "Easy to Moderate",
+            "duration": "2-3 hours"
+          },
+          "lunch": {
+            "activity": "Outdoor picnic with mountain views",
+            "venue": "Scenic Caves Picnic Area",
+            "description": "Picnic with panoramic mountain views",
+            "facilities": "Picnic tables, washrooms"
+          },
+          "afternoon": {
+            "activity": "Suspension bridge adventure",
+            "venue": "Scenic Caves Suspension Bridge",
+            "description": "Cross the longest suspension bridge in Southern Ontario",
+            "duration": "30-45 minutes"
+          },
+          "evening": {
+            "activity": "Sunset views from lookout points",
+            "venue": "Scenic Caves Lookout",
+            "description": "Spectacular sunset views over Georgian Bay",
+            "best_time": "7:00-9:00 PM"
+          }
+        },
+        "barRestaurantDay": {
+          "morning": {
+            "activity": "Breakfast at nearby cafés",
+            "venue": "Blue Mountains Area Cafés",
+            "description": "Local breakfast options near the caves",
+            "price_range": "$8-15"
+          },
+          "mid_morning": {
+            "activity": "Coffee at mountain coffee shops",
+            "venue": "Blue Mountains Coffee Shops",
+            "description": "Refreshments before cave exploration",
+            "price_range": "$4-8"
+          },
+          "lunch": {
+            "activity": "Lunch at Scenic Caves Café",
+            "venue": "Scenic Caves Café",
+            "website": "https://www.sceniccaves.com/dining",
+            "cuisine": "Mountain cuisine",
+            "price_range": "$12-25"
+          },
+          "afternoon": {
+            "activity": "Afternoon refreshments",
+            "venue": "Scenic Caves Café",
+            "description": "Afternoon coffee and snacks",
+            "price_range": "$4-8"
+          },
+          "evening": {
+            "activity": "Dinner at mountain restaurants",
+            "venue": "Blue Mountains Area Restaurants",
+            "description": "Evening dining in mountain setting",
+            "price_range": "$20-50"
+          }
+        }
       },
       "nearby": [
         {
@@ -1223,10 +2536,155 @@
         ]
       },
       "dayIn": {
-        "general": "Start with heritage tour of mill ruins, hike along the river trails, lunch at nearby restaurant, explore limestone caves, afternoon swimming, and end with nature programs.",
-        "gayDayIn": "Participate in LGBTQ+ inclusive outdoor activities, explore inclusive heritage sites, lunch at welcoming nearby restaurants, and enjoy inclusive nature experiences.",
-        "outdoorsDay": "Morning hiking along the river, afternoon swimming and water activities, exploring limestone formations, cycling through the area, and evening outdoor activities.",
-        "barRestaurantDay": "Breakfast at nearby cafés, lunch at local restaurants, afternoon coffee breaks, and dinner at nearby dining establishments."
+        "general": {
+          "morning": {
+            "activity": "Breakfast at Gananoque Inn",
+            "venue": "Gananoque Inn",
+            "website": "https://www.gananoqueinn.com",
+            "address": "550 Stone St S, Gananoque, ON",
+            "phone": "+1-613-382-2165",
+            "cuisine": "Traditional Canadian breakfast",
+            "price_range": "$12-20",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Thousand Islands cruise",
+            "venue": "Gananoque Boat Line",
+            "website": "https://www.gananoqueboatline.com",
+            "address": "6 King St E, Gananoque, ON",
+            "phone": "+1-613-382-2144",
+            "description": "Scenic boat tour through the Thousand Islands",
+            "admission": "$35 per adult",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at waterfront restaurants",
+            "venue": "Gananoque Waterfront",
+            "website": "https://www.gananoque.ca",
+            "description": "Dine with beautiful island views",
+            "price_range": "$15-30",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Explore Boldt Castle",
+            "venue": "Boldt Castle",
+            "website": "https://www.boldtcastle.com",
+            "address": "Heart Island, Alexandria Bay, NY",
+            "description": "Historic castle on Heart Island",
+            "admission": "$12 USD per adult"
+          },
+          "evening": {
+            "activity": "Dinner at Gananoque restaurants",
+            "venue": "Gananoque Dining",
+            "website": "https://www.gananoque.ca",
+            "description": "Evening dining in historic town",
+            "lgbt_friendly": true
+          }
+        },
+        "gayDayIn": {
+          "morning": {
+            "activity": "LGBTQ+ friendly breakfast",
+            "venue": "Gananoque Inn",
+            "website": "https://www.gananoqueinn.com",
+            "description": "Welcoming atmosphere for LGBTQ+ visitors",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Inclusive boat tour experience",
+            "venue": "Gananoque Boat Line",
+            "website": "https://www.gananoqueboatline.com",
+            "description": "Enjoy the cruise in welcoming environment",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at LGBTQ+ friendly restaurants",
+            "venue": "Gananoque Waterfront",
+            "description": "Dine at inclusive waterfront establishments",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Explore inclusive attractions",
+            "venue": "Thousand Islands Attractions",
+            "description": "Visit welcoming local sites",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Dinner at welcoming establishments",
+            "venue": "Gananoque Dining",
+            "description": "Evening dining at inclusive restaurants",
+            "lgbt_friendly": true
+          }
+        },
+        "outdoorsDay": {
+          "morning": {
+            "activity": "Morning kayaking on St. Lawrence",
+            "venue": "St. Lawrence River",
+            "website": "https://www.gananoque.ca/activities",
+            "description": "Paddle through the scenic Thousand Islands",
+            "duration": "2-3 hours",
+            "difficulty": "Moderate"
+          },
+          "mid_morning": {
+            "activity": "Hiking at Thousand Islands National Park",
+            "venue": "Thousand Islands National Park",
+            "website": "https://www.pc.gc.ca/en/pn-np/on/1000",
+            "description": "Explore the park's scenic trails",
+            "difficulty": "Easy to Moderate",
+            "duration": "2-3 hours"
+          },
+          "lunch": {
+            "activity": "Island picnic",
+            "venue": "Thousand Islands",
+            "description": "Picnic on one of the scenic islands",
+            "facilities": "Bring your own supplies"
+          },
+          "afternoon": {
+            "activity": "Swimming and water activities",
+            "venue": "St. Lawrence River",
+            "description": "Enjoy the clear waters of the river",
+            "duration": "2-3 hours"
+          },
+          "evening": {
+            "activity": "Sunset cruise",
+            "venue": "Gananoque Boat Line",
+            "website": "https://www.gananoqueboatline.com",
+            "description": "Evening cruise with sunset views",
+            "best_time": "7:00-9:00 PM"
+          }
+        },
+        "barRestaurantDay": {
+          "morning": {
+            "activity": "Breakfast at waterfront cafés",
+            "venue": "Gananoque Cafés",
+            "description": "Waterfront breakfast options",
+            "price_range": "$10-18"
+          },
+          "mid_morning": {
+            "activity": "Coffee at local coffee shops",
+            "venue": "Gananoque Coffee Shops",
+            "description": "Refreshments with river views",
+            "price_range": "$4-8"
+          },
+          "lunch": {
+            "activity": "Lunch at waterfront restaurants",
+            "venue": "Gananoque Waterfront",
+            "website": "https://www.gananoque.ca",
+            "cuisine": "Fresh local cuisine",
+            "price_range": "$15-30"
+          },
+          "afternoon": {
+            "activity": "Afternoon refreshments",
+            "venue": "Gananoque Cafés",
+            "description": "Afternoon coffee and snacks",
+            "price_range": "$4-8"
+          },
+          "evening": {
+            "activity": "Dinner at fine dining establishments",
+            "venue": "Gananoque Fine Dining",
+            "description": "Upscale dining with river views",
+            "price_range": "$30-60"
+          }
+        }
       },
       "nearby": [
         {
@@ -1334,10 +2792,155 @@
         ]
       },
       "dayIn": {
-        "general": "Start with breakfast at a local café, explore Old Montreal, visit Notre-Dame Basilica, lunch at a French bistro, afternoon shopping and galleries, and end with dinner and nightlife.",
-        "gayDayIn": "Explore the Village district, visit LGBTQ+ friendly establishments, lunch at inclusive restaurants, afternoon cultural activities, and evening at LGBTQ+ bars and clubs.",
-        "outdoorsDay": "Morning walk along the Lachine Canal, cycling through the city, afternoon Mount Royal hike, water activities on the St. Lawrence, and evening outdoor dining.",
-        "barRestaurantDay": "Breakfast at French cafés, lunch at fine dining restaurants, afternoon wine tastings, and dinner at world-class establishments."
+        "general": {
+          "morning": {
+            "activity": "Breakfast at The Friendly Society",
+            "venue": "The Friendly Society",
+            "website": "https://www.thefriendlysociety.ca",
+            "address": "104 Geddes St, Elora, ON",
+            "phone": "+1-519-846-3333",
+            "cuisine": "Local café fare",
+            "price_range": "$8-15",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Explore Elora Gorge Conservation Area",
+            "venue": "Elora Gorge Conservation Area",
+            "website": "https://www.grandriver.ca/en/outdoor-recreation/elora-gorge.aspx",
+            "address": "7400 Wellington County Rd 21, Elora, ON",
+            "phone": "+1-519-846-9742",
+            "description": "Hike along the scenic gorge",
+            "admission": "$7.50 per adult",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at Elora Mill Hotel",
+            "venue": "Elora Mill Hotel",
+            "website": "https://www.eloramill.com",
+            "address": "77 Mill St W, Elora, ON",
+            "phone": "+1-519-846-5356",
+            "cuisine": "Fine dining with gorge views",
+            "price_range": "$25-50",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Visit Elora's historic downtown",
+            "venue": "Downtown Elora",
+            "website": "https://www.elora.info",
+            "description": "Explore boutique shops and galleries",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Dinner at local establishments",
+            "venue": "Elora Dining",
+            "website": "https://www.elora.info",
+            "description": "Evening dining in historic town",
+            "lgbt_friendly": true
+          }
+        },
+        "gayDayIn": {
+          "morning": {
+            "activity": "LGBTQ+ friendly breakfast",
+            "venue": "The Friendly Society",
+            "website": "https://www.thefriendlysociety.ca",
+            "description": "Welcoming atmosphere for LGBTQ+ visitors",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Inclusive gorge exploration",
+            "venue": "Elora Gorge Conservation Area",
+            "description": "Explore the gorge in welcoming environment",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at LGBTQ+ friendly restaurants",
+            "venue": "Elora Mill Hotel",
+            "website": "https://www.eloramill.com",
+            "description": "Dine at inclusive establishments",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Explore inclusive downtown area",
+            "venue": "Downtown Elora",
+            "description": "Visit welcoming shops and galleries",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Dinner at welcoming establishments",
+            "venue": "Elora Dining",
+            "description": "Evening dining at inclusive restaurants",
+            "lgbt_friendly": true
+          }
+        },
+        "outdoorsDay": {
+          "morning": {
+            "activity": "Early morning gorge hike",
+            "venue": "Elora Gorge Conservation Area",
+            "website": "https://www.grandriver.ca/en/outdoor-recreation/elora-gorge.aspx",
+            "description": "Hike the gorge trails in the cool morning",
+            "difficulty": "Moderate",
+            "duration": "2-3 hours"
+          },
+          "mid_morning": {
+            "activity": "Rock climbing at the gorge",
+            "venue": "Elora Gorge",
+            "description": "Climbing opportunities in the gorge",
+            "difficulty": "Advanced",
+            "duration": "2-4 hours"
+          },
+          "lunch": {
+            "activity": "Picnic at gorge lookout",
+            "venue": "Elora Gorge Lookout",
+            "description": "Picnic with spectacular gorge views",
+            "facilities": "Picnic tables available"
+          },
+          "afternoon": {
+            "activity": "Tubing on the Grand River",
+            "venue": "Grand River",
+            "description": "Tubing adventure through the gorge",
+            "duration": "2-3 hours",
+            "difficulty": "Moderate"
+          },
+          "evening": {
+            "activity": "Sunset at gorge viewpoint",
+            "venue": "Elora Gorge Viewpoint",
+            "description": "Spectacular sunset views of the gorge",
+            "best_time": "7:00-9:00 PM"
+          }
+        },
+        "barRestaurantDay": {
+          "morning": {
+            "activity": "Breakfast at local cafés",
+            "venue": "Elora Cafés",
+            "description": "Local breakfast options in historic town",
+            "price_range": "$8-15"
+          },
+          "mid_morning": {
+            "activity": "Coffee at artisanal coffee shops",
+            "venue": "Elora Coffee Shops",
+            "description": "Quality coffee in historic setting",
+            "price_range": "$4-8"
+          },
+          "lunch": {
+            "activity": "Lunch at Elora Mill Hotel",
+            "venue": "Elora Mill Hotel",
+            "website": "https://www.eloramill.com",
+            "cuisine": "Fine dining with gorge views",
+            "price_range": "$25-50"
+          },
+          "afternoon": {
+            "activity": "Afternoon tea at local spots",
+            "venue": "Elora Tea Rooms",
+            "description": "Afternoon refreshments in historic setting",
+            "price_range": "$8-15"
+          },
+          "evening": {
+            "activity": "Dinner at fine dining establishments",
+            "venue": "Elora Fine Dining",
+            "description": "Upscale dining in historic town",
+            "price_range": "$30-70"
+          }
+        }
       },
       "nearby": [
         {
@@ -1445,10 +3048,155 @@
         ]
       },
       "dayIn": {
-        "general": "Start with Parliament Hill tour, visit National Gallery, lunch at ByWard Market, afternoon museum visits, canal walk, and end with dinner and evening entertainment.",
-        "gayDayIn": "Explore LGBTQ+ friendly establishments, visit inclusive cultural sites, lunch at welcoming restaurants, afternoon Pride-related activities, and evening at LGBTQ+ venues.",
-        "outdoorsDay": "Morning cycling along Rideau Canal, hiking in Gatineau Park, afternoon water activities on Ottawa River, and evening outdoor dining.",
-        "barRestaurantDay": "Breakfast at local cafés, lunch at fine dining restaurants, afternoon wine tastings, and dinner at world-class establishments."
+        "general": {
+          "morning": {
+            "activity": "Breakfast at ByWard Market",
+            "venue": "ByWard Market",
+            "website": "https://www.byward-market.com",
+            "address": "ByWard Market, Ottawa, ON",
+            "description": "Start your day at Ottawa's famous market",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Visit Parliament Hill",
+            "venue": "Parliament Hill",
+            "website": "https://www.parl.ca",
+            "address": "Wellington St, Ottawa, ON",
+            "phone": "+1-613-992-4793",
+            "description": "Tour Canada's iconic Parliament buildings",
+            "admission": "Free",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at ByWard Market restaurants",
+            "venue": "ByWard Market Restaurants",
+            "website": "https://www.byward-market.com",
+            "description": "Diverse dining options in the market",
+            "price_range": "$15-35",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Visit National Gallery of Canada",
+            "venue": "National Gallery of Canada",
+            "website": "https://www.gallery.ca",
+            "address": "380 Sussex Dr, Ottawa, ON",
+            "phone": "+1-613-990-1985",
+            "description": "Explore Canada's premier art gallery",
+            "admission": "$20 per adult",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Dinner at Rideau Canal area",
+            "venue": "Rideau Canal Restaurants",
+            "website": "https://www.ottawatourism.ca",
+            "description": "Evening dining along the historic canal",
+            "lgbt_friendly": true
+          }
+        },
+        "gayDayIn": {
+          "morning": {
+            "activity": "LGBTQ+ friendly market breakfast",
+            "venue": "ByWard Market",
+            "website": "https://www.byward-market.com",
+            "description": "Welcoming market atmosphere for LGBTQ+ visitors",
+            "lgbt_friendly": true
+          },
+          "mid_morning": {
+            "activity": "Visit inclusive attractions",
+            "venue": "Ottawa Attractions",
+            "description": "Explore welcoming Ottawa sites",
+            "lgbt_friendly": true
+          },
+          "lunch": {
+            "activity": "Lunch at LGBTQ+ friendly restaurants",
+            "venue": "ByWard Market Restaurants",
+            "description": "Dine at inclusive market establishments",
+            "lgbt_friendly": true
+          },
+          "afternoon": {
+            "activity": "Visit inclusive cultural sites",
+            "venue": "Ottawa Cultural Sites",
+            "description": "Explore welcoming cultural attractions",
+            "lgbt_friendly": true
+          },
+          "evening": {
+            "activity": "Dinner at LGBTQ+ friendly establishments",
+            "venue": "Ottawa Dining",
+            "description": "Evening dining at inclusive restaurants",
+            "lgbt_friendly": true
+          }
+        },
+        "outdoorsDay": {
+          "morning": {
+            "activity": "Morning walk along Rideau Canal",
+            "venue": "Rideau Canal",
+            "website": "https://www.pc.gc.ca/en/lhn-nhs/on/rideau",
+            "description": "Scenic walk along the historic canal",
+            "duration": "1-2 hours",
+            "difficulty": "Easy"
+          },
+          "mid_morning": {
+            "activity": "Hike in Gatineau Park",
+            "venue": "Gatineau Park",
+            "website": "https://www.ncc-ccn.gc.ca/places/gatineau-park",
+            "description": "Explore the beautiful park trails",
+            "difficulty": "Easy to Moderate",
+            "duration": "2-3 hours"
+          },
+          "lunch": {
+            "activity": "Picnic at Major's Hill Park",
+            "venue": "Major's Hill Park",
+            "address": "Mackenzie Ave, Ottawa, ON",
+            "description": "Picnic with Parliament Hill views",
+            "facilities": "Picnic tables, washrooms"
+          },
+          "afternoon": {
+            "activity": "Cycling along Ottawa River",
+            "venue": "Ottawa River Pathway",
+            "description": "Scenic cycling along the river",
+            "duration": "1-2 hours",
+            "difficulty": "Easy"
+          },
+          "evening": {
+            "activity": "Sunset at Nepean Point",
+            "venue": "Nepean Point",
+            "description": "Spectacular sunset views over the Ottawa River",
+            "best_time": "7:00-9:00 PM"
+          }
+        },
+        "barRestaurantDay": {
+          "morning": {
+            "activity": "Breakfast at ByWard Market cafés",
+            "venue": "ByWard Market Cafés",
+            "description": "Market breakfast options",
+            "price_range": "$8-15"
+          },
+          "mid_morning": {
+            "activity": "Coffee at Ottawa coffee shops",
+            "venue": "Ottawa Coffee Shops",
+            "description": "Quality coffee in capital city",
+            "price_range": "$4-8"
+          },
+          "lunch": {
+            "activity": "Lunch at ByWard Market restaurants",
+            "venue": "ByWard Market Restaurants",
+            "website": "https://www.byward-market.com",
+            "cuisine": "Diverse market cuisine",
+            "price_range": "$15-35"
+          },
+          "afternoon": {
+            "activity": "Afternoon tea at Parliament Hill",
+            "venue": "Parliament Hill",
+            "description": "Afternoon refreshments with historic views",
+            "price_range": "$8-15"
+          },
+          "evening": {
+            "activity": "Dinner at Rideau Canal restaurants",
+            "venue": "Rideau Canal Restaurants",
+            "description": "Evening dining along the historic canal",
+            "price_range": "$25-60"
+          }
+        }
       },
       "nearby": [
         {
