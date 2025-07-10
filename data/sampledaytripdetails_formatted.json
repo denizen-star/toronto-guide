@@ -1,0 +1,334 @@
+{
+  "day_trip_events": [
+    {
+      "event_1": {
+        "name": "Bruce Peninsula National Park, Tobermory, ON",
+        "location": {
+          "coordinates": {
+            "latitude": 45.2389,
+            "longitude": -81.6508
+          }
+        },
+        "why_special": [
+          "Features stunning turquoise waters, dramatic limestone cliffs, unique coves (e.g., The Grotto, Indian Head Cove) and beautiful beaches.",
+          "Part of the Niagara Escarpment, a UNESCO World Biosphere Reserve, known for its ancient cedar trees and unique ecosystems.",
+          "A prime destination for hiking, offering access to challenging and scenic sections of the iconic Bruce Trail.",
+          "Home to diverse wildlife, including black bears, and a high concentration of rare orchids and ferns.",
+          "Adjacent to Fathom Five National Marine Park, a freshwater national marine conservation area protecting shipwrecks and islands like Flowerpot Island.",
+          "Designated as a Dark Sky Preserve, providing exceptional opportunities for stargazing."
+        ],
+        "reasons_to_go": [
+          "Experience breathtaking natural beauty, from crystal-clear waters to ancient forests and rugged cliff faces.",
+          "Explore unique geological formations such as sea caves (The Grotto) and natural arches.",
+          "Engage in world-class hiking, bouldering, paddling, and diving opportunities.",
+          "Discover rare flora and fauna in a protected natural environment.",
+          "Visit charming Tobermory, known as the 'Scuba Diving Capital of Canada,' for its quaint harbours and marine activities.",
+          "Enjoy spectacular stargazing in a designated Dark Sky Preserve."
+        ],
+        "events": [
+          {
+            "name": "Marine Heritage Festival (Tobermory)",
+            "description": "Annual three-day family festival celebrating marine heritage with free admission and activities.",
+            "location": "Tobermory",
+            "frequency": "Annual (Late July)"
+          },
+          {
+            "name": "Wiarton Lavender Festival",
+            "description": "Two days of live music, vendor market, yoga, and educational events.",
+            "location": "Wiarton (South Bruce Peninsula)",
+            "frequency": "Annual (Late July)"
+          },
+          {
+            "name": "Sauble Beach SandFest",
+            "description": "Features professional sand sculptures, live music, and family entertainment.",
+            "location": "Sauble Beach (South Bruce Peninsula)",
+            "frequency": "Annual (August)"
+          },
+          {
+            "name": "Various Live Music Events",
+            "description": "Local bands and musicians perform at various venues and town squares in nearby communities.",
+            "location": "Tobermory, Wiarton, Sauble Beach",
+            "frequency": "Seasonal (Summer)"
+          }
+        ],
+        "reviews_sentiment": {
+          "overall": "Extremely popular and highly rated, especially for its natural beauty and outdoor activities, though often crowded during peak season.",
+          "positives": [
+            "Stunning scenery, particularly The Grotto and Indian Head Cove, with vibrant turquoise waters.",
+            "Excellent hiking trails, well-maintained and offering diverse experiences.",
+            "Opportunities for unique water activities like diving to shipwrecks and paddling.",
+            "Family-friendly attractions and amenities, including accessible features in some areas.",
+            "Tobermory is a charming town with good amenities and services."
+          ],
+          "negatives": [
+            "Can be extremely crowded, especially in summer and on weekends, requiring mandatory parking reservations for key attractions like The Grotto.",
+            "Limited cell phone reception in some areas of the park.",
+            "Water in Georgian Bay can be very cold, even in summer.",
+            "Some popular areas require significant hiking to access."
+          ]
+        },
+        "day_in_plans": {
+          "general": "A classic day trip includes reserving a parking time slot for the Cyprus Lake area to visit The Grotto and Indian Head Cove (expect 1-2 hours for the hike to the Grotto and exploring the area). After, explore Tobermory's Little Tub and Big Tub harbours, grab lunch, and perhaps take a glass-bottom boat tour to Flowerpot Island in Fathom Five National Marine Park.",
+          "gay_day_in": "While no specific 'gay day' events, Bruce Peninsula National Park and Tobermory are generally welcoming. A 'Gay Day In' can involve enjoying the natural beauty, such as a scenic hike to Lion's Head Lookout, a relaxing swim at Singing Sands Beach, or a boat tour to Flowerpot Island. Conclude the day with dinner at a local restaurant in Tobermory, followed by stargazing at the Dark Sky Preserve. Gay-friendly B&Bs in Tobermory offer inclusive accommodation options.",
+          "outdoors_day": "Start with an early morning hike on a section of the Bruce Trail, perhaps towards Halfway Log Dump for a quieter experience, or Lion's Head Lookout for challenging terrain and stunning views. Spend the afternoon kayaking or paddleboarding on Cyprus Lake or venturing into Fathom Five National Marine Park for snorkeling or diving among shipwrecks. Enjoy wildlife spotting (birds, bears) and end the day with stargazing.",
+          "bar_restaurant_day": "Tobermory offers a selection of restaurants and pubs, many with views of the harbours. Enjoy fresh local fish and chips, dine at a lakeside patio, and explore the small shops. While not a 'bar-hopping' destination, it's perfect for a relaxed day of good food and scenic views after outdoor activities."
+        },
+        "nearby_attractions": [
+          {
+            "name": "Fathom Five National Marine Park",
+            "description": "Canada's first National Marine Park, famous for its 22 shipwrecks, unique geological formations, and Flowerpot Island."
+          },
+          {
+            "name": "Flowerpot Island",
+            "description": "Accessible by boat tour, features natural rock pillars (flowerpots), caves, and hiking trails within Fathom Five National Marine Park."
+          },
+          {
+            "name": "Tobermory",
+            "description": "A charming harbour village at the tip of the Bruce Peninsula, serving as the gateway to the parks, with shops, restaurants, and boat tours."
+          },
+          {
+            "name": "Lion's Head",
+            "description": "A picturesque town known for its dramatic cliff-edge Bruce Trail section leading to Lion's Head Lookout and its quaint harbour."
+          },
+          {
+            "name": "Singing Sands Beach",
+            "description": "A shallow, sandy beach on the Lake Huron side, ideal for families and known for its unique 'singing' sand."
+          },
+          {
+            "name": "Bruce Trail",
+            "description": "Canada's oldest and longest marked footpath, offering diverse hiking experiences along the Niagara Escarpment."
+          }
+        ],
+        "gay_friendly_accommodations": [
+          {
+            "name": "Gales Haven B&B",
+            "type": "Bed & Breakfast",
+            "location": "Tobermory, ON",
+            "description": "Gay friendly B&B offering private luxury lakeside retreat with magnificent views of Lake Huron and sunsets, adjacent to Bruce Peninsula National Park."
+          },
+          {
+            "name": "Forest House B&B",
+            "type": "Bed & Breakfast",
+            "location": "Tobermory, ON",
+            "description": "Gay friendly and gay-owned B&B nestled in a conifer forest backing onto natural park land, offering private suites and a nourishing breakfast."
+          }
+        ],
+        "must_not_miss": [
+          "Visiting The Grotto and Indian Head Cove for their iconic turquoise waters and rock formations (reservations essential).",
+          "Taking a boat tour to Flowerpot Island to see the unique rock pillars and explore the island's trails.",
+          "Hiking a section of the Bruce Trail, especially the challenging but rewarding Lion's Head Lookout trail.",
+          "Exploring the charming harbours of Tobermory and visiting the Parks Canada Visitor Centre's lookout tower.",
+          "Snorkeling or diving among the shipwrecks in Fathom Five National Marine Park.",
+          "Experiencing stargazing at night in this designated Dark Sky Preserve."
+        ]
+      }
+    },
+    {
+      "event_2": {
+        "id": "dts_2",
+        "name": "Bruce Peninsula National Park Visit",
+        "location": {
+          "name": "Bruce Peninsula National Park",
+          "city": "Tobermory",
+          "province_state": "ON",
+          "country": "Canada",
+          "latitude": 45.2635,
+          "longitude": -81.6575
+        },
+        "short_description": "Hiking & swimming in turquoise waters",
+        "main_image_url": "https://source.unsplash.com/random/?brucepeninsula",
+        "activity_type": "Outdoor Adventure",
+        "difficulty_level": "All levels",
+        "duration_text": "Full day",
+        "cost_notes": "Gas, park fees, meals",
+        "official_website_url": "https://parks.canada.ca/pn-np/on/bruce",
+        "driving_time_from_toronto": "3-3.5 hours driving",
+        "overall_rating": 4.8,
+        "why_special": "Unparalleled natural beauty, offering a unique blend of rugged cliffs, turquoise waters, and ancient forests...",
+        "reasons_to_go": [
+          { "reason_text": "The Grotto and Indian Head Cove", "rating": 5 },
+          { "reason_text": "Hiking the Bruce Trail", "rating": 4.5 }
+        ],
+        "events": [
+          {
+            "event_name": "Canada Day - Sauble Beach",
+            "date": "2025-07-01",
+            "time": "Live music from 2:00 PM",
+            "website": "https://www.destinationsouthbrucepeninsula.com/festivals-and-events/",
+            "price_range": "Free",
+            "description": "A community celebration...",
+            "is_lgbtq_friendly": false
+          }
+        ],
+        "reviews": [
+          "Overall Sentiment: Highly praised for its beautiful environment...",
+          "Common Praises: The Grotto and Indian Head Cove...",
+          "Points to Consider: Crowds are extremely popular..."
+        ],
+        "day_in_plan": [
+          { "time_slot": "Morning", "activity": "The Iconic Grotto Experience", "description": "Arrive at Cyprus Lake...", "rating": 5 },
+          { "time_slot": "Lunch", "activity": "Picnic by Cyprus Lake", "description": "Enjoy a packed lunch...", "rating": 3 }
+        ],
+        "gay_day_in_plan": [
+          { "time_slot": "Morning", "activity": "Rainbow Hike and Nature Immersion", "description": "Arrive at Halfway Log Dump...", "rating": 4, "lgbtq_flag": true }
+        ],
+        "outdoors_day_plan": [
+          { "time_slot": "Morning", "activity": "Hiking and Swimming at The Grotto", "description": "Arrive early with a parking reservation...", "rating": 5, "type": "free" },
+          { "time_slot": "Afternoon", "activity": "Scuba Diving/Snorkeling", "description": "World-renowned for shipwrecks...", "rating": 5, "type": "paid" }
+        ],
+        "bars_restaurants_plan": [
+          { "time_slot": "Lunch", "place_name": "Duffy's Fish & Chips", "description": "Classic fish and chips...", "rating": 3.5, "type": "food" },
+          { "time_slot": "Dinner", "place_name": "Tobermory Brewing Co. & Grill", "description": "Craft beers and pub food...", "rating": 4, "type": "food_drink", "cultural_note": "Local craft beer experience" },
+          { "time_slot": "Cultural", "place_name": "Parks Canada Visitor Centre", "description": "Exhibit hall on natural and cultural history.", "rating": 3, "type": "museum" }
+        ],
+        "nearby_attractions": [
+          { "name": "Fathom Five National Marine Park", "description": "Explore shipwrecks...", "website": "https://parks.canada.ca/amnc-nmca/on/fathomfive" }
+        ],
+        "gay_friendly_accommodations": [
+          { "name": "The Robin's Nest Tobermory", "type": "Guesthouse", "website": "https://www.traveloka.com/en-sg/hotel/canada/mermaid-inn-tobermory-1000000538907" }
+        ],
+        "must_not_miss": [
+          { "item": "The Grotto and Indian Head Cove", "website": "https://parks.canada.ca/pn-np/on/bruce/visit" },
+          { "item": "Boat Tour to Flowerpot Island and Fathom Five National Marine Park", "website": "https://www.cruisetobermory.com/" }
+        ]
+      }
+    },
+    {
+      "event_3": {
+        "name": "Rattlesnake Point Conservation Area, Milton, ON",
+        "location": {
+          "coordinates": {
+            "latitude": 43.471406,
+            "longitude": -79.912705
+          }
+        },
+        "why_special": [
+          "Features dramatic limestone cliffs, offering spectacular panoramic views of the Niagara Escarpment.",
+          "Home to ancient cedar trees, some over 800 years old, clinging to the cliff faces.",
+          "A premier destination for rock climbing and bouldering, with over 230 top-roping routes.",
+          "Part of the UNESCO World Biosphere Reserve, the Niagara Escarpment, rich in biodiversity and geological significance.",
+          "Offers extensive hiking trails, including a direct connection to Crawford Lake Conservation Area via the scenic Nassagaweya Canyon Trail.",
+          "Excellent for birding, particularly for observing soaring turkey vultures and other raptors."
+        ],
+        "reasons_to_go": [
+          "Experience breathtaking natural vistas from multiple lookout points.",
+          "Challenge yourself with various hiking trails, suitable for different fitness levels.",
+          "Engage in exhilarating rock climbing or bouldering activities.",
+          "Connect with nature and observe unique ancient cedar ecosystems.",
+          "Enjoy a peaceful escape from the city, ideal for photography and outdoor enthusiasts.",
+          "Opportunities for educational programs about raptors and local Indigenous history at nearby Crawford Lake."
+        ],
+        "events": [
+          {
+            "name": "Raptor Centre Programs (Hawk Walk, Raptor Encounter, Talons and Tailfeathers)",
+            "description": "Interactive programs to meet and learn about resident raptors, sometimes including holding a hawk on-glove.",
+            "location": "Rattlesnake Point Conservation Area / Crawford Lake Conservation Area (managed by Conservation Halton)",
+            "frequency": "Various dates, check Conservation Halton calendar"
+          },
+          {
+            "name": "5 Peaks Trail Running Series: Rattlesnake Point",
+            "description": "An annual trail running race event featuring various distances (Sport, Enduro, Grit, Kids races) through the park's scenic trails.",
+            "location": "Rattlesnake Point Conservation Area",
+            "frequency": "Annual (typically June)"
+          },
+          {
+            "name": "Lake to Longhouse Tour / Longhouse Adventure (at Crawford Lake)",
+            "description": "Guided tours exploring the rare meromictic lake and the reconstructed 15th-century Iroquoian Village.",
+            "location": "Crawford Lake Conservation Area (connected via trail)",
+            "frequency": "Various dates, check Conservation Halton calendar"
+          }
+        ],
+        "reviews_sentiment": {
+          "overall": "Highly positive, celebrated for its stunning views, diverse outdoor activities, and unique natural features.",
+          "positives": [
+            "Spectacular panoramic views from lookout points like Buffalo Crag.",
+            "Well-maintained and diverse hiking trails, including challenging options.",
+            "Excellent opportunities for rock climbing and bouldering.",
+            "The ancient cedar trees add a unique and historic element to the landscape.",
+            "Popular for photography, especially during fall foliage season.",
+            "Conveniently located for a day trip from the Greater Toronto Area."
+          ],
+          "negatives": [
+            "Trails can be rocky, uneven, and sometimes confusing (especially the Bruce Trail sections), requiring good footwear and attention to blazes.",
+            "Can become crowded, particularly on weekends and during peak season, leading to parking challenges.",
+            "No direct beach access; water activities are limited to coves for diving/swimming (though water is cold).",
+            "Limited on-site dining facilities, requiring travel to nearby Milton for meals."
+          ]
+        },
+        "day_in_plans": {
+          "general": "Start with an invigorating hike to Buffalo Crag Lookout Point for panoramic views. Afterwards, explore the ancient cedar forests along shorter loop trails. For a longer adventure, hike the Nassagaweya Canyon Trail (9.4 km return) to connect with Crawford Lake Conservation Area, where you can visit a meromictic lake and a reconstructed Iroquoian Village. Pack a picnic lunch to enjoy at one of the many scenic spots.",
+          "gay_day_in": "While Rattlesnake Point does not host specific 'gay day' events, its natural beauty and outdoor focus offer a welcoming environment for all. A 'Gay Day In' could involve a challenging rock climbing session, a leisurely hike enjoying the views with friends, or a dedicated bird-watching excursion. The area's focus on nature provides a serene and inclusive escape, followed by a meal in Milton.",
+          "outdoors_day": "Dedicate the day to extensive hiking on the Bruce Trail sections within the park, or focus on rock climbing at one of the designated areas. Explore the unique geological features and ancient cedars. Pack plenty of water and snacks. Consider extending your visit with an overnight stay at one of the park's campsites for a full immersion in nature, or combine with activities at nearby conservation areas like Kelso for more varied outdoor pursuits.",
+          "bar_restaurant_day": "Rattlesnake Point does not have bars or restaurants on-site beyond basic park facilities. For a 'Bar/Restaurant Day', plan to visit the town of Milton, which is a short drive away. Milton offers a variety of casual and sit-down restaurants, cafes, and pubs where you can enjoy a meal and drinks after your outdoor adventures."
+        },
+        "nearby_attractions": [
+          {
+            "name": "Crawford Lake Conservation Area",
+            "description": "Connected directly by the Nassagaweya Canyon Trail, featuring a rare meromictic lake and a reconstructed 15th-century Iroquoian Village with interpretive programs."
+          },
+          {
+            "name": "Mount Nemo Conservation Area",
+            "description": "Another part of the Niagara Escarpment, offering spectacular cliff-edge views, hiking, and rock climbing opportunities."
+          },
+          {
+            "name": "Kelso Conservation Area",
+            "description": "Known for its large reservoir used for swimming and boating (Kelso Beach), a challenge course, mountain biking, and additional hiking trails."
+          },
+          {
+            "name": "Hilton Falls Conservation Area",
+            "description": "Features a scenic waterfall, old mill ruins, and extensive trails for hiking and mountain biking."
+          },
+          {
+            "name": "Town of Milton",
+            "description": "A growing town offering various amenities, including restaurants, shops, and cultural attractions, serving as a gateway to the conservation areas."
+          }
+        ],
+        "gay_friendly_accommodations": [
+          {
+            "name": "Best Western Plus Milton",
+            "type": "Hotel",
+            "location": "Milton, ON",
+            "description": "A well-rated hotel in Milton, generally welcoming to all guests, offering standard amenities suitable for visitors to the area. (No specific LGBTQ+ certification found, but typically inclusive.)"
+          },
+          {
+            "name": "Holiday Inn Express & Suites Milton",
+            "type": "Hotel",
+            "location": "Milton, ON",
+            "description": "A reliable hotel option in Milton, providing comfortable stays with standard amenities. (No specific LGBTQ+ certification found, but generally inclusive.)"
+          },
+          {
+            "name": "Various Hotels in Toronto/Mississauga",
+            "type": "Hotels",
+            "location": "Greater Toronto Area (approx. 45-60 min drive)",
+            "description": "A wider range of explicitly LGBTQ+-friendly hotels are available in Toronto and Mississauga, suitable for those who prefer to commute for a day trip."
+          }
+        ],
+        "must_not_miss": [
+          "Hiking to the Buffalo Crag Lookout Point for iconic views of the Niagara Escarpment.",
+          "Exploring the unique ancient cedar trees that are hundreds of years old.",
+          "Attempting the Nassagaweya Canyon Trail to connect with Crawford Lake Conservation Area.",
+          "Witnessing (or participating in) rock climbing activities on the limestone cliffs.",
+          "Visiting the nearby Crawford Lake Conservation Area for its meromictic lake and Iroquoian Village."
+        ]
+      }
+    }
+  ],
+  "summary": {
+    "total_events": 3,
+    "event_names": [
+      "Bruce Peninsula National Park, Tobermory, ON",
+      "Bruce Peninsula National Park Visit",
+      "Rattlesnake Point Conservation Area, Milton, ON"
+    ],
+    "locations": [
+      "Tobermory, ON",
+      "Tobermory, ON", 
+      "Milton, ON"
+    ],
+    "activity_types": [
+      "Outdoor Adventure & Nature",
+      "Outdoor Adventure",
+      "Rock Climbing & Hiking"
+    ]
+  }
+} 

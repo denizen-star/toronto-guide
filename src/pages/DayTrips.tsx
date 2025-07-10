@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Box, Grid, Typography, CircularProgress } from '@mui/material';
-import { 
-  loadStandardizedDayTrips, 
-  type StandardizedDayTrip 
-} from '../utils/dataLoader';
+import { type StandardizedDayTrip } from '../utils/dataLoader';
 import EnhancedMinimalistCard, { EnhancedCardData } from '../components/MinimalistCard';
 import EnhancedFilterSystem, { FilterConfig } from '../components/EnhancedFilterSystem';
 import { useSearch } from '../components/Layout';
@@ -55,7 +52,26 @@ const DayTrips = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const tripsData = await loadStandardizedDayTrips();
+        // Fetch JSON directly
+        const response = await fetch('/daytrips_data.json');
+        if (!response.ok) throw new Error('Failed to load day trips JSON');
+        const json = await response.json();
+        // Map JSON to StandardizedDayTrip[]
+        const tripsData = (json.daytrips || []).map((item: any) => ({
+          id: item.id,
+          title: item.name || item.title || '',
+          description: typeof item.description === 'string'
+            ? item.description
+            : Array.isArray(item.whySpecial)
+              ? item.whySpecial.join(' ')
+              : typeof item.whySpecial === 'string'
+                ? item.whySpecial
+                : '',
+          website: item.contact?.website || '',
+          tags: Array.isArray(item.tags) ? item.tags : [],
+          location: item.location || item.name || '',
+          // Add more mappings as needed for filters and cards
+        }));
         setTrips(tripsData);
         setLoading(false);
       } catch (err) {
@@ -71,7 +87,7 @@ const DayTrips = () => {
   const getTripCategory = useCallback((trip: StandardizedDayTrip): string => {
     const title = trip.title.toLowerCase();
     const description = trip.description.toLowerCase();
-    const tags = trip.tags.join(' ').toLowerCase();
+    const tags = trip.tags && Array.isArray(trip.tags) ? trip.tags.join(' ').toLowerCase() : '';
     
     if (tags.includes('wine') || title.includes('wine') || description.includes('wine')) return 'wine';
     if (tags.includes('nature') || title.includes('nature') || description.includes('park')) return 'nature';
@@ -92,7 +108,7 @@ const DayTrips = () => {
   }, []);
 
   const getHighlights = useCallback((trip: StandardizedDayTrip): string[] => {
-    const tags = trip.tags.join(' ').toLowerCase();
+    const tags = trip.tags && Array.isArray(trip.tags) ? trip.tags.join(' ').toLowerCase() : '';
     const description = trip.description.toLowerCase();
     const highlights: string[] = [];
     
@@ -107,7 +123,7 @@ const DayTrips = () => {
   }, []);
 
   const getSeason = useCallback((trip: StandardizedDayTrip): string => {
-    const tags = trip.tags.join(' ').toLowerCase();
+    const tags = trip.tags && Array.isArray(trip.tags) ? trip.tags.join(' ').toLowerCase() : '';
     const description = trip.description.toLowerCase();
     
     if (tags.includes('winter') || description.includes('winter') || description.includes('ski')) return 'winter';
@@ -193,7 +209,9 @@ const DayTrips = () => {
 
     // Get unique tags from trips
     const allTags = trips.reduce((tags: Set<string>, trip) => {
-      trip.tags.forEach(tag => tags.add(tag));
+      if (trip.tags && Array.isArray(trip.tags)) {
+        trip.tags.forEach(tag => tags.add(tag));
+      }
       return tags;
     }, new Set<string>());
 
@@ -221,7 +239,7 @@ const DayTrips = () => {
         trip.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         trip.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
         trip.location?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        trip.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+        (trip.tags && Array.isArray(trip.tags) && trip.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())));
 
       // Category filter
       const matchesCategory = selectedFilters.category.length === 0 || 
@@ -251,11 +269,11 @@ const DayTrips = () => {
 
       // Tags filter
       const matchesTags = selectedFilters.tags.length === 0 || 
-        selectedFilters.tags.some(selectedTag => 
+        (trip.tags && Array.isArray(trip.tags) && selectedFilters.tags.some(selectedTag => 
           trip.tags.some(tripTag => 
             tripTag.toLowerCase().replace(/\s+/g, '-') === selectedTag
           )
-        );
+        ));
 
       return matchesSearch && matchesCategory && matchesDistance && 
              matchesHighlights && matchesSeason && matchesDuration && 
@@ -276,7 +294,7 @@ const DayTrips = () => {
       title: trip.title,
       description: trip.description,
       website: trip.website,
-      tags: trip.tags.slice(0, 3),
+      tags: trip.tags && Array.isArray(trip.tags) ? trip.tags.slice(0, 3) : [],
       priceRange: 'See details',
       location: trip.location || 'Greater Toronto Area',
       address: trip.location,

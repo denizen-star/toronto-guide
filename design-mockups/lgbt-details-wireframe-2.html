@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LGBT Event Details - Interactive Map Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .event-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .map-hub {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .hub-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        .hub-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .map-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            padding: 30px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .map-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .map-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .map-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .map-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .map-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .details-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+        }
+        
+        .detail-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .detail-value {
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+        
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .info-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .card-icon.when { background: linear-gradient(45deg, #e74c3c, #c0392b); }
+        .card-icon.who { background: linear-gradient(45deg, #f39c12, #e67e22); }
+        .card-icon.what { background: linear-gradient(45deg, #27ae60, #2ecc71); }
+        .card-icon.where { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
+        
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .card-content {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+        
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .schedule-details {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .schedule-item {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .schedule-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .schedule-label {
+            font-weight: 600;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+        
+        .schedule-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .hub-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .schedule-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="event-title">Drag Brunch at Glad Day</h1>
+            <div class="action-buttons">
+                <a href="#" class="btn btn-primary">Visit Website</a>
+                <a href="#" class="btn btn-secondary">Get Directions</a>
+                <a href="#" class="btn btn-secondary">Share Event</a>
+            </div>
+        </div>
+
+        <!-- Map Hub -->
+        <div class="map-hub">
+            <h2 class="hub-title">🗺️ Location Hub</h2>
+            <div class="hub-grid">
+                <div class="map-section">
+                    <div class="map-content">
+                        <h3 class="map-title">Interactive Map View</h3>
+                        <p>Explore the venue location with interactive features</p>
+                        <div class="map-actions">
+                            <a href="#" class="map-btn">📍 Directions</a>
+                            <a href="#" class="map-btn">🗺️ Street View</a>
+                            <a href="#" class="map-btn">🚇 Transit</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="details-section">
+                    <div class="detail-item">
+                        <div class="detail-label">📍 Address</div>
+                        <div class="detail-value">499 Church St, Toronto</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">⏰ Travel Time</div>
+                        <div class="detail-value">15 mins from downtown</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">🚇 Transit</div>
+                        <div class="detail-value">Church Station (Line 1)</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">🅿️ Parking</div>
+                        <div class="detail-value">Street parking available</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="card-icon when">📅</div>
+                    <h3 class="card-title">When</h3>
+                </div>
+                <div class="card-content">
+                    <p><strong>Start:</strong> Jul 6, 2025</p>
+                    <p><strong>End:</strong> May 1, 2026</p>
+                    <p><strong>Schedule:</strong> Weekly on Sundays at 12PM</p>
+                    <p><strong>Duration:</strong> 2 hours per session</p>
+                    <p><strong>Registration:</strong> Drop-in</p>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="card-icon who">👥</div>
+                    <h3 class="card-title">Who</h3>
+                </div>
+                <div class="card-content">
+                    <p><strong>Age Restriction:</strong> 19+</p>
+                    <p><strong>Skill Level:</strong> All levels welcome</p>
+                    <p><strong>Community:</strong> LGBTQ+ friendly</p>
+                    <p><strong>Accessibility:</strong> Wheelchair accessible, gender-neutral facilities</p>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="card-icon what">🎭</div>
+                    <h3 class="card-title">What</h3>
+                </div>
+                <div class="card-content">
+                    <p><strong>Event Type:</strong> Performance</p>
+                    <p><strong>Category:</strong> Drag</p>
+                    <p><strong>Description:</strong> Weekly drag performances with brunch at Toronto's iconic LGBTQ+ bookstore</p>
+                    <div class="tags">
+                        <span class="tag">Drag</span>
+                        <span class="tag">Performance</span>
+                        <span class="tag">Brunch</span>
+                        <span class="tag">LGBTQ+</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="card-icon where">🏢</div>
+                    <h3 class="card-title">Where</h3>
+                </div>
+                <div class="card-content">
+                    <p><strong>Venue:</strong> Glad Day Bookshop</p>
+                    <p><strong>Address:</strong> 499 Church St, Toronto</p>
+                    <p><strong>Neighborhood:</strong> Church-Wellesley Village</p>
+                    <p><strong>Accessibility:</strong> Wheelchair accessible, gender-neutral facilities</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Schedule Details -->
+        <div class="schedule-details">
+            <h2 class="hub-title">📋 Event Details</h2>
+            <div class="schedule-grid">
+                <div class="schedule-item">
+                    <div class="schedule-icon">💰</div>
+                    <div class="schedule-label">COST</div>
+                    <div class="schedule-value">$25</div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-icon">⏱️</div>
+                    <div class="schedule-label">DURATION</div>
+                    <div class="schedule-value">2 hours</div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-icon">🔄</div>
+                    <div class="schedule-label">FREQUENCY</div>
+                    <div class="schedule-value">Weekly</div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-icon">📝</div>
+                    <div class="schedule-label">REGISTRATION</div>
+                    <div class="schedule-value">Drop-in</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

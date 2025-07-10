@@ -1128,3 +1128,163 @@ const getPriceRange = (event: StandardizedSpecialEvent): string => {
   
   return 'varies';
 }; 
+
+// New interfaces for detailed day trip data
+export interface DayTripEvent {
+  name: string;
+  description: string;
+  location: string;
+  start_date: string;
+  end_date: string;
+  start_time: string;
+  end_time: string;
+  website: string;
+  booking_url: string;
+  price: string;
+  capacity: string;
+  lgbtq_friendly: boolean;
+  frequency: string;
+}
+
+export interface DayTripContact {
+  phone: string;
+  email: string;
+  website: string;
+  booking_url: string;
+  social_media: {
+    instagram?: string;
+    facebook?: string;
+    twitter?: string;
+  };
+}
+
+export interface DayTripBooking {
+  advance_reservation_required: boolean;
+  reservation_window: string;
+  group_size_limits: string;
+  seasonal_availability: string;
+  weather_dependent: boolean;
+  peak_season: string;
+  off_peak_season: string;
+}
+
+export interface DayTripAccessibility {
+  wheelchair_accessible: boolean;
+  accessible_parking: boolean;
+  accessible_washrooms: boolean;
+  service_animals_welcome: boolean;
+  accessible_trails: string;
+  accessibility_notes: string;
+}
+
+export interface DayTripReviewsSentiment {
+  overall: string;
+  positives: string[];
+  negatives: string[];
+}
+
+export interface DayTripDayIn {
+  general: string;
+  gayDayIn: string;
+  outdoorsDay: string;
+  barRestaurantDay: string;
+}
+
+export interface DayTripNearby {
+  name: string;
+  description: string;
+  website: string;
+  contact: {
+    phone: string;
+    email: string;
+  };
+}
+
+export interface DayTripAccommodation {
+  name: string;
+  type: string;
+  location: string;
+  description: string;
+  website: string;
+  booking_url: string;
+  contact: {
+    phone: string;
+    email: string;
+  };
+  lgbtq_friendly: boolean;
+}
+
+export interface DetailedDayTrip {
+  id: string;
+  name: string;
+  coordinates: {
+    latitude: number;
+    longitude: number;
+  };
+  contact: DayTripContact;
+  whySpecial: string[];
+  reasonsToGo: string[];
+  events: DayTripEvent[];
+  booking: DayTripBooking;
+  accessibility: DayTripAccessibility;
+  reviewsSentiment: DayTripReviewsSentiment;
+  dayIn: DayTripDayIn;
+  nearby: DayTripNearby[];
+  gayFriendlyAccommodations: DayTripAccommodation[];
+  mustNotMiss: string[];
+}
+
+// Function to load detailed day trip data by matching CSV with JSON using matching IDs
+export const loadDetailedDayTrip = async (csvId: string): Promise<DetailedDayTrip | null> => {
+  try {
+    // Load the JSON data with matching IDs
+    const response = await fetch('/daytrips_data_with_matching_ids.json');
+    if (!response.ok) {
+      throw new Error('Failed to load detailed day trip data');
+    }
+    
+    const jsonData = await response.json();
+    
+    // First try to find by matching ID (preferred method)
+    const detailedTrip = jsonData.daytrips.find((trip: any) => trip.matchingId && trip.matchingId.includes(csvId));
+    
+    if (!detailedTrip) {
+      // Fallback: try to find by direct ID match
+      const fallbackTrip = jsonData.daytrips.find((trip: any) => trip.id === csvId);
+      
+      if (!fallbackTrip) {
+        console.warn(`No detailed data found for CSV ID: ${csvId}`);
+        return null;
+      }
+      
+      return fallbackTrip as DetailedDayTrip;
+    }
+    
+    return detailedTrip as DetailedDayTrip;
+  } catch (error) {
+    console.error('Error loading detailed day trip:', error);
+    return null;
+  }
+};
+
+// Function to get all available detailed day trip IDs
+export const getAvailableDetailedDayTripIds = async (): Promise<string[]> => {
+  try {
+    const response = await fetch('/daytrips_data_with_matching_ids.json');
+    if (!response.ok) {
+      throw new Error('Failed to load detailed day trip data');
+    }
+    
+    const jsonData = await response.json();
+    return jsonData.daytrips.map((trip: any) => trip.id);
+  } catch (error) {
+    console.error('Error loading detailed day trip IDs:', error);
+    return [];
+  }
+};
+
+// Function to check if a CSV day trip has detailed data available
+export const hasDetailedData = async (csvId: string): Promise<boolean> => {
+  const availableIds = await getAvailableDetailedDayTripIds();
+  return availableIds.includes(csvId);
+}; 
