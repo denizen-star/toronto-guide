@@ -20,6 +20,8 @@
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@types/react-router-dom": "^5.3.3",
+    "csv-parser": "^3.2.0",
+    "csv-writer": "^1.6.0",
     "date-fns": "^2.30.0",
     "nth-check": "^2.1.1",
     "papaparse": "^5.5.3",
@@ -43,7 +45,15 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
-    "apply-csv-updates": "node scripts/apply-csv-updates.js"
+    "apply-csv-updates": "node scripts/apply-csv-updates.js",
+    "linker": "node scripts/the-linker.js",
+    "linker:fast": "node scripts/the-linker.js --timeout 5000 --retries 1 --rate-limit 50",
+    "linker:thorough": "node scripts/the-linker.js --timeout 15000 --retries 5 --rate-limit 200",
+    "linker:cleanup": "node scripts/the-linker.js --cleanup",
+    "linker:cleanup:dry": "node scripts/the-linker.js --cleanup --dry-run",
+    "linker:cleanup:fast": "node scripts/the-linker.js --cleanup --timeout 5000 --retries 1",
+    "linker:help": "node scripts/the-linker.js --help",
+    "link-replacer": "node scripts/link-replacer.js"
   },
   "eslintConfig": {
     "extends": [

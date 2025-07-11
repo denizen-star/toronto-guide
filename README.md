@@ -31,6 +31,87 @@ The application will be available at:
 - Local: http://localhost:3004
 - Network: http://192.168.1.84:3004
 
+## 🔗 The Linker - Comprehensive Link Management Tool
+
+The Linker is a powerful tool for checking and cleaning all URLs in your Toronto Guide data files. It provides comprehensive link validation, automatic fixing, and detailed reporting.
+
+### Quick Start
+
+```bash
+# Basic link checking
+npm run linker
+
+# Fast scan (reduced timeouts)
+npm run linker:fast
+
+# Thorough scan (increased timeouts & retries)
+npm run linker:thorough
+
+# CHECK and FIX issues automatically
+npm run linker:cleanup
+
+# Preview fixes without applying them
+npm run linker:cleanup:dry
+
+# Fast cleanup mode
+npm run linker:cleanup:fast
+
+# Show help and all options
+npm run linker:help
+```
+
+### What The Linker Does
+
+#### **🔍 Link Checking:**
+- Validates **all URLs** across all CSV data files
+- Checks HTTP status codes (200, 301, 404, etc.)
+- Measures response times and detects timeouts
+- Provides detailed health scoring and reporting
+
+#### **🛠️ Automatic Cleanup:**
+- **Fixes fake Google Maps URLs**: Converts `goo.gl/maps/location` to proper search URLs
+- **Updates redirects**: Changes redirect URLs to their final destinations  
+- **Removes broken links**: Cleans out clearly fake or dead URLs
+- **Creates backups**: Always preserves original files before making changes
+
+#### **📊 Comprehensive Reporting:**
+- Console summary with health scores and statistics
+- Detailed JSON reports with all findings
+- Markdown reports for easy reading
+- Cleanup reports showing all changes made
+
+### Advanced Usage
+
+```bash
+# Custom parameters
+node scripts/the-linker.js --timeout 15000 --retries 5 --cleanup
+
+# Dry run to see what would be fixed
+node scripts/the-linker.js --cleanup --dry-run
+
+# Cleanup without creating backups  
+node scripts/the-linker.js --cleanup --no-backup
+
+# Verbose logging for debugging
+node scripts/the-linker.js --verbose
+```
+
+### Example Results
+
+Recent cleanup run fixed **397 issues** across 10 files:
+- ✅ Converted 150+ fake Google Maps URLs to working search links
+- ✅ Updated 50+ redirect URLs to final destinations
+- ✅ Removed 200+ broken/fake URLs
+- ✅ Created automatic backups of all modified files
+- ✅ Generated detailed reports for audit trail
+
+### Report Files
+
+All reports are saved in the `reports/` directory:
+- `linker-report-YYYY-MM-DD.json` - Detailed JSON report
+- `linker-report-YYYY-MM-DD.md` - Human-readable markdown report  
+- `cleanup-report-YYYY-MM-DD.json` - Cleanup actions performed
+
 ## Logging System
 The project implements a comprehensive logging system that tracks:
 - Data processing events
@@ -54,6 +135,9 @@ Builds the app for production to the `build` folder.
 
 ### `npm run workflow:status`
 Shows the current status of data processing workflows.
+
+### `npm run linker`
+Runs The Linker to check all links in your data files.
 
 ## Documentation
 - Main documentation: `/README.md`
