@@ -1,22 +1,14 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React from 'react';
 import { Box, Grid, Typography, Button, Chip, Card, CardContent } from '@mui/material';
-import EnhancedMinimalistCard from '../components/MinimalistCard';
-import EnhancedFilterSystem, { FilterConfig } from '../components/EnhancedFilterSystem';
-import { useSearch } from '../components/Layout';
 import {
-  Flag,
   Restaurant,
   TheaterComedy,
   LocationCity,
   Celebration,
   MusicNote,
   NightlifeOutlined,
-  Museum,
   Park,
   Business,
-  Festival,
-  DirectionsWalk,
-  ShoppingBag,
   ArrowBack,
   ArrowForward,
   Star,
@@ -281,100 +273,10 @@ const day3Data: PrideActivity[] = [
   }
 ];
 
-// Filter configurations
-const filterConfigs: FilterConfig[] = [
-  {
-    key: 'category',
-    label: 'Category', 
-    placeholder: 'Select categories',
-    options: [
-      { value: 'pride-event', label: 'Pride Events' },
-      { value: 'dining', label: 'Dining' },
-      { value: 'nightlife', label: 'Nightlife' },
-      { value: 'culture', label: 'Culture' },
-      { value: 'outdoor', label: 'Outdoor' },
-      { value: 'entertainment', label: 'Entertainment' }
-    ]
-  },
-  {
-    key: 'priceRange',
-    label: 'Price Range',
-    placeholder: 'Select price ranges',
-    options: [
-      { value: 'free', label: 'Free' },
-      { value: '$', label: '$' },
-      { value: '$$', label: '$$' },
-      { value: '$$$', label: '$$$' }
-    ]
-  },
-  {
-    key: 'time',
-    label: 'Time of Day',
-    placeholder: 'Select times',
-    options: [
-      { value: 'morning', label: 'Morning' },
-      { value: 'afternoon', label: 'Afternoon' },
-      { value: 'evening', label: 'Evening' },
-      { value: 'night', label: 'Night' }
-    ]
-  }
-];
-
 const PrideMontrealDay3 = () => {
-  const { searchTerm } = useSearch();
-  const [filteredData, setFilteredData] = useState<PrideActivity[]>(day3Data);
-
-  const applyFilters = useCallback((filters: Record<string, string[]>) => {
-    let filtered = day3Data;
-
-    if (searchTerm && searchTerm.trim() !== '') {
-      const searchLower = searchTerm.toLowerCase();
-      filtered = filtered.filter(activity =>
-        activity.title.toLowerCase().includes(searchLower) ||
-        activity.description.toLowerCase().includes(searchLower) ||
-        activity.location.toLowerCase().includes(searchLower) ||
-        activity.tags.some(tag => tag.toLowerCase().includes(searchLower))
-      );
-    }
-
-    if (filters.category && filters.category.length > 0) {
-      filtered = filtered.filter(activity => filters.category.includes(activity.category));
-    }
-
-    if (filters.priceRange && filters.priceRange.length > 0) {
-      filtered = filtered.filter(activity => filters.priceRange.includes(activity.priceRange));
-    }
-
-    if (filters.time && filters.time.length > 0) {
-      filtered = filtered.filter(activity => {
-        const timeStr = activity.time.toLowerCase();
-        return filters.time.some(timeFilter => {
-          switch (timeFilter) {
-            case 'morning': return timeStr.includes('am') && (timeStr.includes('8:') || timeStr.includes('9:') || timeStr.includes('10:') || timeStr.includes('11:'));
-            case 'afternoon': return timeStr.includes('pm') && (timeStr.includes('12:') || timeStr.includes('1:') || timeStr.includes('2:') || timeStr.includes('3:') || timeStr.includes('4:') || timeStr.includes('5:'));
-            case 'evening': return timeStr.includes('pm') && (timeStr.includes('6:') || timeStr.includes('7:') || timeStr.includes('8:'));
-            case 'night': return timeStr.includes('pm') && (timeStr.includes('9:') || timeStr.includes('10:') || timeStr.includes('11:')) || timeStr.includes('late');
-            default: return false;
-          }
-        });
-      });
-    }
-
-    setFilteredData(filtered);
-  }, [searchTerm]);
-
-  const groupedActivities = useMemo(() => {
-    const mainActivities = filteredData.filter(activity => !activity.isAlternative);
-    const alternatives = filteredData.filter(activity => activity.isAlternative);
-    
-    return mainActivities.map(main => ({
-      main,
-      alternatives: alternatives.filter(alt => alt.alternativeFor === main.id)
-    }));
-  }, [filteredData]);
-
   return (
     <Box sx={{ padding: { xs: 2, md: 4 }, maxWidth: '1400px', margin: '0 auto' }}>
+      {/* Header */}
       <Box sx={{ mb: 4, textAlign: 'center' }}>
         <Button
           component={RouterLink}
@@ -424,6 +326,7 @@ const PrideMontrealDay3 = () => {
         </Box>
       </Box>
 
+      {/* Activities Grid */}
       <Grid container spacing={3}>
         {day3Data.map((activity) => (
           <Grid item xs={12} md={6} lg={4} key={activity.id}>
@@ -538,6 +441,7 @@ const PrideMontrealDay3 = () => {
         ))}
       </Grid>
 
+      {/* Navigation to Next Day */}
       <Box sx={{ mt: 6, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 2 }}>
         <Button
           component={RouterLink}

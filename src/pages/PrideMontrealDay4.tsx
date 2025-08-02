@@ -1,8 +1,5 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React from 'react';
 import { Box, Grid, Typography, Button, Chip, Card, CardContent } from '@mui/material';
-import EnhancedMinimalistCard from '../components/MinimalistCard';
-import EnhancedFilterSystem, { FilterConfig } from '../components/EnhancedFilterSystem';
-import { useSearch } from '../components/Layout';
 import {
   Flag,
   Restaurant,
@@ -12,19 +9,16 @@ import {
   Festival,
   ArrowBack,
   ArrowForward,
-  Star,
   Groups,
   FitnessCenter,
   AccessTime,
-  LocationCity,
-  Celebration,
-  TheaterComedy
+  LocationCity
 } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
 
 interface PrideActivity {
   id: string;
-  title: string;
+  title: string;  
   description: string;
   category: string;
   day: string;
@@ -204,67 +198,7 @@ const day4Data: PrideActivity[] = [
   }
 ];
 
-const filterConfigs: FilterConfig[] = [
-  {
-    key: 'category',
-    label: 'Category', 
-    placeholder: 'Select categories',
-    options: [
-      { value: 'pride-event', label: 'Pride Events' },
-      { value: 'nightlife', label: 'Nightlife' },
-      { value: 'dining', label: 'Dining' }
-    ]
-  },
-  {
-    key: 'priceRange',
-    label: 'Price Range',
-    placeholder: 'Select price ranges',
-    options: [
-      { value: 'free', label: 'Free' },
-      { value: '$$', label: '$$' },
-      { value: '$$$', label: '$$$' }
-    ]
-  }
-];
-
 const PrideMontrealDay4 = () => {
-  const { searchTerm } = useSearch();
-  const [filteredData, setFilteredData] = useState<PrideActivity[]>(day4Data);
-
-  const applyFilters = useCallback((filters: Record<string, string[]>) => {
-    let filtered = day4Data;
-
-    if (searchTerm && searchTerm.trim() !== '') {
-      const searchLower = searchTerm.toLowerCase();
-      filtered = filtered.filter(activity =>
-        activity.title.toLowerCase().includes(searchLower) ||
-        activity.description.toLowerCase().includes(searchLower) ||
-        activity.location.toLowerCase().includes(searchLower) ||
-        activity.tags.some(tag => tag.toLowerCase().includes(searchLower))
-      );
-    }
-
-    if (filters.category && filters.category.length > 0) {
-      filtered = filtered.filter(activity => filters.category.includes(activity.category));
-    }
-
-    if (filters.priceRange && filters.priceRange.length > 0) {
-      filtered = filtered.filter(activity => filters.priceRange.includes(activity.priceRange));
-    }
-
-    setFilteredData(filtered);
-  }, [searchTerm]);
-
-  const groupedActivities = useMemo(() => {
-    const mainActivities = filteredData.filter(activity => !activity.isAlternative);
-    const alternatives = filteredData.filter(activity => activity.isAlternative);
-    
-    return mainActivities.map(main => ({
-      main,
-      alternatives: alternatives.filter(alt => alt.alternativeFor === main.id)
-    }));
-  }, [filteredData]);
-
   return (
     <Box sx={{ padding: { xs: 2, md: 4 }, maxWidth: '1400px', margin: '0 auto' }}>
       <Box sx={{ mb: 4, textAlign: 'center' }}>
