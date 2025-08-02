@@ -149,6 +149,38 @@ const day1Data: PrideActivity[] = [
     isPrideEvent: false,
     isLGBTFriendly: true,
     peopleEnjoy: "Massive 3-floor layout with different vibes on each level, rooftop terrace with Village views, VIP lounges, and the most inclusive crowd in Montreal"
+  },
+  {
+    id: "local_gem_1",
+    title: "Local Gem: Les P'tits Enfants de Felice - Mile End Coffee Culture",
+    description: "Beloved neighborhood coffee shop in Mile End where locals have been gathering since the early days, known for authentic community bonds",
+    category: "dining",
+    day: "Wednesday",
+    time: "10:00 AM - 12:00 PM",
+    location: "Les P'tits Enfants de Felice",
+    address: "5563 av. du Parc, Montreal, QC H2V 4H2",
+    website: "https://www.cafefelice.ca/",
+    priceRange: "$",
+    tags: ["local-gem", "mile-end", "coffee", "community"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "The proud Mile End roots and authentic neighborhood bonds forged over years, the welcoming and lively atmosphere that creates community connections, locally roasted house blend with unique taste, and baristas who open at 5 AM to serve the community"
+  },
+  {
+    id: "local_gem_2", 
+    title: "Local Gem: Gokudo - Montreal's Best Kept Secret",
+    description: "Hidden Japanese cocktail bar behind a 6-seat fish shack called Ryoshi - 'when you walk through the door, you are no longer in Montreal'",
+    category: "nightlife",
+    day: "Wednesday",
+    time: "11:00 PM - Late",
+    location: "Gokudo (Hidden behind Ryoshi)",
+    address: "630 Rue Cathcart, Montreal, QC H3B 1L9",
+    website: "https://gokudo.ca/",
+    priceRange: "$$$",
+    tags: ["hidden-bar", "japanese", "secret", "sake"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "The thrill of finding Montreal's best-kept secret hidden behind a tiny fish shack, transportation to authentic Japanese culture through sake and handcrafted cocktails, the intimate atmosphere where you truly feel you're no longer in Montreal, and being part of an exclusive experience"
   }
 ];
 

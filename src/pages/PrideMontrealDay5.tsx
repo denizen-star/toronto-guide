@@ -225,6 +225,37 @@ const day5Data: PrideActivity[] = [
     isPrideEvent: false,
     isLGBTFriendly: true,
     peopleEnjoy: "Bar-hopping through the Village's legendary venues each with its own vibe, from Unity's 3 floors to Le Stud's intimate atmosphere, meeting locals and saying goodbye to new friends, and the magical feeling of the Village on Pride night"
+  },
+  {
+    id: "local_gem_day5_1",
+    title: "Local Gem: Pichai - Montreal's Trendiest Natural Wine & Small Plates",
+    description: "Hottest reservation in town featuring natural wines, innovative small plates, and the cool factor that defines Montreal's current dining scene",
+    category: "dining",
+    day: "Sunday",
+    time: "4:00 PM - 6:00 PM",
+    location: "Pichai",
+    address: "Montreal, QC (Reservation Required)",
+    website: "https://pichai.biz/",
+    priceRange: "$$$",
+    tags: ["local-gem", "natural-wine", "trendy", "small-plates"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "Scoring a reservation at Montreal's most in-demand restaurant known for its incredible natural wine selection, innovative small plates that showcase local ingredients, the stylish atmosphere that attracts Montreal's coolest crowd, and being part of the city's most talked-about dining experience during Pride weekend"
+  },
+  {
+    id: "local_gem_day5_2",
+    title: "Local Gem: Chez Baptiste Mont-Royal - Plateau's Beloved Neighborhood Bar",
+    description: "Classic Plateau institution on Mont-Royal Avenue where locals have gathered for years, featuring Quebec microbreweries and authentic neighborhood charm",
+    category: "nightlife",
+    day: "Sunday",
+    time: "7:00 PM - 10:00 PM",
+    location: "Chez Baptiste Mont-Royal",
+    address: "1045 Avenue du Mont-Royal E, Montreal, QC H2J 1X7",
+    priceRange: "$$",
+    tags: ["local-gem", "plateau", "neighborhood", "microbreweries"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "The authentic Plateau neighborhood atmosphere on iconic Mont-Royal Avenue, celebrating with locals at this beloved institution known for Quebec microbreweries, the community feeling that embodies Montreal's neighborhood culture, and the perfect spot to toast the end of an incredible Pride week with new friends"
   }
 ];
 

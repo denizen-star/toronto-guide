@@ -270,6 +270,38 @@ const day3Data: PrideActivity[] = [
     isLGBTFriendly: true,
     isSpecialEvent: true,
     peopleEnjoy: "WESKA's signature melodic techno and progressive house, Newspeak's state-of-the-art sound system and lighting, the underground warehouse vibe, and connecting with Montreal's serious electronic music community"
+  },
+  {
+    id: "local_gem_day3_1",
+    title: "Local Gem: Café In Gamba - Plateau's Artisan Coffee Haven",
+    description: "Passionate Plateau roasters with 3 locations putting terroir-focused flavors first through exceptional barista talent and torrefaction craft",
+    category: "dining",
+    day: "Friday",
+    time: "2:00 PM - 4:00 PM",
+    location: "Café In Gamba Laurier",
+    address: "1258, Av. Laurier Est, Montreal, QC",
+    website: "https://cafeingamba.com/",
+    priceRange: "$",
+    tags: ["local-gem", "artisan-coffee", "plateau", "terroir"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "The relentless pursuit of the perfect cup through exceptional terroir-focused flavors, talented baristas who showcase the craft of torrefaction, the authentic Plateau atmosphere at three beloved neighborhood locations, and the quest for artisan coffee excellence that defines Montreal's coffee culture"
+  },
+  {
+    id: "local_gem_day3_2",
+    title: "Local Gem: Bar Saint-Denis - Rosemont's Sophisticated Natural Wine Spot",
+    description: "Intimate neighborhood gem featuring natural wines, sophisticated small plates, and the kind of local atmosphere that defines Montreal's food scene",
+    category: "dining",
+    day: "Friday", 
+    time: "6:00 PM - 8:00 PM",
+    location: "Bar Saint-Denis",
+    address: "6966, rue St-Denis, Montreal, QC H2S 2S4",
+    website: "https://www.barstdenis.com/",
+    priceRange: "$$$",
+    tags: ["local-gem", "natural-wine", "rosemont", "sophisticated"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "Discovering this sophisticated neighborhood secret with its carefully curated natural wine selection, creative small plates like gnochetti sardi with tuna confit and morilles farcies, the intimate atmosphere that feels like a local's best-kept secret, and the authentic Montreal food scene experience away from tourist areas"
   }
 ];
 

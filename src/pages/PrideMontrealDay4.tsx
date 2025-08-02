@@ -195,6 +195,38 @@ const day4Data: PrideActivity[] = [
     isAlternative: true,
     alternativeFor: "lpgiobbi1",
     peopleEnjoy: "The massive 3-floor layout where each floor has a different music vibe, the rooftop terrace with stunning Village views, VIP sections for a more intimate experience, and the most inclusive crowd in Montreal - everyone is welcome"
+  },
+  {
+    id: "local_gem_day4_1",
+    title: "Local Gem: Annette bar à vin - Molson District Wine Haven",
+    description: "Sophisticated wine bar in emerging Molson district featuring wine spectator excellence, minimalist cocktails, and shared cuisine culture",
+    category: "dining",
+    day: "Saturday",
+    time: "3:00 PM - 5:00 PM",
+    location: "Annette bar à vin",
+    address: "4051, rue Molson, local 120, Montreal, QC H1Y 3L1",
+    website: "https://www.annettebaravin.com/",
+    priceRange: "$$$",
+    tags: ["local-gem", "wine-bar", "molson-district", "sophisticated"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "Discovering this Wine Spectator Award of Excellence winner in the emerging Molson district, the unique vision of wine featuring vulgarized subtleties and sophisticated simplicity, minimalist cocktails created by passionate mixologist Olivier, and the sharing-focused cuisine that embodies Montreal's collaborative food culture"
+  },
+  {
+    id: "local_gem_day4_2",
+    title: "Local Gem: Bar Le Vestiaire - Rosemont Microbrasserie with Quiz Nights",
+    description: "Authentic neighborhood microbrasserie with 16 taps of Quebec beer, 45+ Belgian bottles, and legendary Monday quiz nights beloved by locals",
+    category: "nightlife",
+    day: "Saturday",
+    time: "1:00 PM - 3:00 PM",
+    location: "Bar Le Vestiaire",
+    address: "6634 rue Saint-Hubert, Montreal, QC H2S 2M3",
+    website: "https://www.barlevestiaire.com/",
+    priceRange: "$$",
+    tags: ["local-gem", "microbrasserie", "rosemont", "quiz-nights"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "The authentic microbrasserie atmosphere just steps from Beaubien Metro with 16 local taps showcasing Quebec's beer culture, over 45 Belgian bottles for the true beer connoisseur, legendary Monday quiz nights that bring the community together, and two terrasses perfect for pre-Pride festivities"
   }
 ];
 

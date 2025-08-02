@@ -96,6 +96,38 @@ const day2Data: PrideActivity[] = [
     isLGBTFriendly: true,
     isSpecialEvent: true,
     peopleEnjoy: "Meeting RuPaul's Drag Race alumni, Club Soda's legendary sound system, the intimate venue atmosphere after the huge outdoor show, and dancing until sunrise"
+  },
+  {
+    id: "local_gem_day2_1",
+    title: "Local Gem: Bar Suzanne - Plateau's Hidden Dumpling Den",
+    description: "Tucked away on Duluth Street between neighborhoods, this quaint spot serves handmade dumplings with 12 beer lines and crafted cocktails",
+    category: "dining",
+    day: "Thursday",
+    time: "4:00 PM - 7:00 PM",
+    location: "Bar Suzanne",
+    address: "20 Duluth St. East, Montreal, QC",
+    website: "http://www.barsuzanne.ca/",
+    priceRange: "$$",
+    tags: ["local-gem", "dumplings", "plateau", "hidden"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "Finding this hidden gem 'somewhere in the gap between McGill Ghetto, Mile End, Plateau, and the Main' on a quaint street with ex-skewers and second-hand shops, handmade dumplings paired with assorted cocktails and 12 beer lines, the intimate atmosphere perfect for staying out late 'but gently'"
+  },
+  {
+    id: "local_gem_day2_2",
+    title: "Local Gem: 31 Latitude - Chinese Tapas Revolution",
+    description: "Innovative 'Chinese tapas' concept with small portions of fine cuisine, large wine selection by glass, and Asian beer pairings",
+    category: "dining", 
+    day: "Thursday",
+    time: "12:00 PM - 2:00 PM",
+    location: "31 Latitude",
+    address: "3634 Rue Saint-Dominique, Montreal, QC H2X 2X7",
+    website: "https://www.31latitude.com/",
+    priceRange: "$$",
+    tags: ["local-gem", "chinese-tapas", "wine-pairing", "innovative"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "The revolutionary 'Chinese tapas' concept featured in Montreal Gazette, tasting delicious fine cuisine in small portions perfect for sharing, pairing with the large selection of wines by glass and Asian beers, tapas starting from just $4 and wines from $8"
   }
 ];
 
@@ -188,7 +220,7 @@ const PrideMontrealDay2 = () => {
               )}
               
               <Typography variant="caption" sx={{ display: 'block', mb: 1 }}>
-                📍 {activity.address}
+                �� {activity.address}
               </Typography>
               <Typography variant="caption" sx={{ display: 'block', mb: 2 }}>
                 🕐 {activity.time} • 💰 {activity.priceRange}
