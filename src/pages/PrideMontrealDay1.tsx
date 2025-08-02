@@ -36,6 +36,21 @@ interface PrideActivity {
 // Day 1 Data - Wednesday, August 6, 2025 - Enhanced with real details
 const day1Data: PrideActivity[] = [
   {
+    id: "transport_setup",
+    title: "Local Insider Tip: Transportation Setup",
+    description: "Get an OPUS card at Metro stations, convenience stores, or pharmacies. Load with weekly pass for efficient Metro travel. Optional: BIXI bike rentals ($1.50/ride + per minute, or daily passes)",
+    category: "logistics",
+    day: "Wednesday",
+    time: "Upon Arrival",
+    location: "Any Metro Station",
+    address: "Throughout Montreal Metro System",
+    priceRange: "$",
+    tags: ["transportation", "opus-card", "bixi-bikes", "metro"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "The Metro system being super efficient for getting around during Pride week, BIXI bike stations everywhere for adventurous exploring, and having unlimited Metro access with the weekly pass for all Pride events"
+  },
+  {
     id: "arr1",
     title: "Arrive & Check-in - Gay Village Hotels",
     description: "Arrive in Montreal and check into LGBTQ+-friendly accommodations in the heart of the Village",
@@ -181,6 +196,36 @@ const day1Data: PrideActivity[] = [
     isPrideEvent: false,
     isLGBTFriendly: true,
     peopleEnjoy: "The thrill of finding Montreal's best-kept secret hidden behind a tiny fish shack, transportation to authentic Japanese culture through sake and handcrafted cocktails, the intimate atmosphere where you truly feel you're no longer in Montreal, and being part of an exclusive experience"
+  },
+  {
+    id: "friend_rec_palme",
+    title: "Friend's Rec: Palme - Tropical Village Vibes",
+    description: "Cool, relaxed tropical vibe restaurant in the Village - a local's go-to for a chill but delicious meal, perfect for your first night",
+    category: "dining", 
+    day: "Wednesday",
+    time: "7:00 PM - 9:00 PM",
+    location: "Palme",
+    address: "Rue Sainte-Catherine E, Montreal (Village)",
+    priceRange: "$$",
+    tags: ["friend-rec", "tropical", "village", "relaxed"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "The cool, relaxed tropical atmosphere that locals love for unwinding, being right in the heart of the Village during Pride week, the perfect chill-but-delicious meal balance, and starting your Pride week the way locals do"
+  },
+  {
+    id: "friend_rec_bar_renard",
+    title: "Friend's Rec: Bar Renard - Perfect Village Nightcap",
+    description: "Great mix of locals and visitors with cool cocktails - the perfect spot to chat and unwind after travel without going too hard on night one",
+    category: "nightlife",
+    day: "Wednesday", 
+    time: "9:30 PM - 11:30 PM",
+    location: "Bar Renard",
+    address: "Rue Sainte-Catherine E, Montreal (Village)",
+    priceRange: "$$",
+    tags: ["friend-rec", "cocktails", "village", "locals-and-visitors"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "The perfect mix of locals and Pride visitors creating great conversation, cool cocktails that aren't too strong for your first night, the ideal spot to unwind after travel, and being right where all the Pride action happens"
   }
 ];
 

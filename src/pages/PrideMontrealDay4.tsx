@@ -227,6 +227,52 @@ const day4Data: PrideActivity[] = [
     isPrideEvent: false,
     isLGBTFriendly: true,
     peopleEnjoy: "The authentic microbrasserie atmosphere just steps from Beaubien Metro with 16 local taps showcasing Quebec's beer culture, over 45 Belgian bottles for the true beer connoisseur, legendary Monday quiz nights that bring the community together, and two terrasses perfect for pre-Pride festivities"
+  },
+  {
+    id: "friend_rec_old_montreal",
+    title: "Friend's Rec: Old Montreal Historic Stroll & Notre-Dame",
+    description: "Take a slower start exploring cobblestone streets, Notre-Dame Basilica (worth going inside!), and Old Port. Optional: pedal boats or zipline for adventure",
+    category: "culture", 
+    day: "Saturday",
+    time: "10:00 AM - 12:00 PM",
+    location: "Old Montreal & Notre-Dame Basilica",
+    address: "Old Montreal historic district",
+    priceRange: "$",
+    tags: ["friend-rec", "old-montreal", "notre-dame", "historic"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "Walking the historic cobblestone streets that tell 400 years of history, the breathtaking Notre-Dame Basilica interior that's worth the admission, optional adventure activities at Old Port, and the slower pace before tonight's marathon party"
+  },
+  {
+    id: "friend_rec_le_serpent",
+    title: "Friend's Rec: Le Serpent - Industrial Italian Excellence", 
+    description: "Amazing Italian restaurant in an old industrial building with super cool vibe - fuel up for the marathon party night ahead!",
+    category: "dining",
+    day: "Saturday",
+    time: "7:00 PM - 9:00 PM",
+    location: "Le Serpent",
+    address: "Prince Arthur W, Montreal",
+    priceRange: "$$$",
+    tags: ["friend-rec", "italian", "industrial", "cool-vibe"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "The super cool industrial building atmosphere, amazing Italian food that locals rave about, the unique setting that feels like a hidden gem, and fueling up properly for the biggest party night of Pride week"
+  },
+  {
+    id: "friend_rec_marathon_party",
+    title: "Friend's Rec: Epic Village Bar Crawl - Go All Out Night!",
+    description: "The night to go all out! Start Complexe Sky (rooftop terrasse) → Stock Bar (infamous shows) → finish at Stereo (2 AM-late morning after-hours institution)",
+    category: "nightlife",
+    day: "Saturday", 
+    time: "10:00 PM - Late Morning",
+    location: "Village Bar Crawl Circuit",
+    address: "Rue Sainte-Catherine E, Montreal",
+    priceRange: "$$$",
+    tags: ["friend-rec", "bar-crawl", "complexe-sky", "stock-bar", "stereo"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    isSpecialEvent: true,
+    peopleEnjoy: "Starting with Complexe Sky's rooftop terrasse views, experiencing Stock Bar's infamous drag shows, ending at Stereo - Montreal's legendary after-hours institution that opens at 2 AM, incredible DJs and the most serious party of Pride week - pace yourself!"
   }
 ];
 

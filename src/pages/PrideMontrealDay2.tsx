@@ -64,21 +64,21 @@ const day2Data: PrideActivity[] = [
     peopleEnjoy: "The breathtaking blue ceiling with gold stars, world-class pipe organ concerts, and walking the same cobblestones as 400 years of history"
   },
   {
-    id: "drag_show",
-    title: "Soirée 100% Drag - World's Largest Free Drag Show",
-    description: "Official Fierté Montréal - World's largest free drag show featuring Barbada & Rita Baga plus international drag stars at Olympic Park",
+    id: "drag_show_enhanced",
+    title: "Soirée 100% Drag - World's Largest Free Drag Show (Enhanced Lineup)",
+    description: "Official Fierté Montréal with incredible lineup: Bimini (5:30 PM), Detox, Kennedy Davenport, Rita Baga, Makayla Couture (7:30 PM), and Nicky Doll (10 PM)",
     category: "pride-event",
     day: "Thursday",
-    time: "7:30 PM - 10:00 PM",
-    location: "TD Stage, Olympic Park Esplanade",
+    time: "5:30 PM - 11:00 PM",
+    location: "TD Stage, Olympic Park Esplanade", 
     address: "Olympic Park Esplanade, Montreal, QC H1V 3N7",
     website: "https://fiertemontreal.com/",
     priceRange: "free",
-    tags: ["drag", "barbada", "rita-baga", "free", "olympic-park"],
+    tags: ["drag", "bimini", "detox", "kennedy-davenport", "rita-baga", "nicky-doll"],
     isPrideEvent: true,
     isLGBTFriendly: true,
     isSpecialEvent: true,
-    peopleEnjoy: "Seeing Canada's Drag Race stars live for free, the massive outdoor stage setup, incredible costumes, and the electric energy of 20,000+ people celebrating together"
+    peopleEnjoy: "Seeing Bimini from UK's Drag Race live, witnessing Detox's legendary performances, cheering for Canada's Drag Race stars Rita Baga and others, and being part of the world's largest free drag show with international superstars"
   },
   {
     id: "eve1",
@@ -128,6 +128,38 @@ const day2Data: PrideActivity[] = [
     isPrideEvent: false,
     isLGBTFriendly: true,
     peopleEnjoy: "The revolutionary 'Chinese tapas' concept featured in Montreal Gazette, tasting delicious fine cuisine in small portions perfect for sharing, pairing with the large selection of wines by glass and Asian beers, tapas starting from just $4 and wines from $8"
+  },
+  {
+    id: "friend_rec_jean_talon",
+    title: "Friend's Rec: Jean-Talon Market - North America's Food Mecca",
+    description: "One of the biggest public markets in North America - grab fresh fruit, local cheese, pastries, and soak in real Montreal life",
+    category: "culture",
+    day: "Thursday",
+    time: "9:00 AM - 11:00 AM", 
+    location: "Jean-Talon Market",
+    address: "7070 Henri-Julien Ave, Montreal (Metro Jean-Talon)",
+    priceRange: "$",
+    tags: ["friend-rec", "market", "local-life", "fresh-food"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "Being at one of North America's biggest public markets, fresh Quebec produce at its peak, people-watching and getting a real feel for Montreal life, sampling local cheeses and pastries that locals buy daily"
+  },
+  {
+    id: "friend_rec_cabaret_mado", 
+    title: "Friend's Rec: Cabaret Mado - Montreal Legend (Must Visit!)",
+    description: "Montreal institution where Mado is a legend - get there early to grab a spot. Expect fierce performances and an amazing party after the big Olympic show",
+    category: "entertainment",
+    day: "Thursday",
+    time: "11:30 PM - Late",
+    location: "Cabaret Mado",
+    address: "1115 Rue Sainte-Catherine E, Montreal", 
+    website: "https://cabaretmado.ca/",
+    priceRange: "$$",
+    tags: ["friend-rec", "cabaret-mado", "legend", "after-drag-show"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    isSpecialEvent: true,
+    peopleEnjoy: "Experiencing Mado - Montreal's most beloved drag queen and comedian, the hilarious French and English comedy that locals quote for weeks, being at a true Montreal institution, and the legendary after-show atmosphere where everyone goes after the Olympic events"
   }
 ];
 

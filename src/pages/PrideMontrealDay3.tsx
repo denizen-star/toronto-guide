@@ -302,6 +302,38 @@ const day3Data: PrideActivity[] = [
     isPrideEvent: false,
     isLGBTFriendly: true,
     peopleEnjoy: "Discovering this sophisticated neighborhood secret with its carefully curated natural wine selection, creative small plates like gnochetti sardi with tuna confit and morilles farcies, the intimate atmosphere that feels like a local's best-kept secret, and the authentic Montreal food scene experience away from tourist areas"
+  },
+  {
+    id: "friend_rec_mile_end", 
+    title: "Friend's Rec: Mile End Neighbourhood Exploration", 
+    description: "Explore Montreal's bohemian Mile End - great indie shops, cafes, more bohemian feel. Perfect cultural afternoon before tonight's DistinXion celebration",
+    category: "culture",
+    day: "Friday",
+    time: "1:00 PM - 4:00 PM",
+    location: "Mile End Neighbourhood",
+    address: "Avenue Fairmount, Rue Saint-Viateur area, Montreal",
+    priceRange: "$",
+    tags: ["friend-rec", "mile-end", "bohemian", "indie-shops"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "The bohemian atmosphere that's different from downtown Montreal, discovering indie bookstores and vintage shops that locals love, great cafes for people-watching, and the creative energy that makes Mile End special"
+  },
+  {
+    id: "friend_rec_club_unity_enhanced",
+    title: "Friend's Rec: Club Unity - Montreal's Biggest Gay Club (Multiple Floors!)",
+    description: "The biggest gay club in Montreal with multiple floors featuring different music - gets absolutely wild during Pride. Dance until you drop!",
+    category: "nightlife", 
+    day: "Friday",
+    time: "11:30 PM - Late",
+    location: "Club Unity",
+    address: "1171 Rue Sainte-Catherine E, Montreal",
+    website: "https://www.clubunity.com/",
+    priceRange: "$$",
+    tags: ["friend-rec", "club-unity", "biggest-gay-club", "multiple-floors"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    isSpecialEvent: true,
+    peopleEnjoy: "Being at Montreal's biggest gay club that gets absolutely wild during Pride, multiple floors with different music so you can find your vibe, the incredible energy when everyone goes after the DistinXion concert, and dancing until you literally drop"
   }
 ];
 
