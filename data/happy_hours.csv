@@ -1,0 +1,371 @@
+id,location_id,day_of_week,start_time,end_time,offerings,description,lastUpdated
+1,10574,MONDAY,14:00,17:00,"$5 pints, $6 house wine, discounted apps","Traditional British pub",2025-05-28T14:52:12.951Z
+2,10575,MONDAY,17:00,19:00,"Cocktail & wine specials","Boutique hotel bar",2025-05-28T14:52:12.951Z
+3,14242,MONDAY,16:00,19:00,"$5 beer, $6 wine, $7 cocktails","Lively New Zealand pub",2025-05-28T14:52:12.951Z
+4,14243,MONDAY,17:00,19:00,"Upscale cocktails, small plates","Elegant rooftop bar",2025-05-28T14:52:12.951Z
+5,14244,MONDAY,16:00,18:00,"Discounted sushi, skewers, cocktails","Modern Japanese cuisine",2025-05-28T14:52:12.951Z
+6,14245,MONDAY,16:00,18:00,"Cocktail and mezze specials","Upscale Lebanese dining",2025-05-28T14:52:12.951Z
+7,14241,MONDAY,16:00,18:00,"$2 oysters, discounted cocktails","Mediterranean snack bar",2025-05-28T14:52:12.951Z
+8,10574,TUESDAY,14:00,17:00,"$5 pints, $6 house wine, discounted apps","Traditional British pub",2025-05-28T14:52:12.951Z
+9,10575,TUESDAY,17:00,19:00,"Cocktail & wine specials","Boutique hotel bar",2025-05-28T14:52:12.951Z
+10,14242,TUESDAY,16:00,19:00,"$5 beer, $6 wine, $7 cocktails","Lively New Zealand pub",2025-05-28T14:52:12.951Z
+11,14243,TUESDAY,17:00,19:00,"Upscale cocktails, small plates","Elegant rooftop bar",2025-05-28T14:52:12.951Z
+12,14244,TUESDAY,16:00,18:00,"Discounted sushi, skewers, cocktails","Modern Japanese cuisine",2025-05-28T14:52:12.951Z
+13,14245,TUESDAY,16:00,18:00,"Cocktail and mezze specials","Upscale Lebanese dining",2025-05-28T14:52:12.951Z
+14,14241,TUESDAY,16:00,18:00,"$2 oysters, discounted cocktails","Mediterranean snack bar",2025-05-28T14:52:12.951Z
+15,10574,WEDNESDAY,14:00,17:00,"$5 pints, $6 house wine, discounted apps","Traditional British pub",2025-05-28T14:52:12.951Z
+16,10575,WEDNESDAY,17:00,19:00,"Cocktail & wine specials","Boutique hotel bar",2025-05-28T14:52:12.951Z
+17,14242,WEDNESDAY,16:00,19:00,"$5 beer, $6 wine, $7 cocktails","Lively New Zealand pub",2025-05-28T14:52:12.951Z
+18,14243,WEDNESDAY,17:00,19:00,"Upscale cocktails, small plates","Elegant rooftop bar",2025-05-28T14:52:12.951Z
+19,14244,WEDNESDAY,16:00,18:00,"Discounted sushi, skewers, cocktails","Modern Japanese cuisine",2025-05-28T14:52:12.951Z
+20,14245,WEDNESDAY,16:00,18:00,"Cocktail and mezze specials","Upscale Lebanese dining",2025-05-28T14:52:12.951Z
+21,14241,WEDNESDAY,16:00,18:00,"$2 oysters, discounted cocktails","Mediterranean snack bar",2025-05-28T14:52:12.951Z
+22,10574,THURSDAY,14:00,17:00,"$5 pints, $6 house wine, discounted apps","Traditional British pub",2025-05-28T14:52:12.951Z
+23,10575,THURSDAY,17:00,19:00,"Cocktail & wine specials","Boutique hotel bar",2025-05-28T14:52:12.951Z
+24,14242,THURSDAY,16:00,19:00,"$5 beer, $6 wine, $7 cocktails","Lively New Zealand pub",2025-05-28T14:52:12.951Z
+25,14243,THURSDAY,17:00,19:00,"Upscale cocktails, small plates","Elegant rooftop bar",2025-05-28T14:52:12.951Z
+26,14244,THURSDAY,16:00,18:00,"Discounted sushi, skewers, cocktails","Modern Japanese cuisine",2025-05-28T14:52:12.951Z
+27,14245,THURSDAY,16:00,18:00,"Cocktail and mezze specials","Upscale Lebanese dining",2025-05-28T14:52:12.951Z
+28,14241,THURSDAY,16:00,18:00,"$2 oysters, discounted cocktails","Mediterranean snack bar",2025-05-28T14:52:12.951Z
+29,10574,FRIDAY,14:00,17:00,"$5 pints, $6 house wine, discounted apps","Traditional British pub",2025-05-28T14:52:12.951Z
+30,10575,FRIDAY,17:00,19:00,"Cocktail & wine specials","Boutique hotel bar",2025-05-28T14:52:12.951Z
+31,14242,FRIDAY,16:00,19:00,"$5 beer, $6 wine, $7 cocktails","Lively New Zealand pub",2025-05-28T14:52:12.951Z
+32,14243,FRIDAY,17:00,19:00,"Upscale cocktails, small plates","Elegant rooftop bar",2025-05-28T14:52:12.951Z
+33,14244,FRIDAY,16:00,18:00,"Discounted sushi, skewers, cocktails","Modern Japanese cuisine",2025-05-28T14:52:12.951Z
+34,14245,FRIDAY,16:00,18:00,"Cocktail and mezze specials","Upscale Lebanese dining",2025-05-28T14:52:12.951Z
+35,14241,FRIDAY,16:00,18:00,"$2 oysters, discounted cocktails","Mediterranean snack bar",2025-05-28T14:52:12.951Z
+36,14242,SATURDAY,16:00,19:00,"$5 beer, $6 wine, $7 cocktails","Lively New Zealand pub",2025-05-28T14:52:12.951Z
+37,14243,SATURDAY,17:00,19:00,"Upscale cocktails, small plates","Elegant rooftop bar",2025-05-28T14:52:12.951Z
+38,14244,SATURDAY,16:00,18:00,"Discounted sushi, skewers, cocktails","Modern Japanese cuisine",2025-05-28T14:52:12.951Z
+39,14242,SUNDAY,16:00,19:00,"$5 beer, $6 wine, $7 cocktails","Lively New Zealand pub",2025-05-28T14:52:12.951Z
+40,14243,SUNDAY,17:00,19:00,"Upscale cocktails, small plates","Elegant rooftop bar",2025-05-28T14:52:12.951Z
+41,14244,SUNDAY,16:00,18:00,"Discounted sushi, skewers, cocktails","Modern Japanese cuisine",2025-05-28T14:52:12.951Z
+42,2379,MONDAY,15:00,18:00,"Discounted Asian-inspired dishes and drinks","Vibrant, Asian-inspired cuisine",2025-05-28T14:52:12.951Z
+43,10570,MONDAY,14:00,17:00,"Half-priced pies and refreshing drinks","Lively, modern Canadian",2025-05-28T14:52:12.951Z
+44,10571,MONDAY,15:00,18:00,"50% off all drinks and snacks","Upscale British fare",2025-05-28T14:52:12.951Z
+45,10572,MONDAY,14:30,18:00,"Drinks and gourmet snacks","High-end Japanese, city views",2025-05-28T14:52:12.951Z
+46,10573,MONDAY,15:00,18:00,"Discounted pizzas and drinks","Authentic Neapolitan pizza",2025-05-28T14:52:12.951Z
+47,2379,TUESDAY,15:00,18:00,"Discounted Asian-inspired dishes and drinks","Vibrant, Asian-inspired cuisine",2025-05-28T14:52:12.951Z
+48,10570,TUESDAY,14:00,17:00,"Half-priced pies and refreshing drinks","Lively, modern Canadian",2025-05-28T14:52:12.951Z
+49,10571,TUESDAY,15:00,18:00,"50% off all drinks and snacks","Upscale British fare",2025-05-28T14:52:12.951Z
+50,10572,TUESDAY,14:30,18:00,"Drinks and gourmet snacks","High-end Japanese, city views",2025-05-28T14:52:12.951Z
+51,10573,TUESDAY,15:00,18:00,"Discounted pizzas and drinks","Authentic Neapolitan pizza",2025-05-28T14:52:12.951Z
+52,2379,WEDNESDAY,15:00,18:00,"Discounted Asian-inspired dishes and drinks","Vibrant, Asian-inspired cuisine",2025-05-28T14:52:12.951Z
+53,10570,WEDNESDAY,14:00,17:00,"Half-priced pies and refreshing drinks","Lively, modern Canadian",2025-05-28T14:52:12.951Z
+54,10571,WEDNESDAY,15:00,18:00,"50% off all drinks and snacks","Upscale British fare",2025-05-28T14:52:12.951Z
+55,10572,WEDNESDAY,14:30,18:00,"Drinks and gourmet snacks","High-end Japanese, city views",2025-05-28T14:52:12.951Z
+56,10573,WEDNESDAY,15:00,18:00,"Discounted pizzas and drinks","Authentic Neapolitan pizza",2025-05-28T14:52:12.951Z
+57,2379,THURSDAY,15:00,18:00,"Discounted Asian-inspired dishes and drinks","Vibrant, Asian-inspired cuisine",2025-05-28T14:52:12.951Z
+58,10570,THURSDAY,14:00,17:00,"Half-priced pies and refreshing drinks","Lively, modern Canadian",2025-05-28T14:52:12.951Z
+59,10571,THURSDAY,15:00,18:00,"50% off all drinks and snacks","Upscale British fare",2025-05-28T14:52:12.951Z
+60,10572,THURSDAY,14:30,18:00,"Drinks and gourmet snacks","High-end Japanese, city views",2025-05-28T14:52:12.951Z
+61,10573,THURSDAY,15:00,18:00,"Discounted pizzas and drinks","Authentic Neapolitan pizza",2025-05-28T14:52:12.951Z
+62,2379,FRIDAY,15:00,18:00,"Discounted Asian-inspired dishes and drinks","Vibrant, Asian-inspired cuisine",2025-05-28T14:52:12.951Z
+63,10570,FRIDAY,14:00,17:00,"Half-priced pies and refreshing drinks","Lively, modern Canadian",2025-05-28T14:52:12.951Z
+64,10571,FRIDAY,15:00,18:00,"50% off all drinks and snacks","Upscale British fare",2025-05-28T14:52:12.951Z
+65,10572,FRIDAY,14:30,18:00,"Drinks and gourmet snacks","High-end Japanese, city views",2025-05-28T14:52:12.951Z
+66,10573,FRIDAY,15:00,18:00,"Discounted pizzas and drinks","Authentic Neapolitan pizza",2025-05-28T14:52:12.951Z
+67,10572,SATURDAY,11:30,18:00,"Drinks and gourmet snacks","High-end Japanese, city views",2025-05-28T14:52:12.951Z
+68,2379,SATURDAY,15:00,18:00,"Discounted Asian-inspired dishes and drinks","Vibrant, Asian-inspired cuisine",2025-05-28T14:52:12.951Z
+69,10570,SATURDAY,14:00,17:00,"Half-priced pies and refreshing drinks","Lively, modern Canadian",2025-05-28T14:52:12.951Z
+70,10571,SATURDAY,15:00,18:00,"50% off all drinks and snacks","Upscale British fare",2025-05-28T14:52:12.951Z
+71,10573,SATURDAY,15:00,18:00,"Discounted pizzas and drinks","Authentic Neapolitan pizza",2025-05-28T14:52:12.951Z
+72,10572,SUNDAY,11:30,18:00,"Drinks and gourmet snacks","High-end Japanese, city views",2025-05-28T14:52:12.951Z
+73,2379,SUNDAY,15:00,18:00,"Discounted Asian-inspired dishes and drinks","Vibrant, Asian-inspired cuisine",2025-05-28T14:52:12.951Z
+74,10570,SUNDAY,14:00,17:00,"Half-priced pies and refreshing drinks","Lively, modern Canadian",2025-05-28T14:52:12.951Z
+75,10571,SUNDAY,15:00,18:00,"50% off all drinks and snacks","Upscale British fare",2025-05-28T14:52:12.951Z
+76,10573,SUNDAY,15:00,18:00,"Discounted pizzas and drinks","Authentic Neapolitan pizza",2025-05-28T14:52:12.951Z
+77,2376,MONDAY,15:00,18:00,"Discounted pints, mixed drinks, pub snacks","Casual sports bar",2025-05-28T14:52:12.951Z
+78,2377,MONDAY,15:00,18:00,"$5 domestic pints, $6 house wine, discounted appetizers","Neighbourhood pub chain",2025-05-28T14:52:12.951Z
+79,2378,MONDAY,17:00,19:00,"Discounted cocktails, rum specials, Polynesian snacks","Tropical cocktail bar",2025-05-28T14:52:12.951Z
+80,2376,TUESDAY,15:00,18:00,"Discounted pints, mixed drinks, pub snacks","Casual sports bar",2025-05-28T14:52:12.951Z
+81,2377,TUESDAY,15:00,18:00,"$5 domestic pints, $6 house wine, discounted appetizers","Neighbourhood pub chain",2025-05-28T14:52:12.951Z
+82,2378,TUESDAY,17:00,19:00,"Discounted cocktails, rum specials, Polynesian snacks","Tropical cocktail bar",2025-05-28T14:52:12.951Z
+83,2376,WEDNESDAY,15:00,18:00,"Discounted pints, mixed drinks, pub snacks","Casual sports bar",2025-05-28T14:52:12.951Z
+84,2377,WEDNESDAY,15:00,18:00,"$5 domestic pints, $6 house wine, discounted appetizers","Neighbourhood pub chain",2025-05-28T14:52:12.951Z
+85,2378,WEDNESDAY,17:00,19:00,"Discounted cocktails, rum specials, Polynesian snacks","Tropical cocktail bar",2025-05-28T14:52:12.951Z
+86,2376,THURSDAY,15:00,18:00,"Discounted pints, mixed drinks, pub snacks","Casual sports bar",2025-05-28T14:52:12.951Z
+87,2377,THURSDAY,15:00,18:00,"$5 domestic pints, $6 house wine, discounted appetizers","Neighbourhood pub chain",2025-05-28T14:52:12.951Z
+88,2378,THURSDAY,17:00,19:00,"Discounted cocktails, rum specials, Polynesian snacks","Tropical cocktail bar",2025-05-28T14:52:12.951Z
+89,2376,FRIDAY,15:00,18:00,"Discounted pints, mixed drinks, pub snacks","Casual sports bar",2025-05-28T14:52:12.951Z
+90,2377,FRIDAY,15:00,18:00,"$5 domestic pints, $6 house wine, discounted appetizers","Neighbourhood pub chain",2025-05-28T14:52:12.951Z
+91,2378,FRIDAY,17:00,19:00,"Discounted cocktails, rum specials, Polynesian snacks","Tropical cocktail bar",2025-05-28T14:52:12.951Z
+92,2377,FRIDAY,21:00,23:59,"Late-night deals","Neighbourhood pub chain",2025-05-28T14:52:12.951Z
+93,2371,MONDAY,15:00,18:00,"$5 domestic pints, $6 house wine, discounted appetizers","Lively Gastropub",2025-05-28T14:52:12.951Z
+94,2372,MONDAY,16:00,18:00,"Discounted cocktails, wine, upscale bites","Historic boutique hotel",2025-05-28T14:52:12.951Z
+95,2374,MONDAY,16:00,18:00,"Discounted craft beers & snacks","Riverside craft brewery",2025-05-28T14:52:12.951Z
+96,2375,MONDAY,15:00,18:00,"$5 Pints, $6 Wine, $8 Rail Drinks","Local pub, community vibe",2025-05-28T14:52:12.951Z
+97,2371,TUESDAY,15:00,18:00,"$5 domestic pints, $6 house wine, discounted appetizers","Lively Gastropub",2025-05-28T14:52:12.951Z
+98,2373,TUESDAY,16:00,19:00,"$5 beers, $6 wine, select cocktails, discounted snacks","Cozy, rustic bar",2025-05-28T14:52:12.951Z
+99,2372,TUESDAY,16:00,18:00,"Discounted cocktails, wine, upscale bites","Historic boutique hotel",2025-05-28T14:52:12.951Z
+100,2374,TUESDAY,16:00,18:00,"Discounted craft beers & snacks","Riverside craft brewery",2025-05-28T14:52:12.951Z
+101,2375,TUESDAY,15:00,18:00,"$5 Pints, $6 Wine, $8 Rail Drinks","Local pub, community vibe",2025-05-28T14:52:12.951Z
+102,2371,WEDNESDAY,15:00,18:00,"$5 domestic pints, $6 house wine, discounted appetizers","Lively Gastropub",2025-05-28T14:52:12.951Z
+103,2373,WEDNESDAY,16:00,19:00,"$5 beers, $6 wine, select cocktails, discounted snacks","Cozy, rustic bar",2025-05-28T14:52:12.951Z
+104,2372,WEDNESDAY,16:00,18:00,"Discounted cocktails, wine, upscale bites","Historic boutique hotel",2025-05-28T14:52:12.951Z
+105,2374,WEDNESDAY,16:00,18:00,"Discounted craft beers & snacks","Riverside craft brewery",2025-05-28T14:52:12.951Z
+106,2375,WEDNESDAY,15:00,18:00,"$5 Pints, $6 Wine, $8 Rail Drinks","Local pub, community vibe",2025-05-28T14:52:12.951Z
+107,2371,THURSDAY,15:00,18:00,"$5 domestic pints, $6 house wine, discounted appetizers","Lively Gastropub",2025-05-28T14:52:12.951Z
+108,2373,THURSDAY,16:00,19:00,"$5 beers, $6 wine, select cocktails, discounted snacks","Cozy, rustic bar",2025-05-28T14:52:12.951Z
+109,2372,THURSDAY,16:00,18:00,"Discounted cocktails, wine, upscale bites","Historic boutique hotel",2025-05-28T14:52:12.951Z
+110,2374,THURSDAY,16:00,18:00,"Discounted craft beers & snacks","Riverside craft brewery",2025-05-28T14:52:12.951Z
+111,2375,THURSDAY,15:00,18:00,"$5 Pints, $6 Wine, $8 Rail Drinks","Local pub, community vibe",2025-05-28T14:52:12.951Z
+112,2371,FRIDAY,15:00,18:00,"$5 domestic pints, $6 house wine, discounted appetizers","Lively Gastropub",2025-05-28T14:52:12.951Z
+113,2373,FRIDAY,16:00,19:00,"$5 beers, $6 wine, select cocktails, discounted snacks","Cozy, rustic bar",2025-05-28T14:52:12.951Z
+114,2372,FRIDAY,16:00,18:00,"Discounted cocktails, wine, upscale bites","Historic boutique hotel",2025-05-28T14:52:12.951Z
+115,2374,FRIDAY,16:00,18:00,"Discounted craft beers & snacks","Riverside craft brewery",2025-05-28T14:52:12.951Z
+116,2375,FRIDAY,15:00,18:00,"$5 Pints, $6 Wine, $8 Rail Drinks","Local pub, community vibe",2025-05-28T14:52:12.951Z
+117,2372,SATURDAY,16:00,18:00,"Discounted cocktails, wine, upscale bites","Historic boutique hotel",2025-05-28T14:52:12.951Z
+118,2372,SUNDAY,16:00,18:00,"Discounted cocktails, wine, upscale bites","Historic boutique hotel",2025-05-28T14:52:12.951Z
+119,2374,SUNDAY,12:00,16:00,"Sunday specials","Riverside craft brewery",2025-05-28T14:52:12.951Z
+120,14249,MONDAY,16:00,19:00,"Discounted draught beers, house wines, food specials","Historic Victorian pub",2025-05-28T14:52:12.951Z
+121,2370,MONDAY,15:00,18:00,"$5 domestic pints, $6 house wine, discounted appetizers","Casual, dog-friendly pub",2025-05-28T14:52:12.951Z
+122,14249,TUESDAY,16:00,19:00,"Discounted draught beers, house wines, food specials","Historic Victorian pub",2025-05-28T14:52:12.951Z
+123,2370,TUESDAY,15:00,18:00,"$5 domestic pints, $6 house wine, discounted appetizers","Casual, dog-friendly pub",2025-05-28T14:52:12.951Z
+124,14249,WEDNESDAY,16:00,19:00,"Discounted draught beers, house wines, food specials","Historic Victorian pub",2025-05-28T14:52:12.951Z
+125,2370,WEDNESDAY,15:00,18:00,"$5 domestic pints, $6 house wine, discounted appetizers","Casual, dog-friendly pub",2025-05-28T14:52:12.951Z
+126,14249,THURSDAY,16:00,19:00,"Discounted draught beers, house wines, food specials","Historic Victorian pub",2025-05-28T14:52:12.951Z
+127,2370,THURSDAY,15:00,18:00,"$5 domestic pints, $6 house wine, discounted appetizers","Casual, dog-friendly pub",2025-05-28T14:52:12.951Z
+128,14249,FRIDAY,16:00,19:00,"Discounted draught beers, house wines, food specials","Historic Victorian pub",2025-05-28T14:52:12.951Z
+129,2370,FRIDAY,15:00,18:00,"$5 domestic pints, $6 house wine, discounted appetizers","Casual, dog-friendly pub",2025-05-28T14:52:12.951Z
+130,14246,MONDAY,15:00,18:00,"Discounted draught beers, house wines, pub snacks","Cozy British pub",2025-05-28T14:52:12.951Z
+131,14247,MONDAY,15:00,18:00,"Craft beer features, select wine, food specials","Historic pub, lively atmosphere",2025-05-28T14:52:12.951Z
+132,14246,TUESDAY,15:00,18:00,"Discounted draught beers, house wines, pub snacks","Cozy British pub",2025-05-28T14:52:12.951Z
+133,14247,TUESDAY,15:00,18:00,"Craft beer features, select wine, food specials","Historic pub, lively atmosphere",2025-05-28T14:52:12.951Z
+134,14248,TUESDAY,16:00,18:00,"Discounted craft beer, wine, pub fare","Modern gastropub",2025-05-28T14:52:12.951Z
+135,14246,WEDNESDAY,15:00,18:00,"Discounted draught beers, house wines, pub snacks","Cozy British pub",2025-05-28T14:52:12.951Z
+136,14247,WEDNESDAY,15:00,18:00,"Craft beer features, select wine, food specials","Historic pub, lively atmosphere",2025-05-28T14:52:12.951Z
+137,14248,WEDNESDAY,16:00,18:00,"Discounted craft beer, wine, pub fare","Modern gastropub",2025-05-28T14:52:12.951Z
+138,14246,THURSDAY,15:00,18:00,"Discounted draught beers, house wines, pub snacks","Cozy British pub",2025-05-28T14:52:12.951Z
+139,14247,THURSDAY,15:00,18:00,"Craft beer features, select wine, food specials","Historic pub, lively atmosphere",2025-05-28T14:52:12.951Z
+140,14248,THURSDAY,16:00,18:00,"Discounted craft beer, wine, pub fare","Modern gastropub",2025-05-28T14:52:12.951Z
+141,14246,FRIDAY,15:00,18:00,"Discounted draught beers, house wines, pub snacks","Cozy British pub",2025-05-28T14:52:12.951Z
+142,14247,FRIDAY,15:00,18:00,"Craft beer features, select wine, food specials","Historic pub, lively atmosphere",2025-05-28T14:52:12.951Z
+143,14248,FRIDAY,16:00,18:00,"Discounted craft beer, wine, pub fare","Modern gastropub",2025-05-28T14:52:12.951Z
+144,14240,MONDAY,15:00,17:00,"Half-price pizzas, discounted wine","Chic Italian eatery",2025-05-28T14:52:12.951Z
+145,14241,MONDAY,16:00,18:00,"$2 oysters, discounted cocktails","Mediterranean snack bar",2025-05-28T14:52:12.951Z
+146,14242,MONDAY,16:00,19:00,"$5 beer, $6 wine, $7 cocktails","Lively New Zealand pub",2025-05-28T14:52:12.951Z
+147,14243,MONDAY,17:00,19:00,"Upscale cocktails, small plates","Elegant rooftop bar",2025-05-28T14:52:12.951Z
+148,14244,MONDAY,16:00,18:00,"Discounted sushi, skewers, cocktails","Modern Japanese cuisine",2025-05-28T14:52:12.951Z
+149,14245,MONDAY,16:00,18:00,"Cocktail and mezze specials","Upscale Lebanese dining",2025-05-28T14:52:12.951Z
+150,14240,TUESDAY,15:00,17:00,"Half-price pizzas, discounted wine","Chic Italian eatery",2025-05-28T14:52:12.951Z
+151,14241,TUESDAY,16:00,18:00,"$2 oysters, discounted cocktails","Mediterranean snack bar",2025-05-28T14:52:12.951Z
+152,14242,TUESDAY,16:00,19:00,"$5 beer, $6 wine, $7 cocktails","Lively New Zealand pub",2025-05-28T14:52:12.951Z
+153,14243,TUESDAY,17:00,19:00,"Upscale cocktails, small plates","Elegant rooftop bar",2025-05-28T14:52:12.951Z
+154,14244,TUESDAY,16:00,18:00,"Discounted sushi, skewers, cocktails","Modern Japanese cuisine",2025-05-28T14:52:12.951Z
+155,14245,TUESDAY,16:00,18:00,"Cocktail and mezze specials","Upscale Lebanese dining",2025-05-28T14:52:12.951Z
+156,14240,WEDNESDAY,15:00,17:00,"Half-price pizzas, discounted wine","Chic Italian eatery",2025-05-28T14:52:12.951Z
+157,14241,WEDNESDAY,16:00,18:00,"$2 oysters, discounted cocktails","Mediterranean snack bar",2025-05-28T14:52:12.951Z
+158,14242,WEDNESDAY,16:00,19:00,"$5 beer, $6 wine, $7 cocktails","Lively New Zealand pub",2025-05-28T14:52:12.951Z
+159,14243,WEDNESDAY,17:00,19:00,"Upscale cocktails, small plates","Elegant rooftop bar",2025-05-28T14:52:12.951Z
+160,14244,WEDNESDAY,16:00,18:00,"Discounted sushi, skewers, cocktails","Modern Japanese cuisine",2025-05-28T14:52:12.951Z
+161,14245,WEDNESDAY,16:00,18:00,"Cocktail and mezze specials","Upscale Lebanese dining",2025-05-28T14:52:12.951Z
+162,14240,THURSDAY,15:00,17:00,"Half-price pizzas, discounted wine","Chic Italian eatery",2025-05-28T14:52:12.951Z
+163,14241,THURSDAY,16:00,18:00,"$2 oysters, discounted cocktails","Mediterranean snack bar",2025-05-28T14:52:12.951Z
+164,14242,THURSDAY,16:00,19:00,"$5 beer, $6 wine, $7 cocktails","Lively New Zealand pub",2025-05-28T14:52:12.951Z
+165,14243,THURSDAY,17:00,19:00,"Upscale cocktails, small plates","Elegant rooftop bar",2025-05-28T14:52:12.951Z
+166,14244,THURSDAY,16:00,18:00,"Discounted sushi, skewers, cocktails","Modern Japanese cuisine",2025-05-28T14:52:12.951Z
+167,14245,THURSDAY,16:00,18:00,"Cocktail and mezze specials","Upscale Lebanese dining",2025-05-28T14:52:12.951Z
+168,14240,FRIDAY,15:00,17:00,"Half-price pizzas, discounted wine","Chic Italian eatery",2025-05-28T14:52:12.951Z
+169,14241,FRIDAY,16:00,18:00,"$2 oysters, discounted cocktails","Mediterranean snack bar",2025-05-28T14:52:12.951Z
+170,14242,FRIDAY,16:00,19:00,"$5 beer, $6 wine, $7 cocktails","Lively New Zealand pub",2025-05-28T14:52:12.951Z
+171,14243,FRIDAY,17:00,19:00,"Upscale cocktails, small plates","Elegant rooftop bar",2025-05-28T14:52:12.951Z
+172,14244,FRIDAY,16:00,18:00,"Discounted sushi, skewers, cocktails","Modern Japanese cuisine",2025-05-28T14:52:12.951Z
+173,14245,FRIDAY,16:00,18:00,"Cocktail and mezze specials","Upscale Lebanese dining",2025-05-28T14:52:12.951Z
+174,14242,SATURDAY,16:00,19:00,"$5 beer, $6 wine, $7 cocktails","Lively New Zealand pub",2025-05-28T14:52:12.951Z
+175,14243,SATURDAY,17:00,19:00,"Upscale cocktails, small plates","Elegant rooftop bar",2025-05-28T14:52:12.951Z
+176,14244,SATURDAY,16:00,18:00,"Discounted sushi, skewers, cocktails","Modern Japanese cuisine",2025-05-28T14:52:12.951Z
+177,14242,SUNDAY,16:00,19:00,"$5 beer, $6 wine, $7 cocktails","Lively New Zealand pub",2025-05-28T14:52:12.951Z
+178,14243,SUNDAY,17:00,19:00,"Upscale cocktails, small plates","Elegant rooftop bar",2025-05-28T14:52:12.951Z
+179,14250,MONDAY,17:00,19:00,"Half-price bottles of wine, $10 cocktails, $5 snacks","Wine bar with small plates",2025-05-28T14:52:12.951Z
+180,14251,MONDAY,16:00,18:00,"$5 Northern Maverick Lagers, select appetizers","Craft brewery & restaurant",2025-05-28T14:52:12.951Z
+181,14252,MONDAY,15:00,18:00,"Discounted beers and snacks","Craft brewery taproom",2025-05-28T14:52:12.951Z
+182,14253,MONDAY,16:00,18:00,"Half-price wine and cocktails, $5 beers, discounted appetizers","Farm-to-table restaurant",2025-05-28T14:52:12.951Z
+183,14254,MONDAY,16:00,19:00,"$5 beer, $6 wine, $7 cocktails, $8-$10 food specials","Casual neighborhood bar",2025-05-28T14:52:12.951Z
+184,14255,MONDAY,16:00,18:00,"Daily happy hour deals","Lively pub in Liberty Village",2025-05-28T14:52:12.951Z
+185,14256,TUESDAY,16:00,18:00,"$5 Tacos, $6 Tequila Shots, $7 Margaritas","Mexican restaurant & bar",2025-05-28T14:52:12.951Z
+186,14257,TUESDAY,16:00,18:00,"$5 Tacos, $6 Cervezas, $7 Margaritas","Mexican cantina",2025-05-28T14:52:12.951Z
+187,14258,WEDNESDAY,17:00,19:00,"Discounted cocktails, wine, and beer","Stylish cocktail bar",2025-05-28T14:52:12.951Z
+188,14250,TUESDAY,17:00,19:00,"Half-price bottles of wine, $10 cocktails, $5 snacks","Wine bar with small plates",2025-05-28T14:52:12.951Z
+189,14251,TUESDAY,16:00,18:00,"$5 Northern Maverick Lagers, select appetizers","Craft brewery & restaurant",2025-05-28T14:52:12.951Z
+190,14252,TUESDAY,15:00,18:00,"Discounted beers and snacks","Craft brewery taproom",2025-05-28T14:52:12.951Z
+191,14253,TUESDAY,16:00,18:00,"Half-price wine and cocktails, $5 beers, discounted appetizers","Farm-to-table restaurant",2025-05-28T14:52:12.951Z
+192,14254,TUESDAY,16:00,19:00,"$5 beer, $6 wine, $7 cocktails, $8-$10 food specials","Casual neighborhood bar",2025-05-28T14:52:12.951Z
+193,14255,TUESDAY,16:00,18:00,"Daily happy hour deals","Lively pub in Liberty Village",2025-05-28T14:52:12.951Z
+194,14256,WEDNESDAY,16:00,18:00,"$5 Tacos, $6 Tequila Shots, $7 Margaritas","Mexican restaurant & bar",2025-05-28T14:52:12.951Z
+195,14257,WEDNESDAY,16:00,18:00,"$5 Tacos, $6 Cervezas, $7 Margaritas","Mexican cantina",2025-05-28T14:52:12.951Z
+196,14258,THURSDAY,17:00,19:00,"Discounted cocktails, wine, and beer","Stylish cocktail bar",2025-05-28T14:52:12.951Z
+197,14250,WEDNESDAY,17:00,19:00,"Half-price bottles of wine, $10 cocktails, $5 snacks","Wine bar with small plates",2025-05-28T14:52:12.951Z
+198,14251,WEDNESDAY,16:00,18:00,"$5 Northern Maverick Lagers, select appetizers","Craft brewery & restaurant",2025-05-28T14:52:12.951Z
+199,14252,WEDNESDAY,15:00,18:00,"Discounted beers and snacks","Craft brewery taproom",2025-05-28T14:52:12.951Z
+200,14253,WEDNESDAY,16:00,18:00,"Half-price wine and cocktails, $5 beers, discounted appetizers","Farm-to-table restaurant",2025-05-28T14:52:12.951Z
+201,14259,MONDAY,15:00,18:00,"$19 burger w/fries, $2 oysters, drink specials","Trendy Ossington spot",2025-05-28T14:52:12.951Z
+202,14260,TUESDAY,16:00,18:00,"Menu highlights from $5, $5 beers, half-off selected wine, $10 Aperol Spritzs/dips","Modern Middle Eastern",2025-05-28T14:52:12.951Z
+203,14260,WEDNESDAY,16:00,18:00,"Menu highlights from $5, $5 beers, half-off selected wine, $10 Aperol Spritzs/dips","Modern Middle Eastern",2025-05-28T14:52:12.951Z
+204,14260,THURSDAY,16:00,18:00,"Menu highlights from $5, $5 beers, half-off selected wine, $10 Aperol Spritzs/dips","Modern Middle Eastern",2025-05-28T14:52:12.951Z
+205,14260,FRIDAY,16:00,18:00,"Menu highlights from $5, $5 beers, half-off selected wine, $10 Aperol Spritzs/dips","Modern Middle Eastern",2025-05-28T14:52:12.951Z
+206,14260,FRIDAY,22:00,23:00,"Late Night Specials","Modern Middle Eastern",2025-05-28T14:52:12.951Z
+207,14260,SATURDAY,15:00,17:00,"Menu highlights from $5, $5 beers, half-off selected wine, $10 Aperol Spritzs/dips","Modern Middle Eastern",2025-05-28T14:52:12.951Z
+208,14260,SATURDAY,22:00,23:00,"Late Night Specials","Modern Middle Eastern",2025-05-28T14:52:12.951Z
+209,14260,SUNDAY,15:00,17:00,"Menu highlights from $5, $5 beers, half-off selected wine, $10 Aperol Spritzs/dips","Modern Middle Eastern",2025-05-28T14:52:12.951Z
+210,14261,TUESDAY,17:00,19:00,"$12 cocktails, curated small plates","Italian-inspired bar",2025-05-28T14:52:12.951Z
+211,14261,WEDNESDAY,17:00,19:00,"$12 cocktails, curated small plates","Italian-inspired bar",2025-05-28T14:52:12.951Z
+212,14261,THURSDAY,17:00,19:00,"$12 cocktails, curated small plates","Italian-inspired bar",2025-05-28T14:52:12.951Z
+213,14261,FRIDAY,17:00,19:00,"$12 cocktails, curated small plates","Italian-inspired bar",2025-05-28T14:52:12.951Z
+214,14262,MONDAY,14:00,23:59,"Drinks & Food Specials","Food hall bar",2025-05-28T14:52:12.951Z
+215,14263,MONDAY,15:00,18:00,"Drink & Food Specials","Upscale steakhouse",2025-05-28T14:52:12.951Z
+216,14263,MONDAY,21:00,23:59,"Late Night Specials","Upscale steakhouse",2025-05-28T14:52:12.951Z
+217,14264,MONDAY,10:00,15:00,"$7 Mimosas","Restaurant & lounge",2025-05-28T14:52:12.951Z
+218,14264,MONDAY,15:00,18:00,"$7 House Wine & Prosecco","Restaurant & lounge",2025-05-28T14:52:12.951Z
+219,14264,MONDAY,22:00,23:59,"$7 Draft Beer & $5 Rail Drinks","Restaurant & lounge",2025-05-28T14:52:12.951Z
+220,14265,MONDAY,14:00,17:00,"Drink & Food Specials","Contemporary bistro",2025-05-28T14:52:12.951Z
+221,14266,MONDAY,14:00,17:00,"Drink & Food Specials","Beer-focused bar",2025-05-28T14:52:12.951Z
+222,14266,MONDAY,21:00,23:59,"Late Night Specials","Beer-focused bar",2025-05-28T14:52:12.951Z
+223,14267,MONDAY,14:30,18:00,"Drink & Food Specials","Latin American cuisine",2025-05-28T14:52:12.951Z
+224,14268,MONDAY,14:00,17:00,"Drink & Food Specials","Brewery restaurant",2025-05-28T14:52:12.951Z
+225,14268,MONDAY,21:00,23:59,"Late Night Specials","Brewery restaurant",2025-05-28T14:52:12.951Z
+226,14269,MONDAY,14:00,18:00,"Drink & Food Specials","French bistro",2025-05-28T14:52:12.951Z
+227,14269,MONDAY,21:00,23:59,"Late Night Specials","French bistro",2025-05-28T14:52:12.951Z
+228,14270,MONDAY,14:00,18:00,"$5 Lager, $7 Wines, $11 Cocktails, $20 Charcuterie Board","Casual bar & restaurant",2025-05-28T14:52:12.951Z
+229,14271,MONDAY,14:00,17:00,"Happy Hour Eats & Drinks","Chain restaurant",2025-05-28T14:52:12.951Z
+230,14271,MONDAY,21:00,23:59,"Late Night Specials","Chain restaurant",2025-05-28T14:52:12.951Z
+231,14272,MONDAY,15:00,18:00,"$9 'tinis & Cocktails, $8 Wine, Snacks from $5","Plant-based restaurant",2025-05-28T14:52:12.951Z
+232,14273,MONDAY,15:00,18:00,"Beer, Wine & Cocktail Specials","Cocktail bar",2025-05-28T14:52:12.951Z
+233,14274,MONDAY,14:00,17:00,"$5-9 Drinks, $5 Off Pizzas/Mains","Pub & beer hall",2025-05-28T14:52:12.951Z
+234,14274,MONDAY,22:00,23:59,"Late Night Specials","Pub & beer hall",2025-05-28T14:52:12.951Z
+235,14275,MONDAY,14:00,18:00,"Drink & Food Specials","Modern kitchen",2025-05-28T14:52:12.951Z
+236,14276,MONDAY,17:00,19:00,"Drink & Food Specials","Comedy venue bar",2025-05-28T14:52:12.951Z
+237,14277,MONDAY,14:00,18:00,"Drink & Food Specials","French bistro",2025-05-28T14:52:12.951Z
+238,14278,MONDAY,14:00,18:00,"Drink & Food Specials","Casual eatery",2025-05-28T14:52:12.951Z
+239,14279,MONDAY,14:00,18:00,"Drink & Food Specials","Modern bar",2025-05-28T14:52:12.951Z
+240,14280,MONDAY,14:30,17:30,"Happy Hour Eats & Drinks","Steakhouse",2025-05-28T14:52:12.951Z
+241,14280,MONDAY,21:30,23:59,"Late Night Specials","Steakhouse",2025-05-28T14:52:12.951Z
+242,14281,MONDAY,14:00,18:00,"Drinks from $5.50, Food from $6","Chain restaurant",2025-05-28T14:52:12.951Z
+243,14262,TUESDAY,14:00,23:59,"Drinks & Food Specials","Food hall bar",2025-05-28T14:52:12.951Z
+244,14263,TUESDAY,15:00,18:00,"Drink & Food Specials","Upscale steakhouse",2025-05-28T14:52:12.951Z
+245,14263,TUESDAY,21:00,23:59,"Late Night Specials","Upscale steakhouse",2025-05-28T14:52:12.951Z
+246,14264,TUESDAY,10:00,15:00,"$7 Mimosas","Restaurant & lounge",2025-05-28T14:52:12.951Z
+247,14264,TUESDAY,15:00,18:00,"$7 House Wine & Prosecco","Restaurant & lounge",2025-05-28T14:52:12.951Z
+248,14264,TUESDAY,22:00,23:59,"$7 Draft Beer & $5 Rail Drinks","Restaurant & lounge",2025-05-28T14:52:12.951Z
+249,14265,TUESDAY,14:00,17:00,"Drink & Food Specials","Contemporary bistro",2025-05-28T14:52:12.951Z
+250,14266,TUESDAY,14:00,17:00,"Drink & Food Specials","Beer-focused bar",2025-05-28T14:52:12.951Z
+251,14266,TUESDAY,21:00,23:59,"Late Night Specials","Beer-focused bar",2025-05-28T14:52:12.951Z
+252,14267,TUESDAY,14:30,18:00,"Drink & Food Specials","Latin American cuisine",2025-05-28T14:52:12.951Z
+253,14268,TUESDAY,14:00,17:00,"Drink & Food Specials","Brewery restaurant",2025-05-28T14:52:12.951Z
+254,14268,TUESDAY,21:00,23:59,"Late Night Specials","Brewery restaurant",2025-05-28T14:52:12.951Z
+255,14269,TUESDAY,14:00,18:00,"Drink & Food Specials","French bistro",2025-05-28T14:52:12.951Z
+256,14269,TUESDAY,21:00,23:59,"Late Night Specials","French bistro",2025-05-28T14:52:12.951Z
+257,14270,TUESDAY,14:00,18:00,"$5 Lager, $7 Wines, $11 Cocktails, $20 Charcuterie Board","Casual bar & restaurant",2025-05-28T14:52:12.951Z
+258,14271,TUESDAY,14:00,17:00,"Happy Hour Eats & Drinks","Chain restaurant",2025-05-28T14:52:12.951Z
+259,14271,TUESDAY,21:00,23:59,"Late Night Specials","Chain restaurant",2025-05-28T14:52:12.951Z
+260,14272,TUESDAY,15:00,18:00,"$9 'tinis & Cocktails, $8 Wine, Snacks from $5","Plant-based restaurant",2025-05-28T14:52:12.951Z
+261,14273,TUESDAY,15:00,18:00,"Beer, Wine & Cocktail Specials","Cocktail bar",2025-05-28T14:52:12.951Z
+262,14274,TUESDAY,14:00,17:00,"$5-9 Drinks, $5 Off Pizzas/Mains","Pub & beer hall",2025-05-28T14:52:12.951Z
+263,14274,TUESDAY,22:00,23:59,"Late Night Specials","Pub & beer hall",2025-05-28T14:52:12.951Z
+264,14275,TUESDAY,14:00,18:00,"Drink & Food Specials","Modern kitchen",2025-05-28T14:52:12.951Z
+265,14276,TUESDAY,17:00,19:00,"Drink & Food Specials","Comedy venue bar",2025-05-28T14:52:12.951Z
+266,14277,TUESDAY,14:00,18:00,"Drink & Food Specials","French bistro",2025-05-28T14:52:12.951Z
+267,14278,TUESDAY,14:00,18:00,"Drink & Food Specials","Casual eatery",2025-05-28T14:52:12.951Z
+268,14279,TUESDAY,14:00,18:00,"Drink & Food Specials","Modern bar",2025-05-28T14:52:12.951Z
+269,14280,TUESDAY,14:30,17:30,"Happy Hour Eats & Drinks","Steakhouse",2025-05-28T14:52:12.951Z
+270,14280,TUESDAY,21:30,23:59,"Late Night Specials","Steakhouse",2025-05-28T14:52:12.951Z
+271,14281,TUESDAY,14:00,18:00,"Drinks from $5.50, Food from $6","Chain restaurant",2025-05-28T14:52:12.951Z
+272,14262,WEDNESDAY,14:00,23:59,"Drinks & Food Specials","Food hall bar",2025-05-28T14:52:12.951Z
+273,14263,WEDNESDAY,15:00,18:00,"Drink & Food Specials","Upscale steakhouse",2025-05-28T14:52:12.951Z
+274,14263,WEDNESDAY,21:00,23:59,"Late Night Specials","Upscale steakhouse",2025-05-28T14:52:12.951Z
+275,14264,WEDNESDAY,10:00,15:00,"$7 Mimosas","Restaurant & lounge",2025-05-28T14:52:12.951Z
+276,14264,WEDNESDAY,15:00,18:00,"$7 House Wine & Prosecco","Restaurant & lounge",2025-05-28T14:52:12.951Z
+277,14264,WEDNESDAY,22:00,23:59,"$7 Draft Beer & $5 Rail Drinks","Restaurant & lounge",2025-05-28T14:52:12.951Z
+278,14265,WEDNESDAY,14:00,17:00,"Drink & Food Specials","Contemporary bistro",2025-05-28T14:52:12.951Z
+279,14266,WEDNESDAY,14:00,17:00,"Drink & Food Specials","Beer-focused bar",2025-05-28T14:52:12.951Z
+280,14266,WEDNESDAY,21:00,23:59,"Late Night Specials","Beer-focused bar",2025-05-28T14:52:12.951Z
+281,14267,WEDNESDAY,14:30,18:00,"Drink & Food Specials","Latin American cuisine",2025-05-28T14:52:12.951Z
+282,14268,WEDNESDAY,14:00,17:00,"Drink & Food Specials","Brewery restaurant",2025-05-28T14:52:12.951Z
+283,14268,WEDNESDAY,21:00,23:59,"Late Night Specials","Brewery restaurant",2025-05-28T14:52:12.951Z
+284,14269,WEDNESDAY,14:00,18:00,"Drink & Food Specials","French bistro",2025-05-28T14:52:12.951Z
+285,14269,WEDNESDAY,21:00,23:59,"Late Night Specials","French bistro",2025-05-28T14:52:12.951Z
+286,14270,WEDNESDAY,14:00,18:00,"$5 Lager, $7 Wines, $11 Cocktails, $20 Charcuterie Board","Casual bar & restaurant",2025-05-28T14:52:12.951Z
+287,14271,WEDNESDAY,14:00,17:00,"Happy Hour Eats & Drinks","Chain restaurant",2025-05-28T14:52:12.951Z
+288,14271,WEDNESDAY,21:00,23:59,"Late Night Specials","Chain restaurant",2025-05-28T14:52:12.951Z
+289,14272,WEDNESDAY,15:00,18:00,"$9 'tinis & Cocktails, $8 Wine, Snacks from $5","Plant-based restaurant",2025-05-28T14:52:12.951Z
+290,14273,WEDNESDAY,15:00,18:00,"Beer, Wine & Cocktail Specials","Cocktail bar",2025-05-28T14:52:12.951Z
+291,14274,WEDNESDAY,14:00,17:00,"$5-9 Drinks, $5 Off Pizzas/Mains","Pub & beer hall",2025-05-28T14:52:12.951Z
+292,14274,WEDNESDAY,22:00,23:59,"Late Night Specials","Pub & beer hall",2025-05-28T14:52:12.951Z
+293,14275,WEDNESDAY,14:00,18:00,"Drink & Food Specials","Modern kitchen",2025-05-28T14:52:12.951Z
+294,14276,WEDNESDAY,17:00,19:00,"Drink & Food Specials","Comedy venue bar",2025-05-28T14:52:12.951Z
+295,14277,WEDNESDAY,14:00,18:00,"Drink & Food Specials","French bistro",2025-05-28T14:52:12.951Z
+296,14278,WEDNESDAY,14:00,18:00,"Drink & Food Specials","Casual eatery",2025-05-28T14:52:12.951Z
+297,14279,WEDNESDAY,14:00,18:00,"Drink & Food Specials","Modern bar",2025-05-28T14:52:12.951Z
+298,14280,WEDNESDAY,14:30,17:30,"Happy Hour Eats & Drinks","Steakhouse",2025-05-28T14:52:12.951Z
+299,14280,WEDNESDAY,21:30,23:59,"Late Night Specials","Steakhouse",2025-05-28T14:52:12.951Z
+300,14281,WEDNESDAY,14:00,18:00,"Drinks from $5.50, Food from $6","Chain restaurant",2025-05-28T14:52:12.951Z
+301,14262,THURSDAY,14:00,23:59,"Drinks & Food Specials","Food hall bar",2025-05-28T14:52:12.951Z
+302,14263,THURSDAY,15:00,18:00,"Drink & Food Specials","Upscale steakhouse",2025-05-28T14:52:12.951Z
+303,14263,THURSDAY,21:00,23:59,"Late Night Specials","Upscale steakhouse",2025-05-28T14:52:12.951Z
+304,14264,THURSDAY,10:00,15:00,"$7 Mimosas","Restaurant & lounge",2025-05-28T14:52:12.951Z
+305,14264,THURSDAY,15:00,18:00,"$7 House Wine & Prosecco","Restaurant & lounge",2025-05-28T14:52:12.951Z
+306,14264,THURSDAY,22:00,23:59,"$7 Draft Beer & $5 Rail Drinks","Restaurant & lounge",2025-05-28T14:52:12.951Z
+307,14265,THURSDAY,14:00,17:00,"Drink & Food Specials","Contemporary bistro",2025-05-28T14:52:12.951Z
+308,14266,THURSDAY,14:00,17:00,"Drink & Food Specials","Beer-focused bar",2025-05-28T14:52:12.951Z
+309,14266,THURSDAY,21:00,23:59,"Late Night Specials","Beer-focused bar",2025-05-28T14:52:12.951Z
+310,14267,THURSDAY,14:30,18:00,"Drink & Food Specials","Latin American cuisine",2025-05-28T14:52:12.951Z
+311,14268,THURSDAY,14:00,17:00,"Drink & Food Specials","Brewery restaurant",2025-05-28T14:52:12.951Z
+312,14268,THURSDAY,21:00,23:59,"Late Night Specials","Brewery restaurant",2025-05-28T14:52:12.951Z
+313,14269,THURSDAY,14:00,18:00,"Drink & Food Specials","French bistro",2025-05-28T14:52:12.951Z
+314,14269,THURSDAY,21:00,23:59,"Late Night Specials","French bistro",2025-05-28T14:52:12.951Z
+315,14270,THURSDAY,14:00,18:00,"$5 Lager, $7 Wines, $11 Cocktails, $20 Charcuterie Board","Casual bar & restaurant",2025-05-28T14:52:12.951Z
+316,14271,THURSDAY,14:00,17:00,"Happy Hour Eats & Drinks","Chain restaurant",2025-05-28T14:52:12.951Z
+317,14271,THURSDAY,21:00,23:59,"Late Night Specials","Chain restaurant",2025-05-28T14:52:12.951Z
+318,14272,THURSDAY,15:00,18:00,"$9 'tinis & Cocktails, $8 Wine, Snacks from $5","Plant-based restaurant",2025-05-28T14:52:12.951Z
+319,14273,THURSDAY,15:00,18:00,"Beer, Wine & Cocktail Specials","Cocktail bar",2025-05-28T14:52:12.951Z
+320,14274,THURSDAY,14:00,17:00,"$5-9 Drinks, $5 Off Pizzas/Mains","Pub & beer hall",2025-05-28T14:52:12.951Z
+321,14274,THURSDAY,22:00,23:59,"Late Night Specials","Pub & beer hall",2025-05-28T14:52:12.951Z
+322,14275,THURSDAY,14:00,18:00,"Drink & Food Specials","Modern kitchen",2025-05-28T14:52:12.951Z
+323,14276,THURSDAY,17:00,19:00,"Drink & Food Specials","Comedy venue bar",2025-05-28T14:52:12.951Z
+324,14277,THURSDAY,14:00,18:00,"Drink & Food Specials","French bistro",2025-05-28T14:52:12.951Z
+325,14278,THURSDAY,14:00,18:00,"Drink & Food Specials","Casual eatery",2025-05-28T14:52:12.951Z
+326,14279,THURSDAY,14:00,18:00,"Drink & Food Specials","Modern bar",2025-05-28T14:52:12.951Z
+327,14280,THURSDAY,14:30,17:30,"Happy Hour Eats & Drinks","Steakhouse",2025-05-28T14:52:12.951Z
+328,14280,THURSDAY,21:30,23:59,"Late Night Specials","Steakhouse",2025-05-28T14:52:12.951Z
+329,14281,THURSDAY,14:00,18:00,"Drinks from $5.50, Food from $6","Chain restaurant",2025-05-28T14:52:12.951Z
+330,14262,FRIDAY,14:00,23:59,"Drinks & Food Specials","Food hall bar",2025-05-28T14:52:12.951Z
+331,14263,FRIDAY,15:00,18:00,"Drink & Food Specials","Upscale steakhouse",2025-05-28T14:52:12.951Z
+332,14263,FRIDAY,21:00,23:59,"Late Night Specials","Upscale steakhouse",2025-05-28T14:52:12.951Z
+333,14264,FRIDAY,10:00,15:00,"$7 Mimosas","Restaurant & lounge",2025-05-28T14:52:12.951Z
+334,14264,FRIDAY,15:00,18:00,"$7 House Wine & Prosecco","Restaurant & lounge",2025-05-28T14:52:12.951Z
+335,14264,FRIDAY,22:00,23:59,"$7 Draft Beer & $5 Rail Drinks","Restaurant & lounge",2025-05-28T14:52:12.951Z
+336,14265,FRIDAY,14:00,17:00,"Drink & Food Specials","Contemporary bistro",2025-05-28T14:52:12.951Z
+337,14266,FRIDAY,14:00,17:00,"Drink & Food Specials","Beer-focused bar",2025-05-28T14:52:12.951Z
+338,14266,FRIDAY,21:00,23:59,"Late Night Specials","Beer-focused bar",2025-05-28T14:52:12.951Z
+339,14267,FRIDAY,14:30,18:00,"Drink & Food Specials","Latin American cuisine",2025-05-28T14:52:12.951Z
+340,14268,FRIDAY,14:00,17:00,"Drink & Food Specials","Brewery restaurant",2025-05-28T14:52:12.951Z
+341,14268,FRIDAY,21:00,23:59,"Late Night Specials","Brewery restaurant",2025-05-28T14:52:12.951Z
+342,14269,FRIDAY,14:00,18:00,"Drink & Food Specials","French bistro",2025-05-28T14:52:12.951Z
+343,14269,FRIDAY,21:00,23:59,"Late Night Specials","French bistro",2025-05-28T14:52:12.951Z
+344,14270,FRIDAY,14:00,18:00,"$5 Lager, $7 Wines, $11 Cocktails, $20 Charcuterie Board","Casual bar & restaurant",2025-05-28T14:52:12.951Z
+345,14271,FRIDAY,14:00,17:00,"Happy Hour Eats & Drinks","Chain restaurant",2025-05-28T14:52:12.951Z
+346,14271,FRIDAY,21:00,23:59,"Late Night Specials","Chain restaurant",2025-05-28T14:52:12.951Z
+347,14272,FRIDAY,15:00,18:00,"$9 'tinis & Cocktails, $8 Wine, Snacks from $5","Plant-based restaurant",2025-05-28T14:52:12.951Z
+348,14273,FRIDAY,15:00,18:00,"Beer, Wine & Cocktail Specials","Cocktail bar",2025-05-28T14:52:12.951Z
+349,14274,FRIDAY,14:00,17:00,"$5-9 Drinks, $5 Off Pizzas/Mains","Pub & beer hall",2025-05-28T14:52:12.951Z
+350,14274,FRIDAY,22:00,23:59,"Late Night Specials","Pub & beer hall",2025-05-28T14:52:12.951Z
+351,14275,FRIDAY,14:00,18:00,"Drink & Food Specials","Modern kitchen",2025-05-28T14:52:12.951Z
+352,14276,FRIDAY,17:00,19:00,"Drink & Food Specials","Comedy venue bar",2025-05-28T14:52:12.951Z
+353,14277,FRIDAY,14:00,18:00,"Drink & Food Specials","French bistro",2025-05-28T14:52:12.951Z
+354,14278,FRIDAY,14:00,18:00,"Drink & Food Specials","Casual eatery",2025-05-28T14:52:12.951Z
+355,14279,FRIDAY,14:00,18:00,"Drink & Food Specials","Modern bar",2025-05-28T14:52:12.951Z
+356,14280,FRIDAY,14:30,17:30,"Happy Hour Eats & Drinks","Steakhouse",2025-05-28T14:52:12.951Z
+357,14280,FRIDAY,21:30,23:59,"Late Night Specials","Steakhouse",2025-05-28T14:52:12.951Z
+358,14281,FRIDAY,14:00,18:00,"Drinks from $5.50, Food from $6","Chain restaurant",2025-05-28T14:52:12.951Z
+359,14262,SATURDAY,14:00,23:59,"Drinks & Food Specials","Food hall bar",2025-05-28T14:52:12.951Z
+360,14264,SATURDAY,10:00,15:00,"$7 Mimosas","Restaurant & lounge",2025-05-28T14:52:12.951Z
+361,14264,SATURDAY,15:00,18:00,"$7 House Wine & Prosecco","Restaurant & lounge",2025-05-28T14:52:12.951Z
+362,14264,SATURDAY,22:00,23:59,"$7 Draft Beer & $5 Rail Drinks","Restaurant & lounge",2025-05-28T14:52:12.951Z
+363,14270,SATURDAY,14:00,18:00,"$5 Lager, $7 Wines, $11 Cocktails, $20 Charcuterie Board","Casual bar & restaurant",2025-05-28T14:52:12.951Z
+364,14281,SATURDAY,14:00,18:00,"Drinks from $5.50, Food from $6","Chain restaurant",2025-05-28T14:52:12.951Z
+365,14262,SUNDAY,14:00,23:59,"Drinks & Food Specials","Food hall bar",2025-05-28T14:52:12.951Z
+366,14264,SUNDAY,10:00,15:00,"$7 Mimosas","Restaurant & lounge",2025-05-28T14:52:12.951Z
+367,14264,SUNDAY,15:00,18:00,"$7 House Wine & Prosecco","Restaurant & lounge",2025-05-28T14:52:12.951Z
+368,14264,SUNDAY,22:00,23:59,"$7 Draft Beer & $5 Rail Drinks","Restaurant & lounge",2025-05-28T14:52:12.951Z
+369,14270,SUNDAY,14:00,18:00,"$5 Lager, $7 Wines, $11 Cocktails, $20 Charcuterie Board","Casual bar & restaurant",2025-05-28T14:52:12.951Z
+370,14281,SUNDAY,14:00,18:00,"Drinks from $5.50, Food from $6","Chain restaurant",2025-05-28T14:52:12.951Z 

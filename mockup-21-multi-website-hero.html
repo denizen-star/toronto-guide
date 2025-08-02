@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LGBT Event Details - Multi Website Hero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: #f1f5f9;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section with Multiple Website Cards */
+        .hero-section {
+            position: relative;
+            padding: 80px 0 60px;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            backdrop-filter: blur(20px);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-header .subtitle {
+            font-size: 1.5rem;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            min-width: 150px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fbbf24;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Website Cards Grid */
+        .website-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .website-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .website-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        }
+
+        .website-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .event-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            box-shadow: 0 8px 16px rgba(251, 191, 36, 0.3);
+        }
+
+        .website-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #fbbf24;
+        }
+
+        .website-card .organization {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .website-card p {
+            color: #cbd5e1;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .visit-website-btn {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1e293b;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .visit-website-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 60px 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .event-details {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #fbbf24;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 40px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-radius: 2px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .detail-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-size: 1.2rem;
+            color: #1e293b;
+        }
+
+        .detail-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #fbbf24;
+        }
+
+        .detail-content p {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .sidebar-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .sidebar-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+
+        .register-btn {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1e293b;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(251, 191, 36, 0.4);
+        }
+
+        .contact-info {
+            list-style: none;
+        }
+
+        .contact-info li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+        }
+
+        .contact-info li:last-child {
+            border-bottom: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .website-cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section with Multiple Website Cards -->
+        <section class="hero-section">
+            <div class="hero-background"></div>
+            <div class="hero-content">
+                <div class="hero-header">
+                    <h1>Toronto Pride Festival</h1>
+                    <p class="subtitle">Celebrating diversity, inclusion, and community in the heart of Toronto</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">5,000+</span>
+                            <span class="stat-label">Attendees</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">Days</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Events</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Website Cards Grid -->
+                <div class="website-cards-grid">
+                    <div class="website-card">
+                        <div class="event-logo">🏳️‍🌈</div>
+                        <h3>Official Festival</h3>
+                        <div class="organization">Toronto Pride</div>
+                        <p>Visit the official Toronto Pride Festival website for complete information, updates, and additional resources.</p>
+                        <a href="#" class="visit-website-btn">Visit Website</a>
+                    </div>
+
+                    <div class="website-card">
+                        <div class="event-logo">🎭</div>
+                        <h3>Arts & Culture</h3>
+                        <div class="organization">Pride Arts Collective</div>
+                        <p>Explore the arts and culture programming, exhibitions, and performances during the festival.</p>
+                        <a href="#" class="visit-website-btn">Visit Website</a>
+                    </div>
+
+                    <div class="website-card">
+                        <div class="event-logo">🎪</div>
+                        <h3>Community Events</h3>
+                        <div class="organization">LGBTQ+ Community Center</div>
+                        <p>Discover community workshops, support groups, and family-friendly activities throughout the festival.</p>
+                        <a href="#" class="visit-website-btn">Visit Website</a>
+                    </div>
+
+                    <div class="website-card">
+                        <div class="event-logo">🎵</div>
+                        <h3>Entertainment</h3>
+                        <div class="organization">Pride Entertainment</div>
+                        <p>Check out the lineup of performers, DJs, and entertainment acts scheduled for the festival.</p>
+                        <a href="#" class="visit-website-btn">Visit Website</a>
+                    </div>
+
+                    <div class="website-card">
+                        <div class="event-logo">🍽️</div>
+                        <h3>Food & Vendors</h3>
+                        <div class="organization">Pride Market</div>
+                        <p>Explore food vendors, local businesses, and market stalls participating in the festival.</p>
+                        <a href="#" class="visit-website-btn">Visit Website</a>
+                    </div>
+
+                    <div class="website-card">
+                        <div class="event-logo">🚶‍♂️</div>
+                        <h3>Parade Info</h3>
+                        <div class="organization">Pride Parade Committee</div>
+                        <p>Get details about the parade route, participation guidelines, and spectator information.</p>
+                        <a href="#" class="visit-website-btn">Visit Website</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <section class="main-content">
+            <div class="content-grid">
+                <div class="event-details">
+                    <h2 class="section-title">Event Details</h2>
+                    
+                    <div class="detail-item">
+                        <div class="detail-icon">📅</div>
+                        <div class="detail-content">
+                            <h4>Date & Time</h4>
+                            <p>June 28-30, 2025 • 10:00 AM - 10:00 PM daily</p>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-icon">📍</div>
+                        <div class="detail-content">
+                            <h4>Location</h4>
+                            <p>Church-Wellesley Village, Toronto, ON M4Y 1N2</p>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-icon">🎭</div>
+                        <div class="detail-content">
+                            <h4>Activities</h4>
+                            <p>Parade, live performances, art exhibitions, community workshops, food vendors, and family-friendly activities</p>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-icon">🎫</div>
+                        <div class="detail-content">
+                            <h4>Registration</h4>
+                            <p>Free admission • VIP packages available • Registration deadline: June 15, 2025</p>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-icon">👥</div>
+                        <div class="detail-content">
+                            <h4>Community</h4>
+                            <p>Open to all ages • LGBTQ+ community focused • Allies welcome • Accessibility accommodations available</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <div class="sidebar-card">
+                        <h3>Quick Actions</h3>
+                        <button class="register-btn">Register Now</button>
+                        <button class="register-btn" style="background: rgba(255, 255, 255, 0.1); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3);">Add to Calendar</button>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3>Contact Information</h3>
+                        <ul class="contact-info">
+                            <li>📧 info@torontopride.ca</li>
+                            <li>📞 (416) 555-0123</li>
+                            <li>🌐 www.torontopride.ca</li>
+                            <li>📱 @TorontoPride</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,72 @@
+id,type,amount,currency,notes,lastUpdated
+1,FREE,0,CAD,Free admission,2025-05-28T14:52:12.943Z
+2,PAID,25,CAD,Regular admission ($25-35),2025-05-28T14:52:12.951Z
+3,PAID,75,CAD,Premium experience ($75+),2025-05-28T14:52:12.951Z
+4,SPECIAL,0,CAD,Special seasonal pricing,2025-05-28T14:52:12.951Z
+5,PAID,15,CAD,Budget-friendly ($15-25),2025-05-28T14:52:12.951Z
+6,PAID,50,CAD,Mid-range experience ($50-75),2025-05-28T14:52:12.951Z
+11,FREE,,CAD,,2025-05-28T14:52:12.943Z
+175,PAID,8.7,CAD,Ferry round-trip: \~\$8.70 CAD,2025-05-28T14:52:12.951Z
+176,PAID,,CAD,Cost of picnic supplies,2025-05-28T14:52:12.951Z
+177,PAID,,CAD,Membership/drop-in fee (check individual team/pool,2025-05-28T14:52:12.951Z
+178,PAID,30,CAD,Tickets typically range from \$30-70+ CAD depending on,2025-05-28T14:52:12.951Z
+179,PAID,,CAD,Happy hour drinks/appetizers are typically discounted.,2025-05-28T14:52:12.951Z
+180,PAID,25,CAD,Tickets typically range from \$25-40+ CAD,2025-05-28T14:52:12.951Z
+181,PAID,,CAD,"Hourly court rental fees (typically affordable,",2025-05-28T14:52:12.951Z
+182,PAID,20,CAD,Canoe rental fees (approx. \$20-30/hour),2025-05-28T14:52:12.951Z
+183,PAID,,CAD,Cost of groceries,2025-05-28T14:52:12.951Z
+184,PAID,25,CAD,General admission \~\$25-30 CAD (some exhibitions may,2025-05-28T14:52:12.951Z
+185,PAID,15,CAD,"Ticket prices vary, typically \$15-30+ CAD",2025-05-28T14:52:12.951Z
+186,PAID,5,CAD,Drop-in fee (typically around \$5-7 CAD),2025-05-28T14:52:12.951Z
+187,PAID,10,CAD,Cover charge (can range from \$10-40+ CAD depending on,2025-05-28T14:52:12.951Z
+188,PAID,27.96,CAD,From \$27.96 CAD,2025-05-28T14:52:12.951Z
+189,PAID,20,CAD,\~\$20-40+ CAD per person,2025-05-28T14:52:12.951Z
+190,PAID,20,CAD,Drop-in class (\~\$20-30 CAD),2025-05-28T14:52:12.951Z
+191,PAID,8,CAD,Cover charge (typically \$8-10 CAD) plus food/drink.,2025-05-28T14:52:12.951Z
+192,PAID,70,CAD,Dinner can be \~\$70-150+ CAD for two.,2025-05-28T14:52:12.951Z
+193,PAID,7,CAD,Bike Share Toronto membership or pay-as-you-go (\~\$7 for,2025-05-28T14:52:12.951Z
+194,PAID,20,CAD,Drop-in class (\~\$20-35 CAD),2025-05-28T14:52:12.951Z
+195,PAID,30,CAD,Tickets typically range from \$30-50+ CAD,2025-05-28T14:52:12.951Z
+196,PAID,,CAD,"Happy hour deals vary, dinner cost extra.",2025-05-28T14:52:12.951Z
+197,PAID,5,CAD,"Cover charge (typically \$5-20 CAD, depending on the",2025-05-28T14:52:12.951Z
+198,PAID,20,CAD,General admission \~\$20 CAD.,2025-05-28T14:52:12.951Z
+199,PAID,,CAD,Cost of picnic supplies.,2025-05-28T14:52:12.951Z
+200,PAID,200,CAD,"High-end, likely \$200-400+ CAD for two.",2025-05-28T14:52:12.951Z
+201,PAID,,CAD,Drop-in fee or membership.,2025-05-28T14:52:12.951Z
+202,PAID,10,CAD,Cover charge (typically \$10-25 CAD) plus food/drink.,2025-05-28T14:52:12.951Z
+203,PAID,,CAD,Drop-in fee.,2025-05-28T14:52:12.951Z
+204,PAID,,CAD,Varies depending on consumption.,2025-05-28T14:52:12.951Z
+205,PAID,150,CAD,"Varies greatly by treatments, typically \$150-400+ CAD",2025-05-28T14:52:12.951Z
+206,PAID,25,CAD,General admission \~\$25-30 CAD.,2025-05-28T14:52:12.951Z
+207,PAID,,CAD,"Happy hour deals available, dinner cost extra.",2025-05-28T14:52:12.951Z
+208,PAID,20,CAD,Cover charge (typically \$20-50+ CAD),2025-05-28T14:52:12.951Z
+209,PAID,20,CAD,\~\$20-40+ CAD per person.,2025-05-28T14:52:12.951Z
+210,PAID,50,CAD,"Varies greatly by artist, usually \$50-200+ CAD.",2025-05-28T14:52:12.951Z
+211,PAID,20,CAD,Day pass (\~\$20-30 CAD) plus gear rental.,2025-05-28T14:52:12.951Z
+212,PAID,100,CAD,\~\$100-200+ CAD.,2025-05-28T14:52:12.951Z
+213,PAID,,CAD,Hourly court rental fees (typically affordable).,2025-05-28T14:52:12.951Z
+214,PAID,100,CAD,\~\$100-200+ CAD per person.,2025-05-28T14:52:12.951Z
+215,PAID,10,CAD,"Cover charge (typically \$10-25+ CAD, sometimes includes",2025-05-28T14:52:12.951Z
+216,PAID,25,CAD,"General admission \~\$25 CAD, ride passes extra.",2025-05-28T14:52:12.951Z
+217,PAID,,CAD,Cost of food and drinks.,2025-05-28T14:52:12.951Z
+218,PAID,40,CAD,"Varies by performance, typically \$40-100+ CAD.",2025-05-28T14:52:12.951Z
+219,PAID,15,CAD,Tasting flights typically \$15-30 CAD.,2025-05-28T14:52:12.951Z
+220,PAID,60,CAD,"High-end, \~\$60-100+ CAD per person.",2025-05-28T14:52:12.951Z
+221,PAID,20,CAD,"Introductory session fees vary, typically \$20-40 CAD.",2025-05-28T14:52:12.951Z
+222,PAID,60,CAD,\~\$60-100+ CAD per session.,2025-05-28T14:52:12.951Z
+223,PAID,,CAD,Hourly court rental fees.,2025-05-28T14:52:12.951Z
+224,PAID,15,CAD,"Tickets typically \$15-20 CAD, special events may be",2025-05-28T14:52:12.951Z
+225,PAID,,CAD,Varies depending on wine selection and food orders.,2025-05-28T14:52:12.951Z
+226,PAID,25,CAD,Tickets typically \~\$25-30 CAD.,2025-05-28T14:52:12.951Z
+227,PAID,45,CAD,"General admission \~\$45-50 CAD, special event nights may",2025-05-28T14:52:12.951Z
+228,PAID,,CAD,Tickets vary widely depending on the performer and,2025-05-28T14:52:12.951Z
+229,PAID,20,CAD,"Single tickets usually \$20-30 CAD, packages available.",2025-05-28T14:52:12.951Z
+230,PAID,200,CAD,"High-end, typically \$200-400+ CAD for two.",2025-05-28T14:52:12.951Z
+231,PAID,60,CAD,"\~\$60-100+ CAD per person, often includes dinner/drinks.",2025-05-28T14:52:12.951Z
+232,SPECIAL,5,CAD,"Happy Hour: $5 pints, $6 house wine, discounted appetizers",2025-05-28T14:52:12.951Z
+233,SPECIAL,0,CAD,"Happy Hour: Cocktail & wine specials (prices vary)",2025-05-28T14:52:12.951Z
+234,SPECIAL,5,CAD,"Happy Hour: $5 beer, $6 wine, $7 cocktails",2025-05-28T14:52:12.951Z
+235,SPECIAL,0,CAD,"Happy Hour: Upscale cocktails and small plates specials",2025-05-28T14:52:12.951Z
+236,SPECIAL,0,CAD,"Happy Hour: Discounted sushi, skewers, and cocktails",2025-05-28T14:52:12.951Z
+237,SPECIAL,0,CAD,"Happy Hour: Cocktail and mezze specials",2025-05-28T14:52:12.951Z
+238,SPECIAL,2,CAD,"Happy Hour: $2 oysters, discounted cocktails",2025-05-28T14:52:12.951Z
