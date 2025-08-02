@@ -4,7 +4,8 @@ import {
   TheaterComedy,
   Museum,
   ArrowBack,
-  ArrowForward
+  ArrowForward,
+  Restaurant
 } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -30,6 +31,22 @@ interface PrideActivity {
 
 // Day 2 Data - Thursday, August 7, 2025 - Enhanced with specific details
 const day2Data: PrideActivity[] = [
+  {
+    id: "breakfast_olive",
+    title: "Olive + Gourmando - Old Montreal Icon Since 1998",
+    description: "Start your day at this legendary boulangerie-café-restaurant in the heart of Old Montreal, famous for transforming the ordinary into extraordinary",
+    category: "dining",
+    day: "Thursday",
+    time: "7:30 AM - 9:00 AM",
+    location: "Olive + Gourmando",
+    address: "351 Rue Saint-Paul O, Montreal, QC H2Y 2A7",
+    website: "https://oliveetgourmando.com/",
+    priceRange: "$$",
+    tags: ["breakfast", "artisanal", "old-montreal", "bakery"],
+    isPrideEvent: false,
+    isLGBTFriendly: true,
+    peopleEnjoy: "The daily lineup that speaks to their reputation, artisanal breads and pastries baked fresh since 1998, unique sandwich combinations that transform ordinary ingredients into extraordinary creations, and the authentic Old Montreal atmosphere in their historic Saint-Paul location"
+  },
   {
     id: "old1",
     title: "Notre-Dame Basilica & Old Montreal Walking Tour",
@@ -123,12 +140,13 @@ const PrideMontrealDay2 = () => {
           margin: '0 auto',
           mb: 3
         }}>
-          Experience Montreal's rich history in the morning, then witness the world's largest free drag show featuring Canada's Drag Race superstars!
+          Start with breakfast at legendary Olive + Gourmando, explore Montreal's rich history in Old Montreal, then witness the world's largest free drag show featuring Canada's Drag Race superstars!
         </Typography>
         
         <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', flexWrap: 'wrap', mb: 3 }}>
           <Chip icon={<TheaterComedy />} label="World's Largest Drag Show" color="primary" />
           <Chip icon={<Museum />} label="Old Montreal History" color="secondary" />
+          <Chip icon={<Restaurant />} label="Olive + Gourmando Breakfast" variant="outlined" />
         </Box>
       </Box>
 
