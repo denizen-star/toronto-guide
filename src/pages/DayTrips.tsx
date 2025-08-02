@@ -52,24 +52,30 @@ const DayTrips = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        // Fetch JSON directly
-        const response = await fetch('/daytrips_data.json');
+        // Fetch enhanced JSON with CSV data merged
+        const response = await fetch('/daytrips_data_enhanced.json');
         if (!response.ok) throw new Error('Failed to load day trips JSON');
         const json = await response.json();
         // Map JSON to StandardizedDayTrip[]
         const tripsData = (json.daytrips || []).map((item: any) => ({
           id: item.id,
           title: item.name || item.title || '',
-          description: typeof item.description === 'string'
+          description: item.description || (typeof item.description === 'string'
             ? item.description
             : Array.isArray(item.whySpecial)
               ? item.whySpecial.join(' ')
               : typeof item.whySpecial === 'string'
                 ? item.whySpecial
-                : '',
+                : ''),
           website: item.contact?.website || '',
           tags: Array.isArray(item.tags) ? item.tags : [],
           location: item.location || item.name || '',
+          reasonsToGo: Array.isArray(item.reasonsToGo) ? item.reasonsToGo : [],
+          // CSV enhanced fields
+          travelTime: item.travelTime || '',
+          activityDetails: item.activityDetails || '',
+          cost: item.cost || '',
+          lgbtqFriendly: item.lgbtqFriendly || false,
           // Add more mappings as needed for filters and cards
         }));
         setTrips(tripsData);
@@ -85,6 +91,18 @@ const DayTrips = () => {
 
   // Helper functions for categorization
   const getTripCategory = useCallback((trip: StandardizedDayTrip): string => {
+    // Use the explicit type field from CSV if available, otherwise fall back to tag-based detection
+    if ((trip as any).type) {
+      const type = (trip as any).type.toLowerCase();
+      if (type.includes('wine')) return 'wine';
+      if (type.includes('nature') || type.includes('wildlife')) return 'nature';
+      if (type.includes('historic')) return 'historic';
+      if (type.includes('beach')) return 'beach';
+      if (type.includes('cultural') || type.includes('tourism')) return 'cultural';
+      if (type.includes('adventure') || type.includes('outdoor')) return 'adventure';
+    }
+    
+    // Fallback to tag-based detection
     const title = trip.title.toLowerCase();
     const description = trip.description.toLowerCase();
     const tags = trip.tags && Array.isArray(trip.tags) ? trip.tags.join(' ').toLowerCase() : '';
@@ -287,6 +305,27 @@ const DayTrips = () => {
     [filteredTrips, displayCount]
   );
 
+  // Helper function to format travel time
+  const formatTravelTime = (travelTime: string | undefined): string => {
+    if (!travelTime) return '';
+    return travelTime.replace('~', '').replace('driving', '').trim();
+  };
+
+  // Helper function to calculate distance category from travel time
+  const getDistanceCategory = (travelTime: string | undefined): string => {
+    if (!travelTime) return '';
+    
+    const timeMatch = travelTime.match(/(\d+\.?\d*)/);
+    if (timeMatch) {
+      const hours = parseFloat(timeMatch[1]);
+      if (hours <= 1.5) return 'Close (< 1.5 hours)';
+      if (hours <= 3) return 'Moderate (1.5-3 hours)';
+      if (hours <= 5) return 'Far (3-5 hours)';
+      return 'Very Far (5+ hours)';
+    }
+    return '';
+  };
+
   // Memoized card data conversion
   const cardDataArray = useMemo(() => {
     return displayedTrips.map((trip): EnhancedCardData => ({
@@ -300,6 +339,8 @@ const DayTrips = () => {
       address: trip.location,
       neighborhood: trip.location,
       detailPath: `/day-trips/${trip.id}`,
+      optionalField1: getDistanceCategory(trip.travelTime),
+      optionalField2: formatTravelTime(trip.travelTime),
     }));
   }, [displayedTrips]);
 

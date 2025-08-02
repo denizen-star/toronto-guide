@@ -297,6 +297,59 @@ const LgbtEvents = () => {
     [sortedAndFilteredEvents, displayCount]
   );
 
+  // Helper function to format subcategory
+  const formatSubcategory = (subcategory: string | undefined): string => {
+    if (!subcategory) return '';
+    
+    // Capitalize and format common subcategories
+    const formattedSubcategory = subcategory.charAt(0).toUpperCase() + subcategory.slice(1);
+    
+    // Map common subcategories to more descriptive names
+    const subcategoryMap: { [key: string]: string } = {
+      'drag': 'Drag Performance',
+      'social': 'Social Event',
+      'workshop': 'Workshop',
+      'sports': 'Sports Activity',
+      'wellness': 'Wellness/Health',
+      'nightlife': 'Nightlife',
+      'arts': 'Arts & Culture',
+      'performance': 'Performance',
+      'community': 'Community Event',
+      'support': 'Support Group',
+      'outdoor': 'Outdoor Activity',
+      'fitness': 'Fitness Activity',
+      'youth': 'Youth Event',
+      'family': 'Family Event',
+      'professional': 'Professional',
+      'festival': 'Festival'
+    };
+    
+    return subcategoryMap[subcategory.toLowerCase()] || formattedSubcategory;
+  };
+
+  // Helper function to format event type
+  const formatEventType = (eventType: string | undefined): string => {
+    if (!eventType) return '';
+    
+    // Capitalize and format event types
+    const formattedEventType = eventType.charAt(0).toUpperCase() + eventType.slice(1);
+    
+    // Map event types to more descriptive names
+    const eventTypeMap: { [key: string]: string } = {
+      'community': 'Community',
+      'performance': 'Performance',
+      'nightlife': 'Nightlife',
+      'social': 'Social',
+      'culture': 'Cultural',
+      'party': 'Party',
+      'drag': 'Drag Show',
+      'tour': 'Tour',
+      'sports': 'Sports'
+    };
+    
+    return eventTypeMap[eventType.toLowerCase()] || formattedEventType;
+  };
+
   // Memoized card data conversion
   const cardDataArray = useMemo(() => {
     return displayedEvents.map((event): EnhancedCardData => {
@@ -321,7 +374,9 @@ const LgbtEvents = () => {
         address: event.location,
         lgbtqFriendly: true,
         neighborhood: getNeighborhood(event.location),
-        detailPath: `/lgbtq-events/${event.id}`
+        detailPath: `/lgbtq-events/${event.id}`,
+        optionalField1: formatSubcategory((event as any).subcategory),
+        optionalField2: formatEventType((event as any).eventType),
       };
     });
   }, [displayedEvents, getNeighborhood]);

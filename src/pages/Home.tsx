@@ -264,6 +264,10 @@ const Home = () => {
               width: isMobile ? '100%' : 'auto',
               textAlign: 'center'
             }}>Explore Boulder</RouterLink>
+            <RouterLink to="/pride-montreal-kp" className="btn-primary" style={{
+              width: isMobile ? '100%' : 'auto',
+              textAlign: 'center'
+            }}>Pride Montreal KP</RouterLink>
             <RouterLink to="/activities" className="btn-primary" style={{
               width: isMobile ? '100%' : 'auto',
               textAlign: 'center'

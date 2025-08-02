@@ -3,7 +3,6 @@ import { Card, CardContent, Box, Typography, Chip, useTheme, alpha, IconButton }
 import { Link as RouterLink } from 'react-router-dom';
 import {
   ArrowForward as ArrowForwardIcon,
-  Launch as LaunchIcon,
   Directions as DirectionsIcon,
   LocationCity,
   Business,
@@ -35,6 +34,9 @@ export interface EnhancedCardData {
   lgbtqFriendly?: boolean;
   neighborhood?: string;
   detailPath: string;
+  // New optional fields for domain-specific data
+  optionalField1?: string;
+  optionalField2?: string;
 }
 
 interface EnhancedMinimalistCardProps {
@@ -132,7 +134,6 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
     title: data.title || 'Untitled',
     description: data.description || 'No description available',
     tags: Array.isArray(data.tags) ? data.tags.filter(tag => tag && typeof tag === 'string') : [],
-    website: data.website || '#',
     detailPath: data.detailPath || '#'
   };
 
@@ -280,6 +281,33 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
             </Typography>
           )}
 
+          {/* Optional Fields */}
+          {safeData.optionalField1 && (
+            <Typography 
+              variant="body2" 
+              color="primary" 
+              sx={{ 
+                mb: 1,
+                fontWeight: 'medium'
+              }}
+            >
+              {safeData.optionalField1}
+            </Typography>
+          )}
+
+          {safeData.optionalField2 && (
+            <Typography 
+              variant="body2" 
+              color="secondary" 
+              sx={{ 
+                mb: 2,
+                fontWeight: 'medium'
+              }}
+            >
+              {safeData.optionalField2}
+            </Typography>
+          )}
+
           {/* Price */}
           <Typography variant="body2" color="primary" sx={{ mb: 2, fontWeight: 'bold' }}>
             {formattedPrice}
@@ -303,36 +331,11 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
         {/* Footer */}
         <Box sx={{ 
           display: 'flex', 
-          justifyContent: 'space-between', 
+          justifyContent: 'flex-end', 
           alignItems: 'center', 
           mt: 'auto',
           transform: 'translateZ(0)',
         }}>
-          {safeData.website && safeData.website !== '#' && (
-            <IconButton
-              size="small"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                window.open(safeData.website, '_blank');
-              }}
-              sx={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: 0.5,
-                color: theme.palette.primary.main,
-                padding: '4px 8px',
-                '&:hover': {
-                  backgroundColor: 'transparent',
-                  textDecoration: 'underline'
-                }
-              }}
-            >
-              <LaunchIcon fontSize="small" />
-              <Typography variant="caption">Website</Typography>
-            </IconButton>
-          )}
-          
           <ArrowForwardIcon color="primary" />
         </Box>
       </CardContent>

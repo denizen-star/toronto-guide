@@ -201,6 +201,7 @@ export interface StandardizedDayTrip extends StandardizedItem {
   distance: string;
   difficulty?: string;
   bestTimeToVisit?: string;
+  reasonsToGo?: string[];
 }
 
 export interface LgbtEvent extends StandardizedItem {

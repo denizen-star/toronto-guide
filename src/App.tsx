@@ -27,6 +27,12 @@ import LgbtEvents from './pages/LgbtEvents';
 import LgbtEventDetails from './pages/LgbtEventDetails';
 import Boulder from './pages/Boulder';
 import BoulderDetails from './pages/BoulderDetails';
+import PrideMontrealKP from './pages/PrideMontrealKP';
+import PrideMontrealDay1 from './pages/PrideMontrealDay1';
+import PrideMontrealDay2 from './pages/PrideMontrealDay2';
+import PrideMontrealDay3 from './pages/PrideMontrealDay3';
+import PrideMontrealDay4 from './pages/PrideMontrealDay4';
+import PrideMontrealDay5 from './pages/PrideMontrealDay5';
 import TodayInToronto from './pages/TodayInToronto';
 import TomorrowInToronto from './pages/TomorrowInToronto';
 import ScrollToTop from './components/ScrollToTop';
@@ -45,6 +51,12 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path="boulder" element={<Boulder />} />
                 <Route path="boulder/:id" element={<BoulderDetails />} />
+                <Route path="pride-montreal-kp" element={<PrideMontrealKP />} />
+                <Route path="pride-montreal-day1" element={<PrideMontrealDay1 />} />
+                <Route path="pride-montreal-day2" element={<PrideMontrealDay2 />} />
+                <Route path="pride-montreal-day3" element={<PrideMontrealDay3 />} />
+                <Route path="pride-montreal-day4" element={<PrideMontrealDay4 />} />
+                <Route path="pride-montreal-day5" element={<PrideMontrealDay5 />} />
                 <Route path="scoop" element={<Scoop />} />
                 <Route path="scoop/:id" element={<ScoopDetails />} />
                 <Route path="activity/:id" element={<ActivityDetails />} />
