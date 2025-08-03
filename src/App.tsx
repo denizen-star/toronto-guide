@@ -27,7 +27,7 @@ import LgbtEvents from './pages/LgbtEvents';
 import LgbtEventDetails from './pages/LgbtEventDetails';
 import Boulder from './pages/Boulder';
 import BoulderDetails from './pages/BoulderDetails';
-import PrideMontrealKP from './pages/PrideMontrealKP';
+import PrideMontreal2025 from './pages/PrideMontreal2025';
 import PrideMontrealDay1 from './pages/PrideMontrealDay1';
 import PrideMontrealDay2 from './pages/PrideMontrealDay2';
 import PrideMontrealDay3 from './pages/PrideMontrealDay3';
@@ -51,7 +51,7 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path="boulder" element={<Boulder />} />
                 <Route path="boulder/:id" element={<BoulderDetails />} />
-                <Route path="pride-montreal-kp" element={<PrideMontrealKP />} />
+                <Route path="pride-montreal-2025" element={<PrideMontreal2025 />} />
                 <Route path="pride-montreal-day1" element={<PrideMontrealDay1 />} />
                 <Route path="pride-montreal-day2" element={<PrideMontrealDay2 />} />
                 <Route path="pride-montreal-day3" element={<PrideMontrealDay3 />} />

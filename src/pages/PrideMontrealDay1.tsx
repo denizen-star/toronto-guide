@@ -258,11 +258,11 @@ const PrideMontrealDay1 = () => {
       <Box sx={{ mb: 4, textAlign: 'center' }}>
         <Button
           component={RouterLink}
-          to="/pride-montreal-kp"
+          to="/pride-montreal-2025"
           startIcon={<ArrowBack />}
           sx={{ mb: 2, alignSelf: 'flex-start' }}
         >
-          Back to Pride Montreal KP Overview
+          Back to Pride Montreal 2025 Overview
         </Button>
         
         <Typography variant="h2" sx={{ 
@@ -422,7 +422,7 @@ const PrideMontrealDay1 = () => {
       <Box sx={{ mt: 6, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 2 }}>
         <Button
           component={RouterLink}
-          to="/pride-montreal-kp"
+          to="/pride-montreal-2025"
           variant="outlined"
           startIcon={<ArrowBack />}
         >

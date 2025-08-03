@@ -264,10 +264,10 @@ const Home = () => {
               width: isMobile ? '100%' : 'auto',
               textAlign: 'center'
             }}>Explore Boulder</RouterLink>
-            <RouterLink to="/pride-montreal-kp" className="btn-primary" style={{
+            <RouterLink to="/pride-montreal-2025" className="btn-primary" style={{
               width: isMobile ? '100%' : 'auto',
               textAlign: 'center'
-            }}>Pride Montreal KP</RouterLink>
+            }}>Pride Montreal 2025</RouterLink>
             <RouterLink to="/activities" className="btn-primary" style={{
               width: isMobile ? '100%' : 'auto',
               textAlign: 'center'
