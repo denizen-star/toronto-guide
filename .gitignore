@@ -24,3 +24,15 @@ yarn-error.log*
 
 # Backup files from link checker
 *.backup-*
+# Backup files
+*.bak
+*.backup
+*-old.*
+
+# Build artifacts
+build/
+dist/
+
+# Icon generation temp files
+*-temp.*
+create-*.html
