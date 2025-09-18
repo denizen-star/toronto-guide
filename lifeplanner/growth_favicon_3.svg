@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="growthGrad3" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7C3AED;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A855F7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="mountain1" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1F2937;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4B5563;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="mountain2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#374151;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6B7280;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="mountain3" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4B5563;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9CA3AF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="15" fill="url(#growthGrad3)" stroke="#581C87" stroke-width="1"/>
+  
+  <!-- Back mountain (lowest) -->
+  <path d="M 2 26 L 8 18 L 14 22 L 20 16 L 26 20 L 30 26 Z" fill="url(#mountain1)" opacity="0.7"/>
+  
+  <!-- Middle mountain -->
+  <path d="M 4 26 L 10 16 L 16 20 L 22 14 L 28 18 L 30 26 Z" fill="url(#mountain2)" opacity="0.8"/>
+  
+  <!-- Front mountain (highest) -->
+  <path d="M 6 26 L 12 12 L 16 8 L 20 12 L 26 16 L 30 26 Z" fill="url(#mountain3)" opacity="0.9"/>
+  
+  <!-- Mountain peak highlights -->
+  <circle cx="16" cy="8" r="1.5" fill="#FBBF24" opacity="0.9"/>
+  <circle cx="12" cy="12" r="1.2" fill="#F59E0B" opacity="0.8"/>
+  <circle cx="20" cy="12" r="1.2" fill="#F59E0B" opacity="0.8"/>
+  
+  <!-- Growth path/trail -->
+  <path d="M 8 24 Q 12 20 16 8" stroke="#FCD34D" stroke-width="2" fill="none" opacity="0.8" stroke-dasharray="2,1"/>
+  
+  <!-- Achievement flags on peaks -->
+  <path d="M 16 8 L 16 5 L 19 6 L 16 7 Z" fill="#EF4444" opacity="0.9"/>
+  <path d="M 12 12 L 12 10 L 14 10.5 L 12 11 Z" fill="#10B981" opacity="0.8"/>
+  <path d="M 20 12 L 20 10 L 22 10.5 L 20 11 Z" fill="#8B5CF6" opacity="0.8"/>
+  
+  <!-- Progress milestones along the path -->
+  <circle cx="10" cy="22" r="1" fill="#EC4899" opacity="0.8"/>
+  <circle cx="13" cy="18" r="1" fill="#F59E0B" opacity="0.8"/>
+  <circle cx="15" cy="14" r="1" fill="#10B981" opacity="0.8"/>
+  <circle cx="16.5" cy="10" r="1" fill="#8B5CF6" opacity="0.8"/>
+  
+  <!-- Base camp -->
+  <rect x="6" y="24" width="4" height="2" rx="0.5" fill="#92400E" opacity="0.8"/>
+  
+  <!-- Stars in the sky (achievements) -->
+  <polygon points="8,6 8.3,7 9,7 8.5,7.5 8.7,8 8,7.7 7.3,8 7.5,7.5 7,7 7.7,7" fill="#FEF3C7" opacity="0.9"/>
+  <polygon points="24,8 24.3,9 25,9 24.5,9.5 24.7,10 24,9.7 23.3,10 23.5,9.5 23,9 23.7,9" fill="#FEF3C7" opacity="0.9"/>
+  <polygon points="26,5 26.2,5.5 26.8,5.5 26.4,5.8 26.6,6.3 26,6 25.4,6.3 25.6,5.8 25.2,5.5 25.8,5.5" fill="#FEF3C7" opacity="0.7"/>
+</svg>

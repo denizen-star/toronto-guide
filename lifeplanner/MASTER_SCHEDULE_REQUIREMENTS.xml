@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<master_schedule_requirements>
+    <metadata>
+        <user>Kevin</user>
+        <partner>Peter</partner>
+        <effective_date>2025-01-01</effective_date>
+        <last_updated>2025-09-16</last_updated>
+        <version>1.0</version>
+    </metadata>
+
+    <!-- ABSOLUTE CONSTRAINTS - NEVER VIOLATE -->
+    <absolute_constraints>
+        <work_hours>
+            <description>NO leisure activities during work hours</description>
+            <days>Monday,Tuesday,Wednesday,Thursday,Friday</days>
+            <start_time>09:00</start_time>
+            <end_time>18:00</end_time>
+            <allowed_activities>
+                <activity>core_work</activity>
+                <activity>professional_lunch_meetings</activity>
+                <activity>immigration_work</activity>
+                <activity>professional_development</activity>
+                <activity>household_budgeting</activity>
+            </allowed_activities>
+            <forbidden_activities>
+                <activity>swimming</activity>
+                <activity>tennis</activity>
+                <activity>running</activity>
+                <activity>leisure_walks</activity>
+                <activity>entertainment</activity>
+                <activity>personal_errands</activity>
+            </forbidden_activities>
+        </work_hours>
+        
+        <date_constraints>
+            <minimum_date>2025-01-01</minimum_date>
+            <description>All schedules must be for 2025 onwards, never past dates</description>
+        </date_constraints>
+        
+        <sleep_schedule>
+            <weekday_bedtime>22:30</weekday_bedtime>
+            <weekday_wake_time>06:00</weekday_wake_time>
+            <weekend_bedtime>23:59</weekend_bedtime>
+            <weekend_wake_time>08:00</weekend_wake_time>
+            <description>Weekday: 10:30 PM bedtime, 6:00 AM wake up. Weekend: 11:59 PM bedtime, 8:00 AM wake up</description>
+        </sleep_schedule>
+    </absolute_constraints>
+
+    <!-- DAILY REQUIREMENTS - MUST BE INCLUDED EVERY DAY -->
+    <daily_requirements>
+        <morning_routine>
+            <wake_up>
+                <time>06:00</time>
+                <duration_minutes>15</duration_minutes>
+                <description>Wake up, hydration, set daily intentions</description>
+            </wake_up>
+            <couple_intention_setting>
+                <time>06:15</time>
+                <duration_minutes>5</duration_minutes>
+                <description>Share daily intentions and support each other's goals (habit stacked)</description>
+                <connection_depth>7</connection_depth>
+                <emotional_safety>8</emotional_safety>
+            </couple_intention_setting>
+            <personal_grooming>
+                <time>06:20</time>
+                <duration_minutes>25</duration_minutes>
+                <daily_tasks>shower,skincare,teeth_brushing,deodorant</daily_tasks>
+                <description>Essential daily grooming routine</description>
+            </personal_grooming>
+            <progressive_meditation>
+                <time>06:45</time>
+                <current_week>0</current_week>
+                <progression>
+                    <weeks_1_4>1</weeks_1_4>
+                    <weeks_5_8>2</weeks_5_8>
+                    <weeks_9_12>3</weeks_9_12>
+                    <weeks_13_16>4</weeks_13_16>
+                    <weeks_17_plus>5</weeks_17_plus>
+                </progression>
+                <description>Progressive meditation starting at 1 minute</description>
+            </progressive_meditation>
+        </morning_routine>
+        
+        <work_schedule>
+            <commute_morning>
+                <time>08:50</time>
+                <duration_minutes>10</duration_minutes>
+                <cost_cad>6</cost_cad>
+                <description>TTC commute to work ($3.35) or car parking ($15/day)</description>
+            </commute_morning>
+            <work_blocks>
+                <morning_block>
+                    <time>09:00</time>
+                    <duration_hours>3</duration_hours>
+                    <description>Core work: data analysis, team meetings, strategic planning</description>
+                </morning_block>
+                <lunch_slot>
+                    <time>12:00</time>
+                    <duration_hours>1</duration_hours>
+                    <activity_type>professional_lunch_meeting</activity_type>
+                    <description>Business lunch for networking (ALLOWED during work)</description>
+                    <networking_potential>8</networking_potential>
+                </lunch_slot>
+                <afternoon_block>
+                    <time>13:00</time>
+                    <duration_hours>2</duration_hours>
+                    <description>Core work: data analysis, reporting, stakeholder meetings</description>
+                </afternoon_block>
+                <flexible_block_1>
+                    <time>15:00</time>
+                    <duration_hours>1</duration_hours>
+                    <activity_type>immigration_work</activity_type>
+                    <description>Immigration paperwork (3h/week requirement - ALLOWED during work)</description>
+                </flexible_block_1>
+                <flexible_block_2>
+                    <time>16:00</time>
+                    <duration_hours>1</duration_hours>
+                    <activity_type>professional_development</activity_type>
+                    <description>Skill development (5h/week requirement - ALLOWED during work)</description>
+                </flexible_block_2>
+                <end_of_day>
+                    <time>17:00</time>
+                    <duration_hours>1</duration_hours>
+                    <description>Wrap up work, plan tomorrow, team check-ins</description>
+                </end_of_day>
+            </work_blocks>
+            <commute_evening>
+                <time>18:00</time>
+                <duration_minutes>10</duration_minutes>
+                <cost_cad>6</cost_cad>
+                <description>TTC commute from work or car drive home</description>
+            </commute_evening>
+        </work_schedule>
+        
+        <evening_routine>
+            <gratitude_share>
+                <time>21:45</time>
+                <duration_minutes>10</duration_minutes>
+                <description>Share three things grateful for about each other (habit stacked with bedtime)</description>
+                <connection_depth>8</connection_depth>
+                <emotional_safety>9</emotional_safety>
+            </gratitude_share>
+            <wind_down>
+                <time>22:00</time>
+                <duration_minutes>30</duration_minutes>
+                <description>Prepare for bedtime: no screens, reading, relaxation (no morning news rule)</description>
+            </wind_down>
+        </evening_routine>
+    </daily_requirements>
+
+    <!-- WEEKLY REQUIREMENTS - MUST BE SCHEDULED EACH WEEK -->
+    <weekly_requirements>
+        <running_schedule>
+            <description>Flexible timing options - NEVER during work hours</description>
+            <tuesday>
+                <duration_minutes>60</duration_minutes>
+                <preferred_times>07:00 or 18:00</preferred_times>
+                <location>High Park Running Trails, 1873 Bloor St W, Toronto</location>
+                <transit>TTC: Keele Station + 5min walk</transit>
+                <car>15min from downtown</car>
+                <website>highpark.ca</website>
+            </tuesday>
+            <thursday>
+                <duration_minutes>60</duration_minutes>
+                <preferred_times>07:00 or 18:00</preferred_times>
+                <location>High Park Running Trails, 1873 Bloor St W, Toronto</location>
+                <transit>TTC: Keele Station + 5min walk</transit>
+                <car>15min from downtown</car>
+                <website>highpark.ca</website>
+            </thursday>
+            <friday>
+                <duration_minutes>60</duration_minutes>
+                <preferred_times>07:00 or 18:00</preferred_times>
+                <location>High Park Running Trails, 1873 Bloor St W, Toronto</location>
+                <transit>TTC: Keele Station + 5min walk</transit>
+                <car>15min from downtown</car>
+                <website>highpark.ca</website>
+            </friday>
+            <sunday>
+                <duration_minutes>120</duration_minutes>
+                <preferred_times>anytime flexible</preferred_times>
+                <location>Martin Goodman Trail, Harbourfront, Toronto</location>
+                <transit>TTC: Union Station + 10min walk</transit>
+                <car>Parking at Harbourfront Centre</car>
+                <website>waterfrontoronto.ca</website>
+            </sunday>
+        </running_schedule>
+        
+        <personal_care_weekly>
+            <hair_washing>
+                <frequency>daily</frequency>
+                <description>Hair washing daily as part of morning routine</description>
+            </hair_washing>
+            <nail_trimming>
+                <frequency>weekly</frequency>
+                <preferred_day>Sunday</preferred_day>
+                <duration_minutes>15</duration_minutes>
+            </nail_trimming>
+            <beard_trimming>
+                <frequency>every_other_day</frequency>
+                <preferred_time>morning</preferred_time>
+                <duration_minutes>20</duration_minutes>
+                <description>Beard trimming every other day in the morning</description>
+            </beard_trimming>
+        </personal_care_weekly>
+        
+        <household_tasks>
+            <grocery_shopping>
+                <frequency>weekly</frequency>
+                <preferred_day>Saturday or Sunday</preferred_day>
+                <duration_hours>2</duration_hours>
+                <location>Loblaws City Market, 12 Maple Leaf Square, Toronto</location>
+                <transit>TTC: Union Station + 5min walk</transit>
+                <car>Underground parking available</car>
+                <website>loblaws.ca</website>
+                <cost_cad>100</cost_cad>
+                <tips>Bring reusable bags, PC Optimum card for points</tips>
+            </grocery_shopping>
+            <laundry>
+                <frequency>weekly</frequency>
+                <preferred_day>Sunday</preferred_day>
+                <duration_hours>2</duration_hours>
+                <location>Home</location>
+                <description>Sorting, washing, drying, folding</description>
+            </laundry>
+            <budgeting>
+                <frequency>weekly</frequency>
+                <duration_hours>1</duration_hours>
+                <description>Weekly budget review and planning (can be done during work hours)</description>
+            </budgeting>
+        </household_tasks>
+        
+        <couple_activities_weekly>
+            <emotional_check_in>
+                <frequency>weekly</frequency>
+                <preferred_day>Sunday</preferred_day>
+                <preferred_time>10:00</preferred_time>
+                <duration_minutes>30</duration_minutes>
+                <description>Share feelings, concerns, and needs without judgment</description>
+                <connection_depth>9</connection_depth>
+                <emotional_safety>10</emotional_safety>
+            </emotional_check_in>
+            <device_free_dinner>
+                <frequency>2-3_times_weekly</frequency>
+                <duration_hours>1</duration_hours>
+                <location>Various Toronto restaurants</location>
+                <cost_cad>60</cost_cad>
+                <description>Uninterrupted dinner conversation without phones</description>
+                <connection_depth>8</connection_depth>
+                <emotional_safety>8</emotional_safety>
+            </device_free_dinner>
+        </couple_activities_weekly>
+        
+        <networking_requirements>
+            <minimum_activities>3</minimum_activities>
+            <description>Minimum 3 networking activities per week (Kevin's priority)</description>
+            <preferred_times>18:30-20:30</preferred_times>
+            <networking_potential_minimum>6</networking_potential_minimum>
+        </networking_requirements>
+    </weekly_requirements>
+
+    <!-- MONTHLY REQUIREMENTS -->
+    <monthly_requirements>
+        <swimming>
+            <frequency>twice_per_month</frequency>
+            <max_frequency>twice_per_month</max_frequency>
+            <description>MAXIMUM twice per month - NEVER during work hours</description>
+            <options>
+                <masters_class>
+                    <location>Pam McConnell Aquatic Centre, 274 Cherry St, Toronto</location>
+                    <cost_cad>15</cost_cad>
+                    <transit>TTC: King St + 504 streetcar</transit>
+                    <car>Free parking</car>
+                    <website>toronto.ca/aquatics</website>
+                    <tips>Bring swimwear, towel, $15 drop-in fee</tips>
+                    <networking_potential>3</networking_potential>
+                </masters_class>
+                <self_guided>
+                    <location>Community pools with lane swimming</location>
+                    <cost_cad>10</cost_cad>
+                    <description>Self-guided practice sessions</description>
+                </self_guided>
+            </options>
+        </swimming>
+        
+        <tennis_padel>
+            <frequency>2-3_times_per_month</frequency>
+            <max_frequency>3_times_per_month</max_frequency>
+            <description>2-3 times per month maximum - NEVER during work hours</description>
+            <class_options>
+                <breakpoint_club>
+                    <location>Various Toronto locations</location>
+                    <cost_cad>25</cost_cad>
+                    <description>Use schedule data to find classes that fit Kevin's non-work hours</description>
+                    <networking_potential>6</networking_potential>
+                </breakpoint_club>
+                <community_courts>
+                    <location>Rosedale Tennis Club, 1 Rosedale Rd, Toronto</location>
+                    <cost_cad>30</cost_cad>
+                    <transit>TTC: Rosedale Station + 10min walk</transit>
+                    <car>Member parking</car>
+                    <website>rosedaletennisclub.com</website>
+                    <tips>Call ahead, bring racquet or rent</tips>
+                    <networking_potential>4</networking_potential>
+                </community_courts>
+            </class_options>
+        </tennis_padel>
+        
+        <personal_care_monthly>
+            <deep_skincare>
+                <frequency>monthly</frequency>
+                <duration_minutes>45</duration_minutes>
+                <preferred_day>first_Sunday</preferred_day>
+            </deep_skincare>
+            <hair_styling>
+                <frequency>monthly</frequency>
+                <duration_minutes>30</duration_minutes>
+                <cost_cad>40</cost_cad>
+            </hair_styling>
+            <wardrobe_organization>
+                <frequency>monthly</frequency>
+                <duration_hours>1</duration_hours>
+                <preferred_day>last_Saturday</preferred_day>
+            </wardrobe_organization>
+        </personal_care_monthly>
+        
+        <couple_activities_monthly>
+            <goal_planning_session>
+                <frequency>monthly</frequency>
+                <preferred_day>first_Sunday</preferred_day>
+                <preferred_time>11:00</preferred_time>
+                <duration_hours>1</duration_hours>
+                <description>Plan and align on shared monthly goals and individual support</description>
+                <connection_depth>8</connection_depth>
+                <emotional_safety>8</emotional_safety>
+            </goal_planning_session>
+            <try_something_new>
+                <frequency>monthly</frequency>
+                <duration_hours>2</duration_hours>
+                <cost_cad>80</cost_cad>
+                <description>Explore new activity, cuisine, or experience neither has tried</description>
+                <research_sources>BlogTO, Narcity, Eventbrite</research_sources>
+                <connection_depth>7</connection_depth>
+                <emotional_safety>6</emotional_safety>
+            </try_something_new>
+            <massage_exchange>
+                <frequency>2-3_times_monthly</frequency>
+                <duration_minutes>30</duration_minutes>
+                <location>Home</location>
+                <preferred_time>21:00</preferred_time>
+                <description>Take turns giving each other relaxing massages</description>
+                <connection_depth>9</connection_depth>
+                <emotional_safety>9</emotional_safety>
+            </massage_exchange>
+        </couple_activities_monthly>
+        
+        <entertainment>
+            <drag_show>
+                <frequency>monthly</frequency>
+                <duration_hours>2</duration_hours>
+                <preferred_time>21:00</preferred_time>
+                <cost_cad>40</cost_cad>
+                <location>Toronto LGBTQ+ venues</location>
+                <networking_potential>7</networking_potential>
+            </drag_show>
+        </entertainment>
+    </monthly_requirements>
+
+    <!-- BI-WEEKLY REQUIREMENTS -->
+    <bi_weekly_requirements>
+        <personal_care>
+            <haircut_trim>
+                <frequency>bi_weekly</frequency>
+                <duration_minutes>45</duration_minutes>
+                <cost_cad>50</cost_cad>
+                <preferred_day>Saturday</preferred_day>
+            </haircut_trim>
+            <eyebrow_grooming>
+                <frequency>bi_weekly</frequency>
+                <duration_minutes>20</duration_minutes>
+                <cost_cad>25</cost_cad>
+            </eyebrow_grooming>
+        </personal_care>
+    </bi_weekly_requirements>
+
+    <!-- QUARTERLY REQUIREMENTS -->
+    <quarterly_requirements>
+        <entertainment>
+            <comedy_show>
+                <frequency>every_two_months</frequency>
+                <duration_hours>2</duration_hours>
+                <preferred_time>20:00</preferred_time>
+                <cost_cad>45</cost_cad>
+                <location>Second City Toronto, 51 Mercer St, Toronto</location>
+                <transit>TTC: St. Andrew Station + 8min walk</transit>
+                <car>Parking nearby $10-15</car>
+                <website>secondcity.com</website>
+                <tips>Arrive 15min early</tips>
+                <networking_potential>6</networking_potential>
+            </comedy_show>
+            <theatre_show>
+                <frequency>every_two_months</frequency>
+                <duration_hours>2.5</duration_hours>
+                <preferred_time>19:30</preferred_time>
+                <cost_cad>80</cost_cad>
+                <location>Toronto Theatre District</location>
+                <networking_potential>5</networking_potential>
+            </theatre_show>
+        </entertainment>
+    </quarterly_requirements>
+
+    <!-- PROCESSING INSTRUCTIONS -->
+    <processing_instructions>
+        <priority_order>
+            <level_1>absolute_constraints</level_1>
+            <level_2>daily_requirements</level_2>
+            <level_3>weekly_requirements</level_3>
+            <level_4>monthly_requirements</level_4>
+            <level_5>bi_weekly_requirements</level_5>
+            <level_6>quarterly_requirements</level_6>
+        </priority_order>
+        
+        <conflict_resolution>
+            <rule_1>Work hours constraints override all other activities</rule_1>
+            <rule_2>Daily requirements must be scheduled every day</rule_2>
+            <rule_3>Weekly requirements must be distributed across the week</rule_3>
+            <rule_4>Monthly frequencies are MAXIMUM limits, not minimums</rule_4>
+            <rule_5>All dates must be 2025 onwards</rule_5>
+            <rule_6>Swimming and tennis class schedules are reference data only - use to find suitable times</rule_6>
+        </conflict_resolution>
+        
+        <schedule_generation_rules>
+            <date_handling>Always use 2025+ dates, calculate correct days of week</date_handling>
+            <work_hours>Block 09:00-18:00 Mon-Fri for work activities only</work_hours>
+            <activity_details>Include full Toronto addresses, websites, transit, costs, tips</activity_details>
+            <networking_priority>Ensure minimum 3 networking activities per week</networking_priority>
+            <couple_focus>Include habit stacking and emotional safety activities</couple_focus>
+            <frequency_limits>Respect maximum frequencies for swimming (2/month) and tennis (3/month)</frequency_limits>
+        </schedule_generation_rules>
+    </processing_instructions>
+</master_schedule_requirements>

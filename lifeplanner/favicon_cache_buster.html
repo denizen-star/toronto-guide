@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔄 LifePlanner - Favicon Cache Buster</title>
+    
+    <!-- Force new favicon with cache busting -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png?v=2">
+    <link rel="icon" type="image/png" sizes="48x48" href="/static/favicons/favicon-48x48.png?v=2">
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            color: white;
+            padding: 40px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            font-weight: 200;
+            margin-bottom: 30px;
+            color: #3498db;
+        }
+        
+        .instructions {
+            background: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid #3498db;
+            padding: 30px;
+            border-radius: 0 15px 15px 0;
+            text-align: left;
+            margin: 30px 0;
+        }
+        
+        .method {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .method h3 {
+            color: #3498db;
+            margin-top: 0;
+        }
+        
+        .method ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        
+        .method li {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+        
+        .test-section {
+            background: rgba(39, 174, 96, 0.1);
+            border-left: 4px solid #27ae60;
+            padding: 25px;
+            border-radius: 0 15px 15px 0;
+            margin: 30px 0;
+        }
+        
+        .favicon-test {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background-image: url('/static/favicons/favicon-32x32.png?v=2');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 20px;
+            border: 2px solid #444;
+            border-radius: 8px;
+            padding: 5px;
+        }
+        
+        .shortcut {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 0 15px 15px 0;
+            margin: 30px 0;
+        }
+        
+        kbd {
+            background: #333;
+            border: 1px solid #555;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Favicon Cache Buster</h1>
+        <p>Your circular favicon is ready, but browsers cache favicons aggressively. Here's how to see it:</p>
+        
+        <div class="instructions">
+            <h2>🎯 Quick Test</h2>
+            <p>If you can see the circular favicon below, then the new favicon is working and it's just a browser cache issue:</p>
+            <div style="text-align: center;">
+                <div class="favicon-test"></div>
+                <p><small>↑ This should show your circular rainbow logo</small></p>
+            </div>
+        </div>
+        
+        <div class="shortcut">
+            <h3>⚡ Fastest Solution</h3>
+            <p><strong>Hard refresh this page:</strong></p>
+            <ul>
+                <li><strong>Mac:</strong> <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd></li>
+                <li><strong>Windows:</strong> <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd></li>
+                <li><strong>Or:</strong> <kbd>Cmd/Ctrl</kbd> + <kbd>F5</kbd></li>
+            </ul>
+        </div>
+        
+        <div class="method">
+            <h3>Method 1: Hard Refresh (Recommended)</h3>
+            <ol>
+                <li>Go to <strong>http://localhost:8082</strong></li>
+                <li>Press <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd> (Mac) or <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd> (Windows)</li>
+                <li>This forces the browser to reload all assets including the favicon</li>
+            </ol>
+        </div>
+        
+        <div class="method">
+            <h3>Method 2: Clear Browser Cache</h3>
+            <ol>
+                <li>Open Developer Tools (<kbd>F12</kbd>)</li>
+                <li>Right-click the refresh button</li>
+                <li>Select "Empty Cache and Hard Reload"</li>
+                <li>Or go to Settings → Privacy → Clear Browsing Data → Cached images and files</li>
+            </ol>
+        </div>
+        
+        <div class="method">
+            <h3>Method 3: Private/Incognito Window</h3>
+            <ol>
+                <li>Open a new incognito/private window</li>
+                <li>Go to <strong>http://localhost:8082</strong></li>
+                <li>The favicon should appear immediately (no cache)</li>
+            </ol>
+        </div>
+        
+        <div class="method">
+            <h3>Method 4: Direct Favicon Access</h3>
+            <ol>
+                <li>Visit <strong>http://localhost:8082/favicon.ico</strong> directly</li>
+                <li>You should see/download the circular favicon file</li>
+                <li>Then go back to <strong>http://localhost:8082</strong></li>
+            </ol>
+        </div>
+        
+        <div class="test-section">
+            <h3>✅ Verification</h3>
+            <p>Once you see the favicon, you'll know it worked because:</p>
+            <ul>
+                <li>🟢 The favicon will be <strong>circular</strong> (not square)</li>
+                <li>🟢 It will have your <strong>rainbow logo</strong> image</li>
+                <li>🟢 No white background in dark mode</li>
+                <li>🟢 Looks great in the browser tab</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 50px; padding: 30px; background: rgba(255,255,255,0.05); border-radius: 15px;">
+            <h3>🌐 Test Links</h3>
+            <p>Try these links to test the favicon:</p>
+            <ul style="list-style: none; padding: 0;">
+                <li><a href="http://localhost:8082" style="color: #3498db;">http://localhost:8082</a> - Main page</li>
+                <li><a href="http://localhost:8082/favicon.ico" style="color: #3498db;">http://localhost:8082/favicon.ico</a> - Direct favicon</li>
+                <li><a href="http://localhost:8082/static/favicons/favicon-32x32.png" style="color: #3498db;">32×32 PNG version</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // Force favicon refresh
+        (function() {
+            var link = document.createElement('link');
+            link.type = 'image/x-icon';
+            link.rel = 'shortcut icon';
+            link.href = '/favicon.ico?v=' + Date.now();
+            document.getElementsByTagName('head')[0].appendChild(link);
+        })();
+    </script>
+</body>
+</html>

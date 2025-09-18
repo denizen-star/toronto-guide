@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifePlanner - Branding Assets Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 4em;
+            font-weight: 200;
+            margin: 0 0 20px 0;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.5em;
+            font-weight: 300;
+            margin: 0 0 50px 0;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px 80px 40px;
+        }
+        
+        .assets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .asset-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .asset-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+        }
+        
+        .asset-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px auto;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            color: white;
+        }
+        
+        .favicon-icon { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .social-icon { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .web-icon { background: linear-gradient(135deg, #27ae60, #229954); }
+        .mobile-icon { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .guide-icon { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        
+        .asset-title {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .asset-description {
+            color: #6c757d;
+            font-size: 1.1em;
+            text-align: center;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .asset-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .asset-link {
+            padding: 12px 25px;
+            background: #f8f9fa;
+            color: #2c3e50;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid #e9ecef;
+        }
+        
+        .asset-link:hover {
+            background: #2c3e50;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .primary-link {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+        
+        .primary-link:hover {
+            background: #2980b9;
+            border-color: #2980b9;
+        }
+        
+        .logo-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 60px 0;
+        }
+        
+        .logo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        
+        .logo-display {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .rainbow-logo {
+            background-image: url('./rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .logo1-display {
+            background-image: url('./logo1/Logo1.png');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .logo-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .logo-subtitle {
+            color: #6c757d;
+            font-size: 1.1em;
+        }
+        
+        .quick-start {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px 0;
+            color: white;
+            text-align: center;
+        }
+        
+        .quick-start h2 {
+            font-size: 2.5em;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        
+        .quick-start p {
+            font-size: 1.2em;
+            font-weight: 300;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .quick-start-link {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: #2c3e50;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-start-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+        }
+        
+        .footer {
+            text-align: center;
+            color: rgba(255,255,255,0.8);
+            padding: 40px;
+            font-size: 1.1em;
+            font-weight: 300;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .stat-card {
+            text-align: center;
+            color: white;
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: 200;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1em;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>LifePlanner</h1>
+        <p>Complete Branding Assets & Guidelines</p>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Logo Variants</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Asset Formats</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Brand Compliant</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Growth Potential</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="logo-showcase">
+            <div class="logo-card">
+                <div class="logo-display rainbow-logo"></div>
+                <div class="logo-title">Rainbow Logo</div>
+                <div class="logo-subtitle">Primary Brand Identity</div>
+            </div>
+            
+            <div class="logo-card">
+                <div class="logo-display logo1-display"></div>
+                <div class="logo-title">Logo1</div>
+                <div class="logo-subtitle">Secondary Brand Identity</div>
+            </div>
+        </div>
+        
+        <div class="quick-start">
+            <h2>Start with Brand Guidelines</h2>
+            <p>Understanding our brand essence, color palette, and usage guidelines</p>
+            <a href="./brand_guidelines/LifePlanner_Brand_Guidelines.html" class="quick-start-link">View Brand Guidelines</a>
+        </div>
+        
+        <div class="assets-grid">
+            <div class="asset-card">
+                <div class="asset-icon favicon-icon">🎯</div>
+                <div class="asset-title">Favicons & App Icons</div>
+                <div class="asset-description">
+                    Complete set of favicon assets in all standard sizes (16px to 512px) for both logo variants. Perfect for websites, web apps, and browser compatibility.
+                </div>
+                <div class="asset-links">
+                    <a href="./favicons/rainbow_logo_favicons.html" class="asset-link primary-link">Rainbow Logo</a>
+                    <a href="./favicons/logo1_favicons.html" class="asset-link">Logo1</a>
+                </div>
+            </div>
+            
+            <div class="asset-card">
+                <div class="asset-icon social-icon">📱</div>
+                <div class="asset-title">Social Media Assets</div>
+                <div class="asset-description">
+                    Professional social media assets including profile pictures, cover images, and banners for Twitter, Facebook, Instagram, and LinkedIn.
+                </div>
+                <div class="asset-links">
+                    <a href="./social/rainbow_logo_social_assets.html" class="asset-link primary-link">Rainbow Logo</a>
+                    <a href="./social/logo1_social_assets.html" class="asset-link">Logo1</a>
+                </div>
+            </div>
+            
+            <div class="asset-card">
+                <div class="asset-icon web-icon">🌐</div>
+                <div class="asset-title">Web Headers & Banners</div>
+                <div class="asset-description">
+                    Comprehensive web assets including navigation headers, hero banners, section headers, and email templates with minimalist zen aesthetic.
+                </div>
+                <div class="asset-links">
+                    <a href="./web_assets/rainbow_logo_web_headers.html" class="asset-link primary-link">Rainbow Logo</a>
+                    <a href="./web_assets/logo1_web_headers.html" class="asset-link">Logo1</a>
+                </div>
+            </div>
+            
+            <div class="asset-card">
+                <div class="asset-icon mobile-icon">📲</div>
+                <div class="asset-title">Mobile App Store Assets</div>
+                <div class="asset-description">
+                    Complete mobile app icon sets for iOS and Android app stores, including all required sizes and formats with implementation guidelines.
+                </div>
+                <div class="asset-links">
+                    <a href="./mobile_ready/mobile_app_assets.html" class="asset-link primary-link">View All Assets</a>
+                </div>
+            </div>
+            
+            <div class="asset-card">
+                <div class="asset-icon guide-icon">📚</div>
+                <div class="asset-title">Brand Guidelines</div>
+                <div class="asset-description">
+                    Comprehensive brand guidelines including color palette, typography, usage rules, and implementation specifications for consistent brand application.
+                </div>
+                <div class="asset-links">
+                    <a href="./brand_guidelines/LifePlanner_Brand_Guidelines.html" class="asset-link primary-link">View Guidelines</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="quick-start" style="margin-top: 80px;">
+            <h2>Professional • Clean • Minimalist Zen • Warm</h2>
+            <p>Every asset designed to support conscious living and intentional growth</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>LifePlanner Branding Assets Hub</p>
+        <p>Empowering adults to live fuller, conscious, and intentional lives</p>
+    </div>
+</body>
+</html>

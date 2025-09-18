@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  lifeplanner:
+    build: .
+    container_name: lifeplanner
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+    environment:
+      - PYTHONPATH=/app
+    command: ["python", "-m", "src.cli.life_planner_cli", "generate", "--start-date", "2024-01-15", "--duration", "1 week", "--type", "integrated", "--output", "markdown", "--file", "/app/output/schedule.md"]
+    
+  # Optional: Add a web interface service in the future
+  # web:
+  #   build: .
+  #   container_name: lifeplanner-web
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - ./data:/app/data
+  #   command: ["python", "-m", "src.web.app"]
+

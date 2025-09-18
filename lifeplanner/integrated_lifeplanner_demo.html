@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LifePlanner with Outcome Tracking</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* Import your existing LifePlanner styles */
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            margin: 0; padding: 0; background: #f8f9fa; 
+        }
+        
+        .header { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; padding: 20px; text-align: center; 
+        }
+        
+        .main-container { 
+            display: grid; grid-template-columns: 1fr 300px; gap: 20px; 
+            max-width: 1400px; margin: 0 auto; padding: 20px; 
+        }
+        
+        .calendar-section { background: white; border-radius: 12px; padding: 20px; }
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+        
+        /* Progress Widgets */
+        .progress-widget { 
+            background: white; border-radius: 12px; padding: 20px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+        .widget-title { font-weight: bold; margin-bottom: 15px; color: #2c3e50; }
+        .streak-item { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 8px 0; border-bottom: 1px solid #eee; 
+        }
+        .streak-item:last-child { border-bottom: none; }
+        .streak-name { font-size: 0.9em; }
+        .streak-days { color: #e74c3c; font-weight: bold; }
+        
+        .progress-bar-container { margin: 10px 0; }
+        .progress-bar { 
+            background: #eee; height: 8px; border-radius: 4px; overflow: hidden; 
+        }
+        .progress-fill { 
+            background: linear-gradient(90deg, #56ab2f 0%, #a8e6cf 100%); 
+            height: 100%; transition: width 0.3s ease; 
+        }
+        .progress-text { font-size: 0.9em; color: #666; margin-top: 5px; }
+        
+        .rating-display { 
+            text-align: center; padding: 15px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; border-radius: 8px; 
+        }
+        .rating-score { font-size: 2em; font-weight: bold; }
+        .rating-grade { font-size: 1.2em; margin-top: 5px; }
+        
+        /* Activity Tiles - Enhanced */
+        .day-section { margin-bottom: 30px; }
+        .day-title { 
+            font-size: 1.4em; font-weight: bold; color: #2c3e50; 
+            border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-bottom: 20px; 
+        }
+        
+        .activity-tile { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 15px; margin: 10px 0; border-radius: 10px; 
+            cursor: pointer; transition: all 0.3s ease; position: relative;
+            border: none; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .activity-tile:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        .activity-tile.completed { 
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+            box-shadow: 0 4px 15px rgba(86, 171, 47, 0.3);
+        }
+        .activity-tile.missed { 
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa8a8 100%);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .activity-time { font-size: 0.9em; opacity: 0.9; margin-bottom: 5px; }
+        .activity-name { font-weight: bold; font-size: 1.1em; margin-bottom: 8px; }
+        .activity-outcome { font-size: 0.85em; opacity: 0.8; }
+        .activity-streak { 
+            position: absolute; top: 10px; right: 15px; 
+            background: rgba(255,255,255,0.2); padding: 4px 8px; 
+            border-radius: 15px; font-size: 0.8em; 
+        }
+        .click-hint { 
+            text-align: center; margin-top: 5px; font-size: 0.75em; 
+            opacity: 0.7; font-style: italic; 
+        }
+        
+        /* Completion Modal */
+        .modal { 
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0; 
+            width: 100%; height: 100%; background: rgba(0,0,0,0.5); 
+        }
+        .modal-content { 
+            background: white; margin: 5% auto; padding: 30px; width: 90%; max-width: 500px; 
+            border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+        }
+        .modal-header { 
+            text-align: center; margin-bottom: 25px; 
+            border-bottom: 2px solid #eee; padding-bottom: 15px; 
+        }
+        .modal-title { font-size: 1.3em; font-weight: bold; color: #2c3e50; }
+        .modal-subtitle { color: #7f8c8d; margin-top: 5px; }
+        
+        .completion-options { margin: 20px 0; }
+        .completion-btn { 
+            display: block; width: 100%; padding: 15px; margin: 10px 0; 
+            border: 2px solid #ddd; border-radius: 10px; background: white; 
+            cursor: pointer; transition: all 0.3s ease; font-size: 1em; 
+        }
+        .completion-btn.completed { 
+            background: #2ecc71; color: white; border-color: #27ae60; 
+        }
+        .completion-btn.missed { 
+            background: #e74c3c; color: white; border-color: #c0392b; 
+        }
+        .completion-btn:hover { transform: translateY(-1px); }
+        
+        .rating-section { margin: 20px 0; }
+        .rating-label { font-weight: bold; margin-bottom: 10px; display: block; }
+        .rating-container { display: flex; align-items: center; gap: 15px; }
+        .rating-slider { flex: 1; }
+        .rating-value { 
+            background: #3498db; color: white; padding: 8px 12px; 
+            border-radius: 20px; font-weight: bold; min-width: 40px; text-align: center; 
+        }
+        
+        .notes-section { margin: 20px 0; }
+        .notes-textarea { 
+            width: 100%; height: 80px; padding: 12px; border: 2px solid #ddd; 
+            border-radius: 8px; font-family: inherit; resize: vertical; 
+        }
+        .notes-textarea:focus { border-color: #3498db; outline: none; }
+        
+        .expected-outcomes { 
+            background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; 
+        }
+        .expected-outcomes h4 { margin-top: 0; color: #2c3e50; }
+        .outcome-item { margin: 8px 0; color: #555; }
+        
+        .modal-actions { 
+            display: flex; gap: 15px; margin-top: 25px; 
+            border-top: 2px solid #eee; padding-top: 20px; 
+        }
+        .btn { 
+            flex: 1; padding: 12px; border: none; border-radius: 8px; 
+            cursor: pointer; font-size: 1em; font-weight: bold; 
+            transition: all 0.3s ease; 
+        }
+        .btn-primary { background: #3498db; color: white; }
+        .btn-primary:hover { background: #2980b9; }
+        .btn-secondary { background: #95a5a6; color: white; }
+        .btn-secondary:hover { background: #7f8c8d; }
+        
+        .success-message { 
+            background: #d4edda; color: #155724; padding: 15px; 
+            border-radius: 8px; margin: 15px 0; border: 1px solid #c3e6cb; 
+        }
+        
+        @media (max-width: 768px) {
+            .main-container { 
+                grid-template-columns: 1fr; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 LifePlanner with Outcome Tracking</h1>
+        <p>September 17, 2025 • Click any activity to record completion</p>
+    </div>
+    
+    <div class="main-container">
+        <!-- Main Calendar Section -->
+        <div class="calendar-section">
+            <div id="calendar-container">
+                <!-- Morning Routine -->
+                <div class="day-section">
+                    <div class="day-title">🌅 Morning Routine</div>
+                    
+                    <div class="activity-tile" data-activity="wake_up_intention" onclick="outcomeCalendar.openCompletionModal('wake_up_intention')">
+                        <div class="activity-streak">🔥 8 days</div>
+                        <div class="activity-time">6:00 - 6:15 AM</div>
+                        <div class="activity-name">Be Proactive - Wake Up & Intention</div>
+                        <div class="activity-outcome">Expected: +15% goal clarity, enhanced self-efficacy</div>
+                        <div class="click-hint">Click to record completion</div>
+                    </div>
+                    
+                    <div class="activity-tile" data-activity="goal_visualization" onclick="outcomeCalendar.openCompletionModal('goal_visualization')">
+                        <div class="activity-streak">🔥 12 days</div>
+                        <div class="activity-time">6:15 - 6:45 AM</div>
+                        <div class="activity-name">Begin with the End in Mind - Goal Visualization</div>
+                        <div class="activity-outcome">Expected: +23% goal achievement, increased motivation</div>
+                        <div class="click-hint">Click to record completion</div>
+                    </div>
+                    
+                    <div class="activity-tile" data-activity="progressive_meditation" onclick="outcomeCalendar.openCompletionModal('progressive_meditation')">
+                        <div class="activity-streak">🔥 18 days</div>
+                        <div class="activity-time">6:45 - 6:47 AM</div>
+                        <div class="activity-name">Sharpen the Saw - Progressive Meditation</div>
+                        <div class="activity-outcome">Week 5: 2 minutes • Expected: 88% stress reduction, improved focus</div>
+                        <div class="click-hint">Click to record completion</div>
+                    </div>
+                </div>
+                
+                <!-- Exercise -->
+                <div class="day-section">
+                    <div class="day-title">🏃 Exercise</div>
+                    
+                    <div class="activity-tile" data-activity="physical_exercise" onclick="outcomeCalendar.openCompletionModal('physical_exercise')">
+                        <div class="activity-streak">🔥 28 days</div>
+                        <div class="activity-time">7:00 - 8:00 AM</div>
+                        <div class="activity-name">Tuesday Running (60 min)</div>
+                        <div class="activity-outcome">Expected: Increased BDNF, cardiovascular health, better sleep</div>
+                        <div class="click-hint">Click to record completion</div>
+                    </div>
+                </div>
+                
+                <!-- Evening -->
+                <div class="day-section">
+                    <div class="day-title">🌆 Evening</div>
+                    
+                    <div class="activity-tile" data-activity="networking_event" onclick="outcomeCalendar.openCompletionModal('networking_event')">
+                        <div class="activity-streak">New</div>
+                        <div class="activity-time">6:30 - 8:30 PM</div>
+                        <div class="activity-name">Toronto Data Science Meetup</div>
+                        <div class="activity-outcome">Expected: 2-5 new connections, career opportunities</div>
+                        <div class="click-hint">Click to record completion</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Weekly Progress Widget -->
+            <div class="progress-widget">
+                <div class="widget-title">📈 Weekly Progress</div>
+                
+                <div class="rating-display">
+                    <div class="rating-score">8.2</div>
+                    <div class="rating-grade">Grade: B+</div>
+                </div>
+                
+                <div class="progress-bar-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 82%;"></div>
+                    </div>
+                    <div class="progress-text">82% completion rate this week</div>
+                </div>
+                
+                <div class="streak-item">
+                    <span class="streak-name">🔥 Current Streaks:</span>
+                </div>
+                <div class="streak-item">
+                    <span class="streak-name">Progressive Meditation</span>
+                    <span class="streak-days">18 days</span>
+                </div>
+                <div class="streak-item">
+                    <span class="streak-name">Goal Visualization</span>
+                    <span class="streak-days">12 days</span>
+                </div>
+                <div class="streak-item">
+                    <span class="streak-name">Physical Exercise</span>
+                    <span class="streak-days">28 days</span>
+                </div>
+            </div>
+            
+            <!-- Outcome Preview Widget -->
+            <div class="progress-widget">
+                <div class="widget-title">🔮 Today's Expected Outcomes</div>
+                
+                <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; margin: 10px 0;">
+                    <strong>Top Outcomes:</strong><br>
+                    • 95% chance: Improved cardiovascular health<br>
+                    • 92% chance: Enhanced neuroplasticity<br>
+                    • 90% chance: Better goal clarity
+                </div>
+                
+                <div style="text-align: center; margin: 15px 0;">
+                    <strong>Overall Impact Score: 8.2/10</strong>
+                </div>
+                
+                <div style="font-size: 0.9em; color: #666;">
+                    🎯 Success Probability: 85%<br>
+                    🔥 Compound Benefits: Meditation + Exercise = 45% better stress management
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="progress-widget">
+                <div class="widget-title">⚡ Quick Actions</div>
+                
+                <button class="btn btn-primary" style="width: 100%; margin: 5px 0;" onclick="viewWeeklyReport()">
+                    📊 View Weekly Report
+                </button>
+                
+                <button class="btn btn-secondary" style="width: 100%; margin: 5px 0;" onclick="exportCalendar()">
+                    📤 Export Calendar
+                </button>
+                
+                <button class="btn btn-secondary" style="width: 100%; margin: 5px 0;" onclick="customizeGoals()">
+                    ⚙️ Customize Goals
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Completion Modal -->
+    <div id="completionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">Activity Completion</div>
+                <div class="modal-subtitle" id="modalSubtitle">Record your completion and experience</div>
+            </div>
+            
+            <div class="expected-outcomes" id="expectedOutcomes">
+                <h4>🎯 Expected Outcomes:</h4>
+                <div id="outcomesList"></div>
+            </div>
+            
+            <div class="completion-options">
+                <button class="completion-btn" id="completedBtn" onclick="setCompletion(true)">
+                    ✅ Completed - I did this activity
+                </button>
+                <button class="completion-btn" id="missedBtn" onclick="setCompletion(false)">
+                    ❌ Missed - I didn't do this activity
+                </button>
+            </div>
+            
+            <div class="rating-section">
+                <label class="rating-label">Effort Level (1 = Easy, 5 = Very Hard):</label>
+                <div class="rating-container">
+                    <input type="range" class="rating-slider" id="effortSlider" min="1" max="5" value="3">
+                    <div class="rating-value" id="effortValue">3</div>
+                </div>
+            </div>
+            
+            <div class="rating-section">
+                <label class="rating-label">Mood After (1 = Poor, 5 = Excellent):</label>
+                <div class="rating-container">
+                    <input type="range" class="rating-slider" id="moodSlider" min="1" max="5" value="3">
+                    <div class="rating-value" id="moodValue">3</div>
+                </div>
+            </div>
+            
+            <div class="notes-section">
+                <label class="rating-label">Notes (optional):</label>
+                <textarea class="notes-textarea" id="notesText" placeholder="How did it go? Any insights, challenges, or observations?"></textarea>
+            </div>
+            
+            <div id="successMessage" class="success-message" style="display: none;">
+                ✅ Activity recorded successfully! Your streak and progress have been updated.
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveCompletion()">Save Completion</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Include the outcome calendar JavaScript -->
+    <script src="static/outcome_calendar.js"></script>
+    
+    <script>
+        // Additional integration functions
+        function viewWeeklyReport() {
+            alert('📊 Weekly Report:\n\n• Overall Rating: 8.2/10 (B+)\n• Completion Rate: 82%\n• Current Streaks: Meditation (18 days), Exercise (28 days)\n• Next Milestone: Month Master in 12 days');
+        }
+        
+        function exportCalendar() {
+            alert('📤 Calendar exported to Google Calendar!\n\nAll activities with outcome predictions have been added to your calendar.');
+        }
+        
+        function customizeGoals() {
+            alert('⚙️ Goal Customization:\n\n• Add new trackable habits\n• Modify frequency (daily/weekly/monthly)\n• Set custom outcome targets\n• Adjust notification preferences');
+        }
+        
+        // Initialize demo data
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎯 LifePlanner with Outcome Tracking initialized!');
+            console.log('Click any activity tile to record completion and track outcomes.');
+        });
+    </script>
+</body>
+</html>

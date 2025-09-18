@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifePlanner - Brand Guidelines</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 3.5em;
+            font-weight: 200;
+            margin: 0 0 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.4em;
+            font-weight: 300;
+            margin: 0;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: 2.5em;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+        
+        .subsection-title {
+            font-size: 1.8em;
+            font-weight: 500;
+            color: #2c3e50;
+            margin: 40px 0 20px 0;
+        }
+        
+        .brand-essence {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .essence-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .essence-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .essence-card p {
+            font-size: 1.1em;
+            font-weight: 300;
+            margin: 0;
+        }
+        
+        .logo-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+        
+        .logo-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+        
+        .logo-primary {
+            border-color: #3498db;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e3f2fd 100%);
+        }
+        
+        .logo-secondary {
+            border-color: #95a5a6;
+            background: linear-gradient(135deg, #f8f9fa 0%, #f5f5f5 100%);
+        }
+        
+        .logo-display {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .rainbow-logo {
+            background-image: url('../../rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .logo1-display {
+            background-image: url('../../logo1/Logo1.png');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .logo-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .logo-description {
+            color: #6c757d;
+            font-size: 1.1em;
+        }
+        
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .color-card {
+            text-align: center;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .color-swatch {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .color-info {
+            background: white;
+            padding: 15px;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .color-code {
+            font-family: 'Monaco', 'Menlo', monospace;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        
+        .primary-blue { background: #3498db; }
+        .accent-purple { background: #667eea; }
+        .warm-coral { background: #ff6b6b; }
+        .zen-teal { background: #4ecdc4; }
+        .deep-navy { background: #2c3e50; }
+        .soft-gray { background: #95a5a6; }
+        
+        .typography-showcase {
+            margin: 40px 0;
+        }
+        
+        .font-example {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 5px solid #3498db;
+        }
+        
+        .font-name {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .h1-example { font-size: 2.5em; font-weight: 300; margin: 10px 0; }
+        .h2-example { font-size: 2em; font-weight: 400; margin: 10px 0; }
+        .h3-example { font-size: 1.5em; font-weight: 500; margin: 10px 0; }
+        .body-example { font-size: 1.1em; font-weight: 400; margin: 10px 0; }
+        .caption-example { font-size: 0.9em; font-weight: 400; color: #6c757d; margin: 10px 0; }
+        
+        .usage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .usage-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .usage-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .usage-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .usage-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+            color: #6c757d;
+        }
+        
+        .usage-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .usage-list li::before {
+            content: "✓";
+            color: #27ae60;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .dont-list li::before {
+            content: "✗";
+            color: #e74c3c;
+        }
+        
+        .implementation-code {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 25px;
+            border-radius: 12px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .specs-table th {
+            background: #3498db;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .specs-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .specs-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .specs-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .footer h3 {
+            font-size: 1.5em;
+            font-weight: 300;
+            margin-bottom: 15px;
+        }
+        
+        .footer p {
+            font-size: 1.1em;
+            font-weight: 300;
+            opacity: 0.8;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>LifePlanner</h1>
+        <p>Brand Guidelines & Identity System</p>
+    </div>
+    
+    <div class="container">
+        <!-- Brand Essence -->
+        <div class="section">
+            <h2 class="section-title">Brand Essence</h2>
+            <p style="font-size: 1.2em; color: #6c757d; margin-bottom: 40px;">
+                LifePlanner empowers adults seeking to live fuller, conscious, and intentional lives. We promote individual, couple, and group growth by recommending areas of focus and tracking meaningful progress.
+            </p>
+            
+            <div class="brand-essence">
+                <div class="essence-card">
+                    <h3>Professional</h3>
+                    <p>Clean, trustworthy design that inspires confidence in personal growth journey</p>
+                </div>
+                <div class="essence-card">
+                    <h3>Warm</h3>
+                    <p>Approachable and welcoming, creating a safe space for vulnerability and growth</p>
+                </div>
+                <div class="essence-card">
+                    <h3>Minimalist Zen</h3>
+                    <p>Uncluttered, peaceful aesthetic that promotes mindfulness and focus</p>
+                </div>
+                <div class="essence-card">
+                    <h3>Intentional</h3>
+                    <p>Every design element serves a purpose in supporting conscious living</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Logo System -->
+        <div class="section">
+            <h2 class="section-title">Logo System</h2>
+            
+            <div class="logo-showcase">
+                <div class="logo-card logo-primary">
+                    <div class="logo-display rainbow-logo"></div>
+                    <div class="logo-title">Rainbow Logo (Primary)</div>
+                    <div class="logo-description">
+                        Our primary brand identity featuring vibrant, warm colors that represent the full spectrum of life experiences and growth opportunities.
+                    </div>
+                </div>
+                
+                <div class="logo-card logo-secondary">
+                    <div class="logo-display logo1-display"></div>
+                    <div class="logo-title">Logo1 (Secondary)</div>
+                    <div class="logo-description">
+                        Our secondary brand identity providing a clean alternative for different contexts, campaigns, or when a more subtle approach is needed.
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="subsection-title">Logo Usage Guidelines</h3>
+            <div class="usage-grid">
+                <div class="usage-card">
+                    <div class="usage-title">✓ DO</div>
+                    <ul class="usage-list">
+                        <li>Use Rainbow Logo as primary choice</li>
+                        <li>Maintain clear space around logo</li>
+                        <li>Use high-resolution files</li>
+                        <li>Preserve original proportions</li>
+                        <li>Use Logo1 for secondary applications</li>
+                        <li>Test readability at small sizes</li>
+                    </ul>
+                </div>
+                
+                <div class="usage-card">
+                    <div class="usage-title">✗ DON'T</div>
+                    <ul class="usage-list dont-list">
+                        <li>Stretch or distort the logo</li>
+                        <li>Change colors or apply filters</li>
+                        <li>Add drop shadows or effects</li>
+                        <li>Use low-resolution images</li>
+                        <li>Place on busy backgrounds</li>
+                        <li>Rotate or skew the logo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Color Palette -->
+        <div class="section">
+            <h2 class="section-title">Color Palette</h2>
+            <p style="font-size: 1.1em; color: #6c757d; margin-bottom: 30px;">
+                Our color palette reflects the warmth and professionalism of conscious living, combining calming blues and teals with energizing accents.
+            </p>
+            
+            <div class="color-palette">
+                <div class="color-card">
+                    <div class="color-swatch primary-blue">#3498db</div>
+                    <div class="color-info">
+                        <div class="color-name">Primary Blue</div>
+                        <div class="color-code">#3498db</div>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch accent-purple">#667eea</div>
+                    <div class="color-info">
+                        <div class="color-name">Accent Purple</div>
+                        <div class="color-code">#667eea</div>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch warm-coral">#ff6b6b</div>
+                    <div class="color-info">
+                        <div class="color-name">Warm Coral</div>
+                        <div class="color-code">#ff6b6b</div>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch zen-teal">#4ecdc4</div>
+                    <div class="color-info">
+                        <div class="color-name">Zen Teal</div>
+                        <div class="color-code">#4ecdc4</div>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch deep-navy">#2c3e50</div>
+                    <div class="color-info">
+                        <div class="color-name">Deep Navy</div>
+                        <div class="color-code">#2c3e50</div>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch soft-gray">#95a5a6</div>
+                    <div class="color-info">
+                        <div class="color-name">Soft Gray</div>
+                        <div class="color-code">#95a5a6</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Typography -->
+        <div class="section">
+            <h2 class="section-title">Typography</h2>
+            
+            <div class="typography-showcase">
+                <div class="font-example">
+                    <div class="font-name">Primary Font: System Font Stack</div>
+                    <div class="implementation-code">
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                    </div>
+                    <div class="h1-example">Heading 1 - Transform Your Life (2.5em, 300 weight)</div>
+                    <div class="h2-example">Heading 2 - Your Growth Journey (2em, 400 weight)</div>
+                    <div class="h3-example">Heading 3 - Daily Progress (1.5em, 500 weight)</div>
+                    <div class="body-example">Body Text - Plan with intention. Grow with purpose. Live consciously. (1.1em, 400 weight)</div>
+                    <div class="caption-example">Caption Text - Supporting information and metadata (0.9em, 400 weight)</div>
+                </div>
+            </div>
+            
+            <h3 class="subsection-title">Typography Guidelines</h3>
+            <ul style="font-size: 1.1em; color: #6c757d;">
+                <li><strong>Hierarchy:</strong> Use consistent font weights to establish clear information hierarchy</li>
+                <li><strong>Readability:</strong> Maintain adequate line spacing (1.6) for comfortable reading</li>
+                <li><strong>Accessibility:</strong> Ensure sufficient color contrast for all text elements</li>
+                <li><strong>Responsive:</strong> Scale typography appropriately across different screen sizes</li>
+            </ul>
+        </div>
+        
+        <!-- Asset Specifications -->
+        <div class="section">
+            <h2 class="section-title">Asset Specifications</h2>
+            
+            <h3 class="subsection-title">Web & Digital Assets</h3>
+            <table class="specs-table">
+                <thead>
+                    <tr>
+                        <th>Asset Type</th>
+                        <th>Dimensions</th>
+                        <th>Format</th>
+                        <th>Usage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Favicon</td>
+                        <td>16×16px to 512×512px</td>
+                        <td>PNG, ICO</td>
+                        <td>Browser tabs, bookmarks</td>
+                    </tr>
+                    <tr>
+                        <td>Social Media Profile</td>
+                        <td>128×128px to 300×300px</td>
+                        <td>PNG, JPEG</td>
+                        <td>Twitter, Facebook, LinkedIn</td>
+                    </tr>
+                    <tr>
+                        <td>Social Media Cover</td>
+                        <td>820×312px to 1584×396px</td>
+                        <td>JPEG, PNG</td>
+                        <td>Platform cover images</td>
+                    </tr>
+                    <tr>
+                        <td>Web Banners</td>
+                        <td>728×90px, 320×50px</td>
+                        <td>PNG, JPEG</td>
+                        <td>Advertising, marketing</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3 class="subsection-title">Mobile App Assets</h3>
+            <table class="specs-table">
+                <thead>
+                    <tr>
+                        <th>Platform</th>
+                        <th>Asset Type</th>
+                        <th>Dimensions</th>
+                        <th>Format</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>iOS</td>
+                        <td>App Icons</td>
+                        <td>20×20px to 1024×1024px</td>
+                        <td>PNG</td>
+                    </tr>
+                    <tr>
+                        <td>iOS</td>
+                        <td>App Store</td>
+                        <td>1024×1024px</td>
+                        <td>PNG</td>
+                    </tr>
+                    <tr>
+                        <td>Android</td>
+                        <td>App Icons</td>
+                        <td>48×48px to 192×192px</td>
+                        <td>PNG</td>
+                    </tr>
+                    <tr>
+                        <td>Android</td>
+                        <td>Play Store</td>
+                        <td>512×512px</td>
+                        <td>PNG</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Implementation -->
+        <div class="section">
+            <h2 class="section-title">Implementation</h2>
+            
+            <h3 class="subsection-title">CSS Variables</h3>
+            <div class="implementation-code">
+:root {
+  /* Primary Colors */
+  --primary-blue: #3498db;
+  --accent-purple: #667eea;
+  --warm-coral: #ff6b6b;
+  --zen-teal: #4ecdc4;
+  --deep-navy: #2c3e50;
+  --soft-gray: #95a5a6;
+  
+  /* Typography */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  
+  /* Spacing */
+  --border-radius: 12px;
+  --shadow: 0 4px 12px rgba(0,0,0,0.1);
+  --transition: all 0.3s ease;
+}
+            </div>
+            
+            <h3 class="subsection-title">Brand Implementation Checklist</h3>
+            <div class="usage-grid">
+                <div class="usage-card">
+                    <div class="usage-title">Design Elements</div>
+                    <ul class="usage-list">
+                        <li>Use consistent color palette</li>
+                        <li>Maintain typography hierarchy</li>
+                        <li>Apply proper logo usage</li>
+                        <li>Ensure adequate white space</li>
+                        <li>Use rounded corners (12px radius)</li>
+                        <li>Apply subtle shadows for depth</li>
+                    </ul>
+                </div>
+                
+                <div class="usage-card">
+                    <div class="usage-title">User Experience</div>
+                    <ul class="usage-list">
+                        <li>Prioritize accessibility</li>
+                        <li>Ensure responsive design</li>
+                        <li>Use smooth transitions</li>
+                        <li>Maintain consistent interactions</li>
+                        <li>Test across devices</li>
+                        <li>Validate color contrast</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <h3>LifePlanner Brand Guidelines</h3>
+        <p>Professional • Clean • Minimalist Zen • Warm</p>
+        <p style="margin-top: 20px; font-size: 0.9em;">
+            For questions about brand implementation or additional assets, contact the design team.
+        </p>
+    </div>
+</body>
+</html>
