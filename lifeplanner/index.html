@@ -3,260 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LifePlanner - Intelligent Lifestyle Management</title>
-    
-    <!-- LifePlanner Rainbow Logo Favicons -->
-    <link rel="icon" type="image/x-icon" href="../assets/branding/favicons/transparent/favicon.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/branding/favicons/transparent/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/branding/favicons/transparent/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="../assets/branding/favicons/transparent/favicon-48x48.png">
-    
-    <!-- Apple Touch Icons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="../assets/branding/mobile_ready/ios/rainbow_logo_resized/icon-180x180.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="../assets/branding/favicons/web/rainbow_logo_resized/favicon-128x128.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="../assets/branding/mobile_ready/ios/rainbow_logo_resized/icon-120x120.png">
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="../assets/branding/favicons/manifest.json">
-    <meta name="theme-color" content="#3498db">
-    
-    <!-- Microsoft Tiles -->
-    <meta name="msapplication-TileColor" content="#3498db">
-    <meta name="msapplication-TileImage" content="../assets/branding/favicons/web/rainbow_logo_resized/favicon-256x256.png">
-    <meta name="msapplication-config" content="../assets/branding/favicons/browserconfig.xml">
-    
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <title>LifePlanner - Kevin's Schedule Versions</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1200px; margin: 0 auto; background: white;
+            border-radius: 20px; padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        .header { text-align: center; margin-bottom: 50px; }
+        .logo { font-size: 4rem; margin-bottom: 10px; }
+        .title { font-size: 2.5rem; font-weight: 700; color: #333; margin-bottom: 10px; }
+        .subtitle { font-size: 1.2rem; color: #666; margin-bottom: 30px; }
+        .versions { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
+        .version-card {
+            background: #f8f9fa; border-radius: 15px; padding: 30px;
+            text-align: center; transition: all 0.3s ease; cursor: pointer;
+            border: 3px solid transparent;
+        }
+        .version-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .working-kevin { border-left: 6px solid #28a745; }
+        .job-search-kevin { border-left: 6px solid #007bff; }
+        .version-icon { font-size: 3rem; margin-bottom: 20px; }
+        .version-title { font-size: 1.8rem; font-weight: 700; color: #333; margin-bottom: 15px; }
+        .version-description { font-size: 1rem; color: #666; line-height: 1.6; margin-bottom: 25px; }
+        .schedule-preview {
+            background: white; border-radius: 10px; padding: 20px;
+            font-size: 0.9rem; color: #555; text-align: left;
+        }
+        .schedule-title { font-weight: 600; color: #333; margin-bottom: 10px; text-align: center; }
+        .schedule-item { margin: 5px 0; padding: 2px 0; }
+    </style>
 </head>
 <body>
-    <!-- Loading Overlay -->
-    <div id="loading-overlay" class="loading-overlay hidden">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Loading...</div>
-    </div>
-
-    <!-- Main Container -->
-    <div id="app" class="app-container">
-        <!-- Header -->
-        <header class="app-header">
-            <div class="header-content">
-                <div class="logo">
-                    <h1>🎯 LifePlanner</h1>
-                    <span class="version">v2.0 Enhanced</span>
-                </div>
-                
-                <!-- Status Indicators -->
-                <div class="status-indicators">
-                    <div id="api-status" class="status-indicator" title="API Connection">
-                        <span class="status-dot"></span>
-                        <span class="status-text">API</span>
-                    </div>
-                    <div id="persona-status" class="status-indicator" title="Active Persona">
-                        <span class="status-dot"></span>
-                        <span class="status-text">No Persona</span>
-                    </div>
-                </div>
-
-                <!-- Navigation -->
-                <nav class="main-nav">
-                    <button class="nav-btn active" data-tab="dashboard">Dashboard</button>
-                    <button class="nav-btn" data-tab="schedule">Schedule</button>
-                    <button class="nav-btn" data-tab="activities">Activities</button>
-                    <button class="nav-btn" data-tab="analytics">Analytics</button>
-                    <button class="nav-btn" data-tab="settings">Settings</button>
-                </nav>
-            </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="app-main">
-            <!-- Dashboard Tab -->
-            <section id="dashboard-tab" class="tab-content active">
-                <div class="dashboard-grid">
-                    <!-- Quick Actions -->
-                    <div class="card quick-actions">
-                        <h2>Quick Actions</h2>
-                        <div class="action-buttons">
-                            <button id="generate-schedule-btn" class="action-btn primary">
-                                📅 Generate Schedule
-                            </button>
-                            <button id="get-recommendations-btn" class="action-btn">
-                                🤖 Get AI Recommendations
-                            </button>
-                            <button id="check-weather-btn" class="action-btn">
-                                🌤️ Check Weather
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Persona Selection -->
-                    <div class="card persona-selection">
-                        <h2>Active Persona</h2>
-                        <div id="persona-selector-container">
-                            <select id="persona-selector" class="persona-select">
-                                <option value="">Select a persona...</option>
-                            </select>
-                            <div id="persona-info" class="persona-info hidden">
-                                <div class="persona-details"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- System Status -->
-                    <div class="card system-status">
-                        <h2>System Status</h2>
-                        <div id="system-status-content">
-                            <div class="status-item">
-                                <span class="status-label">API Connection:</span>
-                                <span id="api-connection-status" class="status-value">Testing...</span>
-                            </div>
-                            <div class="status-item">
-                                <span class="status-label">Total Activities:</span>
-                                <span id="total-activities" class="status-value">-</span>
-                            </div>
-                            <div class="status-item">
-                                <span class="status-label">Available Personas:</span>
-                                <span id="total-personas" class="status-value">-</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Schedule Tab -->
-            <section id="schedule-tab" class="tab-content">
-                <div class="schedule-container">
-                    <h2>Schedule Generation</h2>
-                    <div class="schedule-form-container">
-                        <form id="schedule-form" class="schedule-form">
-                            <div class="form-group">
-                                <label for="start-date">Start Date:</label>
-                                <input type="date" id="start-date" name="start-date" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="duration">Duration:</label>
-                                <select id="duration" name="duration" required>
-                                    <option value="1 week">1 Week</option>
-                                    <option value="2 weeks">2 Weeks</option>
-                                    <option value="1 month">1 Month</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="schedule-type">Schedule Type:</label>
-                                <select id="schedule-type" name="schedule-type" required>
-                                    <option value="integrated">Integrated</option>
-                                    <option value="individual">Individual</option>
-                                    <option value="couple">Couple</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Focus Areas:</label>
-                                <div class="focus-areas">
-                                    <label><input type="checkbox" value="fitness"> Fitness</label>
-                                    <label><input type="checkbox" value="networking"> Networking</label>
-                                    <label><input type="checkbox" value="cultural"> Cultural</label>
-                                    <label><input type="checkbox" value="creative"> Creative</label>
-                                </div>
-                            </div>
-                            
-                            <button type="submit" class="btn primary">Generate Schedule</button>
-                        </form>
-                    </div>
-                    
-                    <!-- Schedule Display -->
-                    <div id="schedule-display" class="schedule-display hidden">
-                        <h3>Generated Schedule</h3>
-                        <div id="schedule-content"></div>
-                        <div class="schedule-actions">
-                            <button id="export-schedule-btn" class="btn secondary">Export</button>
-                            <button id="regenerate-schedule-btn" class="btn">Regenerate</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Activities Tab -->
-            <section id="activities-tab" class="tab-content">
-                <div class="activities-container">
-                    <h2>Activity Management</h2>
-                    <p>Activity browser and management will be implemented in Phase 4.</p>
-                </div>
-            </section>
-
-            <!-- Analytics Tab -->
-            <section id="analytics-tab" class="tab-content">
-                <div class="analytics-container">
-                    <h2>Analytics Dashboard</h2>
-                    <p>Analytics and insights will be implemented in Phase 7.</p>
-                </div>
-            </section>
-
-            <!-- Settings Tab -->
-            <section id="settings-tab" class="tab-content">
-                <div class="settings-container">
-                    <h2>Settings</h2>
-                    <p>Settings management will be implemented in Phase 8.</p>
-                </div>
-            </section>
-        </main>
-
-        <!-- Footer -->
-        <footer class="app-footer">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <span>LifePlanner Enhanced v2.0</span>
-                    <span id="last-updated">Last updated: Never</span>
-                </div>
-                <div class="footer-actions">
-                    <button id="test-all-btn" class="btn small">🧪 Test All</button>
-                    <button id="clear-cache-btn" class="btn small">🗑️ Clear Cache</button>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🗓️</div>
+            <h1 class="title">LifePlanner</h1>
+            <p class="subtitle">Choose your Kevin version to get started</p>
+        </div>
+        <div class="versions">
+            <div class="version-card working-kevin">
+                <div class="version-icon">💼</div>
+                <h2 class="version-title">Working Kevin</h2>
+                <p class="version-description">
+                    Traditional work schedule with optimized personal time, fitness variety, and relationship focus.
+                </p>
+                <div class="schedule-preview">
+                    <div class="schedule-title">Schedule:</div>
+                    <div class="schedule-item">6:00-9:00 AM: Morning routine</div>
+                    <div class="schedule-item">9:00 AM-6:00 PM: Work hours</div>
+                    <div class="schedule-item">6:00-10:00 PM: Fitness, social, couple time</div>
                 </div>
             </div>
-        </footer>
-    </div>
-
-    <!-- Error Modal -->
-    <div id="error-modal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Error</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p id="error-message"></p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn secondary modal-close">Close</button>
+            <div class="version-card job-search-kevin">
+                <div class="version-icon">🚀</div>
+                <h2 class="version-title">Job Search Kevin</h2>
+                <p class="version-description">
+                    Career transition focus with job search sprints, skill development, and city exploration.
+                </p>
+                <div class="schedule-preview">
+                    <div class="schedule-title">Schedule:</div>
+                    <div class="schedule-item">6:00-9:00 AM: Morning routine</div>
+                    <div class="schedule-item">9:00 AM-12:00 PM: Job search sprint</div>
+                    <div class="schedule-item">12:00-2:00 PM: City exploration</div>
+                    <div class="schedule-item">2:00-5:00 PM: Skills + sports</div>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- Success Modal -->
-    <div id="success-modal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Success</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p id="success-message"></p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn primary modal-close">OK</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="js/utils.js"></script>
-    <script src="js/api.js"></script>
-    <script src="js/state.js"></script>
-    <script src="js/components.js"></script>
-    <script src="js/app.js"></script>
 </body>
 </html>
-
