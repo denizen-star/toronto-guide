@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daily Habit Completion Tracking</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; padding: 20px; }
+        .habit-item { background: #f5f5f5; margin: 10px 0; padding: 15px; border-radius: 8px; }
+        .habit-checkbox { transform: scale(1.5); margin-right: 15px; }
+        .habit-name { font-weight: bold; color: #333; }
+        .time-slot { color: #666; font-size: 0.9em; }
+        .rating-group { margin: 10px 0; }
+        .rating-group label { display: inline-block; width: 120px; }
+        .rating-slider { width: 200px; }
+        .notes-field { width: 100%; margin-top: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        .streak-info { color: #ff6b35; font-weight: bold; }
+        .expected-outcome { background: #e8f4fd; padding: 8px; margin: 5px 0; border-radius: 4px; font-size: 0.9em; }
+        .submit-btn { background: #007bff; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>🎯 Daily Habit Completion - September 17, 2025</h1>
+    
+    <form id="habitCompletionForm">
+        <h2>🌅 Morning Routine</h2>
+        
+        <!-- Progressive Meditation -->
+        <div class="habit-item">
+            <input type="checkbox" id="meditation" class="habit-checkbox" name="progressive_meditation">
+            <label for="meditation">
+                <span class="habit-name">Progressive Meditation</span>
+                <span class="time-slot">(6:45-6:47 AM)</span>
+                <span class="streak-info">🔥 18-day streak</span>
+            </label>
+            
+            <div class="expected-outcome">
+                <strong>Expected Outcomes:</strong>
+                • 88% chance: Reduced stress & cortisol levels<br>
+                • 85% chance: Improved attention & focus<br>
+                • Week 5: 2-minute duration (increases weekly)
+            </div>
+            
+            <div class="rating-group">
+                <label>Effort Level:</label>
+                <input type="range" class="rating-slider" min="1" max="5" value="3" id="meditation_effort">
+                <span id="meditation_effort_value">3</span>/5
+            </div>
+            
+            <div class="rating-group">
+                <label>Mood After:</label>
+                <input type="range" class="rating-slider" min="1" max="5" value="3" id="meditation_mood">
+                <span id="meditation_mood_value">3</span>/5
+            </div>
+            
+            <textarea class="notes-field" placeholder="How did the meditation feel today? Any insights or challenges?"></textarea>
+        </div>
+        
+        <!-- Goal Visualization -->
+        <div class="habit-item">
+            <input type="checkbox" id="visualization" class="habit-checkbox" name="goal_visualization">
+            <label for="visualization">
+                <span class="habit-name">Goal Visualization</span>
+                <span class="time-slot">(6:15-6:45 AM)</span>
+                <span class="streak-info">🔥 12-day streak</span>
+            </label>
+            
+            <div class="expected-outcome">
+                <strong>Expected Outcomes:</strong>
+                • 78% chance: +23% higher goal achievement rate<br>
+                • 82% chance: Increased intrinsic motivation<br>
+                • 75% chance: Better problem-solving abilities
+            </div>
+            
+            <div class="rating-group">
+                <label>Effort Level:</label>
+                <input type="range" class="rating-slider" min="1" max="5" value="3" id="visualization_effort">
+                <span id="visualization_effort_value">3</span>/5
+            </div>
+            
+            <div class="rating-group">
+                <label>Mood After:</label>
+                <input type="range" class="rating-slider" min="1" max="5" value="3" id="visualization_mood">
+                <span id="visualization_mood_value">3</span>/5
+            </div>
+            
+            <textarea class="notes-field" placeholder="What goals did you visualize? How clear were they?"></textarea>
+        </div>
+        
+        <!-- Wake Up & Intention -->
+        <div class="habit-item">
+            <input type="checkbox" id="intention" class="habit-checkbox" name="wake_up_intention">
+            <label for="intention">
+                <span class="habit-name">Wake Up & Intention Setting</span>
+                <span class="time-slot">(6:00-6:15 AM)</span>
+                <span class="streak-info">🔥 8-day streak</span>
+            </label>
+            
+            <div class="expected-outcome">
+                <strong>Expected Outcomes:</strong>
+                • 90% chance: +15% improved goal clarity<br>
+                • 85% chance: Enhanced self-efficacy<br>
+                • 70% chance: Reduced decision fatigue
+            </div>
+            
+            <div class="rating-group">
+                <label>Effort Level:</label>
+                <input type="range" class="rating-slider" min="1" max="5" value="3" id="intention_effort">
+                <span id="intention_effort_value">3</span>/5
+            </div>
+            
+            <div class="rating-group">
+                <label>Mood After:</label>
+                <input type="range" class="rating-slider" min="1" max="5" value="3" id="intention_mood">
+                <span id="intention_mood_value">3</span>/5
+            </div>
+            
+            <textarea class="notes-field" placeholder="What intentions did you set? How proactive did you feel?"></textarea>
+        </div>
+        
+        <h2>🏃 Exercise</h2>
+        
+        <!-- Physical Exercise -->
+        <div class="habit-item">
+            <input type="checkbox" id="exercise" class="habit-checkbox" name="physical_exercise">
+            <label for="exercise">
+                <span class="habit-name">Physical Exercise (Running)</span>
+                <span class="time-slot">(7:00-8:00 AM or 6:00-7:00 PM)</span>
+                <span class="streak-info">🔥 28-day streak</span>
+            </label>
+            
+            <div class="expected-outcome">
+                <strong>Expected Outcomes:</strong>
+                • 90% chance: Increased BDNF (brain health)<br>
+                • 95% chance: Improved cardiovascular health<br>
+                • 85% chance: Better sleep quality tonight<br>
+                • 70% chance: Social connection opportunities
+            </div>
+            
+            <div class="rating-group">
+                <label>Effort Level:</label>
+                <input type="range" class="rating-slider" min="1" max="5" value="3" id="exercise_effort">
+                <span id="exercise_effort_value">3</span>/5
+            </div>
+            
+            <div class="rating-group">
+                <label>Mood After:</label>
+                <input type="range" class="rating-slider" min="1" max="5" value="3" id="exercise_mood">
+                <span id="exercise_mood_value">3</span>/5
+            </div>
+            
+            <textarea class="notes-field" placeholder="How was your run today? Distance, route, how you felt?"></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">📊 Record Today's Completions</button>
+    </form>
+    
+    <script>
+        // Update slider values in real-time
+        document.querySelectorAll('.rating-slider').forEach(slider => {
+            slider.addEventListener('input', function() {
+                const valueSpan = document.getElementById(this.id + '_value');
+                valueSpan.textContent = this.value;
+            });
+        });
+        
+        // Form submission
+        document.getElementById('habitCompletionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect completion data
+            const completions = [];
+            const checkboxes = document.querySelectorAll('.habit-checkbox');
+            
+            checkboxes.forEach(checkbox => {
+                const actionId = checkbox.name;
+                const completed = checkbox.checked;
+                const effortLevel = document.getElementById(actionId.replace('_', '') + '_effort').value;
+                const moodAfter = document.getElementById(actionId.replace('_', '') + '_mood').value;
+                const notes = checkbox.closest('.habit-item').querySelector('.notes-field').value;
+                
+                completions.push({
+                    goal_id: actionId.includes('exercise') ? 'fitness_consistency' : 'morning_routine_mastery',
+                    action_id: actionId,
+                    completed: completed,
+                    date: new Date().toISOString().split('T')[0],
+                    effort_level: parseInt(effortLevel),
+                    mood_after: parseInt(moodAfter),
+                    notes: notes
+                });
+            });
+            
+            // This would normally send to your backend
+            console.log('Completion data:', completions);
+            alert('✅ Habits recorded! Check console for data that would be sent to the system.');
+        });
+    </script>
+</body>
+</html>

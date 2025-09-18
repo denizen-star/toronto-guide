@@ -1,0 +1,149 @@
+{
+  "personas": [
+    {
+      "id": "kevin_head_of_data",
+      "name": "Kevin - Head of Data",
+      "description": "40-year-old gay married man, recently moved to Toronto, seeking to build new friendships while maintaining strict fitness routine for half marathon training",
+      "personality_type": "ambivert",
+      "energy_pattern": "evening_person",
+      "social_style": "selective",
+      "preferred_activities": [
+        "fitness",
+        "professional_networking",
+        "cultural",
+        "social",
+        "exploration",
+        "individual_sports",
+        "couple_activities",
+        "art_and_design",
+        "music_events",
+        "urban_discovery"
+      ],
+      "preferred_locations": [
+        "Running trails",
+        "Cultural districts",
+        "Restaurants with music",
+        "Museums",
+        "Parks",
+        "THE PAD (padel)",
+        "Y Trillium (swimming)",
+        "The Second City (improv)",
+        "Eataly (cooking classes)",
+        "St. Lawrence Market",
+        "Toronto School of Art",
+        "Art Gallery of Ontario (AGO)"
+      ],
+      "avoided_activities": [
+        "book_clubs",
+        "volunteering",
+        "drugs",
+        "dance_festivals_with_drugs",
+        "younger_crowds",
+        "drug_usage_situations",
+        "late_nights",
+        "shady_environments",
+        "sex_parties",
+        "non_monogamous_practices"
+      ],
+      "budget_level": "moderate",
+      "max_daily_budget": 200.0,
+      "max_weekly_budget": 1000.0,
+      "available_days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "primary_goals": [
+        "Build healthy social network outside of bar scene",
+        "Build professional network in Toronto, New York and Miami",
+        "Practice more intentional activities",
+        "Establish clear morning and evening routines",
+        "Complete half marathon training"
+      ],
+      "networking_priority": 7,
+      "morning_start": "6:00 AM",
+      "bedtime": "10:30 PM",
+      "preferred_breakfast_time": "Do not eat breakfast",
+      "preferred_dinner_time": "7:00 PM",
+      "created_date": "2025-01-27T00:00:00.000000",
+      "last_updated": "2025-01-27T00:00:00.000000",
+      "is_active": true,
+      "usage_count": 0
+    },
+    {
+      "id": "peter_fashion_director",
+      "name": "Peter - Fashion Director",
+      "description": "50-year-old well-known celebrity fashion director, long-time Toronto resident with established friendships, more conservative and flexible lifestyle",
+      "personality_type": "extrovert",
+      "energy_pattern": "variable_energy",
+      "social_style": "connector",
+      "preferred_activities": [
+        "fitness",
+        "cultural",
+        "social",
+        "celebrity_events",
+        "couple_activities",
+        "family_time",
+        "art_and_design",
+        "music_events",
+        "urban_discovery"
+      ],
+      "preferred_locations": [
+        "Gym facilities",
+        "Fashion districts",
+        "Celebrity venues",
+        "Established Toronto spots",
+        "Social gathering places",
+        "The Second City (improv)",
+        "Eataly (cooking classes)",
+        "St. Lawrence Market",
+        "Toronto School of Art",
+        "Art Gallery of Ontario (AGO)",
+        "Family homes in Toronto"
+      ],
+      "avoided_activities": [
+        "book_clubs",
+        "volunteering",
+        "drugs",
+        "dance_festivals_with_drugs",
+        "younger_crowds",
+        "drug_usage_situations",
+        "late_nights",
+        "shady_environments",
+        "sex_parties",
+        "non_monogamous_practices"
+      ],
+      "budget_level": "premium",
+      "max_daily_budget": 500.0,
+      "max_weekly_budget": 2500.0,
+      "available_days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "primary_goals": [
+        "Support Kevin's healthy social network building",
+        "Maintain celebrity status",
+        "Balance work and personal life",
+        "Spend quality time with family"
+      ],
+      "networking_priority": 8,
+      "morning_start": "7:00 AM",
+      "bedtime": "11:00 PM",
+      "preferred_breakfast_time": "8:00 AM",
+      "preferred_dinner_time": "7:30 PM",
+      "created_date": "2025-01-27T00:00:00.000000",
+      "last_updated": "2025-01-27T00:00:00.000000",
+      "is_active": true,
+      "usage_count": 0
+    }
+  ]
+}

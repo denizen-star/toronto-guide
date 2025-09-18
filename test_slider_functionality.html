@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        .slider-container { margin: 10px 0; }
+        input[type="range"] { width: 300px; }
+        .result { margin: 10px 0; padding: 10px; background: #f0f0f0; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Slider Functionality Test</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Individual Slider Change</h2>
+        <div class="slider-container">
+            <label>Individual Activities: <span id="individual-display">16.0%</span></label>
+            <input type="range" id="individual-test" min="5" max="35" step="0.1" value="16.0">
+        </div>
+        <div class="result" id="individual-result">Move the slider to test...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: API Connection</h2>
+        <button onclick="testAPI()">Test API Connection</button>
+        <div class="result" id="api-result">Click button to test API...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: Real UI Test</h2>
+        <p>Open the main UI: <a href="http://localhost:8080" target="_blank">http://localhost:8080</a></p>
+        <p>Expected behavior when moving sliders:</p>
+        <ul>
+            <li>✅ Percentage should update immediately</li>
+            <li>✅ Hours should update immediately</li>
+            <li>✅ Other sliders should adjust automatically</li>
+            <li>✅ Total percentage should show 100.0%</li>
+            <li>✅ Pie chart should update</li>
+            <li>✅ Timeline should update</li>
+        </ul>
+    </div>
+
+    <script>
+        // Test slider functionality
+        document.getElementById('individual-test').addEventListener('input', function(e) {
+            const value = parseFloat(e.target.value);
+            document.getElementById('individual-display').textContent = `${value.toFixed(1)}%`;
+            document.getElementById('individual-result').innerHTML = `
+                <strong>Slider Value:</strong> ${value.toFixed(1)}%<br>
+                <strong>Expected Hours:</strong> ${(value * 0.408).toFixed(1)}h<br>
+                <strong>Status:</strong> ✅ Slider responding correctly
+            `;
+        });
+        
+        // Test API connection
+        async function testAPI() {
+            const resultDiv = document.getElementById('api-result');
+            resultDiv.textContent = 'Testing API connection...';
+            
+            try {
+                const response = await fetch('http://localhost:8080/api/allocation');
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = `
+                        <strong>✅ API Connection Successful</strong><br>
+                        Total Weekly Hours: ${data.total_weekly_hours}<br>
+                        Available Time: ${data.available_time.toFixed(1)}h<br>
+                        Categories: ${Object.keys(data.categories).length}
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<strong>❌ API Error:</strong> ${response.status} ${response.statusText}`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<strong>❌ Connection Error:</strong> ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
+
