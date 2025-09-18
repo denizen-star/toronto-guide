@@ -1,6 +1,7 @@
 [build]
   publish = "lifeplanner"
 
+# Main LifePlanner redirects
 [[redirects]]
   from = "/LifePlanner"
   to = "/index.html"
@@ -10,3 +11,6 @@
   from = "/lifeplanner"
   to = "/index.html"
   status = 200
+
+# Kevin schedule files should be accessible directly
+# No redirects needed - they exist in the lifeplanner/ directory
