@@ -1,16 +1,3 @@
-[build]
-  publish = "lifeplanner"
-
-# Main LifePlanner redirects
-[[redirects]]
-  from = "/LifePlanner"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/lifeplanner"
-  to = "/index.html"
-  status = 200
-
-# Kevin schedule files should be accessible directly
-# No redirects needed - they exist in the lifeplanner/ directory
+# React Toronto Guide builds to default location
+# LifePlanner static files are in public/LifePlanner/
+# No special configuration needed - React handles static files
