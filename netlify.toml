@@ -1,17 +1,9 @@
-[build]
-  publish = "Toronto-guide"
+# React Toronto Guide builds to default location
+# LifePlanner static files are in public/LifePlanner/
+# No special configuration needed - React handles static files
 
-[[redirects]]
-  from = "/LifePlanner"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/lifeplanner"
-  to = "/index.html"
-  status = 200
-
+# React LifePlanner routing
 [[redirects]]
   from = "/planner/*"
-  to = "/planner/index.html"
+  to = "/Toronto-guide/planner/index.html"
   status = 200
