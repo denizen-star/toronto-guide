@@ -1,10 +1,57 @@
-# LifePlanner - Intelligent Lifestyle Management System
+# Toronto Guide & Development Portfolio
 
-[![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://python.org)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-production--ready-brightgreen.svg)](README.md)
+A comprehensive repository containing multiple applications and tools, including the Toronto Guide web application and the LifePlanner personal management system.
 
-A sophisticated, AI-powered lifestyle planning system designed to help individuals and couples optimize their daily schedules, build meaningful connections, and achieve their personal and relationship goals.
+## 📁 Repository Structure
+
+### 🌆 **Toronto Guide** (Main Application)
+**Location**: Root directory  
+**Description**: Interactive web application for exploring Toronto attractions, restaurants, and activities  
+**Tech Stack**: React, JavaScript, Node.js  
+**Status**: Production Ready
+
+### 🗓️ **LifePlanner** 
+**Location**: `lifeplanner/`  
+**Description**: Intelligent lifestyle management system for personal and relationship planning  
+**Tech Stack**: Python, Flask, HTML/CSS/JavaScript  
+**Status**: Production Ready  
+
+[View LifePlanner Documentation](lifeplanner/LIFEPLANNER_README.md)
+
+## 🚀 Quick Start
+
+### Toronto Guide (Main App)
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm start
+
+# Build for production
+npm run build
+```
+
+### LifePlanner
+```bash
+# Navigate to LifePlanner directory
+cd lifeplanner
+
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Run the application
+python app.py
+```
+
+## 📖 Documentation
+
+- **Toronto Guide**: See main documentation below
+- **LifePlanner**: [lifeplanner/LIFEPLANNER_README.md](lifeplanner/LIFEPLANNER_README.md)
+
+---
+
+# Toronto Guide Application
 
 ## ✨ Features
 

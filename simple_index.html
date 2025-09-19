@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifePlanner - Kevin's Schedule Versions</title>
+    <link rel="icon" type="image/x-icon" href="favicons/favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .versions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .version-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 3px solid transparent;
+        }
+
+        .version-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .working-kevin {
+            border-left: 6px solid #28a745;
+        }
+
+        .working-kevin:hover {
+            border-color: #28a745;
+        }
+
+        .job-search-kevin {
+            border-left: 6px solid #007bff;
+        }
+
+        .job-search-kevin:hover {
+            border-color: #007bff;
+        }
+
+        .version-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .version-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .version-description {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .schedule-preview {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: #555;
+            text-align: left;
+        }
+
+        .schedule-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .schedule-item {
+            margin: 5px 0;
+            padding: 2px 0;
+        }
+
+        @media (max-width: 768px) {
+            .versions {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🗓️</div>
+            <h1 class="title">LifePlanner</h1>
+            <p class="subtitle">Choose your Kevin version to get started</p>
+        </div>
+
+        <div class="versions">
+            <div class="version-card working-kevin" onclick="selectVersion('working')">
+                <div class="version-icon">💼</div>
+                <h2 class="version-title">Working Kevin</h2>
+                <p class="version-description">
+                    Traditional work schedule with optimized personal time, fitness variety, and relationship focus.
+                </p>
+                <div class="schedule-preview">
+                    <div class="schedule-title">Schedule:</div>
+                    <div class="schedule-item">6:00-9:00 AM: Morning routine</div>
+                    <div class="schedule-item">9:00 AM-6:00 PM: Work hours</div>
+                    <div class="schedule-item">6:00-10:00 PM: Fitness, social, couple time</div>
+                </div>
+            </div>
+
+            <div class="version-card job-search-kevin" onclick="selectVersion('jobsearch')">
+                <div class="version-icon">🚀</div>
+                <h2 class="version-title">Job Search Kevin</h2>
+                <p class="version-description">
+                    Career transition focus with job search sprints, skill development, and city exploration.
+                </p>
+                <div class="schedule-preview">
+                    <div class="schedule-title">Schedule:</div>
+                    <div class="schedule-item">6:00-9:00 AM: Morning routine</div>
+                    <div class="schedule-item">9:00 AM-12:00 PM: Job search sprint</div>
+                    <div class="schedule-item">12:00-2:00 PM: City exploration</div>
+                    <div class="schedule-item">2:00-5:00 PM: Skills + sports</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectVersion(version) {
+            if (version === 'working') {
+                window.location.href = 'kevin_yearly_plan_working.html';
+            } else if (version === 'jobsearch') {
+                window.location.href = 'kevin_yearly_plan_job_search.html';
+            }
+        }
+
+        document.querySelectorAll('.version-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

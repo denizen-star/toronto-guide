@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👤 LifePlanner - Persona Selector</title>
+    
+    <!-- LifePlanner Rainbow Logo Favicons -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicons/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicons/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicons/favicon-32x32.png') }}">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        .persona-card {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .persona-card:hover {
+            border-color: #007bff;
+            box-shadow: 0 4px 12px rgba(0,123,255,0.15);
+            transform: translateY(-2px);
+        }
+        
+        .persona-card.selected {
+            border-color: #28a745;
+            background-color: #f8fff9;
+            box-shadow: 0 4px 12px rgba(40,167,69,0.2);
+        }
+        
+        .persona-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .persona-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .persona-badge {
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        
+        .context-chip {
+            display: inline-block;
+            background: #e9ecef;
+            color: #495057;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .context-chip:hover {
+            background: #007bff;
+            color: white;
+        }
+        
+        .context-chip.active {
+            background: #28a745;
+            color: white;
+        }
+        
+        .family-section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .family-title {
+            color: #495057;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .persona-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 8px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .stat-value {
+            font-weight: 600;
+            color: #007bff;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        
+        .action-panel {
+            position: sticky;
+            top: 20px;
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .persona-preview {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .add-persona-card {
+            border: 2px dashed #6c757d;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .add-persona-card:hover {
+            border-color: #007bff;
+            color: #007bff;
+            background-color: #f8f9ff;
+        }
+        
+        .context-explanation {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center py-3 border-bottom">
+                    <h1><i class="fas fa-user-circle"></i> Persona Selector</h1>
+                    <div>
+                        <button class="btn btn-outline-primary" id="create-persona-btn">
+                            <i class="fas fa-plus"></i> Create New Persona
+                        </button>
+                        <button class="btn btn-primary" id="continue-btn" disabled>
+                            Continue to Planner <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Left Panel - Persona Selection -->
+            <div class="col-lg-8">
+                <!-- Context Selection -->
+                <div class="mb-4">
+                    <h3><i class="fas fa-sliders-h"></i> Current Context</h3>
+                    <p class="text-muted">Select context modifiers to adjust your persona's behavior</p>
+                    <div id="context-chips">
+                        <!-- Context chips will be populated by JavaScript -->
+                    </div>
+                    <div class="context-explanation" id="context-explanation">
+                        Select contexts above to see how they modify your persona's preferences and priorities.
+                    </div>
+                </div>
+
+                <!-- Persona Families -->
+                <div id="persona-families">
+                    <!-- Persona families will be populated by JavaScript -->
+                </div>
+
+                <!-- All Personas -->
+                <div class="mb-4">
+                    <h3><i class="fas fa-users"></i> All Personas</h3>
+                    <div id="all-personas">
+                        <!-- All personas will be populated by JavaScript -->
+                    </div>
+                    
+                    <!-- Add New Persona Card -->
+                    <div class="add-persona-card" id="add-persona-card">
+                        <i class="fas fa-plus-circle fa-3x mb-3"></i>
+                        <h4>Create New Persona</h4>
+                        <p>Build a custom persona tailored to your specific needs and preferences</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Selected Persona Details & Actions -->
+            <div class="col-lg-4">
+                <div class="action-panel">
+                    <h4><i class="fas fa-user-check"></i> Selected Persona</h4>
+                    
+                    <div id="no-selection" class="text-center py-4">
+                        <i class="fas fa-hand-pointer fa-2x text-muted mb-3"></i>
+                        <p class="text-muted">Select a persona from the left to see details here</p>
+                    </div>
+                    
+                    <div id="persona-details" style="display: none;">
+                        <!-- Selected persona details -->
+                        <div class="persona-preview">
+                            <h5 id="selected-persona-name"></h5>
+                            <p id="selected-persona-description" class="text-muted"></p>
+                            
+                            <div class="persona-stats" id="selected-persona-stats">
+                                <!-- Stats will be populated -->
+                            </div>
+                        </div>
+                        
+                        <!-- Active Contexts -->
+                        <div class="mt-3">
+                            <h6>Active Contexts</h6>
+                            <div id="active-contexts">
+                                <span class="text-muted">None selected</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Actions -->
+                        <div class="mt-4">
+                            <button class="btn btn-success w-100 mb-2" id="apply-persona-btn">
+                                <i class="fas fa-check"></i> Apply This Persona
+                            </button>
+                            <button class="btn btn-outline-secondary w-100 mb-2" id="edit-persona-btn">
+                                <i class="fas fa-edit"></i> Edit Persona
+                            </button>
+                            <button class="btn btn-outline-warning w-100" id="duplicate-persona-btn">
+                                <i class="fas fa-copy"></i> Duplicate & Customize
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Persona Modal -->
+    <div class="modal fade" id="createPersonaModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Persona</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="create-persona-form">
+                        <!-- Basic Information -->
+                        <div class="mb-4">
+                            <h6>Basic Information</h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label">Persona Name</label>
+                                    <input type="text" class="form-control" id="persona-name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Template</label>
+                                    <select class="form-select" id="persona-template">
+                                        <option value="">Start from scratch</option>
+                                        <option value="tech_executive">Tech Executive</option>
+                                        <option value="creative_professional">Creative Professional</option>
+                                        <option value="recent_relocator">Recent Relocator</option>
+                                        <option value="entrepreneur">Entrepreneur</option>
+                                        <option value="student">Student</option>
+                                        <option value="parent">Parent</option>
+                                        <option value="retiree">Retiree</option>
+                                        <option value="freelancer">Freelancer</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" id="persona-description" rows="3" 
+                                          placeholder="Brief description of this persona's characteristics and goals"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Demographics -->
+                        <div class="mb-4">
+                            <h6>Demographics</h6>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="form-label">Age Range</label>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="number" class="form-control" id="age-min" placeholder="Min" min="18" max="100">
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number" class="form-control" id="age-max" placeholder="Max" min="18" max="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Life Stage</label>
+                                    <select class="form-select" id="life-stage">
+                                        <option value="early_career">Early Career</option>
+                                        <option value="mid_career">Mid Career</option>
+                                        <option value="senior_career">Senior Career</option>
+                                        <option value="transition">Transition</option>
+                                        <option value="retirement">Retirement</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Income Level</label>
+                                    <select class="form-select" id="income-level">
+                                        <option value="low">Low</option>
+                                        <option value="moderate">Moderate</option>
+                                        <option value="high">High</option>
+                                        <option value="premium">Premium</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Preferences -->
+                        <div class="mb-4">
+                            <h6>Activity Preferences</h6>
+                            <p class="text-muted small">Select activities this persona enjoys</p>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="pref-fitness">
+                                        <label class="form-check-label" for="pref-fitness">Fitness & Sports</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="pref-cultural">
+                                        <label class="form-check-label" for="pref-cultural">Cultural Events</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="pref-social">
+                                        <label class="form-check-label" for="pref-social">Social Activities</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="pref-professional">
+                                        <label class="form-check-label" for="pref-professional">Professional Networking</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="pref-creative">
+                                        <label class="form-check-label" for="pref-creative">Creative Arts</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="pref-outdoor">
+                                        <label class="form-check-label" for="pref-outdoor">Outdoor Activities</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="pref-learning">
+                                        <label class="form-check-label" for="pref-learning">Learning & Education</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="pref-family">
+                                        <label class="form-check-label" for="pref-family">Family Time</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="pref-relaxation">
+                                        <label class="form-check-label" for="pref-relaxation">Relaxation & Wellness</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="save-persona-btn">Create Persona</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        class PersonaSelector {
+            constructor() {
+                this.selectedPersonaId = null;
+                this.activeContexts = [];
+                this.personas = [];
+                this.families = [];
+                this.contexts = [];
+                
+                this.init();
+            }
+            
+            async init() {
+                await this.loadData();
+                this.renderContextChips();
+                this.renderPersonaFamilies();
+                this.renderAllPersonas();
+                this.bindEvents();
+            }
+            
+            async loadData() {
+                try {
+                    const response = await fetch('/api/persona-selector/options');
+                    const data = await response.json();
+                    
+                    this.personas = data.personas || [];
+                    this.families = data.families || [];
+                    this.contexts = data.contexts || [];
+                    this.selectedPersonaId = data.active_persona;
+                    this.activeContexts = data.active_contexts || [];
+                } catch (error) {
+                    console.error('Error loading persona data:', error);
+                    // Use mock data for demo
+                    this.loadMockData();
+                }
+            }
+            
+            loadMockData() {
+                this.contexts = [
+                    {context_id: 'work_focus', context_name: 'Work Focus', description: 'Prioritize professional activities'},
+                    {context_id: 'job_search', context_name: 'Job Search', description: 'Focus on career transition'},
+                    {context_id: 'social_building', context_name: 'Social Building', description: 'Build personal connections'},
+                    {context_id: 'fitness_training', context_name: 'Fitness Training', description: 'Prioritize physical fitness'}
+                ];
+                
+                this.families = [
+                    {family_id: 'toronto_professionals', family_name: 'Toronto Professionals', description: 'Working professionals in Toronto', persona_count: 2}
+                ];
+                
+                // Use personas from the loaded data if available
+                if (this.personas.length === 0) {
+                    this.personas = [
+                        {
+                            persona_id: 'kevin_head_of_data',
+                            persona_name: 'Kevin - Head of Data', 
+                            description: '40-year-old professional seeking work-life balance',
+                            demographics: {income_level: 'high', life_stage: 'mid_career'}
+                        }
+                    ];
+                }
+            }
+            
+            renderContextChips() {
+                const container = document.getElementById('context-chips');
+                container.innerHTML = '';
+                
+                this.contexts.forEach(context => {
+                    const chip = document.createElement('span');
+                    chip.className = `context-chip ${this.activeContexts.includes(context.context_id) ? 'active' : ''}`;
+                    chip.textContent = context.context_name;
+                    chip.dataset.contextId = context.context_id;
+                    chip.title = context.description;
+                    
+                    chip.addEventListener('click', () => this.toggleContext(context.context_id));
+                    container.appendChild(chip);
+                });
+                
+                this.updateContextExplanation();
+            }
+            
+            renderPersonaFamilies() {
+                const container = document.getElementById('persona-families');
+                container.innerHTML = '';
+                
+                this.families.forEach(family => {
+                    const familyDiv = document.createElement('div');
+                    familyDiv.className = 'family-section';
+                    familyDiv.innerHTML = `
+                        <div class="family-title">
+                            <i class="fas fa-users"></i> ${family.family_name}
+                            <span class="badge bg-secondary ms-2">${family.persona_count} personas</span>
+                        </div>
+                        <p class="text-muted small">${family.description}</p>
+                        <div class="family-personas" id="family-${family.family_id}">
+                            <!-- Family personas will be populated -->
+                        </div>
+                    `;
+                    container.appendChild(familyDiv);
+                    
+                    // Render personas in this family
+                    this.renderFamilyPersonas(family.family_id);
+                });
+            }
+            
+            renderFamilyPersonas(familyId) {
+                // For demo, just show relevant personas
+                // In real implementation, filter by family
+                const container = document.getElementById(`family-${familyId}`);
+                const familyPersonas = this.personas.slice(0, 2); // Demo: show first 2
+                
+                familyPersonas.forEach(persona => {
+                    container.appendChild(this.createPersonaCard(persona));
+                });
+            }
+            
+            renderAllPersonas() {
+                const container = document.getElementById('all-personas');
+                container.innerHTML = '';
+                
+                this.personas.forEach(persona => {
+                    container.appendChild(this.createPersonaCard(persona));
+                });
+            }
+            
+            createPersonaCard(persona) {
+                const card = document.createElement('div');
+                card.className = `persona-card ${this.selectedPersonaId === persona.persona_id ? 'selected' : ''}`;
+                card.dataset.personaId = persona.persona_id;
+                
+                const incomeColor = {
+                    'low': 'secondary',
+                    'moderate': 'info', 
+                    'high': 'success',
+                    'premium': 'warning'
+                }[persona.demographics?.income_level || 'moderate'];
+                
+                card.innerHTML = `
+                    <div class="persona-header">
+                        <div class="persona-title">${persona.persona_name}</div>
+                        <span class="badge bg-${incomeColor} persona-badge">${persona.demographics?.income_level || 'moderate'} income</span>
+                    </div>
+                    <p class="text-muted">${persona.description}</p>
+                    <div class="persona-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">${persona.demographics?.life_stage || 'mid_career'}</div>
+                            <div class="stat-label">Life Stage</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${persona.metadata?.usage_count || 0}</div>
+                            <div class="stat-label">Times Used</div>
+                        </div>
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => this.selectPersona(persona.persona_id));
+                
+                return card;
+            }
+            
+            selectPersona(personaId) {
+                // Update selection
+                this.selectedPersonaId = personaId;
+                
+                // Update UI
+                document.querySelectorAll('.persona-card').forEach(card => {
+                    card.classList.toggle('selected', card.dataset.personaId === personaId);
+                });
+                
+                this.updateSelectedPersonaDetails();
+                document.getElementById('continue-btn').disabled = false;
+            }
+            
+            updateSelectedPersonaDetails() {
+                const persona = this.personas.find(p => p.persona_id === this.selectedPersonaId);
+                if (!persona) return;
+                
+                document.getElementById('no-selection').style.display = 'none';
+                document.getElementById('persona-details').style.display = 'block';
+                
+                document.getElementById('selected-persona-name').textContent = persona.persona_name;
+                document.getElementById('selected-persona-description').textContent = persona.description;
+                
+                // Update stats
+                const statsContainer = document.getElementById('selected-persona-stats');
+                statsContainer.innerHTML = `
+                    <div class="stat-item">
+                        <div class="stat-value">${persona.demographics?.age_range?.[0] || 25}-${persona.demographics?.age_range?.[1] || 45}</div>
+                        <div class="stat-label">Age Range</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">${persona.demographics?.income_level || 'moderate'}</div>
+                        <div class="stat-label">Income Level</div>
+                    </div>
+                `;
+                
+                // Update active contexts
+                this.updateActiveContextsDisplay();
+            }
+            
+            updateActiveContextsDisplay() {
+                const container = document.getElementById('active-contexts');
+                if (this.activeContexts.length === 0) {
+                    container.innerHTML = '<span class="text-muted">None selected</span>';
+                } else {
+                    container.innerHTML = this.activeContexts.map(contextId => {
+                        const context = this.contexts.find(c => c.context_id === contextId);
+                        return `<span class="context-chip active">${context?.context_name || contextId}</span>`;
+                    }).join('');
+                }
+            }
+            
+            toggleContext(contextId) {
+                const index = this.activeContexts.indexOf(contextId);
+                if (index > -1) {
+                    this.activeContexts.splice(index, 1);
+                } else {
+                    this.activeContexts.push(contextId);
+                }
+                
+                this.renderContextChips();
+                this.updateActiveContextsDisplay();
+                this.updateContextExplanation();
+            }
+            
+            updateContextExplanation() {
+                const container = document.getElementById('context-explanation');
+                if (this.activeContexts.length === 0) {
+                    container.textContent = 'Select contexts above to see how they modify your persona\'s preferences and priorities.';
+                } else {
+                    const activeContextNames = this.activeContexts.map(id => {
+                        const context = this.contexts.find(c => c.context_id === id);
+                        return context?.context_name || id;
+                    });
+                    container.textContent = `Active contexts: ${activeContextNames.join(', ')}. These will adjust your persona's activity recommendations and priorities.`;
+                }
+            }
+            
+            bindEvents() {
+                // Continue button
+                document.getElementById('continue-btn').addEventListener('click', () => {
+                    if (this.selectedPersonaId) {
+                        this.applyPersona();
+                    }
+                });
+                
+                // Apply persona button
+                document.getElementById('apply-persona-btn').addEventListener('click', () => {
+                    this.applyPersona();
+                });
+                
+                // Create persona buttons
+                document.getElementById('create-persona-btn').addEventListener('click', () => {
+                    const modal = new bootstrap.Modal(document.getElementById('createPersonaModal'));
+                    modal.show();
+                });
+                
+                document.getElementById('add-persona-card').addEventListener('click', () => {
+                    const modal = new bootstrap.Modal(document.getElementById('createPersonaModal'));
+                    modal.show();
+                });
+                
+                // Save persona button
+                document.getElementById('save-persona-btn').addEventListener('click', () => {
+                    this.saveNewPersona();
+                });
+            }
+            
+            async applyPersona() {
+                if (!this.selectedPersonaId) return;
+                
+                try {
+                    const response = await fetch('/api/persona-selector/apply', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            persona_id: this.selectedPersonaId,
+                            contexts: this.activeContexts
+                        })
+                    });
+                    
+                    if (response.ok) {
+                        // Redirect to main planner
+                        window.location.href = '/';
+                    }
+                } catch (error) {
+                    console.error('Error applying persona:', error);
+                    // For demo, just redirect
+                    window.location.href = '/';
+                }
+            }
+            
+            saveNewPersona() {
+                // Collect form data
+                const formData = {
+                    persona_name: document.getElementById('persona-name').value,
+                    description: document.getElementById('persona-description').value,
+                    template: document.getElementById('persona-template').value,
+                    demographics: {
+                        age_range: [
+                            parseInt(document.getElementById('age-min').value) || 25,
+                            parseInt(document.getElementById('age-max').value) || 45
+                        ],
+                        life_stage: document.getElementById('life-stage').value,
+                        income_level: document.getElementById('income-level').value
+                    },
+                    preferences: {
+                        preferred_activity_types: this.getSelectedActivityPreferences()
+                    }
+                };
+                
+                // Validate required fields
+                if (!formData.persona_name) {
+                    alert('Please enter a persona name');
+                    return;
+                }
+                
+                // For demo, just add to local array and close modal
+                const newPersona = {
+                    persona_id: `custom_${Date.now()}`,
+                    ...formData,
+                    metadata: {usage_count: 0}
+                };
+                
+                this.personas.push(newPersona);
+                this.renderAllPersonas();
+                
+                const modal = bootstrap.Modal.getInstance(document.getElementById('createPersonaModal'));
+                modal.hide();
+                
+                // Select the new persona
+                this.selectPersona(newPersona.persona_id);
+            }
+            
+            getSelectedActivityPreferences() {
+                const preferences = [];
+                const checkboxes = [
+                    'pref-fitness', 'pref-cultural', 'pref-social', 'pref-professional',
+                    'pref-creative', 'pref-outdoor', 'pref-learning', 'pref-family', 'pref-relaxation'
+                ];
+                
+                checkboxes.forEach(id => {
+                    if (document.getElementById(id).checked) {
+                        preferences.push(id.replace('pref-', ''));
+                    }
+                });
+                
+                return preferences;
+            }
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new PersonaSelector();
+        });
+    </script>
+</body>
+</html>

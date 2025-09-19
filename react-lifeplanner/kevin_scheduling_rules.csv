@@ -1,0 +1,51 @@
+rule_category,rule_name,rule_value,description,applies_to
+Time Constraints,Weekday Start,06:00,Daily start time for weekdays,All Days Monday-Friday
+Time Constraints,Weekday End,22:30,Daily end time for weekdays,All Days Monday-Friday
+Time Constraints,Weekend Start,08:00,Daily start time for weekends,Saturday-Sunday
+Time Constraints,Weekend End,24:00,Daily end time for weekends,Saturday-Sunday
+Time Constraints,Bedtime,22:30,Consistent bedtime,All Days
+Personal Traits,Morning Person,False,Kevin is not a morning person,Kevin Job Search
+Personal Traits,Breakfast,Skip,Kevin skips breakfast,Kevin Job Search
+Personal Traits,Personality Type,introvert-extrovert,Social but selective,Kevin Job Search
+Personal Traits,Energy Pattern,not_morning_person,Late starter preference,Kevin Job Search
+Running Schedule,Tuesday,17:30-18:30,Solo half marathon training run,Kevin Job Search
+Running Schedule,Thursday,17:30-18:30,Solo half marathon training run,Kevin Job Search
+Running Schedule,Friday,17:30-18:30,Solo half marathon training run,Kevin Job Search
+Running Schedule,Sunday,16:00-17:00,Longest solo training run (2+ hours weekend),Kevin Job Search
+Running Schedule,Location,Toronto Harbourfront Trail / High Park,Primary running locations,Kevin Job Search
+Running Schedule,Type,Solo,Kevin runs alone (not with groups),Kevin Job Search
+Job Search Rules,Core Hours,09:00-17:00,Primary job search activity window,Kevin Job Search
+Job Search Rules,Applications,09:00-10:30,Daily job application time,Kevin Job Search
+Job Search Rules,Skill Development,10:45-12:00,Daily learning and certification time,Kevin Job Search
+Job Search Rules,Interview Prep,14:00-15:30,Daily interview preparation,Kevin Job Search
+Job Search Rules,Networking Follow-up,16:00-17:00,Daily professional networking,Kevin Job Search
+Job Search Rules,Weekly Goal,Apply to 5 jobs,Minimum weekly application target,Kevin Job Search
+Budget Constraints,Daily Maximum,200,Maximum daily spending (CAD),Kevin Job Search
+Budget Constraints,Weekly Maximum,1000,Maximum weekly spending (CAD),Kevin Job Search
+Budget Constraints,Budget Level,Moderate,Spending level during job search,Kevin Job Search
+Networking Rules,Priority Level,9,Networking priority (1-10 scale),Kevin Job Search
+Networking Rules,Approach,Strategic,Professional and goal-oriented,Kevin Job Search
+Networking Rules,Venues,Toronto Data Science Meetup,Primary networking venue,Kevin Job Search
+Networking Rules,Venues,Fintech Events,Secondary networking venue,Kevin Job Search
+Networking Rules,Venues,Professional Breakfast Events,Tertiary networking venue,Kevin Job Search
+Networking Rules,Communication,In-Person,Preferred networking style,Kevin Job Search
+Spiritual Rules,Mass Day,Sunday,Weekly mass attendance day,Kevin Job Search
+Spiritual Rules,Mass Time,09:30,Mass start time,Kevin Job Search
+Spiritual Rules,Mass Location,St. Basil Catholic Church,Church location,Kevin Job Search
+Spiritual Rules,Mass Address,50 St Joseph St Toronto,Full church address,Kevin Job Search
+Couple Rules,Lunch Time,12:30-13:30,Daily lunch together (weekdays),Kevin Job Search
+Couple Rules,Lunch Time Weekend,12:00-13:00,Daily lunch together (weekends),Kevin Job Search
+Couple Rules,Dinner Time,19:00-20:00,Daily dinner together (weekdays),Kevin Job Search
+Couple Rules,Dinner Time Weekend,18:00-19:00,Daily dinner together (weekends),Kevin Job Search
+Couple Rules,Evening Time,21:30-22:30,Quality time together (weekdays),Kevin Job Search
+Couple Rules,Date Night,20:00-22:00,Special weekend date time,Kevin Job Search
+Couple Rules,Late Night,22:30-24:00,Private intimate time (weekends),Kevin Job Search
+Health Goals,Half Marathon,In Progress,Training for half marathon completion,Kevin Job Search
+Health Goals,Alcohol Reduction,High Priority,Reduce alcohol consumption goal,Kevin Job Search
+Health Goals,Fitness Schedule,4 days/week,Running schedule maintenance,Kevin Job Search
+Career Goals,New Role,Head of Data,Target position type,Kevin Job Search
+Career Goals,Network Cities,Toronto New York Miami,Target networking cities,Kevin Job Search
+Career Goals,Industry Focus,Fintech Data,Primary industry focus,Kevin Job Search
+Social Goals,Network Type,Healthy outside bar scene,Social network building approach,Kevin Job Search
+Social Goals,Group Preference,Small Groups,Preferred social group size,Kevin Job Search
+Social Goals,Approach,Selective,Social interaction style,Kevin Job Search

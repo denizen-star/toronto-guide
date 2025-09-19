@@ -1,0 +1,17 @@
+[build]
+  publish = "Toronto-guide"
+
+[[redirects]]
+  from = "/LifePlanner"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/lifeplanner"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/planner/*"
+  to = "/planner/index.html"
+  status = 200

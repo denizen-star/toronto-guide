@@ -1,0 +1,473 @@
+{
+  "personas": [
+    {
+      "persona_id": "fashion_professional",
+      "persona_name": "Fashion Industry Professional",
+      "description": "Ambitious fashion professional focused on networking and industry advancement",
+      "demographics": {
+        "age_range": [
+          28,
+          35
+        ],
+        "life_stage": "mid_career",
+        "occupation": "Fashion Professional",
+        "income_level": "high",
+        "location_preference": "Toronto",
+        "relationship_status": "couple",
+        "has_children": false,
+        "education_level": "university"
+      },
+      "personality": {
+        "personality_type": "extrovert",
+        "energy_pattern": "morning_person",
+        "social_style": "networker",
+        "risk_tolerance": 7,
+        "spontaneity_level": 8,
+        "perfectionism_level": 5,
+        "stress_tolerance": 6,
+        "decision_making_style": "analytical"
+      },
+      "goals": {
+        "primary_goals": [
+          "Build industry network",
+          "Advance career",
+          "Stay current with trends"
+        ],
+        "career_goals": [
+          "Become industry influencer",
+          "Build strong professional network",
+          "Launch own brand"
+        ],
+        "personal_goals": [
+          "Maintain work-life balance",
+          "Stay creative",
+          "Build meaningful relationships"
+        ],
+        "short_term_goals": [
+          "Meet 5 new people this month",
+          "Try 3 new activities",
+          "Improve morning routine"
+        ],
+        "long_term_goals": [
+          "Build strong professional network",
+          "Achieve career advancement",
+          "Maintain healthy lifestyle"
+        ]
+      },
+      "preferences": {
+        "activity_preferences": [
+          "professional_driven",
+          "creative_soul"
+        ],
+        "preferred_activity_types": [
+          "creative",
+          "social",
+          "cultural",
+          "professional"
+        ],
+        "avoided_activity_types": [],
+        "preferred_locations": [
+          "Fashion District",
+          "Entertainment District",
+          "Yorkville",
+          "Queen West"
+        ],
+        "budget_preference": "premium",
+        "time_preferences": {
+          "morning_start": "6:00 AM",
+          "bedtime": "10:30 PM",
+          "preferred_breakfast": "7:00 AM",
+          "preferred_dinner": "6:00 PM"
+        },
+        "group_size_preference": "small_groups",
+        "frequency_preference": "moderate"
+      },
+      "constraints": {
+        "max_daily_budget": 300.0,
+        "max_weekly_budget": 1500.0,
+        "available_weekdays": [
+          "Thursday",
+          "Friday",
+          "Tuesday",
+          "Monday",
+          "Wednesday"
+        ],
+        "available_weekends": [
+          "Saturday",
+          "Sunday"
+        ],
+        "time_constraints": {
+          "work_start": "9:00 AM",
+          "work_end": "5:00 PM",
+          "lunch_break": "12:00 PM - 1:00 PM"
+        },
+        "physical_limitations": [],
+        "dietary_restrictions": [],
+        "accessibility_needs": []
+      },
+      "behavioral_patterns": {
+        "typical_morning_routine": [
+          "Early wake up",
+          "Industry news review",
+          "Exercise",
+          "Professional breakfast"
+        ],
+        "typical_evening_routine": [
+          "Network follow-up",
+          "Trend research",
+          "Social media",
+          "Early bedtime"
+        ],
+        "weekend_habits": [
+          "Fashion events",
+          "Gallery visits",
+          "Professional networking",
+          "Creative projects"
+        ],
+        "stress_management": [
+          "Exercise",
+          "Social connection",
+          "Creative activities",
+          "Industry research"
+        ],
+        "learning_preferences": [
+          "Hands-on experiences",
+          "Social learning",
+          "Visual learning",
+          "Industry events"
+        ]
+      },
+      "networking": {
+        "networking_priority": 9,
+        "preferred_networking_venues": [
+          "Fashion shows",
+          "Industry events",
+          "Gallery openings",
+          "Professional mixers"
+        ],
+        "networking_approach": "aggressive",
+        "relationship_depth_preference": "mixed",
+        "follow_up_style": "professional",
+        "communication_preference": "in_person"
+      },
+      "metadata": {
+        "created_date": "2025-09-18T13:15:13.936067",
+        "last_updated": "2025-09-18T13:15:13.936071",
+        "is_active": true,
+        "usage_count": 0
+      }
+    },
+    {
+      "persona_id": "creative_entrepreneur",
+      "persona_name": "Creative Entrepreneur",
+      "description": "Independent creative professional balancing business growth with personal fulfillment",
+      "demographics": {
+        "age_range": [
+          25,
+          40
+        ],
+        "life_stage": "mid_career",
+        "occupation": "Creative Entrepreneur",
+        "income_level": "moderate",
+        "location_preference": "Toronto",
+        "relationship_status": "single",
+        "has_children": false,
+        "education_level": "university"
+      },
+      "personality": {
+        "personality_type": "ambivert",
+        "energy_pattern": "variable_energy",
+        "social_style": "connector",
+        "risk_tolerance": 8,
+        "spontaneity_level": 9,
+        "perfectionism_level": 5,
+        "stress_tolerance": 5,
+        "decision_making_style": "analytical"
+      },
+      "goals": {
+        "primary_goals": [
+          "Grow business",
+          "Build creative community",
+          "Maintain artistic integrity"
+        ],
+        "career_goals": [
+          "Scale creative business",
+          "Build client base",
+          "Develop new skills"
+        ],
+        "personal_goals": [
+          "Stay inspired",
+          "Build creative network",
+          "Maintain work-life balance"
+        ],
+        "short_term_goals": [
+          "Meet 5 new people this month",
+          "Try 3 new activities",
+          "Improve morning routine"
+        ],
+        "long_term_goals": [
+          "Build strong professional network",
+          "Achieve career advancement",
+          "Maintain healthy lifestyle"
+        ]
+      },
+      "preferences": {
+        "activity_preferences": [
+          "creative_soul",
+          "culture_lover"
+        ],
+        "preferred_activity_types": [
+          "fitness",
+          "creative",
+          "social",
+          "cultural"
+        ],
+        "avoided_activity_types": [],
+        "preferred_locations": [
+          "Kensington Market",
+          "Harbourfront",
+          "Distillery District",
+          "Queen West"
+        ],
+        "budget_preference": "moderate",
+        "time_preferences": {
+          "morning_start": "6:00 AM",
+          "bedtime": "10:30 PM",
+          "preferred_breakfast": "7:00 AM",
+          "preferred_dinner": "6:00 PM"
+        },
+        "group_size_preference": "small_groups",
+        "frequency_preference": "moderate"
+      },
+      "constraints": {
+        "max_daily_budget": 150.0,
+        "max_weekly_budget": 800.0,
+        "available_weekdays": [
+          "Thursday",
+          "Friday",
+          "Tuesday",
+          "Monday",
+          "Wednesday"
+        ],
+        "available_weekends": [
+          "Saturday",
+          "Sunday"
+        ],
+        "time_constraints": {
+          "work_start": "9:00 AM",
+          "work_end": "5:00 PM",
+          "lunch_break": "12:00 PM - 1:00 PM"
+        },
+        "physical_limitations": [],
+        "dietary_restrictions": [],
+        "accessibility_needs": []
+      },
+      "behavioral_patterns": {
+        "typical_morning_routine": [
+          "Flexible start",
+          "Creative work",
+          "Coffee",
+          "Inspiration time"
+        ],
+        "typical_evening_routine": [
+          "Client work",
+          "Creative projects",
+          "Social time",
+          "Reflection"
+        ],
+        "weekend_habits": [
+          "Art galleries",
+          "Creative workshops",
+          "Networking events",
+          "Personal projects"
+        ],
+        "stress_management": [
+          "Creative expression",
+          "Nature time",
+          "Social connection",
+          "Physical activity"
+        ],
+        "learning_preferences": [
+          "Hands-on experiences",
+          "Visual learning",
+          "Collaborative learning",
+          "Trial and error"
+        ]
+      },
+      "networking": {
+        "networking_priority": 7,
+        "preferred_networking_venues": [
+          "Art galleries",
+          "Creative workshops",
+          "Cafes",
+          "Co-working spaces"
+        ],
+        "networking_approach": "organic",
+        "relationship_depth_preference": "mixed",
+        "follow_up_style": "professional",
+        "communication_preference": "in_person"
+      },
+      "metadata": {
+        "created_date": "2025-09-18T13:15:13.936124",
+        "last_updated": "2025-09-18T13:15:13.936129",
+        "is_active": true,
+        "usage_count": 0
+      }
+    },
+    {
+      "persona_id": "wellness_professional",
+      "persona_name": "Wellness-Focused Professional",
+      "description": "Health-conscious professional prioritizing wellness and meaningful connections",
+      "demographics": {
+        "age_range": [
+          30,
+          45
+        ],
+        "life_stage": "mid_career",
+        "occupation": "Wellness Professional",
+        "income_level": "moderate",
+        "location_preference": "Toronto",
+        "relationship_status": "couple",
+        "has_children": true,
+        "education_level": "university"
+      },
+      "personality": {
+        "personality_type": "introvert",
+        "energy_pattern": "morning_person",
+        "social_style": "selective",
+        "risk_tolerance": 4,
+        "spontaneity_level": 5,
+        "perfectionism_level": 5,
+        "stress_tolerance": 8,
+        "decision_making_style": "analytical"
+      },
+      "goals": {
+        "primary_goals": [
+          "Maintain health",
+          "Build quality relationships",
+          "Achieve work-life balance"
+        ],
+        "career_goals": [
+          "Advance in wellness field",
+          "Help others",
+          "Build professional reputation"
+        ],
+        "personal_goals": [
+          "Stay healthy",
+          "Spend quality time with family",
+          "Continue learning"
+        ],
+        "short_term_goals": [
+          "Meet 5 new people this month",
+          "Try 3 new activities",
+          "Improve morning routine"
+        ],
+        "long_term_goals": [
+          "Build strong professional network",
+          "Achieve career advancement",
+          "Maintain healthy lifestyle"
+        ]
+      },
+      "preferences": {
+        "activity_preferences": [
+          "wellness_oriented",
+          "fitness_focused"
+        ],
+        "preferred_activity_types": [
+          "wellness",
+          "fitness",
+          "cultural",
+          "social"
+        ],
+        "avoided_activity_types": [],
+        "preferred_locations": [
+          "Yoga studios",
+          "Harbourfront",
+          "Beaches",
+          "High Park"
+        ],
+        "budget_preference": "moderate",
+        "time_preferences": {
+          "morning_start": "6:00 AM",
+          "bedtime": "10:30 PM",
+          "preferred_breakfast": "7:00 AM",
+          "preferred_dinner": "6:00 PM"
+        },
+        "group_size_preference": "small_groups",
+        "frequency_preference": "moderate"
+      },
+      "constraints": {
+        "max_daily_budget": 100.0,
+        "max_weekly_budget": 500.0,
+        "available_weekdays": [
+          "Thursday",
+          "Friday",
+          "Tuesday",
+          "Monday",
+          "Wednesday"
+        ],
+        "available_weekends": [
+          "Saturday",
+          "Sunday"
+        ],
+        "time_constraints": {
+          "family_time": "6:00 PM - 8:00 PM"
+        },
+        "physical_limitations": [],
+        "dietary_restrictions": [],
+        "accessibility_needs": []
+      },
+      "behavioral_patterns": {
+        "typical_morning_routine": [
+          "Early wake up",
+          "Meditation",
+          "Exercise",
+          "Healthy breakfast"
+        ],
+        "typical_evening_routine": [
+          "Family time",
+          "Wind down",
+          "Reading",
+          "Early bedtime"
+        ],
+        "weekend_habits": [
+          "Nature walks",
+          "Yoga classes",
+          "Family activities",
+          "Wellness workshops"
+        ],
+        "stress_management": [
+          "Exercise",
+          "Meditation",
+          "Nature time",
+          "Deep breathing"
+        ],
+        "learning_preferences": [
+          "Hands-on experiences",
+          "Visual learning",
+          "Group learning",
+          "Practical application"
+        ]
+      },
+      "networking": {
+        "networking_priority": 6,
+        "preferred_networking_venues": [
+          "Yoga classes",
+          "Wellness workshops",
+          "Health food cafes",
+          "Nature groups"
+        ],
+        "networking_approach": "selective",
+        "relationship_depth_preference": "mixed",
+        "follow_up_style": "professional",
+        "communication_preference": "in_person"
+      },
+      "metadata": {
+        "created_date": "2025-09-18T13:15:13.936161",
+        "last_updated": "2025-09-18T13:15:13.936162",
+        "is_active": true,
+        "usage_count": 0
+      }
+    }
+  ]
+}

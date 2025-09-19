@@ -1,0 +1,31 @@
+id,name,category,subcategory,description,cost_cad,duration_minutes,networking_potential,location,tags,requirements,best_time,frequency
+1,Wake Up & Hydration,wellness,routine,"Start day with water and light stretching (Kevin not a morning person)",0,30,0,Home,"morning,wellness,routine","","morning",daily
+2,Job Applications & Company Research,career,job_search,"Apply to Head of Data positions, research companies, update LinkedIn profile",0,90,7,Home Office,"job_search,career,applications,linkedin","laptop,resume,cover_letter","morning",daily
+3,Data Science Skill Development,professional,learning,"Online courses, certifications, technical skill building for data roles",0,75,3,Home Office,"learning,data_science,skills,certification","laptop,online_course_access","morning",daily
+4,Lunch with Peter,couple,meals,"Quality time over shared meal, discuss job search progress",25,60,0,Home / Local Restaurant,"couple,meal,connection,support","","afternoon",daily
+5,Interview Preparation,career,interview_prep,"Practice data science questions, prepare case studies, mock interviews",0,90,5,Home Office,"interview_prep,practice,case_studies","laptop,whiteboard","afternoon",daily
+6,Professional Networking Follow-up,networking,professional,"LinkedIn outreach, follow up with contacts, schedule coffee chats",0,60,8,Home Office / Coffee Shop,"networking,linkedin,follow_up,coffee_chats","laptop,phone","afternoon",daily
+7,Half Marathon Training Run,fitness,running,"Solo training run for half marathon preparation - building endurance",0,60,0,Toronto Harbourfront Trail / High Park,"running,fitness,training,solo,half_marathon","running_gear,water,fitness_tracker","evening",scheduled
+8,Dinner with Peter,couple,meals,"Evening meal together, discuss day and plans",40,60,0,Home / Restaurant,"couple,dinner,connection,debrief","","evening",daily
+9,Reflection & Planning,personal_development,planning,"Review job search progress, plan next day activities, journal",0,60,0,Home,"reflection,planning,journal,review","journal,laptop","evening",daily
+10,Evening Together Time,couple,quality_time,"Relaxing together, watching shows, intimate conversation",0,60,0,Home,"couple,relaxation,intimacy,wind_down","","evening",daily
+11,Weekend Wake Up,wellness,routine,Relaxed weekend morning start,0,30,0,Home,"morning,weekend,relaxed","","morning",weekend
+12,Weekend Date Night,couple,date,"Special weekend time together - dinner, activities, or exploring Toronto",80,120,2,Restaurant / Entertainment District,"couple,date_night,weekend,toronto_exploration","","evening",weekend
+13,Late Night Together,couple,intimacy,"Private couple time, deep conversations, intimacy",0,90,0,Home,"couple,intimacy,late_night,private","","night",weekend
+14,Mass at St. Basil Catholic Church,spiritual,worship,Weekly mass attendance and spiritual reflection,0,60,4,"St. Basil Catholic Church, 50 St Joseph St","spiritual,routine,reflection,community","","morning",weekly
+15,Toronto Data Science Meetup,networking,professional,"Professional networking with Toronto data science community, job opportunities",25,120,9,"MaRS Discovery District, 661 University Ave","networking,data_science,professional,job_opportunities","business_cards,laptop","afternoon",weekly
+16,Morning Exercise,fitness,cardio,Running or gym workout to start the day energized,0,60,2,Local Park / Gym,"fitness,running,energy","workout_clothes","morning",daily
+17,Professional Networking Event,networking,social,Networking event aligned with personal interests,50,120,8,Downtown Toronto,"networking,social,weekend","","afternoon",weekly
+18,Morning Intention Setting,couple,daily_connection,Share daily intentions and support each other's goals,0,5,0,Home,"intention,goals,support,morning","","morning",daily
+19,Fashion Industry Mixer,networking,professional,Professional networking in fashion industry,50,180,9,Event Venue,"fashion,professional,networking,industry","business_cards","evening",weekly
+20,Art Gallery Opening,networking,social,Network with artists collectors and creatives,0,120,8,Gallery District,"art,networking,cultural,evening","","evening",weekly
+21,Weekly Emotional Check-In,couple,emotional_safety,"Dedicated time to share feelings, concerns, and needs without judgment",0,30,0,Home,"emotional,check-in,vulnerability,weekly","","evening",weekly
+22,Cooking Together,couple,quality_time,Prepare a meal together with focused collaboration,40,90,0,Home,"cooking,collaboration,meal_prep,quality_time","ingredients,recipes","evening",weekly
+23,Tennis Class (Beginner),fitness,tennis,Tennis class focusing on technique and gameplay,25,60,6,Tennis Courts,"tennis,sports,fitness,class","tennis_racket,tennis_shoes","morning",weekly
+24,Swimming Session,fitness,swimming,Masters swim practice in pool,35,90,5,Swimming Pool,"swimming,fitness,cardio,masters","swimwear,goggles","morning",weekly
+25,Yoga Class,fitness,yoga,Evening yoga practice for flexibility and strength,20,75,5,Yoga Studio,"yoga,flexibility,strength,mindfulness","yoga_mat,comfortable_clothes","evening",weekly
+26,Hiking Adventure,fitness,hiking,Outdoor hiking for fitness and nature connection,0,180,3,Conservation Area,"hiking,outdoor,nature,fitness","hiking_boots,water,snacks","morning",weekend
+27,Cultural Festival,social,cultural,Seasonal cultural festival with community engagement,25,240,8,Harbourfront Centre,"cultural,social,festival,community","","afternoon",weekend
+28,Wine Tasting,social,cultural,Monthly wine tasting event (avoid for Kevin - alcohol reduction),40,150,8,Wine Bar,"cultural,social,networking,alcohol","","evening",monthly
+29,Coffee Chat,networking,professional,One-on-one professional networking meeting,15,60,7,Coffee Shop,"networking,professional,one_on_one,career","business_cards","morning",weekly
+30,Industry Conference,networking,professional,Large-scale professional conference for data professionals,200,480,9,Convention Centre,"conference,professional,data_science,industry","business_cards,laptop,notebook","morning",yearly

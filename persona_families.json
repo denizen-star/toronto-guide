@@ -1,0 +1,64 @@
+{
+  "families": [
+    {
+      "family_id": "toronto_professionals",
+      "family_name": "Toronto Professionals",
+      "description": "Working professionals living in Toronto",
+      "base_location": "Toronto",
+      "target_demographics": [
+        "mid_career",
+        "high_income",
+        "urban"
+      ],
+      "persona_ids": [],
+      "shared_preferences": {
+        "location_preference": "Toronto",
+        "budget_preference": "high"
+      },
+      "shared_constraints": {
+        "work_start": "9:00 AM",
+        "work_end": "6:00 PM"
+      }
+    },
+    {
+      "family_id": "recent_relocators",
+      "family_name": "Recent Relocators",
+      "description": "People who recently moved to a new city",
+      "base_location": "Toronto",
+      "target_demographics": [
+        "new_to_city",
+        "network_building"
+      ],
+      "persona_ids": [],
+      "shared_preferences": {
+        "exploration_priority": "high",
+        "networking_priority": "high"
+      },
+      "shared_constraints": {
+        "local_knowledge": "limited"
+      }
+    },
+    {
+      "family_id": "creative_professionals",
+      "family_name": "Creative Industry Professionals",
+      "description": "People working in creative fields",
+      "base_location": "Toronto",
+      "target_demographics": [
+        "creative",
+        "flexible_schedule",
+        "artistic"
+      ],
+      "persona_ids": [],
+      "shared_preferences": {
+        "preferred_activity_types": [
+          "art",
+          "culture",
+          "creative"
+        ]
+      },
+      "shared_constraints": {
+        "schedule_flexibility": "high"
+      }
+    }
+  ]
+}

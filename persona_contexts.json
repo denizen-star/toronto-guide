@@ -1,0 +1,134 @@
+{
+  "contexts": [
+    {
+      "context_id": "work_focus",
+      "context_name": "Work Focus Mode",
+      "description": "Prioritizes professional networking and career advancement",
+      "goal_adjustments": {
+        "primary_goals": [
+          "Excel in current role",
+          "Build professional network"
+        ]
+      },
+      "preference_adjustments": {
+        "preferred_activity_types": [
+          "professional_networking",
+          "skill_development"
+        ]
+      },
+      "constraint_adjustments": {},
+      "budget_multiplier": 1.2,
+      "priority_activities": [
+        "professional_networking",
+        "industry_events",
+        "skill_development"
+      ],
+      "deprioritized_activities": [
+        "social_activities",
+        "entertainment"
+      ],
+      "duration_days": null,
+      "start_date": null,
+      "end_date": null
+    },
+    {
+      "context_id": "job_search",
+      "context_name": "Job Search Mode",
+      "description": "Focused on career transition and opportunity exploration",
+      "goal_adjustments": {
+        "primary_goals": [
+          "Find new role",
+          "Network with recruiters",
+          "Skill development"
+        ]
+      },
+      "preference_adjustments": {
+        "preferred_activity_types": [
+          "professional_networking",
+          "interviews",
+          "career_development"
+        ]
+      },
+      "constraint_adjustments": {},
+      "budget_multiplier": 0.8,
+      "priority_activities": [
+        "networking_events",
+        "informational_interviews",
+        "skill_building"
+      ],
+      "deprioritized_activities": [
+        "expensive_entertainment",
+        "time_intensive_hobbies"
+      ],
+      "duration_days": null,
+      "start_date": null,
+      "end_date": null
+    },
+    {
+      "context_id": "social_building",
+      "context_name": "Social Network Building",
+      "description": "Focus on building personal friendships and social connections",
+      "goal_adjustments": {
+        "primary_goals": [
+          "Build friendships",
+          "Explore social activities",
+          "Community involvement"
+        ]
+      },
+      "preference_adjustments": {
+        "preferred_activity_types": [
+          "social",
+          "community",
+          "group_activities"
+        ]
+      },
+      "constraint_adjustments": {},
+      "budget_multiplier": 1.0,
+      "priority_activities": [
+        "meetups",
+        "social_events",
+        "community_activities"
+      ],
+      "deprioritized_activities": [
+        "solo_activities",
+        "work_events"
+      ],
+      "duration_days": null,
+      "start_date": null,
+      "end_date": null
+    },
+    {
+      "context_id": "fitness_training",
+      "context_name": "Fitness Training Focus",
+      "description": "Prioritizes physical fitness and training goals",
+      "goal_adjustments": {
+        "primary_goals": [
+          "Achieve fitness goals",
+          "Maintain training schedule"
+        ]
+      },
+      "preference_adjustments": {
+        "preferred_activity_types": [
+          "fitness",
+          "sports",
+          "outdoor_activities"
+        ]
+      },
+      "constraint_adjustments": {},
+      "budget_multiplier": 1.0,
+      "priority_activities": [
+        "running",
+        "gym",
+        "sports",
+        "outdoor_fitness"
+      ],
+      "deprioritized_activities": [
+        "sedentary_activities",
+        "late_night_events"
+      ],
+      "duration_days": null,
+      "start_date": null,
+      "end_date": null
+    }
+  ]
+}
