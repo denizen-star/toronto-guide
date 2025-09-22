@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Admin Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .result { background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .error { background: #ffebee; color: #c62828; }
+        .success { background: #e8f5e8; color: #2e7d32; }
+        button { padding: 10px 20px; margin: 5px; }
+        input { padding: 8px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Simple Admin Test</h1>
+    
+    <div>
+        <h2>1. Test Server Connection</h2>
+        <button onclick="testConnection()">Test Connection</button>
+        <div id="connectionResult" class="result"></div>
+    </div>
+    
+    <div>
+        <h2>2. Test Login</h2>
+        <input type="email" id="email" placeholder="Email" value="admin@optimizer.com">
+        <input type="password" id="password" placeholder="Password" value="admin123">
+        <button onclick="testLogin()">Test Login</button>
+        <div id="loginResult" class="result"></div>
+    </div>
+    
+    <div>
+        <h2>3. Test Admin Endpoint</h2>
+        <button onclick="testAdmin()">Test Admin Users</button>
+        <div id="adminResult" class="result"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://127.0.0.1:5001/api';
+        
+        async function testConnection() {
+            try {
+                const response = await fetch('http://127.0.0.1:5001/health');
+                const data = await response.json();
+                showResult('connectionResult', { success: true, data });
+            } catch (error) {
+                showResult('connectionResult', { success: false, error: error.message });
+            }
+        }
+        
+        async function testLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await response.json();
+                showResult('loginResult', { success: response.ok, data });
+            } catch (error) {
+                showResult('loginResult', { success: false, error: error.message });
+            }
+        }
+        
+        async function testAdmin() {
+            try {
+                const response = await fetch(`${API_BASE}/admin/users`, {
+                    credentials: 'include'
+                });
+                const data = await response.json();
+                showResult('adminResult', { success: response.ok, data });
+            } catch (error) {
+                showResult('adminResult', { success: false, error: error.message });
+            }
+        }
+        
+        function showResult(elementId, result) {
+            const element = document.getElementById(elementId);
+            element.className = 'result ' + (result.success ? 'success' : 'error');
+            element.textContent = JSON.stringify(result.data || result.error, null, 2);
+        }
+        
+        // Auto-test connection on load
+        window.onload = testConnection;
+    </script>
+</body>
+</html>

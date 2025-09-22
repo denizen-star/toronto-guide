@@ -1,4 +1,4 @@
-# LifePlanner - 5-Module Architecture Definition
+# Optimizer - 5-Module Architecture Definition
 
 ## 🏗️ **Module Breakdown & Responsibilities**
 
@@ -142,5 +142,6 @@
 
 *Generated: September 2025*
 *Status: Architecture Definition Phase*
+*Application: Optimizer (formerly LifePlanner)*
 
 
