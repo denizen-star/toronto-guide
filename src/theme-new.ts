@@ -187,13 +187,10 @@ const theme = createTheme({
           margin: 0,
           padding: 0,
           minHeight: '100vh',
-          overflowY: 'scroll',
           overflowX: 'hidden',
         },
         '#root': {
           minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
         },
         '*': {
           boxSizing: 'border-box',
