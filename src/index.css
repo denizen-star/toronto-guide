@@ -1,11 +1,10 @@
-/* Reset default styles */
+/* Reset default styles - allow document to grow so viewport scrolls */
 html {
-  height: 100%;
+  min-height: 100%;
   width: 100%;
-  overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
-  scroll-behavior: auto; /* Ensure instant scrolling */
+  scroll-behavior: auto;
 }
 
 body {
@@ -19,18 +18,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Prevent scroll chaining on iOS */
   overscroll-behavior-y: none;
   -webkit-overscroll-behavior-y: none;
 }
 
-/* Ensure proper viewport height on mobile */
+/* Root fills at least the viewport but grows with content so page can scroll */
 #root {
   min-height: 100vh;
-  /* Use the real viewport height on mobile */
   min-height: -webkit-fill-available;
-  display: flex;
-  flex-direction: column;
 }
 
 /* Fix for mobile viewport height */
