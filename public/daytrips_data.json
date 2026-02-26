@@ -10371,6 +10371,744 @@
         "Checking hours and conditions before you go",
         "Main activity: Winter trails, raptors, maple syrup, family programs"
       ]
+    },
+    {
+      "id": "dt_spa_thermea",
+      "name": "Thermea Spa Village Whitby",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://thermea.com/whitby"
+      },
+      "whySpecial": [
+        "Nordic-style thermal spa with hot and cold baths, saunas, Aufguss ceremonies, and relaxation areas. Closest major thermal spa to Toronto.",
+        "Thermal baths, saunas, or hammam within reach of Toronto.",
+        "Year-round wellness and relaxation."
+      ],
+      "reasonsToGo": [
+        "Relax in thermal waters, sauna, or hammam.",
+        "Unwind close to the city or on a day trip.",
+        "Many venues are LGBTQ+ friendly."
+      ],
+      "events": [
+        {
+          "name": "Spa & thermal experience",
+          "description": "Thermal baths, saunas, cold plunge, steam, rest areas",
+          "location": "Whitby, ON",
+          "frequency": "Year-round"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": true,
+        "seasonal_availability": "Year-round",
+        "weather_dependent": false,
+        "peak_season": "Year-round",
+        "off_peak_season": ""
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": false,
+        "accessibility_notes": "Contact venue."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Relaxing",
+          "Unique experience",
+          "Friendly staff"
+        ],
+        "negatives": [
+          "Book ahead",
+          "Peak times busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a spa day: Thermal baths, saunas, cold plunge, steam, rest areas. Book in advance.",
+        "gayDayIn": "Many spas are LGBTQ+ friendly; call to confirm atmosphere.",
+        "outdoorsDay": "Thermal baths, saunas, cold plunge, steam, rest areas",
+        "barRestaurantDay": "Some venues have tea room, bar, or dining."
+      },
+      "nearby": [
+        {
+          "name": "Local area",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact venue or local tourism."
+        }
+      ],
+      "mustNotMiss": [
+        "Booking in advance",
+        "Hydration",
+        "Main experience: Thermal baths, saunas, cold plunge, steam, rest areas"
+      ]
+    },
+    {
+      "id": "dt_spa_southwestern",
+      "name": "South-Western Bathhouse",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://banya.ca"
+      },
+      "whySpecial": [
+        "Russian banya, Turkish hammam, and Finnish sauna under one roof. Cold plunge, tea room, full bar, venik massage. Gender-specific and co-ed sessions. Sister location in Richmond Hill.",
+        "Thermal baths, saunas, or hammam within reach of Toronto.",
+        "Year-round wellness and relaxation."
+      ],
+      "reasonsToGo": [
+        "Relax in thermal waters, sauna, or hammam.",
+        "Unwind close to the city or on a day trip.",
+        "Many venues are LGBTQ+ friendly."
+      ],
+      "events": [
+        {
+          "name": "Spa & thermal experience",
+          "description": "Russian banya, hammam, Finnish sauna, cold plunge, tea room",
+          "location": "Mississauga / Richmond Hill, ON",
+          "frequency": "Year-round"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": true,
+        "seasonal_availability": "Year-round",
+        "weather_dependent": false,
+        "peak_season": "Year-round",
+        "off_peak_season": ""
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": false,
+        "accessibility_notes": "Contact venue."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Relaxing",
+          "Unique experience",
+          "Friendly staff"
+        ],
+        "negatives": [
+          "Book ahead",
+          "Peak times busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a spa day: Russian banya, hammam, Finnish sauna, cold plunge, tea room. Book in advance.",
+        "gayDayIn": "Many spas are LGBTQ+ friendly; call to confirm atmosphere.",
+        "outdoorsDay": "Russian banya, hammam, Finnish sauna, cold plunge, tea room",
+        "barRestaurantDay": "Some venues have tea room, bar, or dining."
+      },
+      "nearby": [
+        {
+          "name": "Local area",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact venue or local tourism."
+        }
+      ],
+      "mustNotMiss": [
+        "Booking in advance",
+        "Hydration",
+        "Main experience: Russian banya, hammam, Finnish sauna, cold plunge, tea room"
+      ]
+    },
+    {
+      "id": "dt_spa_vladimirskie",
+      "name": "Vladimirskie Bani",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://vladimirskiebani.com"
+      },
+      "whySpecial": [
+        "Russian banya and Turkish steam rooms, infrared saunas, hot tubs. Women's, men's, and family days. Vaughan location.",
+        "Thermal baths, saunas, or hammam within reach of Toronto.",
+        "Year-round wellness and relaxation."
+      ],
+      "reasonsToGo": [
+        "Relax in thermal waters, sauna, or hammam.",
+        "Unwind close to the city or on a day trip.",
+        "Many venues are LGBTQ+ friendly."
+      ],
+      "events": [
+        {
+          "name": "Spa & thermal experience",
+          "description": "Russian banya, Turkish steam, infrared sauna, hot tubs",
+          "location": "Vaughan, ON",
+          "frequency": "Year-round"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": true,
+        "seasonal_availability": "Year-round",
+        "weather_dependent": false,
+        "peak_season": "Year-round",
+        "off_peak_season": ""
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": false,
+        "accessibility_notes": "Contact venue."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Relaxing",
+          "Unique experience",
+          "Friendly staff"
+        ],
+        "negatives": [
+          "Book ahead",
+          "Peak times busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a spa day: Russian banya, Turkish steam, infrared sauna, hot tubs. Book in advance.",
+        "gayDayIn": "Many spas are LGBTQ+ friendly; call to confirm atmosphere.",
+        "outdoorsDay": "Russian banya, Turkish steam, infrared sauna, hot tubs",
+        "barRestaurantDay": "Some venues have tea room, bar, or dining."
+      },
+      "nearby": [
+        {
+          "name": "Local area",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact venue or local tourism."
+        }
+      ],
+      "mustNotMiss": [
+        "Booking in advance",
+        "Hydration",
+        "Main experience: Russian banya, Turkish steam, infrared sauna, hot tubs"
+      ]
+    },
+    {
+      "id": "dt_spa_hammam_cela",
+      "name": "Hammam Spa by Céla",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.celaspa.com"
+      },
+      "whySpecial": [
+        "Turkish hammam experience in Toronto: steam, exfoliation, and traditional treatments in a serene setting.",
+        "Thermal baths, saunas, or hammam within reach of Toronto.",
+        "Year-round wellness and relaxation."
+      ],
+      "reasonsToGo": [
+        "Relax in thermal waters, sauna, or hammam.",
+        "Unwind close to the city or on a day trip.",
+        "Many venues are LGBTQ+ friendly."
+      ],
+      "events": [
+        {
+          "name": "Spa & thermal experience",
+          "description": "Hammam, steam, body treatments, relaxation",
+          "location": "Toronto, ON",
+          "frequency": "Year-round"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": true,
+        "seasonal_availability": "Year-round",
+        "weather_dependent": false,
+        "peak_season": "Year-round",
+        "off_peak_season": ""
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": false,
+        "accessibility_notes": "Contact venue."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Relaxing",
+          "Unique experience",
+          "Friendly staff"
+        ],
+        "negatives": [
+          "Book ahead",
+          "Peak times busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a spa day: Hammam, steam, body treatments, relaxation. Book in advance.",
+        "gayDayIn": "Many spas are LGBTQ+ friendly; call to confirm atmosphere.",
+        "outdoorsDay": "Hammam, steam, body treatments, relaxation",
+        "barRestaurantDay": "Some venues have tea room, bar, or dining."
+      },
+      "nearby": [
+        {
+          "name": "Local area",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact venue or local tourism."
+        }
+      ],
+      "mustNotMiss": [
+        "Booking in advance",
+        "Hydration",
+        "Main experience: Hammam, steam, body treatments, relaxation"
+      ]
+    },
+    {
+      "id": "dt_spa_miraj",
+      "name": "Miraj Hammam Spa",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.mirajhammam.com"
+      },
+      "whySpecial": [
+        "Traditional hammam and spa in Toronto. Steam, black soap, and ritual treatments.",
+        "Thermal baths, saunas, or hammam within reach of Toronto.",
+        "Year-round wellness and relaxation."
+      ],
+      "reasonsToGo": [
+        "Relax in thermal waters, sauna, or hammam.",
+        "Unwind close to the city or on a day trip.",
+        "Many venues are LGBTQ+ friendly."
+      ],
+      "events": [
+        {
+          "name": "Spa & thermal experience",
+          "description": "Hammam, steam, body rituals, relaxation",
+          "location": "Toronto, ON",
+          "frequency": "Year-round"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": true,
+        "seasonal_availability": "Year-round",
+        "weather_dependent": false,
+        "peak_season": "Year-round",
+        "off_peak_season": ""
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": false,
+        "accessibility_notes": "Contact venue."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Relaxing",
+          "Unique experience",
+          "Friendly staff"
+        ],
+        "negatives": [
+          "Book ahead",
+          "Peak times busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a spa day: Hammam, steam, body rituals, relaxation. Book in advance.",
+        "gayDayIn": "Many spas are LGBTQ+ friendly; call to confirm atmosphere.",
+        "outdoorsDay": "Hammam, steam, body rituals, relaxation",
+        "barRestaurantDay": "Some venues have tea room, bar, or dining."
+      },
+      "nearby": [
+        {
+          "name": "Local area",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact venue or local tourism."
+        }
+      ],
+      "mustNotMiss": [
+        "Booking in advance",
+        "Hydration",
+        "Main experience: Hammam, steam, body rituals, relaxation"
+      ]
+    },
+    {
+      "id": "dt_spa_elmwood",
+      "name": "Elmwood Spa",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.elmwoodspa.com"
+      },
+      "whySpecial": [
+        "Downtown Toronto spa with sauna, steam, pool, and full treatment menu. Rooftop terrace and quiet lounges.",
+        "Thermal baths, saunas, or hammam within reach of Toronto.",
+        "Year-round wellness and relaxation."
+      ],
+      "reasonsToGo": [
+        "Relax in thermal waters, sauna, or hammam.",
+        "Unwind close to the city or on a day trip.",
+        "Many venues are LGBTQ+ friendly."
+      ],
+      "events": [
+        {
+          "name": "Spa & thermal experience",
+          "description": "Sauna, steam, pool, treatments, rooftop",
+          "location": "Toronto, ON",
+          "frequency": "Year-round"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": true,
+        "seasonal_availability": "Year-round",
+        "weather_dependent": false,
+        "peak_season": "Year-round",
+        "off_peak_season": ""
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": false,
+        "accessibility_notes": "Contact venue."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Relaxing",
+          "Unique experience",
+          "Friendly staff"
+        ],
+        "negatives": [
+          "Book ahead",
+          "Peak times busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a spa day: Sauna, steam, pool, treatments, rooftop. Book in advance.",
+        "gayDayIn": "Many spas are LGBTQ+ friendly; call to confirm atmosphere.",
+        "outdoorsDay": "Sauna, steam, pool, treatments, rooftop",
+        "barRestaurantDay": "Some venues have tea room, bar, or dining."
+      },
+      "nearby": [
+        {
+          "name": "Local area",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact venue or local tourism."
+        }
+      ],
+      "mustNotMiss": [
+        "Booking in advance",
+        "Hydration",
+        "Main experience: Sauna, steam, pool, treatments, rooftop"
+      ]
+    },
+    {
+      "id": "dt_spa_bodyblitz",
+      "name": "Body Blitz Spa",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.bodyblitzspa.com"
+      },
+      "whySpecial": [
+        "Women-only water circuit: hot pool, cold plunge, eucalyptus steam, and sauna. West-end Toronto.",
+        "Thermal baths, saunas, or hammam within reach of Toronto.",
+        "Year-round wellness and relaxation."
+      ],
+      "reasonsToGo": [
+        "Relax in thermal waters, sauna, or hammam.",
+        "Unwind close to the city or on a day trip.",
+        "Many venues are LGBTQ+ friendly."
+      ],
+      "events": [
+        {
+          "name": "Spa & thermal experience",
+          "description": "Water circuit, steam, sauna, cold plunge",
+          "location": "Toronto, ON",
+          "frequency": "Year-round"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": true,
+        "seasonal_availability": "Year-round",
+        "weather_dependent": false,
+        "peak_season": "Year-round",
+        "off_peak_season": ""
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": false,
+        "accessibility_notes": "Contact venue."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Relaxing",
+          "Unique experience",
+          "Friendly staff"
+        ],
+        "negatives": [
+          "Book ahead",
+          "Peak times busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a spa day: Water circuit, steam, sauna, cold plunge. Book in advance.",
+        "gayDayIn": "Many spas are LGBTQ+ friendly; call to confirm atmosphere.",
+        "outdoorsDay": "Water circuit, steam, sauna, cold plunge",
+        "barRestaurantDay": "Some venues have tea room, bar, or dining."
+      },
+      "nearby": [
+        {
+          "name": "Local area",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact venue or local tourism."
+        }
+      ],
+      "mustNotMiss": [
+        "Booking in advance",
+        "Hydration",
+        "Main experience: Water circuit, steam, sauna, cold plunge"
+      ]
+    },
+    {
+      "id": "dt_spa_vetta",
+      "name": "Vetta Nordic Spa",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.vettanordicspa.com"
+      },
+      "whySpecial": [
+        "Nordic spa with thermal pools, saunas, and cold plunges. Outdoor relaxation near Muskoka.",
+        "Thermal baths, saunas, or hammam within reach of Toronto.",
+        "Year-round wellness and relaxation."
+      ],
+      "reasonsToGo": [
+        "Relax in thermal waters, sauna, or hammam.",
+        "Unwind close to the city or on a day trip.",
+        "Many venues are LGBTQ+ friendly."
+      ],
+      "events": [
+        {
+          "name": "Spa & thermal experience",
+          "description": "Thermal pools, saunas, cold plunge, outdoor relaxation",
+          "location": "Haliburton area, ON",
+          "frequency": "Year-round"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": true,
+        "seasonal_availability": "Year-round",
+        "weather_dependent": false,
+        "peak_season": "Year-round",
+        "off_peak_season": ""
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": false,
+        "accessibility_notes": "Contact venue."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Relaxing",
+          "Unique experience",
+          "Friendly staff"
+        ],
+        "negatives": [
+          "Book ahead",
+          "Peak times busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a spa day: Thermal pools, saunas, cold plunge, outdoor relaxation. Book in advance.",
+        "gayDayIn": "Many spas are LGBTQ+ friendly; call to confirm atmosphere.",
+        "outdoorsDay": "Thermal pools, saunas, cold plunge, outdoor relaxation",
+        "barRestaurantDay": "Some venues have tea room, bar, or dining."
+      },
+      "nearby": [
+        {
+          "name": "Local area",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact venue or local tourism."
+        }
+      ],
+      "mustNotMiss": [
+        "Booking in advance",
+        "Hydration",
+        "Main experience: Thermal pools, saunas, cold plunge, outdoor relaxation"
+      ]
+    },
+    {
+      "id": "dt_spa_stannes",
+      "name": "St. Anne's Spa",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.stannes.ca"
+      },
+      "whySpecial": [
+        "Full-service spa and inn with thermal pools, outdoor hot tubs, and treatments. Country setting near Grafton.",
+        "Thermal baths, saunas, or hammam within reach of Toronto.",
+        "Year-round wellness and relaxation."
+      ],
+      "reasonsToGo": [
+        "Relax in thermal waters, sauna, or hammam.",
+        "Unwind close to the city or on a day trip.",
+        "Many venues are LGBTQ+ friendly."
+      ],
+      "events": [
+        {
+          "name": "Spa & thermal experience",
+          "description": "Thermal pools, hot tubs, treatments, dining",
+          "location": "Grafton, ON",
+          "frequency": "Year-round"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": true,
+        "seasonal_availability": "Year-round",
+        "weather_dependent": false,
+        "peak_season": "Year-round",
+        "off_peak_season": ""
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": false,
+        "accessibility_notes": "Contact venue."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Relaxing",
+          "Unique experience",
+          "Friendly staff"
+        ],
+        "negatives": [
+          "Book ahead",
+          "Peak times busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a spa day: Thermal pools, hot tubs, treatments, dining. Book in advance.",
+        "gayDayIn": "Many spas are LGBTQ+ friendly; call to confirm atmosphere.",
+        "outdoorsDay": "Thermal pools, hot tubs, treatments, dining",
+        "barRestaurantDay": "Some venues have tea room, bar, or dining."
+      },
+      "nearby": [
+        {
+          "name": "Local area",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact venue or local tourism."
+        }
+      ],
+      "mustNotMiss": [
+        "Booking in advance",
+        "Hydration",
+        "Main experience: Thermal pools, hot tubs, treatments, dining"
+      ]
     }
   ],
   "summary": {

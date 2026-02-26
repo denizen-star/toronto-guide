@@ -494,6 +494,9 @@ const LgbtEvents = () => {
                 performances, and gatherings. From drag shows to community meetups, find inclusive 
                 spaces and experiences.
               </p>
+              <p style={{ marginTop: 'var(--space-2)', fontSize: 'var(--text-sm)', opacity: 0.9 }}>
+                For more queer arts, nightlife, and events: <a href="https://www.yohomo.ca" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>YOHOMO</a> (yohomo.ca).
+              </p>
             </div>
             <div className="stats-box">
               <div className="stat">
