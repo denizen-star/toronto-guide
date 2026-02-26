@@ -1,5 +1,6 @@
 [build]
-  publish = "Toronto-guide"
+  command = "npm run build"
+  publish = "build"
 
 # React LifePlanner routing
 [[redirects]]
