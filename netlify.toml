@@ -2,8 +2,14 @@
   command = "npm run build"
   publish = "build"
 
-# React LifePlanner routing
+# React LifePlanner routing (specific path first)
 [[redirects]]
   from = "/planner/*"
   to = "/planner/index.html"
+  status = 200
+
+# SPA fallback: serve index.html for all other routes (HashRouter uses # so this mainly helps direct links)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
   status = 200
