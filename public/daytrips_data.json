@@ -7454,6 +7454,2923 @@
         "Village dining and shopping experiences"
       ],
       "matchingId": "dt50_unmatched_141949"
+    },
+    {
+      "id": "dt_winter_mountstlouis",
+      "name": "Mount St. Louis Moonstone Winter Ski Day",
+      "coordinates": {
+        "latitude": 44.4833,
+        "longitude": -79.7333
+      },
+      "contact": {
+        "phone": "+1-705-835-2112",
+        "email": "info@mountstlouis.com",
+        "website": "https://www.mountstlouis.com"
+      },
+      "whySpecial": [
+        "One of Ontario's premier ski and snowboard destinations",
+        "Family-friendly winter resort with varied terrain",
+        "Night skiing and snow tubing available",
+        "Just under 2 hours from Toronto",
+        "Consistent snow and well-groomed runs"
+      ],
+      "reasonsToGo": [
+        "Skiing and snowboarding for all levels",
+        "Snow tubing and winter activities",
+        "Night skiing under the stars",
+        "Winter getaway close to Toronto",
+        "Family-friendly winter fun"
+      ],
+      "events": [
+        {
+          "name": "Winter Ski Season",
+          "description": "Skiing, snowboarding, and snow tubing",
+          "location": "Mount St. Louis Moonstone",
+          "frequency": "December-March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": true,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Lodge and base facilities are accessible. Contact resort for snow-specific access."
+      },
+      "reviewsSentiment": {
+        "overall": "Very Good",
+        "positives": [
+          "Great variety of runs for all levels",
+          "Family-friendly atmosphere",
+          "Convenient distance from Toronto",
+          "Night skiing option",
+          "Well-maintained slopes"
+        ],
+        "negatives": [
+          "Can be busy on weekends",
+          "Weather dependent",
+          "Peak season lift ticket prices"
+        ]
+      },
+      "dayIn": {
+        "general": "Arrive early for morning skiing, break for lunch at the lodge, afternoon on slopes or snow tubing, and optional night skiing before heading home.",
+        "gayDayIn": "Inclusive resort atmosphere; enjoy skiing and winter activities, lodge dining, and evening options.",
+        "outdoorsDay": "Full day on the slopes, snow tubing, and winter trail options.",
+        "barRestaurantDay": "Lodge cafeteria and restaurant, nearby Barrie/Orillia dining for après-ski."
+      },
+      "nearby": [
+        {
+          "name": "Blue Mountain Resort",
+          "description": "Larger four-season resort with village and additional winter activities"
+        },
+        {
+          "name": "Orillia",
+          "description": "Lake Couchiching town with dining and lodging"
+        },
+        {
+          "name": "Scenic Caves Nature Adventures",
+          "description": "Winter snowshoeing and scenic views"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Orillia Area Hotels",
+          "type": "Hotel",
+          "location": "Orillia",
+          "description": "Various accommodation options within 30 minutes"
+        },
+        {
+          "name": "Barrie Hotels",
+          "type": "Hotel",
+          "location": "Barrie",
+          "description": "Larger city with multiple hotel options"
+        }
+      ],
+      "mustNotMiss": [
+        "Skiing or snowboarding on groomed runs",
+        "Snow tubing for all ages",
+        "Lodge lunch with mountain views",
+        "Night skiing if available",
+        "Winter scenery on the drive"
+      ]
+    },
+    {
+      "id": "dt_winter_arrowhead",
+      "name": "Arrowhead Provincial Park Winter Day Trip",
+      "coordinates": {
+        "latitude": 45.3667,
+        "longitude": -79.2167
+      },
+      "contact": {
+        "phone": "+1-705-789-5105",
+        "email": "arrowhead@ontarioparks.com",
+        "website": "https://www.ontarioparks.com/park/arrowhead"
+      },
+      "whySpecial": [
+        "Famous 1.3 km ice skating trail through the forest",
+        "Snowshoeing and cross-country ski trails",
+        "Frozen waterfalls and winter scenery",
+        "Winter camping available",
+        "Under 2 hours from Toronto"
+      ],
+      "reasonsToGo": [
+        "Skate the iconic forest ice trail",
+        "Snowshoe to frozen Big East River waterfalls",
+        "Cross-country skiing on groomed trails",
+        "Winter photography and nature",
+        "Quiet winter escape from the city"
+      ],
+      "events": [
+        {
+          "name": "Winter Ice Skating Trail",
+          "description": "1.3 km skating trail through snow-covered forest",
+          "location": "Arrowhead Provincial Park",
+          "frequency": "December-March (ice conditions permitting)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": true,
+        "reservation_window": "5 days for day use in winter",
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": true,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Main facilities and some trails accessible. Check park for winter trail access."
+      },
+      "reviewsSentiment": {
+        "overall": "Excellent",
+        "positives": [
+          "Unique ice skating trail experience",
+          "Beautiful winter forest scenery",
+          "Well-maintained winter trails",
+          "Frozen waterfall views",
+          "Uncrowded winter escape"
+        ],
+        "negatives": [
+          "Day use reservation required in winter",
+          "Weather and ice dependent",
+          "Cold conditions; dress warmly"
+        ]
+      },
+      "dayIn": {
+        "general": "Arrive for morning skating on the ice trail, warm up in the visitor centre, snowshoe to the waterfalls, then cross-country ski or another skate before leaving.",
+        "gayDayIn": "Welcoming park environment; enjoy the ice trail, snowshoeing, and winter nature.",
+        "outdoorsDay": "Full winter outdoor day: ice trail, snowshoeing, cross-country skiing, frozen waterfall visit.",
+        "barRestaurantDay": "Pack a thermos and lunch; nearby Huntsville for après-ski dining."
+      },
+      "nearby": [
+        {
+          "name": "Huntsville",
+          "description": "Town with dining, lodging, and Algonquin Park gateway"
+        },
+        {
+          "name": "Algonquin Park",
+          "description": "Winter camping and trails; longer drive for extended trip"
+        },
+        {
+          "name": "Muskoka",
+          "description": "Cottage country with winter charm and lodging"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Huntsville Hotels",
+          "type": "Hotel",
+          "location": "Huntsville",
+          "description": "Closest town with multiple accommodation options"
+        },
+        {
+          "name": "Arrowhead Winter Camping",
+          "type": "Camping",
+          "location": "Arrowhead Provincial Park",
+          "description": "Winter camping by reservation"
+        }
+      ],
+      "mustNotMiss": [
+        "Ice skating the 1.3 km forest trail",
+        "Snowshoeing to Big East River waterfalls",
+        "Winter photography and quiet forest",
+        "Visitor centre warming up",
+        "Cross-country skiing on groomed trails"
+      ]
+    },
+    {
+      "id": "dt_winter_gleneden",
+      "name": "Glen Eden Ski & Snowboard",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.gleneden.com"
+      },
+      "whySpecial": [
+        "Local ski hill in Milton with skiing, snowboarding, and tubing. Family-friendly, under 1 hour from Toronto.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Skiing, snowboarding, snow tubing, lessons",
+          "location": "Milton, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Skiing, snowboarding, snow tubing, lessons. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Skiing, snowboarding, snow tubing, lessons",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Skiing, snowboarding, snow tubing, lessons"
+      ]
+    },
+    {
+      "id": "dt_winter_snowvalley",
+      "name": "Snow Valley Ski Resort",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.snowvalley.ca"
+      },
+      "whySpecial": [
+        "Barrie-area ski resort with varied terrain, snow tubing park, and night skiing.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Skiing, snowboarding, snow tubing, night skiing",
+          "location": "Barrie, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Skiing, snowboarding, snow tubing, night skiing. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Skiing, snowboarding, snow tubing, night skiing",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Skiing, snowboarding, snow tubing, night skiing"
+      ]
+    },
+    {
+      "id": "dt_winter_dagmar",
+      "name": "Dagmar Ski Resort",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.skidagmar.com"
+      },
+      "whySpecial": [
+        "Uxbridge ski hill with runs for all levels and a friendly local vibe.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Skiing, snowboarding, lessons",
+          "location": "Uxbridge, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Skiing, snowboarding, lessons. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Skiing, snowboarding, lessons",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Skiing, snowboarding, lessons"
+      ]
+    },
+    {
+      "id": "dt_winter_lakeridge",
+      "name": "Lakeridge Ski Resort",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.lakeridgeresort.com"
+      },
+      "whySpecial": [
+        "Durham Region ski and snowboard resort with tubing and terrain parks.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Skiing, snowboarding, snow tubing, terrain park",
+          "location": "Uxbridge, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Skiing, snowboarding, snow tubing, terrain park. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Skiing, snowboarding, snow tubing, terrain park",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Skiing, snowboarding, snow tubing, terrain park"
+      ]
+    },
+    {
+      "id": "dt_winter_hockley",
+      "name": "Hockley Valley Resort Winter",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.hockley.com"
+      },
+      "whySpecial": [
+        "Ski resort and spa in the hills of Mono. Ski by day, spa and dining by evening.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Skiing, snowboarding, spa, fine dining",
+          "location": "Mono, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Skiing, snowboarding, spa, fine dining. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Skiing, snowboarding, spa, fine dining",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Skiing, snowboarding, spa, fine dining"
+      ]
+    },
+    {
+      "id": "dt_winter_sirsams",
+      "name": "Sir Sam's Ski & Ride",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.sirsams.com"
+      },
+      "whySpecial": [
+        "Haliburton ski area with uncrowded runs and cottage-country atmosphere.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Skiing, snowboarding, cross-country, snow tubing",
+          "location": "Haliburton, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Skiing, snowboarding, cross-country, snow tubing. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Skiing, snowboarding, cross-country, snow tubing",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Skiing, snowboarding, cross-country, snow tubing"
+      ]
+    },
+    {
+      "id": "dt_winter_pakenham",
+      "name": "Mount Pakenham Ski Resort",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.mountpakenham.com"
+      },
+      "whySpecial": [
+        "Family-oriented ski hill in the Ottawa Valley with tubing and night skiing.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Skiing, snowboarding, snow tubing, night skiing",
+          "location": "Pakenham, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Skiing, snowboarding, snow tubing, night skiing. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Skiing, snowboarding, snow tubing, night skiing",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Skiing, snowboarding, snow tubing, night skiing"
+      ]
+    },
+    {
+      "id": "dt_winter_horseshoe",
+      "name": "Horseshoe Resort Ski & Tubing",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.horseshoeresort.com"
+      },
+      "whySpecial": [
+        "Barrie-area resort with skiing, snowboarding, and dedicated snow tubing park.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Skiing, snowboarding, snow tubing, trails",
+          "location": "Barrie, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Skiing, snowboarding, snow tubing, trails. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Skiing, snowboarding, snow tubing, trails",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Skiing, snowboarding, snow tubing, trails"
+      ]
+    },
+    {
+      "id": "dt_winter_icewine",
+      "name": "Niagara Icewine Festival",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.niagarawinefestival.com"
+      },
+      "whySpecial": [
+        "Winter festival celebrating Ontario icewine with tastings, events, and ice bars in Niagara-on-the-Lake.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Icewine tastings, ice bar, winter events",
+          "location": "Niagara-on-the-Lake, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Icewine tastings, ice bar, winter events. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Icewine tastings, ice bar, winter events",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Icewine tastings, ice bar, winter events"
+      ]
+    },
+    {
+      "id": "dt_winter_winterlude",
+      "name": "Winterlude & Rideau Canal Skate",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.ottawatourism.ca/winterlude"
+      },
+      "whySpecial": [
+        "Ottawa winter festival. Skate the world-famous Rideau Canal and enjoy ice sculptures and events.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Canal skating, ice sculptures, winter festival",
+          "location": "Ottawa, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Canal skating, ice sculptures, winter festival. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Canal skating, ice sculptures, winter festival",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Canal skating, ice sculptures, winter festival"
+      ]
+    },
+    {
+      "id": "dt_winter_harbourfront",
+      "name": "Harbourfront Natrel Rink",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.harbourfrontcentre.com"
+      },
+      "whySpecial": [
+        "Outdoor skating rink on the Toronto waterfront with lake views and winter programming.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Ice skating, winter events, waterfront",
+          "location": "Toronto, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Ice skating, winter events, waterfront. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Ice skating, winter events, waterfront",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Ice skating, winter events, waterfront"
+      ]
+    },
+    {
+      "id": "dt_winter_nathanphillips",
+      "name": "Nathan Phillips Square Skating",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.toronto.ca"
+      },
+      "whySpecial": [
+        "Iconic downtown Toronto rink at City Hall. Free skating with skyline views.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Ice skating, photo ops, downtown",
+          "location": "Toronto, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Ice skating, photo ops, downtown. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Ice skating, photo ops, downtown",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Ice skating, photo ops, downtown"
+      ]
+    },
+    {
+      "id": "dt_winter_bentway",
+      "name": "The Bentway Skate Trail",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://thebentway.ca"
+      },
+      "whySpecial": [
+        "Unique skating trail under the Gardiner in Toronto. Winter programming and events.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Skate trail, winter events, urban",
+          "location": "Toronto, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Skate trail, winter events, urban. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Skate trail, winter events, urban",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Skate trail, winter events, urban"
+      ]
+    },
+    {
+      "id": "dt_winter_riverdale",
+      "name": "Riverdale Park East Tobogganing",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.toronto.ca"
+      },
+      "whySpecial": [
+        "Popular Toronto hill for tobogganing with downtown views. Bring your own sled.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Tobogganing, sledding, park",
+          "location": "Toronto, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Tobogganing, sledding, park. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Tobogganing, sledding, park",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Tobogganing, sledding, park"
+      ]
+    },
+    {
+      "id": "dt_winter_icesimcoe",
+      "name": "Lake Simcoe Ice Fishing",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.tourismbarrie.com"
+      },
+      "whySpecial": [
+        "Ice fishing on Lake Simcoe for perch, whitefish, and lake trout. Huts and guides available.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Ice fishing, winter huts, guides",
+          "location": "Lake Simcoe, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Ice fishing, winter huts, guides. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Ice fishing, winter huts, guides",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Ice fishing, winter huts, guides"
+      ]
+    },
+    {
+      "id": "dt_winter_algonquin_snowshoe",
+      "name": "Algonquin Park Winter Snowshoe",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.algonquinpark.on.ca"
+      },
+      "whySpecial": [
+        "Snowshoe the trails of Algonquin in winter. Visitor centre, groomed trails, and backcountry options.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Snowshoeing, winter trails, wildlife",
+          "location": "Algonquin Provincial Park, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Snowshoeing, winter trails, wildlife. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Snowshoeing, winter trails, wildlife",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Snowshoeing, winter trails, wildlife"
+      ]
+    },
+    {
+      "id": "dt_winter_scandinave",
+      "name": "Scandinave Spa Blue Mountain Winter",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.scandinave.com/blue-mountain"
+      },
+      "whySpecial": [
+        "Outdoor Nordic spa with hot baths, cold plunges, and saunas in the snow at Blue Mountain.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Hot baths, cold plunge, sauna, silence",
+          "location": "Blue Mountains, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Hot baths, cold plunge, sauna, silence. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Hot baths, cold plunge, sauna, silence",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Hot baths, cold plunge, sauna, silence"
+      ]
+    },
+    {
+      "id": "dt_winter_dogsled",
+      "name": "Haliburton Forest Dog Sledding",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.haliburtonforest.com"
+      },
+      "whySpecial": [
+        "Dog sledding experiences through Haliburton Forest. Half-day and full-day tours.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Dog sledding, winter forest, tours",
+          "location": "Haliburton, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Dog sledding, winter forest, tours. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Dog sledding, winter forest, tours",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Dog sledding, winter forest, tours"
+      ]
+    },
+    {
+      "id": "dt_winter_cranberry",
+      "name": "Cranberry Marsh Winter Experience",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.cranberry.ca"
+      },
+      "whySpecial": [
+        "Bala-area cranberry operation with winter tours, snowshoeing, and seasonal events.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Cranberry marsh, snowshoeing, winter tours",
+          "location": "Bala, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Cranberry marsh, snowshoeing, winter tours. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Cranberry marsh, snowshoeing, winter tours",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Cranberry marsh, snowshoeing, winter tours"
+      ]
+    },
+    {
+      "id": "dt_winter_niagara_wine",
+      "name": "Niagara Winter Wine Tour",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.niagarawinecountry.com"
+      },
+      "whySpecial": [
+        "Winter winery tours and tastings in Niagara. Cozy cellars and icewine focus.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Winery tours, icewine, tastings",
+          "location": "Niagara-on-the-Lake, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Winery tours, icewine, tastings. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Winery tours, icewine, tastings",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Winery tours, icewine, tastings"
+      ]
+    },
+    {
+      "id": "dt_winter_distillery",
+      "name": "Distillery District Winter Village",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.thedistillerydistrict.com"
+      },
+      "whySpecial": [
+        "Toronto Distillery District in winter: skating, lights, markets, and holiday atmosphere.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Skating, lights, shopping, dining",
+          "location": "Toronto, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Skating, lights, shopping, dining. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Skating, lights, shopping, dining",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Skating, lights, shopping, dining"
+      ]
+    },
+    {
+      "id": "dt_winter_kortright",
+      "name": "Kortright Centre Winter Trails",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.kortright.org"
+      },
+      "whySpecial": [
+        "Vaughan conservation area with winter trails for snowshoeing and cross-country skiing.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Snowshoeing, cross-country skiing, trails",
+          "location": "Vaughan, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Snowshoeing, cross-country skiing, trails. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Snowshoeing, cross-country skiing, trails",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Snowshoeing, cross-country skiing, trails"
+      ]
+    },
+    {
+      "id": "dt_winter_terracotta",
+      "name": "Terra Cotta Conservation Winter",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.conservationhalton.ca"
+      },
+      "whySpecial": [
+        "Halton conservation area with winter hiking and snowshoe trails near Georgetown.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Winter hiking, snowshoeing, trails",
+          "location": "Halton Hills, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Winter hiking, snowshoeing, trails. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Winter hiking, snowshoeing, trails",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Winter hiking, snowshoeing, trails"
+      ]
+    },
+    {
+      "id": "dt_winter_forks",
+      "name": "Forks of the Credit Winter",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.creditvalleyca.ca"
+      },
+      "whySpecial": [
+        "Scenic Caledon area with winter hiking and snow-covered landscapes along the Credit River.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Winter hiking, scenery, photography",
+          "location": "Caledon, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Winter hiking, scenery, photography. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Winter hiking, scenery, photography",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Winter hiking, scenery, photography"
+      ]
+    },
+    {
+      "id": "dt_winter_elora",
+      "name": "Elora Gorge Winter Hiking",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.grandriver.ca"
+      },
+      "whySpecial": [
+        "Winter trails at Elora Gorge Conservation Area. Frozen scenery and quiet trails.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Winter hiking, gorge views, trails",
+          "location": "Elora, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Winter hiking, gorge views, trails. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Winter hiking, gorge views, trails",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Winter hiking, gorge views, trails"
+      ]
+    },
+    {
+      "id": "dt_winter_crawford",
+      "name": "Crawford Lake Winter",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.conservationhalton.ca"
+      },
+      "whySpecial": [
+        "Winter programming and trails at Crawford Lake. Iroquoian village and meromictic lake in snow.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Winter trails, Indigenous heritage, lake",
+          "location": "Milton, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Winter trails, Indigenous heritage, lake. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Winter trails, Indigenous heritage, lake",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Winter trails, Indigenous heritage, lake"
+      ]
+    },
+    {
+      "id": "dt_winter_sleigh",
+      "name": "Sleigh Ride at Chudleigh's",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.chudleighs.com"
+      },
+      "whySpecial": [
+        "Horse-drawn sleigh rides at Chudleigh's farm in Milton. Winter farm experience and apple treats.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Sleigh ride, farm, winter experience",
+          "location": "Milton, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Sleigh ride, farm, winter experience. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Sleigh ride, farm, winter experience",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Sleigh ride, farm, winter experience"
+      ]
+    },
+    {
+      "id": "dt_winter_curling",
+      "name": "Curling Experience in Toronto",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.curling.ca"
+      },
+      "whySpecial": [
+        "Try curling at a Toronto-area club. Learn-to-curl sessions and bonspiels in winter.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Curling, learn to curl, winter sport",
+          "location": "Toronto, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Curling, learn to curl, winter sport. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Curling, learn to curl, winter sport",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Curling, learn to curl, winter sport"
+      ]
+    },
+    {
+      "id": "dt_winter_pelee",
+      "name": "Winter Birding at Point Pelee",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.pc.gc.ca/en/pn-np/on/pelee"
+      },
+      "whySpecial": [
+        "Winter birding at Canada's southernmost point. Eagles, waterfowl, and quiet trails.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Birding, winter wildlife, trails",
+          "location": "Leamington, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Birding, winter wildlife, trails. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Birding, winter wildlife, trails",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Birding, winter wildlife, trails"
+      ]
+    },
+    {
+      "id": "dt_winter_earlbales",
+      "name": "Tobogganing at Earl Bales Park",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.toronto.ca"
+      },
+      "whySpecial": [
+        "Popular North York toboggan hill at Earl Bales Park. Free and family-friendly.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Tobogganing, sledding, park",
+          "location": "Toronto, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Tobogganing, sledding, park. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Tobogganing, sledding, park",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Tobogganing, sledding, park"
+      ]
+    },
+    {
+      "id": "dt_winter_rouge",
+      "name": "Snowshoeing at Rouge Park",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.pc.gc.ca/en/pn-np/on/rouge"
+      },
+      "whySpecial": [
+        "Canada's largest urban park in winter. Snowshoe and winter trails near Toronto.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Snowshoeing, winter trails, urban park",
+          "location": "Toronto, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Snowshoeing, winter trails, urban park. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Snowshoeing, winter trails, urban park",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Snowshoeing, winter trails, urban park"
+      ]
+    },
+    {
+      "id": "dt_winter_niagarafalls",
+      "name": "Niagara Falls Winter Experience",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.niagarafallstourism.com"
+      },
+      "whySpecial": [
+        "Niagara Falls in winter: frozen mist, winter lights, and fewer crowds. Clifton Hill and attractions open.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Winter falls viewing, lights, Clifton Hill",
+          "location": "Niagara Falls, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Winter falls viewing, lights, Clifton Hill. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Winter falls viewing, lights, Clifton Hill",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Winter falls viewing, lights, Clifton Hill"
+      ]
+    },
+    {
+      "id": "dt_winter_mountsberg",
+      "name": "Mountsberg Winter & Maple Syrup",
+      "coordinates": {
+        "latitude": 43.65,
+        "longitude": -79.38
+      },
+      "contact": {
+        "phone": "Contact via website",
+        "email": "info@destination.com",
+        "website": "https://www.conservationhalton.ca"
+      },
+      "whySpecial": [
+        "Halton conservation area with winter programs, raptor centre, and early maple syrup season in late winter.",
+        "Winter activities within reach of Toronto",
+        "Suitable for a day trip or short getaway"
+      ],
+      "reasonsToGo": [
+        "Experience winter fun in the GTA and beyond",
+        "Try skiing, skating, tubing, or winter nature",
+        "Family-friendly and couple-friendly options"
+      ],
+      "events": [
+        {
+          "name": "Winter Season",
+          "description": "Winter trails, raptors, maple syrup, family programs",
+          "location": "Campbellville, ON",
+          "frequency": "December–March (weather dependent)"
+        }
+      ],
+      "booking": {
+        "advance_reservation_required": false,
+        "seasonal_availability": "Winter",
+        "weather_dependent": true,
+        "peak_season": "December-March",
+        "off_peak_season": "April-November"
+      },
+      "accessibility": {
+        "wheelchair_accessible": false,
+        "accessible_parking": true,
+        "accessible_washrooms": true,
+        "service_animals_welcome": true,
+        "accessibility_notes": "Contact venue for accessibility information."
+      },
+      "reviewsSentiment": {
+        "overall": "Good",
+        "positives": [
+          "Winter fun close to Toronto",
+          "Variety of activities",
+          "Seasonal experience"
+        ],
+        "negatives": [
+          "Weather dependent",
+          "Peak days can be busy"
+        ]
+      },
+      "dayIn": {
+        "general": "Plan a winter day: Winter trails, raptors, maple syrup, family programs. Dress warmly and check conditions.",
+        "gayDayIn": "Welcoming winter destination; enjoy the activity and local atmosphere.",
+        "outdoorsDay": "Winter trails, raptors, maple syrup, family programs",
+        "barRestaurantDay": "Nearby towns and lodges for warming up and meals."
+      },
+      "nearby": [
+        {
+          "name": "Local towns",
+          "description": "Dining and services nearby"
+        }
+      ],
+      "gayFriendlyAccommodations": [
+        {
+          "name": "Local accommodations",
+          "type": "Various",
+          "location": "Area",
+          "description": "Contact local tourism for options."
+        }
+      ],
+      "mustNotMiss": [
+        "Dressing for cold weather",
+        "Checking hours and conditions before you go",
+        "Main activity: Winter trails, raptors, maple syrup, family programs"
+      ]
     }
   ],
   "summary": {
