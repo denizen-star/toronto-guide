@@ -308,9 +308,9 @@ const AmateurSports = () => {
     ];
   }, [sports]);
 
-  // Memoized filtering logic
+  // Memoized filtering logic (filter then sort by lastUpdated desc)
   const filteredSports = useMemo(() => {
-    return sports.filter(sport => {
+    const filtered = sports.filter(sport => {
       // Search filter
       const matchesSearch = !searchTerm || 
         sport.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -354,9 +354,16 @@ const AmateurSports = () => {
              matchesNeighborhood && matchesSeason && matchesDuration && 
              matchesPriceRange && matchesTags;
     });
+    return [...filtered].sort((a, b) => {
+      const dateA = (a as any).lastUpdated ? new Date((a as any).lastUpdated).getTime() : 0;
+      const dateB = (b as any).lastUpdated ? new Date((b as any).lastUpdated).getTime() : 0;
+      return dateB - dateA;
+    });
   }, [sports, searchTerm, selectedFilters, getSportType, getSkillLevel, getNeighborhood, getSeason, getDuration, getPriceRange]);
 
-  // Memoized displayed sports
+  const JUST_ADDED_CUTOFF_INDEX = 50;
+
+  // Memoized displayed sports (first N of sorted)
   const displayedSports = useMemo(() => 
     filteredSports.slice(0, displayCount), 
     [filteredSports, displayCount]
@@ -364,7 +371,7 @@ const AmateurSports = () => {
 
   // Memoized card data conversion
   const cardDataArray = useMemo(() => {
-    return displayedSports.map((sport): EnhancedCardData => {
+    return displayedSports.map((sport, index): EnhancedCardData => {
       // Create recurrence info for display
       let recurrenceInfo = '';
       if (sport.recurrenceType === 'recurring' && sport.recurrencePattern) {
@@ -386,9 +393,11 @@ const AmateurSports = () => {
         address: sport.location,
         neighborhood: sport.location,
         detailPath: `/amateur-sports/${sport.id}`,
+        badgeLabel: index < JUST_ADDED_CUTOFF_INDEX ? 'Just added' : undefined,
+        showWinterIcon: getSeason(sport) === 'winter' || getSeason(sport) === 'winter sports',
       };
     });
-  }, [displayedSports]);
+  }, [displayedSports, getSeason]);
 
   const handleLoadMore = useCallback(() => {
     setDisplayCount(prev => prev + 12);

@@ -227,9 +227,9 @@ const SportingEvents = () => {
     ];
   }, []);
 
-  // Memoized filtering logic
+  // Memoized filtering logic (filter then sort by lastUpdated desc)
   const filteredEvents = useMemo(() => {
-    return events.filter(event => {
+    const filtered = events.filter(event => {
       // Search filter
       const matchesSearch = !searchTerm || 
         event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -269,9 +269,16 @@ const SportingEvents = () => {
              matchesVenue && matchesSeason && matchesEventType && 
              matchesDuration && matchesPriceRange;
     });
+    return [...filtered].sort((a, b) => {
+      const dateA = (a as any).lastUpdated ? new Date((a as any).lastUpdated).getTime() : 0;
+      const dateB = (b as any).lastUpdated ? new Date((b as any).lastUpdated).getTime() : 0;
+      return dateB - dateA;
+    });
   }, [events, searchTerm, selectedFilters, getTeam, getSportType, getVenue, getSeason, getEventType, getDuration, getPriceRange]);
 
-  // Memoized displayed events
+  const JUST_ADDED_CUTOFF_INDEX = 50;
+
+  // Memoized displayed events (first N of sorted)
   const displayedEvents = useMemo(() => 
     filteredEvents.slice(0, displayCount), 
     [filteredEvents, displayCount]
@@ -279,7 +286,7 @@ const SportingEvents = () => {
 
   // Memoized card data conversion
   const cardDataArray = useMemo(() => {
-    return displayedEvents.map((event): EnhancedCardData => ({
+    return displayedEvents.map((event, index): EnhancedCardData => ({
       id: event.id,
       title: event.title,
       description: event.description,
@@ -290,8 +297,10 @@ const SportingEvents = () => {
       address: event.location,
       neighborhood: event.location,
       detailPath: `/sporting-events/${event.id}`,
+      badgeLabel: index < JUST_ADDED_CUTOFF_INDEX ? 'Just added' : undefined,
+      showWinterIcon: getSeason(event) === 'winter',
     }));
-  }, [displayedEvents]);
+  }, [displayedEvents, getSeason]);
 
   const handleLoadMore = useCallback(() => {
     setDisplayCount(prev => prev + 12);

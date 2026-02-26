@@ -211,9 +211,9 @@ const HappyHours = () => {
     ];
   }, []);
 
-  // Memoized filtering logic
+  // Memoized filtering logic (filter then sort by most recent happy hour lastUpdated)
   const filteredVenues = useMemo(() => {
-    return allVenues.filter(venue => {
+    const filtered = allVenues.filter(venue => {
       // Search filter
       const matchesSearch = !searchTerm || 
         venue.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -251,9 +251,16 @@ const HappyHours = () => {
       return matchesSearch && matchesVenueType && matchesNeighborhood && 
              matchesEventType && matchesDuration && matchesPriceRange && matchesTags;
     });
+    return [...filtered].sort((a, b) => {
+      const maxA = a.happyHours.length ? Math.max(...a.happyHours.map(hh => new Date(hh.lastUpdated || 0).getTime())) : 0;
+      const maxB = b.happyHours.length ? Math.max(...b.happyHours.map(hh => new Date(hh.lastUpdated || 0).getTime())) : 0;
+      return maxB - maxA;
+    });
   }, [allVenues, searchTerm, selectedFilters, getVenueType, getNeighborhoodCategory, getEventType, getDuration, getPriceRange]);
 
-  // Memoized displayed venues
+  const JUST_ADDED_CUTOFF_INDEX = 50;
+
+  // Memoized displayed venues (first N of sorted)
   const displayedVenues = useMemo(() => 
     filteredVenues.slice(0, displayCount), 
     [filteredVenues, displayCount]
@@ -261,7 +268,7 @@ const HappyHours = () => {
 
   // Memoized card data conversion
   const cardDataArray = useMemo(() => {
-    return displayedVenues.map((venue): EnhancedCardData => {
+    return displayedVenues.map((venue, index): EnhancedCardData => {
       const formatHappyHourTime = venue.happyHours.length > 0 
         ? `${venue.happyHours[0].start_time} - ${venue.happyHours[0].end_time}`
         : 'Check venue';
@@ -285,6 +292,7 @@ const HappyHours = () => {
         },
         neighborhood: venue.neighborhood,
         detailPath: `/happy-hours/${venue.id}`,
+        badgeLabel: index < JUST_ADDED_CUTOFF_INDEX ? 'Just added' : undefined,
       };
     });
   }, [displayedVenues]);

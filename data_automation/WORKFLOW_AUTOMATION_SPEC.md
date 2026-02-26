@@ -2,16 +2,15 @@
 
 ## 📋 Overview
 
-This document provides technical specifications and implementation guidance for building automated data maintenance workflows for the Toronto Guide application. These workflows will implement the maintenance schedules defined in the [Data Maintenance Guide](./DATA_MAINTENANCE_GUIDE.md).
+This document provides technical specifications for optional automated data maintenance workflows. **Data loading is done manually using the step-by-step guide; no agents are used.** See **[How to Load New Data](../docs/HOW_TO_LOAD_NEW_DATA.md)** for adding or updating Scoop, Day Trips, Happy Hours, Amateur Sports, Sporting Events, and LGBTQ+ Events.
 
 ## 🎯 Objectives
 
 ### Primary Goals
-1. **Automate Routine Maintenance**: Implement weekly, monthly, and quarterly data maintenance tasks
+1. **Automate Routine Maintenance**: Implement weekly, monthly, and quarterly data maintenance tasks (optional)
 2. **Data Quality Assurance**: Continuous monitoring and validation of data integrity
 3. **Workflow Orchestration**: Coordinated execution of maintenance tasks with proper sequencing
 4. **Reporting & Alerting**: Automated generation of maintenance reports and issue notifications
-5. **Integration with Datarian**: Leverage existing data management agent capabilities
 
 ### Success Criteria
 - **99%+ Automation**: Minimal manual intervention required for routine maintenance
@@ -29,8 +28,8 @@ This document provides technical specifications and implementation guidance for 
 **Purpose**: Schedule and execute maintenance tasks according to defined schedules
 
 #### 2. Data Validation Service
-**Technology**: Custom validation library extending Datarian capabilities
-**Purpose**: Continuous data quality monitoring and validation
+**Technology**: Custom validation scripts or manual checks
+**Purpose**: Data quality monitoring and validation (see [How to Load New Data](../docs/HOW_TO_LOAD_NEW_DATA.md))
 
 #### 3. Notification System
 **Technology**: Email/Slack integration with configurable alerting
@@ -54,8 +53,8 @@ This document provides technical specifications and implementation guidance for 
                                 │                         │
                                 ▼                         ▼
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Config Mgmt   │    │   Data Storage   │    │   Datarian      │
-│                 │    │   (CSV Files)    │    │   Agent         │
+│   Config Mgmt   │    │   Data Storage   │    │   Scripts /     │
+│                 │    │   (CSV Files)    │    │   Manual steps  │
 └─────────────────┘    └──────────────────┘    └─────────────────┘
                                 │                         │
                                 ▼                         ▼

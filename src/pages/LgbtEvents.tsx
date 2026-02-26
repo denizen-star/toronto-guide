@@ -269,10 +269,12 @@ const LgbtEvents = () => {
              matchesDateRange;
     });
 
-    // Sort events
+    // Sort: first by lastUpdated (newest first), then by user-selected sort
     return [...filtered].sort((a, b) => {
+      const dateA = (a as any).lastUpdated ? new Date((a as any).lastUpdated).getTime() : 0;
+      const dateB = (b as any).lastUpdated ? new Date((b as any).lastUpdated).getTime() : 0;
+      if (dateB !== dateA) return dateB - dateA;
       let comparison = 0;
-      
       switch (sortBy) {
         case 'date':
           comparison = new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
@@ -286,10 +288,19 @@ const LgbtEvents = () => {
         default:
           comparison = 0;
       }
-      
       return sortDirection === 'asc' ? comparison : -comparison;
     });
   }, [events, searchTerm, selectedFilters, sortBy, sortDirection, getEventType, getNeighborhood, getAgeGroup]);
+
+  const JUST_ADDED_CUTOFF_INDEX = 50;
+
+  // Winter: tags or startDate in Dec/Jan/Feb
+  const isWinterEvent = useCallback((event: LgbtEvent): boolean => {
+    const tags = (event.tags || []).join(' ').toLowerCase();
+    if (tags.includes('winter')) return true;
+    const month = event.startDate ? new Date(event.startDate).getMonth() : -1;
+    return month === 11 || month === 0 || month === 1;
+  }, []);
 
   // Memoized displayed events
   const displayedEvents = useMemo(() => 
@@ -352,7 +363,7 @@ const LgbtEvents = () => {
 
   // Memoized card data conversion
   const cardDataArray = useMemo(() => {
-    return displayedEvents.map((event): EnhancedCardData => {
+    return displayedEvents.map((event, index): EnhancedCardData => {
       // Create recurrence info for display
       let recurrenceInfo = '';
       if (event.recurrenceType === 'recurring' && event.recurrencePattern) {
@@ -377,9 +388,11 @@ const LgbtEvents = () => {
         detailPath: `/lgbtq-events/${event.id}`,
         optionalField1: formatSubcategory((event as any).subcategory),
         optionalField2: formatEventType((event as any).eventType),
+        badgeLabel: index < JUST_ADDED_CUTOFF_INDEX ? 'Just added' : undefined,
+        showWinterIcon: isWinterEvent(event),
       };
     });
-  }, [displayedEvents, getNeighborhood]);
+  }, [displayedEvents, getNeighborhood, isWinterEvent]);
 
   const handleLoadMore = useCallback(() => {
     setDisplayCount(prev => prev + 12);
@@ -496,6 +509,7 @@ const LgbtEvents = () => {
               </p>
               <p style={{ marginTop: 'var(--space-2)', fontSize: 'var(--text-sm)' }}>
                 For more queer arts, nightlife, and events:{' '}
+                <a href="https://to.lgbtq-hub.com/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline', fontWeight: 600 }}>EP Event Planner</a> (to.lgbtq-hub.com) – turning strangers into friends;{' '}
                 <a href="https://www.yohomo.ca" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline', fontWeight: 600 }}>YOHOMO</a> (yohomo.ca).
               </p>
             </div>

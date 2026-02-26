@@ -1,6 +1,6 @@
 # Toronto Guide – Content scoop and where to add more
 
-Quick reference for what each section uses and how to add winter, LGBTQ+, thermal baths, and more.
+Quick reference for what each section uses and how to add winter, LGBTQ+, thermal baths, and more. **Step-by-step instructions for loading new data:** [How to Load New Data](HOW_TO_LOAD_NEW_DATA.md).
 
 ## What’s in the app
 

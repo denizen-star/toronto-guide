@@ -51,55 +51,13 @@ id|title|description|image|location|type|skillLevel|startDate|endDate|registrati
 - **`tags`**: Comma-separated category tags
 - **`lastUpdated`**: ISO timestamp of last modification
 
-## 🤖 Using Datarian - Your Data Management Agent
+## How to load new data
 
-### Overview
-Datarian is an intelligent data management agent specifically designed for the Toronto Guide. It provides:
-- Automated duplicate detection (85%+ similarity threshold)
-- Content type recognition and conversion
-- Data quality validation
-- Backup creation before modifications
-- Comprehensive reporting
+**Use the step-by-step guide for adding or updating data.** No agents or automation are required.
 
-### Available Tools
+- **[How to Load New Data](../docs/HOW_TO_LOAD_NEW_DATA.md)** – Which file to edit for each section (Scoop, Day Trips, Happy Hours, Amateur Sports, Sporting Events, LGBTQ+ Events), column order, and which scripts to run.
 
-#### 1. JavaScript Implementation (Recommended)
-```bash
-# Process all new data files at once
-node scripts/merge-all-data.js
-
-# Or use the individual merge script for specific files
-node scripts/merge-activities.js
-```
-
-#### 2. TypeScript Agent (Development/Advanced)
-```bash
-# For development and testing
-npm run datarian
-```
-
-### Datarian Capabilities
-
-#### Automatic File Mapping
-Datarian automatically maps source files to target destinations:
-- `daytrips.txt` → `day_trips_standardized.csv`
-- `sports.txt` → `sporting_events_standardized.csv`  
-- `amateursports.txt` → `amateur_sports_standardized.csv`
-- `culture.txt` → `special_events_standardized.csv`
-- `activities.txt` → `activities.csv`
-
-#### Duplicate Detection Features
-- **Title Matching**: Exact and fuzzy matching (85%+ similarity)
-- **Levenshtein Distance**: Calculates text similarity for robust duplicate detection
-- **Content Analysis**: Compares multiple fields for comprehensive matching
-
-#### Data Quality Validation
-- **Required Field Checking**: Ensures essential fields are populated
-- **URL Validation**: Verifies website links
-- **Date Format Standardization**: Converts dates to ISO format
-- **Content Filtering**: Removes invalid or incomplete records
-
-## 📅 Maintenance Schedules
+## Maintenance Schedules
 
 ### Weekly Maintenance (Every Monday)
 
@@ -127,14 +85,9 @@ git log --since="1 week ago" --oneline public/data/
 #### 1. Comprehensive Data Update (45-60 minutes)
 
 ##### New Data Integration
-```bash
-# 1. Place new data files in src/new_data/
-# 2. Run Datarian comprehensive merge
-node scripts/merge-all-data.js
-
-# 3. Review and validate results
-npm start  # Test in browser
-```
+1. Follow **[How to Load New Data](../docs/HOW_TO_LOAD_NEW_DATA.md)** for the relevant section (Scoop, Day Trips, etc.).
+2. Edit the correct CSV (or JSON) in `public/data/` and run any script listed there (e.g. `merge-csv-to-json.js` for day trips).
+3. Run `npm start` and verify in the browser.
 
 ##### Content Review Process
 1. **Seasonal Updates**: Review date ranges for seasonal activities
@@ -148,10 +101,9 @@ npm start  # Test in browser
 - Update tags based on new trends or categories
 - Add social media handles for events/venues
 
-#### 3. Analytics Review (15 minutes)
-- Review Datarian processing logs
-- Analyze duplicate detection patterns
-- Check data quality metrics
+#### 3. Analytics review (15 minutes)
+- Review recent CSV changes (e.g. `git log --oneline public/data/`)
+- Check data quality (required fields, date formats)
 - Document any recurring issues
 
 ### Quarterly Maintenance (15th of Jan, Apr, Jul, Oct)
@@ -178,45 +130,18 @@ npm start  # Test in browser
 
 ### Adding New Data Sources
 
-#### Step 1: Prepare Source Data
-1. **Create** `src/new_data/` directory if it doesn't exist
-2. **Save** new data files with appropriate names:
-   - `activities.txt` - for general activities
-   - `daytrips.txt` - for day trips and excursions
-   - `sports.txt` - for sporting events
-   - `amateursports.txt` - for amateur/recreational sports
-   - `culture.txt` - for cultural events and festivals
+#### Step 1: Choose the right file
+See **[How to Load New Data](../docs/HOW_TO_LOAD_NEW_DATA.md)**. Each section (Scoop, Day Trips, Happy Hours, Amateur Sports, Sporting Events, LGBTQ+ Events) has one primary CSV (or CSV + JSON for day trips). Use the column order shown there.
 
-#### Step 2: Data Format Guidelines
-Datarian supports multiple input formats:
+#### Step 2: Add or edit rows
+- **Scoop:** Comma-delimited; append rows to `public/data/scoop_standardized.csv` (or use `scripts/add-toronto-events-2026-mar-may.js` for a batch).
+- **Day trips:** Edit `public/daytrips_data.json` and `public/data/day_trips_standardized.csv`, then run `node scripts/merge-csv-to-json.js`.
+- **Happy Hours / Amateur Sports / Sporting Events / LGBTQ+ Events:** Edit the corresponding CSV in `public/data/` with pipe-delimited rows matching the header.
 
-##### Pipe-Delimited CSV (Preferred)
-```csv
-title|description|location|type|cost|website|tags
-Event Name|Description here|Location name|Event type|Pricing|URL|tag1,tag2,tag3
-```
+#### Step 3: Run any required script
+Only day trips need a script after editing: `node scripts/merge-csv-to-json.js`. Other sections: save the CSV and refresh the app.
 
-##### Unstructured Text
-```text
-Event Name
-Description of the event here
-Location: Venue Name
-Cost: $25
-Website: https://example.com
-Tags: music, outdoor, summer
-```
-
-#### Step 3: Run Integration Process
-```bash
-# Execute comprehensive merge
-node scripts/merge-all-data.js
-
-# Review processing report
-# Check for duplicates and new additions
-# Validate data quality in output
-```
-
-#### Step 4: Quality Assurance
+#### Step 4: Quality assurance
 1. **Manual Review**: Check sample of new entries for accuracy
 2. **Test Loading**: Verify data loads correctly in application
 3. **Cross-Reference**: Validate against original sources
@@ -231,10 +156,10 @@ node scripts/merge-all-data.js
 4. **Test Changes**: Verify in application
 
 #### Bulk Updates
-1. **Export Subset**: Extract records needing updates
-2. **Prepare Update File**: Create new file with changes
-3. **Use Datarian**: Process through agent for validation
-4. **Merge Results**: Apply changes to main data files
+1. **Export subset**: Extract records needing updates from the CSV.
+2. **Edit**: Apply changes in a copy of the CSV or in place.
+3. **Merge**: Paste or replace rows in the main file in `public/data/`. Keep column order and delimiter (comma for Scoop and Happy Hours, pipe for the rest).
+4. **Verify**: Run the app and check the relevant section.
 
 ## 🔍 Data Quality Assurance
 
@@ -264,7 +189,7 @@ Ensure these fields are never empty:
 ### Error Detection and Resolution
 
 #### Common Data Issues
-1. **Duplicate Entries**: Use Datarian's similarity detection
+1. **Duplicate entries**: Search the CSV by title/id before adding; avoid re-adding the same event
 2. **Missing Information**: Flag incomplete records for manual review
 3. **Outdated Content**: Regular review of event dates and pricing
 4. **Broken Links**: Periodic URL validation
@@ -303,10 +228,10 @@ node scripts/validate-data.js > data-quality-report.txt
 - Broken Links Found: [number]
 - Average Record Age: [days]
 
-### Datarian Performance
-- Processing Success Rate: [%]
-- Average Processing Time: [minutes]
-- Errors Encountered: [list]
+### Data updates
+- Records added/updated this month: [number]
+- Scripts run (e.g. merge-csv-to-json): [list]
+- Errors encountered: [list]
 
 ### Action Items
 - [ ] Priority fixes needed
@@ -316,33 +241,24 @@ node scripts/validate-data.js > data-quality-report.txt
 
 ## 🛠 Troubleshooting Common Issues
 
-### Datarian Processing Errors
+### CSV and format errors
 
-#### "Parse Error" or "Invalid CSV"
-```bash
-# Check file encoding (should be UTF-8)
-file -I src/new_data/problem-file.txt
+#### Parse error or invalid CSV
+- Save the file as **UTF-8**.
+- **Scoop / Happy Hours:** Use comma (`,`) as delimiter; quote fields that contain commas.
+- **Day trips / Amateur Sports / Sporting Events / LGBTQ+ Events:** Use pipe (`|`) as delimiter; quote fields that contain pipes.
+- Check that the number of columns in each row matches the header.
 
-# Verify delimiter consistency
-head -5 src/new_data/problem-file.txt
-```
-
-#### "No New Records Found"
-- Check source file format and content
-- Verify file location in `src/new_data/`
-- Ensure records have required fields (title, description)
-
-#### "High Duplicate Count"
-- Review similarity threshold (currently 85%)
-- Check for legitimate variations of same event
-- Consider manual review of flagged duplicates
+#### New rows not showing
+- Confirm the row was saved in the correct file under `public/data/`.
+- Ensure required columns are filled (e.g. id, title, description, lastUpdated for Scoop).
+- Hard-refresh the app or restart the dev server.
 
 ### Data Integrity Issues
 
-#### Missing Records After Update
-1. **Check Backup**: Restore from backup if needed
-2. **Review Logs**: Examine Datarian processing output
-3. **Manual Recovery**: Re-add missing entries if necessary
+#### Missing records after update
+1. **Restore from backup** if you kept a copy of the CSV before editing.
+2. **Re-add missing rows** using the column order in [How to Load New Data](../docs/HOW_TO_LOAD_NEW_DATA.md).
 
 #### Formatting Problems
 1. **CSV Validation**: Ensure proper pipe-delimiter format
@@ -368,7 +284,7 @@ head -5 src/new_data/problem-file.txt
 ### Workflow Optimization
 1. **Batch Updates**: Process multiple changes together when possible
 2. **Schedule Maintenance**: Use calendars to ensure regular updates
-3. **Automate When Possible**: Leverage Datarian for routine tasks
+3. **Follow the docs**: Use [How to Load New Data](../docs/HOW_TO_LOAD_NEW_DATA.md) for routine adds and updates
 4. **Collaborate Effectively**: Coordinate with team members on updates
 5. **Plan Seasonally**: Prepare content updates in advance of seasons
 
@@ -379,10 +295,10 @@ head -5 src/new_data/problem-file.txt
 - **Implementation Guide**: `IMPLEMENTATION_GUIDE.md`
 - **Design System**: `DESIGN_SYSTEM.md`
 
-### Development Tools
-- **Datarian Agent**: `agent/datarian.ts`
-- **Merge Scripts**: `scripts/merge-*.js`
-- **Data Validation**: `scripts/validate-data.js` (create as needed)
+### Documentation and scripts
+- **How to load new data**: [docs/HOW_TO_LOAD_NEW_DATA.md](../docs/HOW_TO_LOAD_NEW_DATA.md)
+- **Content guide (where to add what)**: [docs/SCOOP_CONTENT_GUIDE.md](../docs/SCOOP_CONTENT_GUIDE.md)
+- **Scripts**: `scripts/add-toronto-events-2026-mar-may.js`, `scripts/merge-csv-to-json.js`, `scripts/add-winter-activities.js`, `scripts/add-thermal-spa-daytrips.js`
 
 ### Contact and Escalation
 For complex data issues or technical problems:
@@ -396,6 +312,4 @@ For complex data issues or technical problems:
 
 ---
 
-*Last Updated: [Current Date]*
-*Datarian Version: 2.0*  
-*Guide Version: 1.0* 
+*Last updated: see How to Load New Data (docs/HOW_TO_LOAD_NEW_DATA.md).* 

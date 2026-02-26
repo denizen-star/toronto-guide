@@ -70,6 +70,12 @@ const ScoopDetails = () => {
     window.open(mapsUrl, '_blank');
   };
 
+  const NEW_DAYS_THRESHOLD = 60;
+  const isNewItem = !!(
+    (typeof item?.id === 'string' && /^sc2026_/.test(item.id)) ||
+    (item?.lastUpdated && new Date(item.lastUpdated).getTime() >= Date.now() - NEW_DAYS_THRESHOLD * 24 * 60 * 60 * 1000)
+  );
+
   if (loading) {
     return (
       <Container sx={{ py: 8, textAlign: 'center' }}>
@@ -116,9 +122,25 @@ const ScoopDetails = () => {
         <Grid container spacing={4}>
           <Grid item xs={12} md={8}>
             {/* Title and Description */}
-            <Typography variant="h4" component="h1" gutterBottom>
-              {item.title}
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap', mb: 2 }}>
+              <Typography variant="h4" component="h1">
+                {item.title}
+              </Typography>
+              {isNewItem && (
+                <Chip
+                  label="Just added"
+                  size="small"
+                  variant="outlined"
+                  sx={{
+                    fontWeight: 500,
+                    fontSize: '0.75rem',
+                    color: 'text.secondary',
+                    borderColor: 'primary.main',
+                    '& .MuiChip-label': { px: 0.75 },
+                  }}
+                />
+              )}
+            </Box>
 
             {/* Tags */}
             {item.tags && item.tags.length > 0 && (

@@ -231,11 +231,11 @@ const Scoop = () => {
     ];
   }, [scoopItems]);
 
-  // Filter items based on selected filters and search term
+  // Filter items based on selected filters and search term, then sort by lastUpdated (newest first)
   const filteredItems = useMemo(() => {
     if (!scoopItems) return [];
 
-    return scoopItems.filter(item => {
+    const filtered = scoopItems.filter(item => {
       try {
         // Apply search term filter
         if (searchTerm) {
@@ -266,7 +266,18 @@ const Scoop = () => {
         return false;
       }
     });
+
+    // Sort by added date (lastUpdated), newest first
+    return [...filtered].sort((a, b) => {
+      const dateA = a.lastUpdated ? new Date(a.lastUpdated).getTime() : 0;
+      const dateB = b.lastUpdated ? new Date(b.lastUpdated).getTime() : 0;
+      return dateB - dateA;
+    });
   }, [scoopItems, selectedFilters, searchTerm]);
+
+  // Show "Just added" for items in the first N positions (sorted by lastUpdated) so all
+  // recently added events get the badge even if id parsing varies. 50 covers the 2026 batch.
+  const JUST_ADDED_CUTOFF_INDEX = 50;
 
   // Handle filter changes
   const handleFilterChange = useCallback((filterId: string, values: string[]) => {
@@ -353,8 +364,8 @@ const Scoop = () => {
         )}
 
         <Grid container spacing={3} sx={{ mt: 3 }}>
-          {filteredItems.slice(0, displayCount).map(item => {
-            // Transform and validate the data for MinimalistCard
+          {filteredItems.slice(0, displayCount).map((item, index) => {
+            // Transform and validate the data for MinimalistCard. "Just added" = first N in sorted list (by lastUpdated).
             const cardData = {
               id: item.id,
               title: item.title || 'Untitled Activity',
@@ -367,7 +378,9 @@ const Scoop = () => {
               neighborhood: item.neighborhood || '',
               coordinates: undefined,
               lgbtqFriendly: item.lgbtqFriendly || false,
-              detailPath: `/scoop/${item.id}`
+              detailPath: `/scoop/${item.id}`,
+              badgeLabel: index < JUST_ADDED_CUTOFF_INDEX ? 'Just added' : undefined,
+              showWinterIcon: (item.season || '').toLowerCase() === 'winter',
             };
 
             return (

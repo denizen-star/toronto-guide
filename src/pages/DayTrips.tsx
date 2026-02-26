@@ -86,6 +86,7 @@ const DayTrips = () => {
             lgbtqFriendly: item.lgbtqFriendly || false,
             // Season from booking when present (preferred in getSeason)
             season: seasonFromData ?? '',
+            lastUpdated: item.lastUpdated || new Date(0).toISOString(),
           };
         });
         setTrips(tripsData);
@@ -261,9 +262,12 @@ const DayTrips = () => {
     ];
   }, [trips]);
 
+  // Filter then sort by lastUpdated (newest first), same as Scoop
+  const JUST_ADDED_CUTOFF_INDEX = 50;
+
   // Memoized filtering logic
   const filteredTrips = useMemo(() => {
-    return trips.filter(trip => {
+    const filtered = trips.filter(trip => {
       // Search filter
       const matchesSearch = !searchTerm || 
         trip.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -309,9 +313,14 @@ const DayTrips = () => {
              matchesHighlights && matchesSeason && matchesDuration && 
              matchesPriceRange && matchesTags;
     });
+    return [...filtered].sort((a, b) => {
+      const dateA = (a as any).lastUpdated ? new Date((a as any).lastUpdated).getTime() : 0;
+      const dateB = (b as any).lastUpdated ? new Date((b as any).lastUpdated).getTime() : 0;
+      return dateB - dateA;
+    });
   }, [trips, searchTerm, selectedFilters, getTripCategory, getDistance, getHighlights, getSeason, getDuration, getPriceRange]);
 
-  // Memoized displayed trips
+  // Memoized displayed trips (first N of sorted)
   const displayedTrips = useMemo(() => 
     filteredTrips.slice(0, displayCount), 
     [filteredTrips, displayCount]
@@ -340,7 +349,7 @@ const DayTrips = () => {
 
   // Memoized card data conversion
   const cardDataArray = useMemo(() => {
-    return displayedTrips.map((trip): EnhancedCardData => ({
+    return displayedTrips.map((trip, index): EnhancedCardData => ({
       id: trip.id,
       title: trip.title,
       description: trip.description,
@@ -353,8 +362,10 @@ const DayTrips = () => {
       detailPath: `/day-trips/${trip.id}`,
       optionalField1: getDistanceCategory(trip.travelTime),
       optionalField2: formatTravelTime(trip.travelTime),
+      badgeLabel: index < JUST_ADDED_CUTOFF_INDEX ? 'Just added' : undefined,
+      showWinterIcon: getSeason(trip) === 'winter',
     }));
-  }, [displayedTrips]);
+  }, [displayedTrips, getSeason]);
 
   const handleLoadMore = useCallback(() => {
     setDisplayCount(prev => prev + 12);

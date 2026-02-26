@@ -13,7 +13,8 @@ import {
   Waves,
   Store,
   Restaurant,
-  Apartment
+  Apartment,
+  AcUnit as SnowflakeIcon
 } from '@mui/icons-material';
 import RainbowFlagIcon from './RainbowFlagIcon';
 
@@ -34,6 +35,10 @@ export interface EnhancedCardData {
   lgbtqFriendly?: boolean;
   neighborhood?: string;
   detailPath: string;
+  /** Optional badge shown on the card (e.g. "Just added") */
+  badgeLabel?: string;
+  /** When true, show a small snowflake icon (winter-specific) */
+  showWinterIcon?: boolean;
   // New optional fields for domain-specific data
   optionalField1?: string;
   optionalField2?: string;
@@ -199,7 +204,7 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
           backfaceVisibility: 'hidden',
         }}
       >
-        {/* Header with Icon */}
+        {/* Header with Icon and optional badge */}
         <Box 
           sx={{ 
             display: 'flex', 
@@ -209,16 +214,43 @@ const EnhancedMinimalistCard: React.FC<EnhancedMinimalistCardProps> = ({
             transform: 'translateZ(0)',
           }}
         >
-          <Box
-            sx={{
-              p: 1.5,
-              borderRadius: 2,
-              backgroundColor: alpha(theme.palette[cardColor].main, 0.1),
-              color: theme.palette[cardColor].main,
-              transform: 'translateZ(0)',
-            }}
-          >
-            {cardIcon}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+            <Box
+              sx={{
+                p: 1.5,
+                borderRadius: 2,
+                backgroundColor: alpha(theme.palette[cardColor].main, 0.1),
+                color: theme.palette[cardColor].main,
+                transform: 'translateZ(0)',
+              }}
+            >
+              {cardIcon}
+            </Box>
+            {data.badgeLabel && (
+              <Chip
+                label={data.badgeLabel}
+                size="small"
+                variant="outlined"
+                sx={{
+                  fontWeight: 500,
+                  fontSize: '0.7rem',
+                  height: 20,
+                  borderColor: alpha(theme.palette.primary.main, 0.5),
+                  color: theme.palette.text.secondary,
+                  '& .MuiChip-label': { px: 0.75 },
+                }}
+              />
+            )}
+            {data.showWinterIcon && (
+              <SnowflakeIcon
+                sx={{
+                  fontSize: 18,
+                  color: theme.palette.text.secondary,
+                  opacity: 0.8,
+                }}
+                aria-label="Winter"
+              />
+            )}
           </Box>
           
           {/* Action buttons */}
