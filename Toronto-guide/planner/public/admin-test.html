@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Module Test - Optimizer</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+        .section h2 {
+            color: #007bff;
+            margin-top: 0;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .result {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            font-family: monospace;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .error {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .success {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        input, select {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .form-group {
+            margin: 10px 0;
+        }
+        .form-group label {
+            display: inline-block;
+            width: 120px;
+            font-weight: bold;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .status.connected {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status.disconnected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Admin Module Test Dashboard</h1>
+        
+        <div id="connectionStatus" class="status disconnected">
+            ❌ Not connected to server
+        </div>
+
+        <div class="section">
+            <h2>🔐 Authentication</h2>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" id="loginEmail" placeholder="admin@optimizer.com" value="admin@optimizer.com">
+            </div>
+            <div class="form-group">
+                <label>Password:</label>
+                <input type="password" id="loginPassword" placeholder="Enter password">
+            </div>
+            <button onclick="login()">Login</button>
+            <button onclick="logout()">Logout</button>
+            <button onclick="checkAuth()">Check Auth Status</button>
+            <div id="authResult" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="section">
+            <h2>👥 User Management</h2>
+            <div class="form-group">
+                <label>Search:</label>
+                <input type="text" id="userSearch" placeholder="Search users...">
+            </div>
+            <div class="form-group">
+                <label>Role:</label>
+                <select id="roleFilter">
+                    <option value="">All Roles</option>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Status:</label>
+                <select id="statusFilter">
+                    <option value="">All Status</option>
+                    <option value="true">Active</option>
+                    <option value="false">Inactive</option>
+                </select>
+            </div>
+            <button onclick="getUsers()">Get Users</button>
+            <button onclick="getUserDetails()">Get User Details</button>
+            <div id="usersResult" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Analytics</h2>
+            <button onclick="getBasicAnalytics()">Get Basic Analytics</button>
+            <button onclick="getDetailedAnalytics()">Get Detailed Analytics</button>
+            <div id="analyticsResult" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Audit Logs</h2>
+            <div class="form-group">
+                <label>Action:</label>
+                <select id="actionFilter">
+                    <option value="">All Actions</option>
+                    <option value="user_login">User Login</option>
+                    <option value="user_registered">User Registered</option>
+                    <option value="password_reset">Password Reset</option>
+                    <option value="email_verified">Email Verified</option>
+                </select>
+            </div>
+            <button onclick="getAuditLogs()">Get Audit Logs</button>
+            <div id="auditResult" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="section">
+            <h2>⚙️ User Actions</h2>
+            <div class="form-group">
+                <label>User ID:</label>
+                <input type="text" id="userId" placeholder="Enter user ID">
+            </div>
+            <div class="form-group">
+                <label>New Role:</label>
+                <select id="newRole">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <button onclick="updateUserRole()">Update Role</button>
+            <button onclick="updateUserStatus()">Toggle Status</button>
+            <div id="actionResult" class="result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://127.0.0.1:5001/api';
+        let currentUser = null;
+
+        // Check server connection on load
+        window.onload = function() {
+            checkServerConnection();
+        };
+
+        async function checkServerConnection() {
+            try {
+                const response = await fetch('http://127.0.0.1:5001/health');
+                if (response.ok) {
+                    document.getElementById('connectionStatus').innerHTML = '✅ Connected to server';
+                    document.getElementById('connectionStatus').className = 'status connected';
+                } else {
+                    throw new Error('Server not responding');
+                }
+            } catch (error) {
+                document.getElementById('connectionStatus').innerHTML = '❌ Server connection failed';
+                document.getElementById('connectionStatus').className = 'status disconnected';
+            }
+        }
+
+        async function makeRequest(url, options = {}) {
+            try {
+                const response = await fetch(url, {
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+                
+                const data = await response.json();
+                return { success: response.ok, data, status: response.status };
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        }
+
+        function showResult(elementId, result) {
+            const element = document.getElementById(elementId);
+            element.style.display = 'block';
+            
+            if (result.success) {
+                element.className = 'result success';
+                element.textContent = JSON.stringify(result.data, null, 2);
+            } else {
+                element.className = 'result error';
+                element.textContent = `Error: ${result.error || result.data?.message || 'Unknown error'}`;
+            }
+        }
+
+        async function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                showResult('authResult', { success: false, error: 'Email and password are required' });
+                return;
+            }
+
+            const result = await makeRequest(`${API_BASE}/auth/login`, {
+                method: 'POST',
+                body: JSON.stringify({ email, password })
+            });
+
+            if (result.success) {
+                currentUser = result.data.user;
+            }
+            
+            showResult('authResult', result);
+        }
+
+        async function logout() {
+            const result = await makeRequest(`${API_BASE}/auth/logout`, {
+                method: 'POST'
+            });
+            
+            if (result.success) {
+                currentUser = null;
+            }
+            
+            showResult('authResult', result);
+        }
+
+        async function checkAuth() {
+            const result = await makeRequest(`${API_BASE}/auth/check`);
+            
+            if (result.success && result.data.authenticated) {
+                currentUser = result.data.user;
+            } else {
+                currentUser = null;
+            }
+            
+            showResult('authResult', result);
+        }
+
+        async function getUsers() {
+            const search = document.getElementById('userSearch').value;
+            const role = document.getElementById('roleFilter').value;
+            const status = document.getElementById('statusFilter').value;
+            
+            let url = `${API_BASE}/admin/users?page=1&limit=20`;
+            if (search) url += `&search=${encodeURIComponent(search)}`;
+            if (role) url += `&role=${role}`;
+            if (status) url += `&isActive=${status}`;
+            
+            const result = await makeRequest(url);
+            showResult('usersResult', result);
+        }
+
+        async function getUserDetails() {
+            const userId = document.getElementById('userId').value;
+            
+            if (!userId) {
+                showResult('usersResult', { success: false, error: 'User ID is required' });
+                return;
+            }
+            
+            const result = await makeRequest(`${API_BASE}/admin/users/${userId}`);
+            showResult('usersResult', result);
+        }
+
+        async function getBasicAnalytics() {
+            const result = await makeRequest(`${API_BASE}/admin/analytics/basic`);
+            showResult('analyticsResult', result);
+        }
+
+        async function getDetailedAnalytics() {
+            const result = await makeRequest(`${API_BASE}/admin/analytics/detailed`);
+            showResult('analyticsResult', result);
+        }
+
+        async function getAuditLogs() {
+            const action = document.getElementById('actionFilter').value;
+            
+            let url = `${API_BASE}/admin/audit-logs?limit=20`;
+            if (action) url += `&action=${action}`;
+            
+            const result = await makeRequest(url);
+            showResult('auditResult', result);
+        }
+
+        async function updateUserRole() {
+            const userId = document.getElementById('userId').value;
+            const newRole = document.getElementById('newRole').value;
+            
+            if (!userId) {
+                showResult('actionResult', { success: false, error: 'User ID is required' });
+                return;
+            }
+            
+            const result = await makeRequest(`${API_BASE}/admin/users/${userId}/role`, {
+                method: 'PUT',
+                body: JSON.stringify({ role: newRole })
+            });
+            
+            showResult('actionResult', result);
+        }
+
+        async function updateUserStatus() {
+            const userId = document.getElementById('userId').value;
+            
+            if (!userId) {
+                showResult('actionResult', { success: false, error: 'User ID is required' });
+                return;
+            }
+            
+            // First get current user status
+            const userResult = await makeRequest(`${API_BASE}/admin/users/${userId}`);
+            if (!userResult.success) {
+                showResult('actionResult', userResult);
+                return;
+            }
+            
+            const currentStatus = userResult.data.user.isActive;
+            const newStatus = !currentStatus;
+            
+            const result = await makeRequest(`${API_BASE}/admin/users/${userId}/status`, {
+                method: 'PUT',
+                body: JSON.stringify({ isActive: newStatus })
+            });
+            
+            showResult('actionResult', result);
+        }
+    </script>
+</body>
+</html>

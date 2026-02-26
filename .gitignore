@@ -36,3 +36,9 @@ dist/
 # Icon generation temp files
 *-temp.*
 create-*.html
+
+# Local archives (not under version control)
+archive/
+*-archive/
+*-archiver/
+/docs/credentials.md

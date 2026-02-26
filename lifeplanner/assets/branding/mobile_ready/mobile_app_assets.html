@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifePlanner - Mobile App Store Assets</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 300;
+            font-size: 3em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 50px;
+            font-size: 1.3em;
+            font-style: italic;
+        }
+        
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+        
+        .platform-section {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 40px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .platform-title {
+            font-size: 2.2em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .ios-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #007AFF, #5856D6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .android-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #34A853, #4285F4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .assets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .asset-item {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            border: 1px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+        
+        .asset-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .asset-display {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+        }
+        
+        .asset-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .asset-size {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+        
+        .asset-usage {
+            font-size: 0.8em;
+            color: #868e96;
+            font-style: italic;
+        }
+        
+        /* iOS App Icons */
+        .ios-icon-20 {
+            width: 20px;
+            height: 20px;
+            background-image: url('../../rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 4px;
+        }
+        
+        .ios-icon-29 {
+            width: 29px;
+            height: 29px;
+            background-image: url('../../rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 6px;
+        }
+        
+        .ios-icon-40 {
+            width: 40px;
+            height: 40px;
+            background-image: url('../../rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+        }
+        
+        .ios-icon-58 {
+            width: 58px;
+            height: 58px;
+            background-image: url('../../rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+        }
+        
+        .ios-icon-60 {
+            width: 60px;
+            height: 60px;
+            background-image: url('../../rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+        }
+        
+        .ios-icon-80 {
+            width: 80px;
+            height: 80px;
+            background-image: url('../../rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 16px;
+        }
+        
+        .ios-icon-87 {
+            width: 87px;
+            height: 87px;
+            background-image: url('../../rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 17px;
+        }
+        
+        .ios-icon-120 {
+            width: 120px;
+            height: 120px;
+            background-image: url('../../rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 24px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .ios-icon-180 {
+            width: 180px;
+            height: 180px;
+            background-image: url('../../rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 36px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+            max-width: 100%;
+        }
+        
+        .ios-icon-1024 {
+            width: 200px;
+            height: 200px;
+            background-image: url('../../rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 40px;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.25);
+        }
+        
+        /* Android Icons */
+        .android-icon-48 {
+            width: 48px;
+            height: 48px;
+            background-image: url('../../rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+        }
+        
+        .android-icon-72 {
+            width: 72px;
+            height: 72px;
+            background-image: url('../../rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+        }
+        
+        .android-icon-96 {
+            width: 96px;
+            height: 96px;
+            background-image: url('../../rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+        }
+        
+        .android-icon-144 {
+            width: 144px;
+            height: 144px;
+            background-image: url('../../rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .android-icon-192 {
+            width: 192px;
+            height: 192px;
+            background-image: url('../../rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+            max-width: 100%;
+        }
+        
+        .android-icon-512 {
+            width: 200px;
+            height: 200px;
+            background-image: url('../../rainbow_logo/rainbow logo.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.25);
+        }
+        
+        .logo1-variant {
+            background-image: url('../../logo1/Logo1.png') !important;
+        }
+        
+        .implementation-section {
+            margin-top: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            color: white;
+        }
+        
+        .implementation-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 300;
+            font-size: 2.2em;
+        }
+        
+        .code-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .code-block {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 12px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85em;
+            overflow-x: auto;
+        }
+        
+        .code-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .brand-toggle {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .toggle-button {
+            padding: 12px 30px;
+            margin: 0 10px;
+            background: rgba(255,255,255,0.9);
+            color: #2c3e50;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-button:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+        
+        .toggle-button.active {
+            background: #2c3e50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>LifePlanner Mobile App Assets</h1>
+        <div class="subtitle">iOS & Android App Store Ready • Both Logo Variants Available</div>
+        
+        <div class="brand-toggle">
+            <button class="toggle-button active" onclick="toggleBrand('rainbow')">Rainbow Logo (Primary)</button>
+            <button class="toggle-button" onclick="toggleBrand('logo1')">Logo1 (Secondary)</button>
+        </div>
+        
+        <div class="platforms-grid">
+            <!-- iOS Section -->
+            <div class="platform-section">
+                <div class="platform-title">
+                    <div class="ios-icon">🍎</div>
+                    iOS App Store
+                </div>
+                
+                <div class="assets-grid">
+                    <div class="asset-item">
+                        <div class="asset-display">
+                            <div class="ios-icon-20"></div>
+                        </div>
+                        <div class="asset-title">Notification Icon</div>
+                        <div class="asset-size">20×20px</div>
+                        <div class="asset-usage">iOS Notifications</div>
+                    </div>
+                    
+                    <div class="asset-item">
+                        <div class="asset-display">
+                            <div class="ios-icon-29"></div>
+                        </div>
+                        <div class="asset-title">Settings Icon</div>
+                        <div class="asset-size">29×29px</div>
+                        <div class="asset-usage">Settings Bundle</div>
+                    </div>
+                    
+                    <div class="asset-item">
+                        <div class="asset-display">
+                            <div class="ios-icon-40"></div>
+                        </div>
+                        <div class="asset-title">Spotlight</div>
+                        <div class="asset-size">40×40px</div>
+                        <div class="asset-usage">Spotlight Search</div>
+                    </div>
+                    
+                    <div class="asset-item">
+                        <div class="asset-display">
+                            <div class="ios-icon-58"></div>
+                        </div>
+                        <div class="asset-title">Settings @2x</div>
+                        <div class="asset-size">58×58px</div>
+                        <div class="asset-usage">Settings Retina</div>
+                    </div>
+                    
+                    <div class="asset-item">
+                        <div class="asset-display">
+                            <div class="ios-icon-60"></div>
+                        </div>
+                        <div class="asset-title">Home Screen</div>
+                        <div class="asset-size">60×60px</div>
+                        <div class="asset-usage">iPhone Home</div>
+                    </div>
+                    
+                    <div class="asset-item">
+                        <div class="asset-display">
+                            <div class="ios-icon-80"></div>
+                        </div>
+                        <div class="asset-title">Spotlight @2x</div>
+                        <div class="asset-size">80×80px</div>
+                        <div class="asset-usage">Spotlight Retina</div>
+                    </div>
+                    
+                    <div class="asset-item">
+                        <div class="asset-display">
+                            <div class="ios-icon-87"></div>
+                        </div>
+                        <div class="asset-title">Settings @3x</div>
+                        <div class="asset-size">87×87px</div>
+                        <div class="asset-usage">Settings Super Retina</div>
+                    </div>
+                    
+                    <div class="asset-item">
+                        <div class="asset-display">
+                            <div class="ios-icon-120"></div>
+                        </div>
+                        <div class="asset-title">Home @2x</div>
+                        <div class="asset-size">120×120px</div>
+                        <div class="asset-usage">iPhone Retina</div>
+                    </div>
+                    
+                    <div class="asset-item">
+                        <div class="asset-display">
+                            <div class="ios-icon-180"></div>
+                        </div>
+                        <div class="asset-title">Home @3x</div>
+                        <div class="asset-size">180×180px</div>
+                        <div class="asset-usage">iPhone Super Retina</div>
+                    </div>
+                    
+                    <div class="asset-item">
+                        <div class="asset-display">
+                            <div class="ios-icon-1024"></div>
+                        </div>
+                        <div class="asset-title">App Store</div>
+                        <div class="asset-size">1024×1024px</div>
+                        <div class="asset-usage">App Store Listing</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Android Section -->
+            <div class="platform-section">
+                <div class="platform-title">
+                    <div class="android-icon">🤖</div>
+                    Google Play Store
+                </div>
+                
+                <div class="assets-grid">
+                    <div class="asset-item">
+                        <div class="asset-display">
+                            <div class="android-icon-48"></div>
+                        </div>
+                        <div class="asset-title">MDPI</div>
+                        <div class="asset-size">48×48px</div>
+                        <div class="asset-usage">Medium Density</div>
+                    </div>
+                    
+                    <div class="asset-item">
+                        <div class="asset-display">
+                            <div class="android-icon-72"></div>
+                        </div>
+                        <div class="asset-title">HDPI</div>
+                        <div class="asset-size">72×72px</div>
+                        <div class="asset-usage">High Density</div>
+                    </div>
+                    
+                    <div class="asset-item">
+                        <div class="asset-display">
+                            <div class="android-icon-96"></div>
+                        </div>
+                        <div class="asset-title">XHDPI</div>
+                        <div class="asset-size">96×96px</div>
+                        <div class="asset-usage">Extra High Density</div>
+                    </div>
+                    
+                    <div class="asset-item">
+                        <div class="asset-display">
+                            <div class="android-icon-144"></div>
+                        </div>
+                        <div class="asset-title">XXHDPI</div>
+                        <div class="asset-size">144×144px</div>
+                        <div class="asset-usage">Extra Extra High</div>
+                    </div>
+                    
+                    <div class="asset-item">
+                        <div class="asset-display">
+                            <div class="android-icon-192"></div>
+                        </div>
+                        <div class="asset-title">XXXHDPI</div>
+                        <div class="asset-size">192×192px</div>
+                        <div class="asset-usage">Extra Extra Extra High</div>
+                    </div>
+                    
+                    <div class="asset-item">
+                        <div class="asset-display">
+                            <div class="android-icon-512"></div>
+                        </div>
+                        <div class="asset-title">Play Store</div>
+                        <div class="asset-size">512×512px</div>
+                        <div class="asset-usage">Google Play Listing</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="implementation-section">
+            <h2>Implementation Guidelines</h2>
+            <p style="text-align: center; margin-bottom: 30px;">Platform-specific implementation code and asset organization</p>
+            
+            <div class="code-section">
+                <div class="code-block">
+                    <div class="code-title">iOS Implementation</div>
+                    <pre>
+<!-- Contents.json for iOS App Icons -->
+{
+  "images": [
+    {
+      "idiom": "iphone",
+      "scale": "2x",
+      "size": "20x20",
+      "filename": "icon-20@2x.png"
+    },
+    {
+      "idiom": "iphone",
+      "scale": "3x",
+      "size": "20x20", 
+      "filename": "icon-20@3x.png"
+    },
+    {
+      "idiom": "iphone",
+      "scale": "2x",
+      "size": "29x29",
+      "filename": "icon-29@2x.png"
+    },
+    {
+      "idiom": "iphone",
+      "scale": "3x",
+      "size": "29x29",
+      "filename": "icon-29@3x.png"
+    },
+    {
+      "idiom": "iphone",
+      "scale": "2x",
+      "size": "40x40",
+      "filename": "icon-40@2x.png"
+    },
+    {
+      "idiom": "iphone",
+      "scale": "3x",
+      "size": "40x40",
+      "filename": "icon-40@3x.png"
+    },
+    {
+      "idiom": "iphone",
+      "scale": "2x",
+      "size": "60x60",
+      "filename": "icon-60@2x.png"
+    },
+    {
+      "idiom": "iphone",
+      "scale": "3x",
+      "size": "60x60",
+      "filename": "icon-60@3x.png"
+    },
+    {
+      "idiom": "ios-marketing",
+      "scale": "1x",
+      "size": "1024x1024",
+      "filename": "icon-1024.png"
+    }
+  ],
+  "info": {
+    "author": "LifePlanner",
+    "version": 1
+  }
+}
+                    </pre>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">Android Implementation</div>
+                    <pre>
+<!-- Android Manifest.xml -->
+&lt;application
+    android:icon="@mipmap/ic_launcher"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:label="@string/app_name"&gt;
+
+<!-- Folder Structure -->
+res/
+├── mipmap-mdpi/
+│   ├── ic_launcher.png (48x48)
+│   └── ic_launcher_round.png (48x48)
+├── mipmap-hdpi/
+│   ├── ic_launcher.png (72x72)
+│   └── ic_launcher_round.png (72x72)
+├── mipmap-xhdpi/
+│   ├── ic_launcher.png (96x96)
+│   └── ic_launcher_round.png (96x96)
+├── mipmap-xxhdpi/
+│   ├── ic_launcher.png (144x144)
+│   └── ic_launcher_round.png (144x144)
+└── mipmap-xxxhdpi/
+    ├── ic_launcher.png (192x192)
+    └── ic_launcher_round.png (192x192)
+
+<!-- For Adaptive Icons (API 26+) -->
+&lt;adaptive-icon&gt;
+    &lt;background android:drawable="@color/ic_launcher_background"/&gt;
+    &lt;foreground android:drawable="@mipmap/ic_launcher_foreground"/&gt;
+&lt;/adaptive-icon&gt;
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleBrand(brand) {
+            const buttons = document.querySelectorAll('.toggle-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const icons = document.querySelectorAll('[class*="ios-icon-"], [class*="android-icon-"]');
+            
+            if (brand === 'logo1') {
+                icons.forEach(icon => icon.classList.add('logo1-variant'));
+            } else {
+                icons.forEach(icon => icon.classList.remove('logo1-variant'));
+            }
+        }
+    </script>
+</body>
+</html>

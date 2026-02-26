@@ -57,27 +57,37 @@ const DayTrips = () => {
         if (!response.ok) throw new Error('Failed to load day trips JSON');
         const json = await response.json();
         // Map JSON to StandardizedDayTrip[]
-        const tripsData = (json.daytrips || []).map((item: any) => ({
-          id: item.id,
-          title: item.name || item.title || '',
-          description: item.description || (typeof item.description === 'string'
-            ? item.description
-            : Array.isArray(item.whySpecial)
-              ? item.whySpecial.join(' ')
-              : typeof item.whySpecial === 'string'
-                ? item.whySpecial
-                : ''),
-          website: item.contact?.website || '',
-          tags: Array.isArray(item.tags) ? item.tags : [],
-          location: item.location || item.name || '',
-          reasonsToGo: Array.isArray(item.reasonsToGo) ? item.reasonsToGo : [],
-          // CSV enhanced fields
-          travelTime: item.travelTime || '',
-          activityDetails: item.activityDetails || '',
-          cost: item.cost || '',
-          lgbtqFriendly: item.lgbtqFriendly || false,
-          // Add more mappings as needed for filters and cards
-        }));
+        const tripsData = (json.daytrips || []).map((item: any) => {
+          const seasonalAvailability = (item.booking?.seasonal_availability || '').toLowerCase();
+          let seasonFromData: string | undefined;
+          if (seasonalAvailability.includes('winter')) seasonFromData = 'winter';
+          else if (seasonalAvailability.includes('spring')) seasonFromData = 'spring';
+          else if (seasonalAvailability.includes('summer')) seasonFromData = 'summer';
+          else if (seasonalAvailability.includes('fall') || seasonalAvailability.includes('autumn')) seasonFromData = 'fall';
+          else if (seasonalAvailability.includes('year-round') || seasonalAvailability.includes('year round')) seasonFromData = 'year-round';
+          return {
+            id: item.id,
+            title: item.name || item.title || '',
+            description: item.description || (typeof item.description === 'string'
+              ? item.description
+              : Array.isArray(item.whySpecial)
+                ? item.whySpecial.join(' ')
+                : typeof item.whySpecial === 'string'
+                  ? item.whySpecial
+                  : ''),
+            website: item.contact?.website || '',
+            tags: Array.isArray(item.tags) ? item.tags : [],
+            location: item.location || item.name || '',
+            reasonsToGo: Array.isArray(item.reasonsToGo) ? item.reasonsToGo : [],
+            // CSV enhanced fields
+            travelTime: item.travelTime || '',
+            activityDetails: item.activityDetails || '',
+            cost: item.cost || '',
+            lgbtqFriendly: item.lgbtqFriendly || false,
+            // Season from booking when present (preferred in getSeason)
+            season: seasonFromData ?? '',
+          };
+        });
         setTrips(tripsData);
         setLoading(false);
       } catch (err) {
@@ -141,9 +151,11 @@ const DayTrips = () => {
   }, []);
 
   const getSeason = useCallback((trip: StandardizedDayTrip): string => {
+    if (trip.season && ['winter', 'spring', 'summer', 'fall', 'year-round'].includes(trip.season)) {
+      return trip.season;
+    }
     const tags = trip.tags && Array.isArray(trip.tags) ? trip.tags.join(' ').toLowerCase() : '';
     const description = trip.description.toLowerCase();
-    
     if (tags.includes('winter') || description.includes('winter') || description.includes('ski')) return 'winter';
     if (tags.includes('spring') || description.includes('spring') || description.includes('bloom')) return 'spring';
     if (tags.includes('summer') || description.includes('summer') || description.includes('beach')) return 'summer';

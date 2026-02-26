@@ -1,0 +1,63 @@
+{
+  "allocation": {
+    "work_hours_per_week": 45.0,
+    "morning_routine_hours_per_week": 21.0,
+    "evening_wind_down_hours_per_week": 7.0,
+    "commute_hours_per_week": 1.7,
+    "individual_activities_percent": 12.0,
+    "networking_social_percent": 21.6,
+    "couple_activities_percent": 28.0,
+    "running_percent": 27.0,
+    "personal_development_percent": 19.0,
+    "fitness_grooming_percent": 35.0,
+    "reflection_planning_percent": 19.0,
+    "professional_networking_percent": 24.0,
+    "social_activities_percent": 50.0,
+    "professional_dev_networking_percent": 18.0,
+    "other_social_percent": 8.0,
+    "daily_meals_percent": 29.0,
+    "evening_together_percent": 25.0,
+    "weekend_activities_percent": 25.0,
+    "breakfast_together_percent": 13.0,
+    "household_together_percent": 8.0
+  },
+  "summary": {
+    "total_weekly_hours": 115.5,
+    "fixed_time": 74.7,
+    "available_time": 40.8,
+    "categories": {
+      "individual_activities": {
+        "hours": 7.948051948051948,
+        "percentage": 6.881430258053635,
+        "breakdown": {
+          "running": 2.145974025974026,
+          "personal_development": 1.51012987012987,
+          "fitness_grooming": 2.7818181818181817,
+          "reflection_planning": 1.51012987012987
+        }
+      },
+      "networking_social": {
+        "hours": 14.306493506493506,
+        "percentage": 12.386574464496542,
+        "breakdown": {
+          "professional_networking": 3.433558441558441,
+          "social_activities": 7.153246753246753,
+          "professional_dev_networking": 2.5751688311688308,
+          "other_social": 1.1445194805194805
+        }
+      },
+      "couple_activities": {
+        "hours": 18.545454545454543,
+        "percentage": 16.056670602125145,
+        "breakdown": {
+          "daily_meals": 5.378181818181818,
+          "evening_together": 4.636363636363636,
+          "weekend_activities": 4.636363636363636,
+          "breakfast_together": 2.4109090909090907,
+          "household_together": 1.4836363636363634
+        }
+      }
+    }
+  },
+  "exported_at": "2025-09-15T22:56:29.086343"
+}

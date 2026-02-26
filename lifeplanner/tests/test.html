@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifePlanner UI - Phase 1 Tests</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 1000px; margin: 0 auto; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .test-section h2 { color: #333; margin-top: 0; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 4px; }
+        .test-result.success { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .test-result.error { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+        .test-result.info { background: #d1ecf1; border: 1px solid #bee5eb; color: #0c5460; }
+        button { padding: 10px 15px; margin: 5px; border: none; border-radius: 4px; cursor: pointer; }
+        button.primary { background: #007bff; color: white; }
+        button.secondary { background: #6c757d; color: white; }
+        .code-block { background: #f8f9fa; border: 1px solid #e9ecef; padding: 15px; border-radius: 4px; margin: 10px 0; }
+        .status-indicator { display: inline-flex; align-items: center; gap: 5px; margin: 5px 10px; }
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .status-dot.green { background: #28a745; }
+        .status-dot.red { background: #dc3545; }
+        .status-dot.yellow { background: #ffc107; }
+    </style>
+</head>
+<body>
+    <h1>🧪 LifePlanner UI - Phase 1 Test Suite</h1>
+    
+    <div class="test-section">
+        <h2>📋 Test Overview</h2>
+        <p>This test suite validates Phase 1 implementation:</p>
+        <ul>
+            <li>✅ HTML structure and semantic markup</li>
+            <li>✅ CSS styling and responsive design</li>
+            <li>✅ JavaScript modules and functionality</li>
+            <li>✅ API connectivity and error handling</li>
+            <li>✅ State management and persistence</li>
+            <li>✅ UI components and interactions</li>
+        </ul>
+        
+        <div class="status-indicator">
+            <span class="status-dot" id="overall-status"></span>
+            <span id="overall-status-text">Ready to test</span>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔗 Quick Links</h2>
+        <button class="primary" onclick="window.open('../index.html', '_blank')">Open Main UI</button>
+        <button class="secondary" onclick="window.open('http://localhost:5000/api/v1/docs', '_blank')">API Docs</button>
+        <button class="secondary" onclick="window.open('http://localhost:5000/health', '_blank')">Health Check</button>
+    </div>
+
+    <div class="test-section">
+        <h2>🌐 API Connection Tests</h2>
+        <button class="primary" onclick="testApiConnection()">Test API Connection</button>
+        <button class="secondary" onclick="testAllEndpoints()">Test All Endpoints</button>
+        <div id="api-test-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📦 JavaScript Module Tests</h2>
+        <button class="primary" onclick="testUtils()">Test Utils</button>
+        <button class="primary" onclick="testState()">Test State</button>
+        <button class="primary" onclick="testAPI()">Test API Module</button>
+        <div id="module-test-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🎨 UI Component Tests</h2>
+        <button class="primary" onclick="testUIComponents()">Test UI Components</button>
+        <button class="primary" onclick="testResponsiveness()">Test Responsiveness</button>
+        <div id="ui-test-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📱 Manual Testing Checklist</h2>
+        <div class="code-block">
+            <h3>Desktop Testing (1200px+)</h3>
+            <ul>
+                <li>□ Header displays correctly with logo, status, and navigation</li>
+                <li>□ Dashboard grid shows 3 columns</li>
+                <li>□ All buttons are clickable and responsive</li>
+                <li>□ Modals open and close properly</li>
+                <li>□ Tab navigation works</li>
+                <li>□ Forms are properly styled and functional</li>
+            </ul>
+            
+            <h3>Tablet Testing (768px - 1023px)</h3>
+            <ul>
+                <li>□ Dashboard grid shows 2 columns</li>
+                <li>□ Navigation remains horizontal</li>
+                <li>□ Content is readable and accessible</li>
+            </ul>
+            
+            <h3>Mobile Testing (< 768px)</h3>
+            <ul>
+                <li>□ Navigation becomes scrollable</li>
+                <li>□ Dashboard grid shows 1 column</li>
+                <li>□ Touch targets are at least 44px</li>
+                <li>□ Text is readable without zooming</li>
+                <li>□ Modals fit screen properly</li>
+            </ul>
+            
+            <h3>Functionality Testing</h3>
+            <ul>
+                <li>□ Persona selection works</li>
+                <li>□ Schedule generation form validates</li>
+                <li>□ Error messages display properly</li>
+                <li>□ Loading states show correctly</li>
+                <li>□ Success messages appear</li>
+                <li>□ Local storage persistence works</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 Development Tools</h2>
+        <button class="secondary" onclick="clearAllStorage()">Clear Local Storage</button>
+        <button class="secondary" onclick="showCurrentState()">Show Current State</button>
+        <button class="secondary" onclick="simulateError()">Simulate Error</button>
+        <button class="secondary" onclick="simulateSuccess()">Simulate Success</button>
+        <div id="dev-tools-results"></div>
+    </div>
+
+    <!-- Load the same scripts as main UI for testing -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/state.js"></script>
+
+    <script>
+        // Test results tracking
+        let testResults = {
+            passed: 0,
+            failed: 0,
+            total: 0
+        };
+
+        function updateOverallStatus() {
+            const statusDot = document.getElementById('overall-status');
+            const statusText = document.getElementById('overall-status-text');
+            
+            if (testResults.total === 0) {
+                statusDot.className = 'status-dot yellow';
+                statusText.textContent = 'Ready to test';
+            } else if (testResults.failed === 0) {
+                statusDot.className = 'status-dot green';
+                statusText.textContent = `All ${testResults.passed} tests passed!`;
+            } else {
+                statusDot.className = 'status-dot red';
+                statusText.textContent = `${testResults.passed} passed, ${testResults.failed} failed`;
+            }
+        }
+
+        function addTestResult(container, name, passed, details = '') {
+            testResults.total++;
+            if (passed) {
+                testResults.passed++;
+            } else {
+                testResults.failed++;
+            }
+
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${passed ? 'success' : 'error'}`;
+            resultDiv.innerHTML = `
+                <strong>${passed ? '✅' : '❌'} ${name}</strong>
+                ${details ? `<div style="margin-top: 5px; font-size: 0.9em;">${details}</div>` : ''}
+            `;
+            
+            document.getElementById(container).appendChild(resultDiv);
+            updateOverallStatus();
+        }
+
+        async function testApiConnection() {
+            const container = 'api-test-results';
+            document.getElementById(container).innerHTML = '<div class="test-result info">Testing API connection...</div>';
+            
+            try {
+                const connected = await API.testConnection();
+                addTestResult(container, 'API Connection', connected, 
+                    connected ? 'Successfully connected to API' : 'Failed to connect to API');
+                
+                if (connected) {
+                    // Test basic endpoints
+                    try {
+                        const status = await API.getStatus();
+                        addTestResult(container, 'Get Status', !!status, 'Status endpoint responded');
+                    } catch (error) {
+                        addTestResult(container, 'Get Status', false, error.message);
+                    }
+                }
+            } catch (error) {
+                addTestResult(container, 'API Connection', false, error.message);
+            }
+        }
+
+        async function testAllEndpoints() {
+            const container = 'api-test-results';
+            document.getElementById(container).innerHTML = '<div class="test-result info">Testing all endpoints...</div>';
+            
+            const results = await API.testAllEndpoints();
+            
+            results.tests.forEach(test => {
+                addTestResult(container, test.name, test.passed, 
+                    test.passed ? 'Endpoint responded correctly' : test.error);
+            });
+        }
+
+        function testUtils() {
+            const container = 'module-test-results';
+            document.getElementById(container).innerHTML = '<div class="test-result info">Testing Utils module...</div>';
+            
+            const results = Utils.test();
+            
+            results.tests.forEach(test => {
+                addTestResult(container, `Utils.${test.name}`, test.passed, 
+                    test.passed ? 'Function works correctly' : test.error);
+            });
+        }
+
+        function testState() {
+            const container = 'module-test-results';
+            document.getElementById(container).innerHTML = '<div class="test-result info">Testing State module...</div>';
+            
+            const results = State.test();
+            
+            results.tests.forEach(test => {
+                addTestResult(container, `State.${test.name}`, test.passed, 
+                    test.passed ? 'Function works correctly' : test.error);
+            });
+        }
+
+        async function testAPI() {
+            const container = 'module-test-results';
+            document.getElementById(container).innerHTML = '<div class="test-result info">Testing API module...</div>';
+            
+            // Test API module functions
+            addTestResult(container, 'API.config', !!API.config, 'Configuration object exists');
+            addTestResult(container, 'API.request', typeof API.request === 'function', 'Request function exists');
+            addTestResult(container, 'API.testConnection', typeof API.testConnection === 'function', 'Test connection function exists');
+        }
+
+        function testUIComponents() {
+            const container = 'ui-test-results';
+            document.getElementById(container).innerHTML = '';
+            
+            // Test if main UI elements exist (by opening in iframe)
+            const iframe = document.createElement('iframe');
+            iframe.src = '../index.html';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+            
+            iframe.onload = function() {
+                const doc = iframe.contentDocument;
+                
+                // Test essential elements
+                addTestResult(container, 'Header exists', !!doc.querySelector('.app-header'), 'Main header found');
+                addTestResult(container, 'Navigation exists', !!doc.querySelector('.main-nav'), 'Navigation found');
+                addTestResult(container, 'Dashboard tab exists', !!doc.querySelector('#dashboard-tab'), 'Dashboard tab found');
+                addTestResult(container, 'Footer exists', !!doc.querySelector('.app-footer'), 'Footer found');
+                addTestResult(container, 'Modals exist', doc.querySelectorAll('.modal').length >= 2, 'Error and success modals found');
+                
+                // Clean up
+                document.body.removeChild(iframe);
+            };
+        }
+
+        function testResponsiveness() {
+            const container = 'ui-test-results';
+            
+            // Test CSS media queries
+            const mediaQueries = [
+                { query: '(max-width: 767px)', name: 'Mobile styles' },
+                { query: '(min-width: 768px) and (max-width: 1023px)', name: 'Tablet styles' },
+                { query: '(min-width: 1024px)', name: 'Desktop styles' }
+            ];
+            
+            mediaQueries.forEach(mq => {
+                const matches = window.matchMedia(mq.query).matches;
+                addTestResult(container, mq.name, true, `Media query: ${mq.query} ${matches ? 'matches' : 'does not match'}`);
+            });
+        }
+
+        function clearAllStorage() {
+            localStorage.clear();
+            sessionStorage.clear();
+            addTestResult('dev-tools-results', 'Clear Storage', true, 'All local and session storage cleared');
+        }
+
+        function showCurrentState() {
+            if (typeof State !== 'undefined') {
+                const state = State.getAll();
+                console.log('Current State:', state);
+                addTestResult('dev-tools-results', 'Show State', true, 'Current state logged to console');
+            } else {
+                addTestResult('dev-tools-results', 'Show State', false, 'State module not loaded');
+            }
+        }
+
+        function simulateError() {
+            if (typeof Utils !== 'undefined') {
+                Utils.showError('This is a test error message');
+                addTestResult('dev-tools-results', 'Simulate Error', true, 'Error modal should be displayed');
+            } else {
+                addTestResult('dev-tools-results', 'Simulate Error', false, 'Utils module not loaded');
+            }
+        }
+
+        function simulateSuccess() {
+            if (typeof Utils !== 'undefined') {
+                Utils.showSuccess('This is a test success message');
+                addTestResult('dev-tools-results', 'Simulate Success', true, 'Success modal should be displayed');
+            } else {
+                addTestResult('dev-tools-results', 'Simulate Success', false, 'Utils module not loaded');
+            }
+        }
+
+        // Initialize test page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🧪 Test page loaded');
+            
+            // Test if modules are available
+            const modules = ['Utils', 'API', 'State'];
+            modules.forEach(module => {
+                if (typeof window[module] !== 'undefined') {
+                    console.log(`✅ ${module} module loaded`);
+                } else {
+                    console.log(`❌ ${module} module not loaded`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

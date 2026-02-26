@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="meditationGradFull" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366F1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="auraGradFull" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#C7D2FE;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#6366F1;stop-opacity:0.2" />
+    </radialGradient>
+    <linearGradient id="arrowGradFull" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#10B981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#34D399;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="chakraGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0.0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="200" cy="200" r="190" fill="url(#meditationGradFull)" stroke="#4338CA" stroke-width="8"/>
+  
+  <!-- Outer aura rings -->
+  <circle cx="200" cy="225" r="160" fill="none" stroke="url(#auraGradFull)" stroke-width="2" opacity="0.3"/>
+  <circle cx="200" cy="225" r="140" fill="none" stroke="url(#auraGradFull)" stroke-width="3" opacity="0.4"/>
+  <circle cx="200" cy="225" r="120" fill="none" stroke="url(#auraGradFull)" stroke-width="4" opacity="0.5"/>
+  
+  <!-- Meditation aura/energy field -->
+  <circle cx="200" cy="225" r="125" fill="url(#auraGradFull)" opacity="0.6"/>
+  <circle cx="200" cy="225" r="90" fill="url(#auraGradFull)" opacity="0.4"/>
+  <circle cx="200" cy="225" r="50" fill="url(#auraGradFull)" opacity="0.3"/>
+  
+  <!-- Meditation sitting silhouette -->
+  <!-- Head -->
+  <circle cx="200" cy="150" r="32" fill="#1E1B4B" opacity="0.9"/>
+  
+  <!-- Body/torso -->
+  <ellipse cx="200" cy="210" rx="25" ry="40" fill="#1E1B4B" opacity="0.9"/>
+  
+  <!-- Legs in lotus position -->
+  <ellipse cx="165" cy="260" rx="25" ry="20" fill="#1E1B4B" opacity="0.9" transform="rotate(-15 165 260)"/>
+  <ellipse cx="235" cy="260" rx="25" ry="20" fill="#1E1B4B" opacity="0.9" transform="rotate(15 235 260)"/>
+  
+  <!-- Arms/hands in meditation pose -->
+  <ellipse cx="170" cy="225" rx="12" ry="25" fill="#1E1B4B" opacity="0.9" transform="rotate(-30 170 225)"/>
+  <ellipse cx="230" cy="225" rx="12" ry="25" fill="#1E1B4B" opacity="0.9" transform="rotate(30 230 225)"/>
+  
+  <!-- Hands in mudra position -->
+  <circle cx="175" cy="240" r="8" fill="#1E1B4B" opacity="0.9"/>
+  <circle cx="225" cy="240" r="8" fill="#1E1B4B" opacity="0.9"/>
+  
+  <!-- Upward growth arrow emerging from crown chakra -->
+  <path d="M 200 100 L 160 50 L 180 50 L 180 25 L 220 25 L 220 50 L 240 50 Z" fill="url(#arrowGradFull)" opacity="0.9" stroke="#047857" stroke-width="2"/>
+  
+  <!-- Energy/consciousness levels rising -->
+  <circle cx="200" cy="90" r="10" fill="#FBBF24" opacity="0.9"/>
+  <circle cx="200" cy="70" r="8" fill="#F59E0B" opacity="0.8"/>
+  <circle cx="200" cy="50" r="6" fill="#EF4444" opacity="0.7"/>
+  <circle cx="200" cy="35" r="4" fill="#DC2626" opacity="0.6"/>
+  
+  <!-- Chakra points along the body with glow effects -->
+  <circle cx="200" cy="90" r="3" fill="url(#chakraGlow)"/>
+  <circle cx="200" cy="150" r="6" fill="#8B5CF6" opacity="0.9"/> <!-- Crown -->
+  <circle cx="200" cy="170" r="6" fill="#6366F1" opacity="0.9"/> <!-- Third eye -->
+  <circle cx="200" cy="190" r="6" fill="#06B6D4" opacity="0.9"/> <!-- Throat -->
+  <circle cx="200" cy="210" r="6" fill="#10B981" opacity="0.9"/> <!-- Heart -->
+  <circle cx="200" cy="235" r="6" fill="#F59E0B" opacity="0.9"/> <!-- Solar plexus -->
+  <circle cx="200" cy="260" r="6" fill="#EF4444" opacity="0.9"/> <!-- Root -->
+  
+  <!-- Chakra glow effects -->
+  <circle cx="200" cy="150" r="12" fill="url(#chakraGlow)" opacity="0.3"/>
+  <circle cx="200" cy="170" r="12" fill="url(#chakraGlow)" opacity="0.3"/>
+  <circle cx="200" cy="190" r="12" fill="url(#chakraGlow)" opacity="0.3"/>
+  <circle cx="200" cy="210" r="12" fill="url(#chakraGlow)" opacity="0.3"/>
+  <circle cx="200" cy="235" r="12" fill="url(#chakraGlow)" opacity="0.3"/>
+  <circle cx="200" cy="260" r="12" fill="url(#chakraGlow)" opacity="0.3"/>
+  
+  <!-- Meditation breath waves -->
+  <path d="M 100 200 Q 150 180 200 200 Q 250 220 300 200" stroke="#C7D2FE" stroke-width="4" fill="none" opacity="0.6"/>
+  <path d="M 110 225 Q 150 205 200 225 Q 250 245 290 225" stroke="#C7D2FE" stroke-width="4" fill="none" opacity="0.5"/>
+  <path d="M 120 250 Q 160 230 200 250 Q 240 270 280 250" stroke="#C7D2FE" stroke-width="4" fill="none" opacity="0.4"/>
+  
+  <!-- Additional breath waves -->
+  <path d="M 80 175 Q 140 155 200 175 Q 260 195 320 175" stroke="#E0E7FF" stroke-width="2" fill="none" opacity="0.4"/>
+  <path d="M 90 275 Q 145 255 200 275 Q 255 295 310 275" stroke="#E0E7FF" stroke-width="2" fill="none" opacity="0.4"/>
+  
+  <!-- Enlightenment sparkles -->
+  <polygon points="140,75 145,85 155,85 147,92 150,102 140,97 130,102 133,92 125,85 135,85" fill="#FEF3C7" opacity="0.9"/>
+  <polygon points="260,75 265,85 275,85 267,92 270,102 260,97 250,102 253,92 245,85 255,85" fill="#FEF3C7" opacity="0.9"/>
+  <polygon points="200,15 205,25 215,25 207,32 210,42 200,37 190,42 193,32 185,25 195,25" fill="#FEF3C7" opacity="0.9"/>
+  
+  <!-- Additional sparkles around the aura -->
+  <polygon points="120,120 123,127 130,127 125,132 127,139 120,136 113,139 115,132 110,127 117,127" fill="#FEF3C7" opacity="0.7"/>
+  <polygon points="280,120 283,127 290,127 285,132 287,139 280,136 273,139 275,132 270,127 277,127" fill="#FEF3C7" opacity="0.7"/>
+  <polygon points="100,200 103,207 110,207 105,212 107,219 100,216 93,219 95,212 90,207 97,207" fill="#FEF3C7" opacity="0.6"/>
+  <polygon points="300,200 303,207 310,207 305,212 307,219 300,216 293,219 295,212 290,207 297,207" fill="#FEF3C7" opacity="0.6"/>
+  
+  <!-- Ground/foundation -->
+  <ellipse cx="200" cy="300" rx="100" ry="8" fill="#1E1B4B" opacity="0.3"/>
+  
+  <!-- Floating lotus petals -->
+  <ellipse cx="125" cy="175" rx="12" ry="6" fill="#EC4899" opacity="0.7" transform="rotate(45 125 175)"/>
+  <ellipse cx="275" cy="175" rx="12" ry="6" fill="#EC4899" opacity="0.7" transform="rotate(-45 275 175)"/>
+  <ellipse cx="100" cy="250" rx="10" ry="5" fill="#F472B6" opacity="0.6" transform="rotate(30 100 250)"/>
+  <ellipse cx="300" cy="250" rx="10" ry="5" fill="#F472B6" opacity="0.6" transform="rotate(-30 300 250)"/>
+  
+  <!-- Additional floating petals -->
+  <ellipse cx="150" cy="120" rx="8" ry="4" fill="#F8BBD9" opacity="0.5" transform="rotate(60 150 120)"/>
+  <ellipse cx="250" cy="120" rx="8" ry="4" fill="#F8BBD9" opacity="0.5" transform="rotate(-60 250 120)"/>
+  <ellipse cx="80" cy="180" rx="6" ry="3" fill="#FDE68A" opacity="0.4" transform="rotate(20 80 180)"/>
+  <ellipse cx="320" cy="180" rx="6" ry="3" fill="#FDE68A" opacity="0.4" transform="rotate(-20 320 180)"/>
+  
+  <!-- Energy streams flowing upward -->
+  <path d="M 200 260 Q 190 200 200 150 Q 210 100 200 50" stroke="#34D399" stroke-width="3" fill="none" opacity="0.6"/>
+  <path d="M 195 250 Q 185 190 195 140 Q 205 90 195 40" stroke="#6EE7B7" stroke-width="2" fill="none" opacity="0.4"/>
+  <path d="M 205 250 Q 215 190 205 140 Q 195 90 205 40" stroke="#6EE7B7" stroke-width="2" fill="none" opacity="0.4"/>
+  
+  <!-- Mandala pattern behind figure -->
+  <circle cx="200" cy="225" r="80" fill="none" stroke="#E0E7FF" stroke-width="1" opacity="0.3"/>
+  <circle cx="200" cy="225" r="60" fill="none" stroke="#E0E7FF" stroke-width="1" opacity="0.4"/>
+  <circle cx="200" cy="225" r="40" fill="none" stroke="#E0E7FF" stroke-width="1" opacity="0.5"/>
+  
+  <!-- Geometric mandala lines -->
+  <line x1="200" y1="145" x2="200" y2="305" stroke="#E0E7FF" stroke-width="1" opacity="0.3"/>
+  <line x1="120" y1="225" x2="280" y2="225" stroke="#E0E7FF" stroke-width="1" opacity="0.3"/>
+  <line x1="156" y1="169" x2="244" y2="281" stroke="#E0E7FF" stroke-width="1" opacity="0.2"/>
+  <line x1="244" y1="169" x2="156" y2="281" stroke="#E0E7FF" stroke-width="1" opacity="0.2"/>
+</svg>

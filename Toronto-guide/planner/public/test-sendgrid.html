@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimizer - SendGrid Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+        .status.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .status.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .status.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .form-group {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        input[type="email"], input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .config-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .step {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin: 15px 0;
+        }
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Optimizer SendGrid Test</h1>
+        
+        <div class="status info">
+            <strong>🧪 Test Environment</strong><br>
+            This page allows you to test SendGrid email functionality before running the full Optimizer application.
+        </div>
+
+        <div class="step">
+            <h3><span class="emoji">📋</span>Before Testing</h3>
+            <ol>
+                <li>Complete SendGrid sender verification</li>
+                <li>Update SENDGRID_FROM_EMAIL in .env file</li>
+                <li>Start the backend server: <code>npm run start:server</code></li>
+            </ol>
+        </div>
+
+        <div class="config-info">
+            <strong>Current Configuration:</strong><br>
+            <div id="config-display">Loading configuration...</div>
+        </div>
+
+        <form id="email-test-form">
+            <div class="form-group">
+                <label for="test-email">Test Email Address:</label>
+                <input type="email" id="test-email" placeholder="your-email@example.com" required>
+                <small style="color: #666;">Enter your email to receive test messages</small>
+            </div>
+
+            <div class="form-group">
+                <label for="email-type">Email Type:</label>
+                <select id="email-type" style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 6px;">
+                    <option value="simple">Simple Test Email</option>
+                    <option value="welcome">Welcome Email</option>
+                    <option value="verification">Email Verification</option>
+                    <option value="password-reset">Password Reset</option>
+                </select>
+            </div>
+
+            <button type="submit" id="send-button">
+                <span class="emoji">📧</span>Send Test Email
+            </button>
+        </form>
+
+        <div class="loading" id="loading">
+            <p>📤 Sending email...</p>
+        </div>
+
+        <div id="result"></div>
+
+        <div class="step" style="margin-top: 30px;">
+            <h3><span class="emoji">🚀</span>Next Steps</h3>
+            <p>After testing emails successfully:</p>
+            <ol>
+                <li>Set up database: <code>createdb optimizer_db && npm run db:migrate</code></li>
+                <li>Start full application: <code>npm run start:dev</code></li>
+                <li>Access at: <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Load configuration on page load
+        async function loadConfiguration() {
+            try {
+                const response = await fetch('http://localhost:3001/api/test/config');
+                const config = await response.json();
+                
+                document.getElementById('config-display').innerHTML = `
+                    SendGrid Configured: ${config.sendgridConfigured ? '✅ Yes' : '❌ No'}<br>
+                    From Email: ${config.fromEmail || '❌ Not set'}<br>
+                    From Name: ${config.fromName || '❌ Not set'}<br>
+                    Server Status: ${config.serverRunning ? '✅ Running' : '❌ Not running'}
+                `;
+            } catch (error) {
+                document.getElementById('config-display').innerHTML = `
+                    ❌ Cannot connect to server<br>
+                    Make sure to start the backend: <code>npm run start:server</code>
+                `;
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('email-test-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('test-email').value;
+            const emailType = document.getElementById('email-type').value;
+            const sendButton = document.getElementById('send-button');
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
+            
+            // Show loading state
+            sendButton.disabled = true;
+            loading.style.display = 'block';
+            result.innerHTML = '';
+            
+            try {
+                const response = await fetch('http://localhost:3001/api/test/send-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        type: emailType
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    result.innerHTML = `
+                        <div class="status success">
+                            <strong>✅ Email sent successfully!</strong><br>
+                            Check your inbox at: ${email}<br>
+                            Email type: ${emailType}
+                        </div>
+                    `;
+                } else {
+                    result.innerHTML = `
+                        <div class="status error">
+                            <strong>❌ Email failed to send</strong><br>
+                            Error: ${data.error || 'Unknown error'}<br>
+                            Check server logs for details.
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                result.innerHTML = `
+                    <div class="status error">
+                        <strong>❌ Connection failed</strong><br>
+                        Error: ${error.message}<br>
+                        Make sure the backend server is running.
+                    </div>
+                `;
+            }
+            
+            // Hide loading state
+            sendButton.disabled = false;
+            loading.style.display = 'none';
+        });
+
+        // Load configuration when page loads
+        loadConfiguration();
+    </script>
+</body>
+</html>

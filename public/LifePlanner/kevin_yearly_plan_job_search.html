@@ -1,0 +1,999 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin's 2025 Yearly Progression Plan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .current-focus {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .current-focus h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .focus-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 5px solid #28a745;
+        }
+        
+        .focus-card h3 {
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+        
+        .focus-card ul {
+            list-style: none;
+        }
+        
+        .focus-card li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .focus-card li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .monthly-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .month-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .month-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .month-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .month-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .month-number {
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .month-theme {
+            background: #ecf0f1;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-style: italic;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .goals-section {
+            margin-bottom: 20px;
+        }
+        
+        .goals-section h4 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .goal-item {
+            background: #fff5f5;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border-left: 3px solid #e74c3c;
+        }
+        
+        .goal-target {
+            font-weight: bold;
+            color: #c0392b;
+        }
+        
+        .outcomes-section {
+            margin-bottom: 15px;
+        }
+        
+        .outcomes-section h4 {
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+        
+        .outcome-item {
+            background: #f0fff4;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            border-left: 3px solid #27ae60;
+        }
+        
+        .success-probability {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #e8f4fd;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .probability-bar {
+            width: 100px;
+            height: 8px;
+            background: #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .probability-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .yearly-targets {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .targets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .target-card {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .target-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        
+        .target-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .benefits-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .benefit-item {
+            background: #fff8e1;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .navigation {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .nav-button {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            background: #218838;
+        }
+        
+        .progress-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.9);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .monthly-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .progress-indicator {
+                position: static;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Kevin's 2025 Yearly Progression Plan</h1>
+            <p>Transform Your Life Month by Month | Job_Searching Kevin Edition</p>
+        </div>
+        
+        <div class="progress-indicator">
+            <div><strong>Current Month:</strong> September</div>
+            <div><strong>Success Rate:</strong> 79%</div>
+        </div>
+        
+        <div class="current-focus">
+            <h2>🔥 Current Month Focus: September</h2>
+            <div class="month-theme">
+                <strong>Theme:</strong> Strategic Planning - Set Future Direction
+            </div>
+            
+            <div class="focus-grid">
+                <div class="focus-card">
+                    <h3>🎯 Top 3 Priorities</h3>
+                    <ul>
+                        <li>Meditation Mastery Month 9</li><li>Fitness Evolution Month 9</li><li>Career Catalyst Month 9</li>
+                    </ul>
+                </div>
+                
+                <div class="focus-card">
+                    <h3>📅 This Week Actions</h3>
+                    <ul>
+                        <li>Start daily progressive daily meditation</li><li>Schedule 2 couple activities</li><li>Begin complete 3 professional development activities</li>
+                    </ul>
+                </div>
+                
+                <div class="focus-card">
+                    <h3>🌟 Expected Outcomes</h3>
+                    <ul>
+                        <li>60% stress reduction</li><li>37% improved focus</li><li>56% better emotional regulation</li><li>28% strength increase</li><li>32% cardiovascular improvement</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="yearly-targets">
+            <h2>🎯 2025 Yearly Targets</h2>
+            <div class="targets-grid">
+                <div class="target-card">
+                    <div class="target-number">5</div>
+                    <div class="target-label">Daily Meditation Minutes</div>
+                </div>
+                <div class="target-card">
+                    <div class="target-number">6</div>
+                    <div class="target-label">Weekly Exercise Sessions</div>
+                </div>
+                <div class="target-card">
+                    <div class="target-number">60</div>
+                    <div class="target-label">Couple Activities Completed</div>
+                </div>
+                <div class="target-card">
+                    <div class="target-number">12</div>
+                    <div class="target-label">Career Milestones</div>
+                </div>
+                <div class="target-card">
+                    <div class="target-number">40%</div>
+                    <div class="target-label">Health Score Improvement</div>
+                </div>
+                <div class="target-card">
+                    <div class="target-number">50%</div>
+                    <div class="target-label">Life Satisfaction Increase</div>
+                </div>
+            </div>
+        </div>
+        
+        <h2 style="color: white; text-align: center; margin-bottom: 30px; font-size: 2em;">📅 Monthly Progression Roadmap</h2>
+        
+        <div class="monthly-grid">
+
+            <div class="month-card">
+                <div class="month-header">
+                    <div class="month-name">January</div>
+                    <div class="month-number">1</div>
+                </div>
+                
+                <div class="month-theme">Foundation Building - Establish Core Habits</div>
+                
+                <div class="goals-section">
+                    <h4>🎯 Progressive Goals</h4>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Daily Meditation</strong></div>
+                        <div class="goal-target">Target: 1 minutes</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Fitness Building</strong></div>
+                        <div class="goal-target">Target: 3 sessions/week</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Strategic Career Advancement</strong></div>
+                        <div class="goal-target">Target: 1 achievements</div>
+                    </div>
+                    
+                </div>
+                
+                <div class="goals-section">
+                    <h4>💼 Career Milestones</h4>
+                    <div class="goal-item">Apply to 5 relevant positions</div><div class="goal-item">Complete 2 networking interviews</div>
+                </div>
+                
+                <div class="outcomes-section">
+                    <h4>🌟 Expected Outcomes</h4>
+                    <div class="outcome-item">20% stress reduction</div><div class="outcome-item">13% improved focus</div><div class="outcome-item">24% better emotional regulation</div><div class="outcome-item">12% strength increase</div>
+                </div>
+                
+                <div class="success-probability">
+                    <span><strong>Success Probability:</strong></span>
+                    <div class="probability-bar">
+                        <div class="probability-fill" style="width: 84.0%"></div>
+                    </div>
+                    <span><strong>84%</strong></span>
+                </div>
+            </div>
+            
+            <div class="month-card">
+                <div class="month-header">
+                    <div class="month-name">February</div>
+                    <div class="month-number">2</div>
+                </div>
+                
+                <div class="month-theme">Momentum Creation - Build Consistency</div>
+                
+                <div class="goals-section">
+                    <h4>🎯 Progressive Goals</h4>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Daily Meditation</strong></div>
+                        <div class="goal-target">Target: 2 minutes</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Fitness Building</strong></div>
+                        <div class="goal-target">Target: 3 sessions/week</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Strategic Career Advancement</strong></div>
+                        <div class="goal-target">Target: 2 achievements</div>
+                    </div>
+                    
+                </div>
+                
+                <div class="goals-section">
+                    <h4>💼 Career Milestones</h4>
+                    <div class="goal-item">Apply to 10 relevant positions</div><div class="goal-item">Complete 4 networking interviews</div>
+                </div>
+                
+                <div class="outcomes-section">
+                    <h4>🌟 Expected Outcomes</h4>
+                    <div class="outcome-item">25% stress reduction</div><div class="outcome-item">16% improved focus</div><div class="outcome-item">28% better emotional regulation</div><div class="outcome-item">14% strength increase</div>
+                </div>
+                
+                <div class="success-probability">
+                    <span><strong>Success Probability:</strong></span>
+                    <div class="probability-bar">
+                        <div class="probability-fill" style="width: 83.0%"></div>
+                    </div>
+                    <span><strong>83%</strong></span>
+                </div>
+            </div>
+            
+            <div class="month-card">
+                <div class="month-header">
+                    <div class="month-name">March</div>
+                    <div class="month-number">3</div>
+                </div>
+                
+                <div class="month-theme">Skill Development - Learn and Grow</div>
+                
+                <div class="goals-section">
+                    <h4>🎯 Progressive Goals</h4>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Daily Meditation</strong></div>
+                        <div class="goal-target">Target: 3 minutes</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Fitness Building</strong></div>
+                        <div class="goal-target">Target: 4 sessions/week</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Strategic Career Advancement</strong></div>
+                        <div class="goal-target">Target: 3 achievements</div>
+                    </div>
+                    
+                </div>
+                
+                <div class="goals-section">
+                    <h4>💼 Career Milestones</h4>
+                    <div class="goal-item">Apply to 15 relevant positions</div><div class="goal-item">Complete 6 networking interviews</div>
+                </div>
+                
+                <div class="outcomes-section">
+                    <h4>🌟 Expected Outcomes</h4>
+                    <div class="outcome-item">30% stress reduction</div><div class="outcome-item">19% improved focus</div><div class="outcome-item">32% better emotional regulation</div><div class="outcome-item">16% strength increase</div>
+                </div>
+                
+                <div class="success-probability">
+                    <span><strong>Success Probability:</strong></span>
+                    <div class="probability-bar">
+                        <div class="probability-fill" style="width: 82.0%"></div>
+                    </div>
+                    <span><strong>82%</strong></span>
+                </div>
+            </div>
+            
+            <div class="month-card">
+                <div class="month-header">
+                    <div class="month-name">April</div>
+                    <div class="month-number">4</div>
+                </div>
+                
+                <div class="month-theme">Relationship Nurturing - Deepen Connections</div>
+                
+                <div class="goals-section">
+                    <h4>🎯 Progressive Goals</h4>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Daily Meditation</strong></div>
+                        <div class="goal-target">Target: 4 minutes</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Fitness Building</strong></div>
+                        <div class="goal-target">Target: 4 sessions/week</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Strategic Career Advancement</strong></div>
+                        <div class="goal-target">Target: 4 achievements</div>
+                    </div>
+                    
+                </div>
+                
+                <div class="goals-section">
+                    <h4>💼 Career Milestones</h4>
+                    <div class="goal-item">Apply to 20 relevant positions</div><div class="goal-item">Complete 8 networking interviews</div>
+                </div>
+                
+                <div class="outcomes-section">
+                    <h4>🌟 Expected Outcomes</h4>
+                    <div class="outcome-item">35% stress reduction</div><div class="outcome-item">22% improved focus</div><div class="outcome-item">36% better emotional regulation</div><div class="outcome-item">18% strength increase</div>
+                </div>
+                
+                <div class="success-probability">
+                    <span><strong>Success Probability:</strong></span>
+                    <div class="probability-bar">
+                        <div class="probability-fill" style="width: 81.0%"></div>
+                    </div>
+                    <span><strong>81%</strong></span>
+                </div>
+            </div>
+            
+            <div class="month-card">
+                <div class="month-header">
+                    <div class="month-name">May</div>
+                    <div class="month-number">5</div>
+                </div>
+                
+                <div class="month-theme">Energy Optimization - Peak Performance</div>
+                
+                <div class="goals-section">
+                    <h4>🎯 Progressive Goals</h4>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Daily Meditation</strong></div>
+                        <div class="goal-target">Target: 2 minutes</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Fitness Building</strong></div>
+                        <div class="goal-target">Target: 5 sessions/week</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Strategic Career Advancement</strong></div>
+                        <div class="goal-target">Target: 5 achievements</div>
+                    </div>
+                    
+                </div>
+                
+                <div class="goals-section">
+                    <h4>💼 Career Milestones</h4>
+                    <div class="goal-item">Apply to 25 relevant positions</div><div class="goal-item">Complete 8 networking interviews</div>
+                </div>
+                
+                <div class="outcomes-section">
+                    <h4>🌟 Expected Outcomes</h4>
+                    <div class="outcome-item">40% stress reduction</div><div class="outcome-item">25% improved focus</div><div class="outcome-item">40% better emotional regulation</div><div class="outcome-item">20% strength increase</div>
+                </div>
+                
+                <div class="success-probability">
+                    <span><strong>Success Probability:</strong></span>
+                    <div class="probability-bar">
+                        <div class="probability-fill" style="width: 80.0%"></div>
+                    </div>
+                    <span><strong>80%</strong></span>
+                </div>
+            </div>
+            
+            <div class="month-card">
+                <div class="month-header">
+                    <div class="month-name">June</div>
+                    <div class="month-number">6</div>
+                </div>
+                
+                <div class="month-theme">Adventure & Exploration - Expand Horizons</div>
+                
+                <div class="goals-section">
+                    <h4>🎯 Progressive Goals</h4>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Daily Meditation</strong></div>
+                        <div class="goal-target">Target: 3 minutes</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Fitness Building</strong></div>
+                        <div class="goal-target">Target: 5 sessions/week</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Strategic Career Advancement</strong></div>
+                        <div class="goal-target">Target: 6 achievements</div>
+                    </div>
+                    
+                </div>
+                
+                <div class="goals-section">
+                    <h4>💼 Career Milestones</h4>
+                    <div class="goal-item">Apply to 25 relevant positions</div><div class="goal-item">Complete 8 networking interviews</div>
+                </div>
+                
+                <div class="outcomes-section">
+                    <h4>🌟 Expected Outcomes</h4>
+                    <div class="outcome-item">45% stress reduction</div><div class="outcome-item">28% improved focus</div><div class="outcome-item">44% better emotional regulation</div><div class="outcome-item">22% strength increase</div>
+                </div>
+                
+                <div class="success-probability">
+                    <span><strong>Success Probability:</strong></span>
+                    <div class="probability-bar">
+                        <div class="probability-fill" style="width: 79.0%"></div>
+                    </div>
+                    <span><strong>79%</strong></span>
+                </div>
+            </div>
+            
+            <div class="month-card">
+                <div class="month-header">
+                    <div class="month-name">July</div>
+                    <div class="month-number">7</div>
+                </div>
+                
+                <div class="month-theme">Leadership & Impact - Make a Difference</div>
+                
+                <div class="goals-section">
+                    <h4>🎯 Progressive Goals</h4>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Daily Meditation</strong></div>
+                        <div class="goal-target">Target: 4 minutes</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Fitness Building</strong></div>
+                        <div class="goal-target">Target: 6 sessions/week</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Strategic Career Advancement</strong></div>
+                        <div class="goal-target">Target: 7 achievements</div>
+                    </div>
+                    
+                </div>
+                
+                <div class="goals-section">
+                    <h4>💼 Career Milestones</h4>
+                    <div class="goal-item">Apply to 25 relevant positions</div><div class="goal-item">Complete 8 networking interviews</div>
+                </div>
+                
+                <div class="outcomes-section">
+                    <h4>🌟 Expected Outcomes</h4>
+                    <div class="outcome-item">50% stress reduction</div><div class="outcome-item">31% improved focus</div><div class="outcome-item">48% better emotional regulation</div><div class="outcome-item">24% strength increase</div>
+                </div>
+                
+                <div class="success-probability">
+                    <span><strong>Success Probability:</strong></span>
+                    <div class="probability-bar">
+                        <div class="probability-fill" style="width: 78.0%"></div>
+                    </div>
+                    <span><strong>78%</strong></span>
+                </div>
+            </div>
+            
+            <div class="month-card">
+                <div class="month-header">
+                    <div class="month-name">August</div>
+                    <div class="month-number">8</div>
+                </div>
+                
+                <div class="month-theme">Balance & Integration - Harmonize Life Areas</div>
+                
+                <div class="goals-section">
+                    <h4>🎯 Progressive Goals</h4>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Daily Meditation</strong></div>
+                        <div class="goal-target">Target: 5 minutes</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Fitness Building</strong></div>
+                        <div class="goal-target">Target: 6 sessions/week</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Strategic Career Advancement</strong></div>
+                        <div class="goal-target">Target: 8 achievements</div>
+                    </div>
+                    
+                </div>
+                
+                <div class="goals-section">
+                    <h4>💼 Career Milestones</h4>
+                    <div class="goal-item">Apply to 25 relevant positions</div><div class="goal-item">Complete 8 networking interviews</div>
+                </div>
+                
+                <div class="outcomes-section">
+                    <h4>🌟 Expected Outcomes</h4>
+                    <div class="outcome-item">55% stress reduction</div><div class="outcome-item">34% improved focus</div><div class="outcome-item">52% better emotional regulation</div><div class="outcome-item">26% strength increase</div>
+                </div>
+                
+                <div class="success-probability">
+                    <span><strong>Success Probability:</strong></span>
+                    <div class="probability-bar">
+                        <div class="probability-fill" style="width: 77.99999999999999%"></div>
+                    </div>
+                    <span><strong>78%</strong></span>
+                </div>
+            </div>
+            
+            <div class="month-card">
+                <div class="month-header">
+                    <div class="month-name">September</div>
+                    <div class="month-number">9</div>
+                </div>
+                
+                <div class="month-theme">Strategic Planning - Set Future Direction</div>
+                
+                <div class="goals-section">
+                    <h4>🎯 Progressive Goals</h4>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Daily Meditation</strong></div>
+                        <div class="goal-target">Target: 3 minutes</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Fitness Building</strong></div>
+                        <div class="goal-target">Target: 6 sessions/week</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Strategic Career Advancement</strong></div>
+                        <div class="goal-target">Target: 9 achievements</div>
+                    </div>
+                    
+                </div>
+                
+                <div class="goals-section">
+                    <h4>💼 Career Milestones</h4>
+                    <div class="goal-item">Apply to 25 relevant positions</div><div class="goal-item">Complete 8 networking interviews</div>
+                </div>
+                
+                <div class="outcomes-section">
+                    <h4>🌟 Expected Outcomes</h4>
+                    <div class="outcome-item">60% stress reduction</div><div class="outcome-item">37% improved focus</div><div class="outcome-item">56% better emotional regulation</div><div class="outcome-item">28% strength increase</div>
+                </div>
+                
+                <div class="success-probability">
+                    <span><strong>Success Probability:</strong></span>
+                    <div class="probability-bar">
+                        <div class="probability-fill" style="width: 78.99999999999999%"></div>
+                    </div>
+                    <span><strong>79%</strong></span>
+                </div>
+            </div>
+            
+            <div class="month-card">
+                <div class="month-header">
+                    <div class="month-name">October</div>
+                    <div class="month-number">10</div>
+                </div>
+                
+                <div class="month-theme">Mastery Focus - Perfect Key Skills</div>
+                
+                <div class="goals-section">
+                    <h4>🎯 Progressive Goals</h4>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Daily Meditation</strong></div>
+                        <div class="goal-target">Target: 4 minutes</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Fitness Building</strong></div>
+                        <div class="goal-target">Target: 6 sessions/week</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Strategic Career Advancement</strong></div>
+                        <div class="goal-target">Target: 10 achievements</div>
+                    </div>
+                    
+                </div>
+                
+                <div class="goals-section">
+                    <h4>💼 Career Milestones</h4>
+                    <div class="goal-item">Apply to 25 relevant positions</div><div class="goal-item">Complete 8 networking interviews</div>
+                </div>
+                
+                <div class="outcomes-section">
+                    <h4>🌟 Expected Outcomes</h4>
+                    <div class="outcome-item">65% stress reduction</div><div class="outcome-item">40% improved focus</div><div class="outcome-item">60% better emotional regulation</div><div class="outcome-item">30% strength increase</div>
+                </div>
+                
+                <div class="success-probability">
+                    <span><strong>Success Probability:</strong></span>
+                    <div class="probability-bar">
+                        <div class="probability-fill" style="width: 80.0%"></div>
+                    </div>
+                    <span><strong>80%</strong></span>
+                </div>
+            </div>
+            
+            <div class="month-card">
+                <div class="month-header">
+                    <div class="month-name">November</div>
+                    <div class="month-number">11</div>
+                </div>
+                
+                <div class="month-theme">Gratitude & Reflection - Appreciate Progress</div>
+                
+                <div class="goals-section">
+                    <h4>🎯 Progressive Goals</h4>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Daily Meditation</strong></div>
+                        <div class="goal-target">Target: 5 minutes</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Fitness Building</strong></div>
+                        <div class="goal-target">Target: 6 sessions/week</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Strategic Career Advancement</strong></div>
+                        <div class="goal-target">Target: 11 achievements</div>
+                    </div>
+                    
+                </div>
+                
+                <div class="goals-section">
+                    <h4>💼 Career Milestones</h4>
+                    <div class="goal-item">Apply to 25 relevant positions</div><div class="goal-item">Complete 8 networking interviews</div>
+                </div>
+                
+                <div class="outcomes-section">
+                    <h4>🌟 Expected Outcomes</h4>
+                    <div class="outcome-item">70% stress reduction</div><div class="outcome-item">43% improved focus</div><div class="outcome-item">64% better emotional regulation</div><div class="outcome-item">32% strength increase</div>
+                </div>
+                
+                <div class="success-probability">
+                    <span><strong>Success Probability:</strong></span>
+                    <div class="probability-bar">
+                        <div class="probability-fill" style="width: 80.0%"></div>
+                    </div>
+                    <span><strong>80%</strong></span>
+                </div>
+            </div>
+            
+            <div class="month-card">
+                <div class="month-header">
+                    <div class="month-name">December</div>
+                    <div class="month-number">12</div>
+                </div>
+                
+                <div class="month-theme">Celebration & Planning - Honor Achievements</div>
+                
+                <div class="goals-section">
+                    <h4>🎯 Progressive Goals</h4>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Daily Meditation</strong></div>
+                        <div class="goal-target">Target: 6 minutes</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Progressive Fitness Building</strong></div>
+                        <div class="goal-target">Target: 6 sessions/week</div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div><strong>Strategic Career Advancement</strong></div>
+                        <div class="goal-target">Target: 12 achievements</div>
+                    </div>
+                    
+                </div>
+                
+                <div class="goals-section">
+                    <h4>💼 Career Milestones</h4>
+                    <div class="goal-item">Apply to 25 relevant positions</div><div class="goal-item">Complete 8 networking interviews</div>
+                </div>
+                
+                <div class="outcomes-section">
+                    <h4>🌟 Expected Outcomes</h4>
+                    <div class="outcome-item">75% stress reduction</div><div class="outcome-item">46% improved focus</div><div class="outcome-item">68% better emotional regulation</div><div class="outcome-item">34% strength increase</div>
+                </div>
+                
+                <div class="success-probability">
+                    <span><strong>Success Probability:</strong></span>
+                    <div class="probability-bar">
+                        <div class="probability-fill" style="width: 80.0%"></div>
+                    </div>
+                    <span><strong>80%</strong></span>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="benefits-section">
+            <h2>🌟 Compound Benefits by Year End</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">Established unshakeable daily routines</div><div class="benefit-item">Achieved peak physical and mental fitness</div><div class="benefit-item">Built strong professional network and reputation</div><div class="benefit-item">Deepened relationship connection and intimacy</div><div class="benefit-item">Developed mastery mindset and continuous growth</div><div class="benefit-item">Created sustainable work-life integration</div><div class="benefit-item">Enhanced emotional intelligence and resilience</div><div class="benefit-item">Achieved financial and career advancement goals</div>
+            </div>
+        </div>
+        
+        <div class="navigation">
+            <a href="/calendar/daily?kevin_type=job_searching" class="nav-button">📅 View Daily Calendar</a>
+            <a href="/calendar/weekly?kevin_type=job_searching" class="nav-button">📊 Weekly View</a>
+            <a href="/" class="nav-button">🏠 Home</a>
+        </div>
+    </div>
+    
+    <script>
+        // Add some interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate progress bars
+            const progressBars = document.querySelectorAll('.probability-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+            
+            // Add click tracking for month cards
+            const monthCards = document.querySelectorAll('.month-card');
+            monthCards.forEach((card, index) => {
+                card.addEventListener('click', function() {
+                    const monthNum = index + 1;
+                    console.log(`Clicked on month ${monthNum}`);
+                    // Could add modal or navigation here
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+        

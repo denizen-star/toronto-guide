@@ -1,0 +1,389 @@
+/**
+ * LifePlanner UI - Responsive Styles
+ * Phase 1: Mobile-first responsive design
+ */
+
+/* Mobile-first approach - base styles are for mobile */
+
+/* Tablet styles (768px and up) */
+@media (min-width: 768px) {
+    .header-content {
+        flex-wrap: nowrap;
+    }
+    
+    .main-nav {
+        order: 3;
+    }
+    
+    .status-indicators {
+        order: 2;
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .action-buttons {
+        flex-direction: row;
+    }
+    
+    .focus-areas {
+        justify-content: flex-start;
+    }
+    
+    .modal {
+        padding: var(--spacing-2xl);
+    }
+    
+    .modal-content {
+        max-width: 600px;
+    }
+}
+
+/* Desktop styles (1024px and up) */
+@media (min-width: 1024px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .schedule-form {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+    }
+    
+    .form-group:last-of-type {
+        grid-column: 1 / -1;
+    }
+    
+    .schedule-actions {
+        justify-content: flex-start;
+    }
+}
+
+/* Large desktop styles (1280px and up) */
+@media (min-width: 1280px) {
+    .app-main {
+        padding: var(--spacing-2xl) var(--spacing-xl);
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 2fr 1fr 1fr;
+    }
+    
+    .quick-actions {
+        grid-row: span 2;
+    }
+}
+
+/* Mobile-specific styles (below 768px) */
+@media (max-width: 767px) {
+    .header-content {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .logo h1 {
+        font-size: var(--font-size-xl);
+    }
+    
+    .main-nav {
+        width: 100%;
+        order: 3;
+        margin-top: var(--spacing-sm);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .nav-btn {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+    
+    .app-main {
+        padding: var(--spacing-md);
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .action-btn {
+        text-align: center;
+        justify-content: center;
+    }
+    
+    .schedule-form {
+        display: block;
+    }
+    
+    .schedule-actions {
+        flex-direction: column;
+    }
+    
+    .focus-areas {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    .status-indicators {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+        font-size: var(--font-size-sm);
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--spacing-sm);
+    }
+    
+    .footer-info {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+    
+    .modal {
+        padding: var(--spacing-md);
+    }
+    
+    .modal-content {
+        max-height: 95vh;
+    }
+    
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: var(--spacing-md);
+    }
+    
+    /* Make tables scrollable on mobile */
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Adjust form layouts for mobile */
+    .form-group input,
+    .form-group select {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    /* Stack schedule items vertically */
+    .schedule-item-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+    
+    .schedule-item-time {
+        order: 1;
+    }
+    
+    .schedule-item-cost {
+        order: 2;
+    }
+}
+
+/* Small mobile styles (below 480px) */
+@media (max-width: 479px) {
+    .app-main {
+        padding: var(--spacing-sm);
+    }
+    
+    .card {
+        padding: var(--spacing-md);
+    }
+    
+    .logo h1 {
+        font-size: var(--font-size-lg);
+    }
+    
+    .logo .version {
+        display: none;
+    }
+    
+    .action-btn {
+        padding: var(--spacing-sm);
+        font-size: var(--font-size-sm);
+    }
+    
+    .btn {
+        padding: var(--spacing-sm);
+        font-size: var(--font-size-sm);
+    }
+    
+    .modal-header h3 {
+        font-size: var(--font-size-lg);
+    }
+}
+
+/* Landscape mobile styles */
+@media (max-height: 500px) and (orientation: landscape) {
+    .app-header {
+        position: static;
+    }
+    
+    .header-content {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .main-nav {
+        margin-top: 0;
+    }
+    
+    .app-main {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .modal {
+        padding: var(--spacing-sm);
+        align-items: flex-start;
+        padding-top: var(--spacing-md);
+    }
+    
+    .modal-content {
+        max-height: 85vh;
+    }
+}
+
+/* Print styles */
+@media print {
+    .app-header,
+    .app-footer,
+    .nav-btn,
+    .action-btn,
+    .btn,
+    .modal {
+        display: none !important;
+    }
+    
+    .app-container {
+        background: white;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #000;
+        break-inside: avoid;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .schedule-item {
+        break-inside: avoid;
+        border: 1px solid #ccc;
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+    
+    h1, h2, h3 {
+        color: #000;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .status-dot {
+        width: 6px;
+        height: 6px;
+    }
+    
+    /* Ensure crisp borders on high DPI */
+    .card,
+    .btn,
+    .modal-content {
+        border-width: 0.5px;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .tab-content {
+        animation: none;
+    }
+    
+    .loading-spinner {
+        animation: none;
+        border-top-color: var(--primary-color);
+    }
+    
+    .skeleton {
+        animation: none;
+        background: var(--bg-tertiary);
+    }
+    
+    .btn,
+    .action-btn,
+    .nav-btn,
+    .schedule-item {
+        transition: none;
+    }
+    
+    .btn:hover,
+    .action-btn:hover {
+        transform: none;
+    }
+}
+
+/* Dark mode support (when implemented) */
+@media (prefers-color-scheme: dark) {
+    /* Dark mode styles would go here in future phases */
+    /* For now, we'll stick with light mode */
+}
+
+/* Container queries (for modern browsers) */
+@supports (container-type: inline-size) {
+    .dashboard-grid {
+        container-type: inline-size;
+    }
+    
+    @container (max-width: 600px) {
+        .action-buttons {
+            flex-direction: column;
+        }
+    }
+    
+    @container (min-width: 800px) {
+        .action-buttons {
+            flex-direction: row;
+        }
+    }
+}
+
+/* Focus styles for touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .btn:hover,
+    .action-btn:hover,
+    .nav-btn:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    
+    /* Increase touch targets */
+    .btn,
+    .action-btn,
+    .nav-btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .modal-close {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .status-indicator {
+        min-height: 44px;
+        padding: var(--spacing-sm);
+    }
+}
+

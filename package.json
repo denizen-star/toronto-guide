@@ -1,8 +1,8 @@
 {
   "name": "toronto-guide",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "homepage": "https://kervinapps.com",
+  "homepage": ".",
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",

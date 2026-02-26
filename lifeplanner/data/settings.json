@@ -1,0 +1,114 @@
+{
+  "user_name": "Kevin",
+  "partner_name": "Peter",
+  "morning_start": "6:00 AM",
+  "bedtime": "10:30 PM",
+  "preferred_breakfast_time": "7:00 AM",
+  "preferred_dinner_time": "6:00 PM",
+  "max_daily_budget": 200.0,
+  "max_weekly_budget": 1000.0,
+  "core_requirements": {
+    "meditation": {
+      "frequency": "progressive",
+      "current_week": 0,
+      "progression": {
+        "weeks_1_4": 1,
+        "weeks_5_8": 2,
+        "weeks_9_12": 3,
+        "weeks_13_16": 4,
+        "weeks_17_plus": 5
+      }
+    },
+    "work_hours": {
+      "start": "9:00 AM",
+      "end": "6:00 PM",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    },
+    "commute": {
+      "morning_duration": 10,
+      "evening_duration": 10,
+      "morning_start": "8:50 AM",
+      "evening_start": "6:00 PM"
+    },
+    "running": {
+      "Tuesday": {"duration": 60, "time_preference": "flexible"},
+      "Thursday": {"duration": 60, "time_preference": "flexible"},
+      "Friday": {"duration": 60, "time_preference": "flexible"},
+      "Sunday": {"duration": 120, "time_preference": "flexible"}
+    },
+    "swimming": {
+      "frequency": "twice_per_month",
+      "last_scheduled": null
+    },
+    "tennis": {
+      "frequency": "twice_per_month",
+      "last_scheduled": null
+    },
+    "immigration_work": {
+      "hours_per_week": 3,
+      "scheduled_hours": 0
+    },
+    "professional_development": {
+      "hours_per_week": 5,
+      "scheduled_hours": 0
+    },
+    "household_budgeting": {
+      "weekly_hours": 1,
+      "monthly_hours": 2.5,
+      "weekly_scheduled": 0,
+      "monthly_scheduled": 0
+    },
+    "grocery_shopping": {
+      "frequency": "weekly",
+      "preferred_day": "Saturday"
+    },
+    "laundry": {
+      "frequency": "weekly",
+      "preferred_day": "Sunday"
+    },
+    "personal_grooming": {
+      "daily": ["shower", "skincare", "teeth_brushing", "deodorant"],
+      "weekly": ["hair_washing_3x", "nail_trimming", "beard_trimming"],
+      "bi_weekly": ["haircut_trim", "eyebrow_grooming"],
+      "monthly": ["deep_skincare", "hair_styling", "wardrobe_organization"]
+    },
+    "entertainment": {
+      "comedy_show": {"frequency": "every_two_months", "last_scheduled": null},
+      "show_play": {"frequency": "every_two_months", "last_scheduled": null},
+      "drag_show": {"frequency": "monthly", "last_scheduled": null}
+    },
+    "no_breakfast": true,
+    "no_morning_news": true
+  },
+  "preferred_activity_types": [
+    "social",
+    "professional",
+    "fitness",
+    "cultural"
+  ],
+  "avoided_activity_types": [],
+  "preferred_locations": [
+    "Downtown",
+    "Entertainment District",
+    "Fashion District",
+    "Queen West"
+  ],
+  "avoided_locations": [],
+  "networking_priority": 7,
+  "min_networking_score": 5,
+  "max_activities_per_day": 6,
+  "min_networking_activities_per_week": 3,
+  "conflict_resolution": true,
+  "time_buffer_minutes": 15,
+  "smart_activity_selection": true,
+  "weather_api_enabled": false,
+  "weather_api_key": null,
+  "weather_check_frequency": "daily",
+  "track_usage_stats": true,
+  "generate_reports": true,
+  "include_cost_breakdown": true,
+  "include_networking_scores": true,
+  "include_activity_tags": true,
+  "include_creative_suggestions": true
+}
+

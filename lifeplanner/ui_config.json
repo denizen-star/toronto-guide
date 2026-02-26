@@ -1,0 +1,193 @@
+{
+  "time_allocation_ui": {
+    "title": "Kevin's Time Allocation Tuner",
+    "description": "Adjust time percentages and automatically refactor your entire schedule",
+    "total_weekly_hours": 115.5,
+    "fixed_time_hours": 74.7,
+    "available_time_hours": 40.8,
+    "categories": {
+      "individual_activities": {
+        "label": "Individual Activities",
+        "description": "Personal development, running, fitness, grooming, reflection",
+        "default_percentage": 16.0,
+        "min_percentage": 5.0,
+        "max_percentage": 35.0,
+        "color": "#4CAF50",
+        "subcategories": {
+          "running": {
+            "label": "Running",
+            "default_percentage": 27.0,
+            "description": "Solo running and training"
+          },
+          "personal_development": {
+            "label": "Personal Development",
+            "default_percentage": 19.0,
+            "description": "Learning, reading, skill development"
+          },
+          "fitness_grooming": {
+            "label": "Fitness & Grooming",
+            "default_percentage": 35.0,
+            "description": "Exercise, personal care, grooming"
+          },
+          "reflection_planning": {
+            "label": "Reflection & Planning",
+            "default_percentage": 19.0,
+            "description": "Daily reflection, planning, goal setting"
+          }
+        }
+      },
+      "networking_social": {
+        "label": "Networking & Social",
+        "description": "Professional networking, social activities, making friends",
+        "default_percentage": 21.6,
+        "min_percentage": 10.0,
+        "max_percentage": 40.0,
+        "color": "#2196F3",
+        "subcategories": {
+          "professional_networking": {
+            "label": "Professional Networking",
+            "default_percentage": 24.0,
+            "description": "Industry events, meetups, professional development"
+          },
+          "social_activities": {
+            "label": "Social Activities",
+            "default_percentage": 50.0,
+            "description": "Sports clubs, classes, social events"
+          },
+          "professional_dev_networking": {
+            "label": "Professional Dev Networking",
+            "default_percentage": 18.0,
+            "description": "1:1 meetings, coffee chats, career development"
+          },
+          "other_social": {
+            "label": "Other Social",
+            "default_percentage": 8.0,
+            "description": "Casual socializing, community events"
+          }
+        }
+      },
+      "couple_activities": {
+        "label": "Couple Activities",
+        "description": "Time spent with Peter, relationship building, shared experiences",
+        "default_percentage": 23.8,
+        "min_percentage": 15.0,
+        "max_percentage": 45.0,
+        "color": "#E91E63",
+        "subcategories": {
+          "daily_meals": {
+            "label": "Daily Meals",
+            "default_percentage": 29.0,
+            "description": "Breakfast and dinner together"
+          },
+          "evening_together": {
+            "label": "Evening Together",
+            "default_percentage": 25.0,
+            "description": "Shared evening wind-down time"
+          },
+          "weekend_activities": {
+            "label": "Weekend Activities",
+            "default_percentage": 25.0,
+            "description": "Art workshops, cooking classes, urban exploration"
+          },
+          "breakfast_together": {
+            "label": "Breakfast Together",
+            "default_percentage": 13.0,
+            "description": "Morning connection time"
+          },
+          "household_together": {
+            "label": "Household Together",
+            "default_percentage": 8.0,
+            "description": "Grocery shopping, budgeting, household tasks"
+          }
+        }
+      }
+    },
+    "constraints": {
+      "total_percentage_must_equal": 100.0,
+      "individual_min_hours_per_week": 5.0,
+      "networking_min_hours_per_week": 8.0,
+      "couple_min_hours_per_week": 10.0,
+      "max_individual_hours_per_week": 40.0,
+      "max_networking_hours_per_week": 50.0,
+      "max_couple_hours_per_week": 60.0
+    },
+    "features": {
+      "real_time_preview": true,
+      "export_schedule": true,
+      "save_presets": true,
+      "reset_to_defaults": true,
+      "validation_warnings": true,
+      "schedule_preview": true
+    },
+    "schedule_preview": {
+      "show_daily_breakdown": true,
+      "show_weekly_summary": true,
+      "show_cost_analysis": true,
+      "show_networking_potential": true,
+      "show_energy_levels": true
+    }
+  },
+  "ui_components": {
+    "sliders": {
+      "main_categories": {
+        "type": "range_slider",
+        "min": 0,
+        "max": 100,
+        "step": 0.1,
+        "show_percentage": true,
+        "show_hours": true
+      },
+      "subcategories": {
+        "type": "range_slider",
+        "min": 0,
+        "max": 100,
+        "step": 0.1,
+        "show_percentage": true,
+        "show_hours": false
+      }
+    },
+    "visualizations": {
+      "pie_chart": {
+        "type": "pie_chart",
+        "show_percentages": true,
+        "show_hours": true,
+        "colors": ["#4CAF50", "#2196F3", "#E91E63"]
+      },
+      "weekly_timeline": {
+        "type": "timeline",
+        "show_categories": true,
+        "show_activities": true,
+        "interactive": true
+      }
+    },
+    "controls": {
+      "preset_buttons": [
+        {
+          "name": "Work Focus",
+          "individual": 20.0,
+          "networking": 15.0,
+          "couple": 15.0
+        },
+        {
+          "name": "Social Focus",
+          "individual": 10.0,
+          "networking": 35.0,
+          "couple": 15.0
+        },
+        {
+          "name": "Couple Focus",
+          "individual": 12.0,
+          "networking": 18.0,
+          "couple": 30.0
+        },
+        {
+          "name": "Balanced",
+          "individual": 16.0,
+          "networking": 21.6,
+          "couple": 23.8
+        }
+      ]
+    }
+  }
+}
+
